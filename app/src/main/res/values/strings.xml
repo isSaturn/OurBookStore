@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">OurBookStore</string>
+    <string name="app_name">AndroidProject_Coupon</string>
+    <string name="select">Select Item</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!--    <string-array name="giamtheosotien">-->
+    <!--        <item>Giảm theo số tiền</item>-->
+    <!--        <item>Giảm theo số %</item>-->
+    <!--        <item>Miễn phí vận chuyển</item>-->
+    <!--    </string-array>-->
 </resources>

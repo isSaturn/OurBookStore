@@ -1,4 +1,4 @@
-package com.example.ourbookstore;
+package com.example.androidproject_coupon;
 
 import org.junit.Test;
 
