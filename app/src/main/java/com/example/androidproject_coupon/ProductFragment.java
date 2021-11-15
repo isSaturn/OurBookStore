@@ -10,7 +10,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.Button;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -69,6 +73,7 @@ public class ProductFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        //bát sự kiện nút Thêm Sách
         Button themsach = view.findViewById(R.id.sach_btn_Them);
         themsach.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,5 +81,25 @@ public class ProductFragment extends Fragment {
                 startActivity(new Intent(getContext(),AddBook.class));
             }
         });
+        //hiển thị danh sách sản phẩm
+        ListView listViewSach = view.findViewById(R.id.sach_lv_Sach);
+        ArrayList<Sach> arrayList;
+        AdapterSach adapterSach;
+
+        arrayList = new ArrayList<>();
+        arrayList.add(new Sach("Nguyen Minh Phu",R.drawable.anhsach));
+        arrayList.add(new Sach("Nguyen Minh Phu",R.drawable.anhsach));
+        arrayList.add(new Sach("Nguyen Minh Phu",R.drawable.anhsach));
+        arrayList.add(new Sach("Nguyen Minh Phu",R.drawable.anhsach));
+        arrayList.add(new Sach("Nguyen Minh Phu",R.drawable.anhsach));
+        arrayList.add(new Sach("Nguyen Minh Phu",R.drawable.anhsach));
+        arrayList.add(new Sach("Nguyen Minh Phu",R.drawable.anhsach));
+        arrayList.add(new Sach("Nguyen Minh Phu",R.drawable.anhsach));
+        arrayList.add(new Sach("Nguyen Minh Phu",R.drawable.anhsach));
+        arrayList.add(new Sach("Nguyen Minh Phu",R.drawable.anhsach));
+        arrayList.add(new Sach("Nguyen Minh Phu",R.drawable.anhsach));
+
+        adapterSach = new AdapterSach(getContext(),R.layout.sach,arrayList);
+        listViewSach.setAdapter(adapterSach);
     }
 }
