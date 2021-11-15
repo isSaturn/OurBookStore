@@ -1,5 +1,6 @@
 package com.example.androidproject_coupon;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -9,10 +10,14 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
 
@@ -104,6 +109,24 @@ public class MainActivity extends AppCompatActivity {
                 tabLayout.selectTab(tabLayout.getTabAt(position));
             }
         });
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.main_menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.mnuadmin){
+        }
+        else if(item.getItemId() == R.id.mnuuser){
+            Toast.makeText(getApplicationContext(), "Chao mung ban den voi mon \n Chuyen de lap trinh di dong", Toast.LENGTH_LONG).show();
+        }
+        else if(item.getItemId()==R.id.mnuSignup){
+        }
+        return super.onOptionsItemSelected(item);
     }
     private void matching(){
         add = findViewById(R.id.Cp_btn_Add);
