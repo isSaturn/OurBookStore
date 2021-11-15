@@ -34,7 +34,7 @@
             android:layout_height="37dp"
             android:layout_marginStart="284dp"
             android:layout_marginTop="44dp"
-            android:background="@drawable/buttonshape"
+            android:background="@drawable/buttonshape_icon"
             android:text="Add"
             android:textColor="#FFFFFF"
             android:textSize="14sp"
