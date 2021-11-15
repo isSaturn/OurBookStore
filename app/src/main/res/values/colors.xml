@@ -10,4 +10,7 @@
     <color name="grey">#E4DFDF</color>
     <color name="textColor">#5669FF</color>
     <color name="btn_grey">#C4C4C4</color>
+    <color name="gray">#FF9E9E9E</color>
+    <color name="blue">#03A9F4</color>
+    <color name="green">#26FF00</color>
 </resources>
