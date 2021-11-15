@@ -21,7 +21,7 @@
             android:background="@drawable/custom_textfield"
             android:clickable="false"
             android:cursorVisible="false"
-            android:drawableStart="@drawable/calendar"
+            android:drawableStart="@drawable/calendar_icon"
             android:drawablePadding="12dp"
             android:ems="10"
             android:focusable="false"
@@ -128,7 +128,7 @@
             android:focusableInTouchMode="false"
             android:clickable="false"
             android:cursorVisible="false"
-            android:drawableStart="@drawable/calendar"
+            android:drawableStart="@drawable/calendar_icon"
             android:drawablePadding="12dp"
             android:ems="10"
             android:hint="Ngày kết thúc"
@@ -305,7 +305,7 @@
             app:layout_constraintHorizontal_bias="0.035"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/arrow_left" />
+            app:srcCompat="@drawable/back_btn" />
 
 <!--        trước kia nó là <Button /> thay Button thành androidx.appcompat.widget.AppCompatButton như bên dưới-->
         <androidx.appcompat.widget.AppCompatButton

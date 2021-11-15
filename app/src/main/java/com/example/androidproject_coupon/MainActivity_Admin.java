@@ -2,28 +2,20 @@ package com.example.androidproject_coupon;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
 
-import java.util.ArrayList;
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity_Admin extends AppCompatActivity {
 
     Button add;
     TabLayout tabLayout;
@@ -34,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_admin);
 
 //        matching();
 //
@@ -80,10 +72,10 @@ public class MainActivity extends AppCompatActivity {
         adapterFragment = new FragmentAdapter(fm, getLifecycle());
         pager2.setAdapter(adapterFragment);
 
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.gift_1).setText("Product"));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.clipboard_1).setText("Order"));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.tag_2).setText("Coupon"));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.settings_1).setText("Account"));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.product_icon).setText("Product"));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.invoice_icon).setText("Order"));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.coupon_icon).setText("Coupon"));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.account_icon).setText("Account"));
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
