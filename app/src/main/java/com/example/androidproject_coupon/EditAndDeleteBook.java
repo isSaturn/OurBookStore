@@ -11,15 +11,15 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class AddBook extends AppCompatActivity {
+public class EditAndDeleteBook extends AppCompatActivity {
 
     Spinner spinnerTheLoai;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_book);
+        setContentView(R.layout.activity_edit_and_delete_book);
 
-        spinnerTheLoai = findViewById(R.id.addBook_spn_TheLoai);
+        spinnerTheLoai = findViewById(R.id.editBook_spn_TheLoai);
 
         ArrayList<String> arrayList = new ArrayList<String>();
         arrayList.add("Python");
@@ -33,7 +33,7 @@ public class AddBook extends AppCompatActivity {
         spinnerTheLoai.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(AddBook.this, arrayList.get(i), Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditAndDeleteBook.this, arrayList.get(i), Toast.LENGTH_SHORT).show();
             }
 
             @Override
