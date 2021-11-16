@@ -31,10 +31,11 @@
         <entry key="..\:/Phu/Android/OurBookStore/app/src/main/res/drawable/custom_email_icon.xml" value="0.10520833333333333" />
         <entry key="..\:/Phu/Android/OurBookStore/app/src/main/res/drawable/custom_input.xml" value="0.2203125" />
         <entry key="..\:/Phu/Android/OurBookStore/app/src/main/res/drawable/ic_baseline_account.xml" value="0.10520833333333333" />
+        <entry key="..\:/Phu/Android/OurBookStore/app/src/main/res/drawable/ic_baseline_lock.xml" value="0.10520833333333333" />
         <entry key="..\:/Phu/Android/OurBookStore/app/src/main/res/layout/activity_add_book.xml" value="0.16" />
         <entry key="..\:/Phu/Android/OurBookStore/app/src/main/res/layout/activity_add_coupon.xml" value="0.20416666666666666" />
         <entry key="..\:/Phu/Android/OurBookStore/app/src/main/res/layout/activity_edit_and_delete_book.xml" value="0.18" />
-        <entry key="..\:/Phu/Android/OurBookStore/app/src/main/res/layout/activity_login.xml" value="0.1" />
+        <entry key="..\:/Phu/Android/OurBookStore/app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="..\:/Phu/Android/OurBookStore/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Phu/Android/OurBookStore/app/src/main/res/layout/activity_them_sach.xml" value="0.1" />
         <entry key="..\:/Phu/Android/OurBookStore/app/src/main/res/layout/delete_coupon.xml" value="0.1" />
