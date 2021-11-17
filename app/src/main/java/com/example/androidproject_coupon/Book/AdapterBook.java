@@ -1,4 +1,4 @@
-package com.example.androidproject_coupon;
+package com.example.androidproject_coupon.Book;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,15 +8,17 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.androidproject_coupon.R;
+
 import java.util.List;
 
-public class AdapterSach extends BaseAdapter {
+public class AdapterBook extends BaseAdapter {
 
     private Context context;
     private int layout;
-    private List<Sach> arraylist;
+    private List<Book> arraylist;
 
-    public AdapterSach(Context context, int layout, List<Sach> arraylist) {
+    public AdapterBook(Context context, int layout, List<Book> arraylist) {
         this.context = context;
         this.layout = layout;
         this.arraylist = arraylist;
@@ -44,13 +46,13 @@ public class AdapterSach extends BaseAdapter {
 
         convertView = inflater.inflate(layout, null);
 
-        Sach sach = arraylist.get(position);
+        Book book = arraylist.get(position);
 
         TextView ten = convertView.findViewById(R.id.ten_sach);
         ImageView imageView = convertView.findViewById(R.id.img_Sach);
 
-        ten.setText(sach.getTensach());
-        imageView.setImageResource(sach.getHinh());
+        ten.setText(book.getTensach());
+        imageView.setImageResource(book.getHinh());
 
         return convertView;
     }

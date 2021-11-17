@@ -1,10 +1,10 @@
-package com.example.androidproject_coupon;
+package com.example.androidproject_coupon.Book;
 
-public class Sach {
+public class Book {
     private String tensach;
     private int hinh;
 
-    public Sach(String tensach, int hinh){
+    public Book(String tensach, int hinh){
         this.tensach = tensach;
         this.hinh = hinh;
     }
