@@ -5,12 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.androidproject_coupon.AccountManagement.Login;
 import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity {
@@ -69,12 +71,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == R.id.mnuadmin){
+        if(item.getItemId() == R.id.mnuAdmin){
         }
-        else if(item.getItemId() == R.id.mnuuser){
+        else if(item.getItemId() == R.id.mnuLogout){
             Toast.makeText(getApplicationContext(), "Chao mung ban den voi mon \n Chuyen de lap trinh di dong", Toast.LENGTH_LONG).show();
         }
-        else if(item.getItemId()==R.id.mnuSignup){
+        else if(item.getItemId()==R.id.mnuLogin){
+            startActivity(new Intent(MainActivity.this,Login.class));
         }
         return super.onOptionsItemSelected(item);
     }
