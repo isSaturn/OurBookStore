@@ -6,9 +6,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.androidproject_coupon.AccountManagement.AccountFragment;
 import com.example.androidproject_coupon.CouponManagement.CouponFragment;
-import com.example.androidproject_coupon.OrderManagement.OrderFragment;
 
 public class FragmentAdapter extends FragmentStateAdapter {
     public FragmentAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
