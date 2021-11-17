@@ -1,7 +1,6 @@
-package com.example.androidproject_coupon;
+package com.example.androidproject_coupon.CouponManagement;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +11,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.androidproject_coupon.CouponManagement.Coupon.Coupon;
+import com.example.androidproject_coupon.R;
+
 import java.util.ArrayList;
 
 public class CouponAdapter extends ArrayAdapter<Coupon> {
@@ -21,7 +23,6 @@ public class CouponAdapter extends ArrayAdapter<Coupon> {
         super(context, resource, objects);
         this.mContext = context;
         this.mResource = resource;
-
     }
 
     @NonNull

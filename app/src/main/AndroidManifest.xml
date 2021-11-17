@@ -3,6 +3,7 @@
     package="com.example.androidproject_coupon">
 
     <application
+        android:name=".CouponManagement.CouponApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -10,16 +11,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidProject_Coupon">
         <activity
-            android:name=".RegisterAccount"
+            android:name=".AccountManagement.RegisterAccount"
             android:exported="true" />
         <activity
-            android:name=".Login"
+            android:name=".AccountManagement.Login"
             android:exported="true" />
         <activity
-            android:name=".Book.EditAndDeleteBook"
+            android:name=".BookManagement.EditAndDeleteBook"
             android:exported="true" />
         <activity
-            android:name=".Book.AddBook"
+            android:name=".BookManagement.AddBook"
             android:exported="true" />
         <activity
             android:name=".EditCoupon"
