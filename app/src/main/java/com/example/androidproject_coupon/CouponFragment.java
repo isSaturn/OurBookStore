@@ -17,7 +17,6 @@ import android.widget.ListView;
 import com.example.androidproject_coupon.CouponManagement.AddCoupon;
 import com.example.androidproject_coupon.CouponManagement.Coupon.Coupon;
 import com.example.androidproject_coupon.CouponManagement.CouponAdapter;
-import com.example.androidproject_coupon.CouponManagement.EditCoupon;
 
 import java.util.ArrayList;
 
