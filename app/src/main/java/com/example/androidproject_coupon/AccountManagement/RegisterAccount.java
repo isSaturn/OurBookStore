@@ -1,8 +1,10 @@
-package com.example.androidproject_coupon;
+package com.example.androidproject_coupon.AccountManagement;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.androidproject_coupon.R;
 
 public class RegisterAccount extends AppCompatActivity {
 

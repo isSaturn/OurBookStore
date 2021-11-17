@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterAccount">
+    tools:context=".AccountManagement.RegisterAccount">
 
     <ImageView
         android:id="@+id/dangKy_img_Back"
