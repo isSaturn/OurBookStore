@@ -27,12 +27,12 @@ public class AddBook extends AppCompatActivity {
         spinnerTheLoai = findViewById(R.id.addBook_spn_TheLoai);
 
         BookCategory category = new BookCategory(this);
-//        try {
-//            category.createDataBase();
-//            Log.d("Thanh cong", "Da tao duoc db");
-//        }catch (IOException e){
-//            Log.d("Bi loi roi", "khong tao duoc db");
-//        }
+        try {
+            category.createDataBase();
+            Log.d("Thanh cong", "Da tao duoc db");
+        }catch (IOException e){
+            Log.d("Bi loi roi", "khong tao duoc db");
+        }
 
         Cursor contro = category.laytheloai();
         contro.moveToFirst();

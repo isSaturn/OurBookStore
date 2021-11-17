@@ -21,11 +21,10 @@ public class BookCategory extends SQLiteOpenHelper {
     private static final String TABLE_NHOMSACH = "NhomSach";
     private static final String KEY_ID_NHOMSACH = "ID_Nhom_Sach";
     private static final String KEY_ID_LOAISACH = "Loai_Sach";
-    private static String DB_PATH = "/data/data/com.example.androidproject_coupon.BookManagement/databases/";
+    private static String DB_PATH = "/data/data/com.example.androidproject_coupon/databases/";
     private static String DB_NAME = "database";
     private final Context myContext;
     private SQLiteDatabase myDataBase;
-
 
     public BookCategory(@Nullable Context context) {
         super(context, DB_NAME, null, DATABASE_VERSION);
@@ -58,7 +57,7 @@ public class BookCategory extends SQLiteOpenHelper {
 
     }
 
-    /*private boolean checkDataBase() {
+    private boolean checkDataBase() {
         SQLiteDatabase checkDB = null;
 
         try {
@@ -112,7 +111,7 @@ public class BookCategory extends SQLiteOpenHelper {
                 throw new Error("Error copying database");
             }
         }
-    }*/
+    }
 
     public Cursor laytheloai() {
         SQLiteDatabase database = this.getReadableDatabase();
