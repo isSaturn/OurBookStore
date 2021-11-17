@@ -1,4 +1,4 @@
-package com.example.androidproject_coupon.Book;
+package com.example.androidproject_coupon.BookManagement;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,15 +13,15 @@ import com.example.androidproject_coupon.R;
 
 import java.util.ArrayList;
 
-public class EditAndDeleteBook extends AppCompatActivity {
+public class AddBook extends AppCompatActivity {
 
     Spinner spinnerTheLoai;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_and_delete_book);
+        setContentView(R.layout.activity_add_book);
 
-        spinnerTheLoai = findViewById(R.id.editBook_spn_TheLoai);
+        spinnerTheLoai = findViewById(R.id.addBook_spn_TheLoai);
 
         ArrayList<String> arrayList = new ArrayList<String>();
         arrayList.add("Python");
@@ -35,7 +35,7 @@ public class EditAndDeleteBook extends AppCompatActivity {
         spinnerTheLoai.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(EditAndDeleteBook.this, arrayList.get(i), Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddBook.this, arrayList.get(i), Toast.LENGTH_SHORT).show();
             }
 
             @Override
