@@ -1,22 +1,23 @@
 package com.example.androidproject_coupon.OrderManagement;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
+import android.app.ActionBar;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.androidproject_coupon.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-class OrderInfomation extends AppCompatActivity {
-
+public class OrderInformation extends AppCompatActivity {
     private RecyclerView rcvInvoiceitem;
     private OrderBookAdapter orderBookAdapter;
     Button btnDathang;
@@ -51,6 +52,7 @@ class OrderInfomation extends AppCompatActivity {
         orderBookAdapter.setData(getListBook());
         rcvInvoiceitem.setAdapter(orderBookAdapter);
     }
+
 
     private List<OrderBook> getListBook() {
         List<OrderBook> list = new ArrayList<>();
