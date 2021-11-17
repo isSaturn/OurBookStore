@@ -29,6 +29,12 @@
             android:exported="true" />
         <activity
             android:name=".MainActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".OrderManagement.OrderInformation"
+            android:exported="true"/>
+        <activity
+            android:name=".OrderManagement.ViewOrderInformation"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -37,7 +43,6 @@
 
             </intent-filter>
         </activity>
-        <activity android:name=".ViewOrderInformation" android:parentActivityName=".OrderInfomation"></activity>
     </application>
 
 </manifest>
