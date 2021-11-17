@@ -1,4 +1,4 @@
-package com.example.androidproject_coupon.BookManagement;
+package com.example.androidproject_coupon.AccountManagement;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -15,30 +15,30 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class BookCategory extends SQLiteOpenHelper {
+public class ManagentRole extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
-    private static final String TABLE_NHOMSACH = "NhomSach";
-    private static final String KEY_ID_NHOMSACH = "ID_Nhom_Sach";
-    private static final String KEY_ID_LOAISACH = "Loai_Sach";
+    private static final String TABLE_ROLE = "Role";
+    private static final String KEY_ID_ROLE = "ID_Role";
+    private static final String KEY_ROLE = "Role";
     private static String DB_PATH = "/data/data/com.example.androidproject_coupon/databases/";
     private static String DB_NAME = "database";
     private final Context myContext;
     private SQLiteDatabase myDataBase;
 
-    public BookCategory(@Nullable Context context) {
+    public ManagentRole(@Nullable Context context) {
         super(context, DB_NAME, null, DATABASE_VERSION);
 
         myContext = context;
     }
 
     @Override
-    public void onCreate(SQLiteDatabase sqLiteDatabase) {
+    public void onCreate(SQLiteDatabase db) {
 
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
 
@@ -110,7 +110,7 @@ public class BookCategory extends SQLiteOpenHelper {
 
     public Cursor laytheloai() {
         SQLiteDatabase database = this.getReadableDatabase();
-        String sql = "select * from NhomSach";
+        String sql = "select * from " + TABLE_ROLE;
         Cursor contro = null;
         try {
             contro = database.rawQuery(sql, null);
