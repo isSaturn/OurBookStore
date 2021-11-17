@@ -11,7 +11,7 @@
         android:layout_height="match_parent">
 
         <androidx.appcompat.widget.SearchView
-            android:id="@+id/search_Sach"
+            android:id="@+id/sach_search"
             android:layout_width="400dp"
             android:layout_height="46dp"
             android:layout_marginStart="5dp"
@@ -35,10 +35,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/search_Sach" />
+            app:layout_constraintTop_toBottomOf="@+id/sach_search" />
 
         <ListView
-            android:id="@+id/listview"
+            android:id="@+id/sach_lv_Sach"
             android:layout_width="400dp"
             android:layout_height="656dp"
             android:layout_marginStart="5dp"

@@ -3,12 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/mnuadmin"
+        android:id="@+id/mnuLogin"
+        android:title="Login" />
+    <item
+        android:id="@+id/mnuLogout"
+        android:title="Logout" />
+    <item
+        android:id="@+id/mnuAdmin"
         android:title="Admin" />
-    <item
-        android:id="@+id/mnuuser"
-        android:title="User" />
-    <item
-        android:id="@+id/mnuSignup"
-        android:title="Sign Up" />
 </menu>

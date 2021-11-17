@@ -1,12 +1,23 @@
 package com.example.androidproject_coupon;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ListView;
+
+import com.example.androidproject_coupon.BookManagement.AdapterBook;
+import com.example.androidproject_coupon.BookManagement.AddBook;
+import com.example.androidproject_coupon.BookManagement.Book;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -60,5 +71,38 @@ public class ProductFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_product, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        //bát sự kiện nút Thêm Sách
+        Button themsach = view.findViewById(R.id.sach_btn_Them);
+        themsach.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), AddBook.class));
+            }
+        });
+        //hiển thị danh sách sản phẩm
+        ListView listViewSach = view.findViewById(R.id.sach_lv_Sach);
+        ArrayList<Book> arrayList;
+        AdapterBook adapterBook;
+
+        arrayList = new ArrayList<>();
+        arrayList.add(new Book("Nguyen Minh Phu",R.drawable.anhsach));
+        arrayList.add(new Book("Nguyen Minh Phu",R.drawable.anhsach));
+        arrayList.add(new Book("Nguyen Minh Phu",R.drawable.anhsach));
+        arrayList.add(new Book("Nguyen Minh Phu",R.drawable.anhsach));
+        arrayList.add(new Book("Nguyen Minh Phu",R.drawable.anhsach));
+        arrayList.add(new Book("Nguyen Minh Phu",R.drawable.anhsach));
+        arrayList.add(new Book("Nguyen Minh Phu",R.drawable.anhsach));
+        arrayList.add(new Book("Nguyen Minh Phu",R.drawable.anhsach));
+        arrayList.add(new Book("Nguyen Minh Phu",R.drawable.anhsach));
+        arrayList.add(new Book("Nguyen Minh Phu",R.drawable.anhsach));
+        arrayList.add(new Book("Nguyen Minh Phu",R.drawable.anhsach));
+
+        adapterBook = new AdapterBook(getContext(),R.layout.sach,arrayList);
+        listViewSach.setAdapter(adapterBook);
     }
 }

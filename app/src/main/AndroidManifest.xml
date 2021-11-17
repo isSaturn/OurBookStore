@@ -11,6 +11,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidProject_Coupon">
         <activity
+            android:name=".AccountManagement.RegisterAccount"
+            android:exported="true" />
+        <activity
+            android:name=".AccountManagement.Login"
+            android:exported="true" />
+        <activity
+            android:name=".BookManagement.EditAndDeleteBook"
+            android:exported="true" />
+        <activity
+            android:name=".BookManagement.AddBook"
+            android:exported="true" />
+        <activity
             android:name=".EditCoupon"
             android:exported="true" />
         <activity
@@ -23,9 +35,18 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+
             </intent-filter>
         </activity>
-<!--        <activity android:name=".EditCoupon"></activity>-->
+
+        <activity
+            android:name=".OrderManagement.OrderInformation"
+            android:exported="true"/>
+
+        <activity
+            android:name=".OrderManagement.ViewOrderInformation"
+            android:exported="true"/>
+
     </application>
 
 </manifest>
