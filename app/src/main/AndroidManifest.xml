@@ -11,10 +11,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidProject_Coupon">
         <activity
-            android:name=".CouponManagement.EditCoupon"
+            android:name=".EditCoupon"
             android:exported="true" />
         <activity
-            android:name=".CouponManagement.AddCoupon"
+            android:name=".AddCoupon"
             android:exported="true" />
         <activity
             android:name=".MainActivity"

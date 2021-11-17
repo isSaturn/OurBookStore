@@ -1,4 +1,4 @@
-package com.example.androidproject_coupon.CouponManagement;
+package com.example.androidproject_coupon;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,7 +17,6 @@ import android.widget.Toast;
 
 import com.example.androidproject_coupon.CouponManagement.CpCondition.DatabaseHelper_CpCondition;
 import com.example.androidproject_coupon.CouponManagement.CpType.DatabaseHelper_CpType;
-import com.example.androidproject_coupon.R;
 
 import java.io.File;
 import java.io.FileOutputStream;
