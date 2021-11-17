@@ -16,10 +16,10 @@
             android:name=".Login"
             android:exported="true" />
         <activity
-            android:name=".EditAndDeleteBook"
+            android:name=".Book.EditAndDeleteBook"
             android:exported="true" />
         <activity
-            android:name=".AddBook"
+            android:name=".Book.AddBook"
             android:exported="true" />
         <activity
             android:name=".EditCoupon"
