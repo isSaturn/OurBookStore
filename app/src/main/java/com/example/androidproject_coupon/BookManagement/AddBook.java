@@ -1,8 +1,10 @@
 package com.example.androidproject_coupon.BookManagement;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,6 +21,7 @@ import java.util.ArrayList;
 public class AddBook extends AppCompatActivity {
 
     Spinner spinnerTheLoai;
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,9 +40,11 @@ public class AddBook extends AppCompatActivity {
         Cursor contro = category.laytheloai();
         contro.moveToFirst();
 
+        ArrayList<Integer> ID = new ArrayList<Integer>();
         ArrayList<String> arrayList = new ArrayList<String>();
 
         do {
+            ID.add(Integer.parseUnsignedInt(contro.getString(0)));
             arrayList.add(contro.getString(1));
         }while (contro.moveToNext());
 
@@ -50,7 +55,7 @@ public class AddBook extends AppCompatActivity {
         spinnerTheLoai.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(AddBook.this, arrayList.get(i), Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddBook.this, ID.get(i).toString(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
