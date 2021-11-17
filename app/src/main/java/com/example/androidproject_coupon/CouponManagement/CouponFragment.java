@@ -1,4 +1,4 @@
-package com.example.androidproject_coupon;
+package com.example.androidproject_coupon.CouponManagement;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +13,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+
+import com.example.androidproject_coupon.CouponManagement.Coupon.Coupon;
+import com.example.androidproject_coupon.R;
 
 import java.util.ArrayList;
 
