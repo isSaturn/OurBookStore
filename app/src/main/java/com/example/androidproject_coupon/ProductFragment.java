@@ -1,4 +1,4 @@
-package com.example.androidproject_coupon.ProductManagement;
+package com.example.androidproject_coupon;
 
 import android.os.Bundle;
 
@@ -7,8 +7,6 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.example.androidproject_coupon.R;
 
 /**
  * A simple {@link Fragment} subclass.
