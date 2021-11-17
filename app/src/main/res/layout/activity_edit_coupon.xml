@@ -308,7 +308,7 @@
             app:layout_constraintHorizontal_bias="0.035"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/arrow_left" />
+            app:srcCompat="@drawable/back_icon" />
 
         <!--        trước kia nó là <Button /> thay Button thành androidx.appcompat.widget.AppCompatButton như bên dưới-->
 
@@ -318,7 +318,7 @@
             android:layout_height="45dp"
             android:layout_marginTop="40dp"
             android:layout_marginBottom="20dp"
-            android:background="@drawable/buttonshape"
+            android:background="@drawable/buttonshape_icon"
             android:text="Edit"
             android:textAllCaps="false"
             android:textColor="#fff"
@@ -336,7 +336,7 @@
             android:layout_height="45dp"
             android:layout_marginTop="40dp"
             android:layout_marginBottom="20dp"
-            android:background="@drawable/buttonshape"
+            android:background="@drawable/buttonshape_icon"
             android:text="Delete"
             android:textAllCaps="false"
             android:textColor="#fff"

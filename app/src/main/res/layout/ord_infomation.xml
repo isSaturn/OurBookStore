@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="SpeakableTextPresentCheck">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".OrderInfomation">
+
+        <TextView
+            android:id="@+id/ord_tv_giaohangnhanh_gia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="104dp"
+            android:layout_marginTop="20dp"
+            android:text="TextView"
+            app:layout_constraintStart_toEndOf="@+id/ord_rdG_hinhthucgiaohang"
+            app:layout_constraintTop_toTopOf="@+id/ord_rdG_hinhthucgiaohang" />
+
+        <TextView
+            android:id="@+id/ord_tv_giaohangtietkiem_gia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:text="TextView"
+            app:layout_constraintEnd_toEndOf="@+id/ord_tv_giaohangnhanh_gia"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/ord_tv_giaohangnhanh_gia"
+            app:layout_constraintTop_toBottomOf="@+id/ord_tv_giaohangnhanh_gia" />
+
+        <TextView
+            android:id="@+id/ord_tv_tongcong_gia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="162dp"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="@+id/ord_tv_tongcong"
+            app:layout_constraintStart_toEndOf="@+id/ord_tv_tongcong"
+            app:layout_constraintTop_toTopOf="@+id/ord_tv_tongcong"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/ord_tv_tamtinh_gia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="176dp"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="@+id/ord_tv_tamtinh"
+            app:layout_constraintStart_toEndOf="@+id/ord_tv_tamtinh"
+            app:layout_constraintTop_toTopOf="@+id/ord_tv_tamtinh"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/ord_tv_phivanchuyen_gia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="136dp"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="@+id/ord_tv_phivanchuyen"
+            app:layout_constraintStart_toEndOf="@+id/ord_tv_phivanchuyen"
+            app:layout_constraintTop_toTopOf="@+id/ord_tv_phivanchuyen"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <RadioGroup
+            android:id="@+id/ord_rdG_hinhthucgiaohang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ord_tv_hinhthucgiaohang">
+
+            <RadioButton
+                android:id="@+id/ord_rdBtn_giaohangnhanh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Giao hàng nhanh"
+                app:layout_constraintEnd_toEndOf="@+id/ord_rdBtn_giaohangtietkiem"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/ord_rdBtn_giaohangtietkiem"
+                app:layout_constraintTop_toBottomOf="@+id/ord_rdBtn_giaohangtietkiem" />
+
+            <RadioButton
+                android:id="@+id/ord_rdBtn_giaohangtietkiem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Giao hàng tiết kiệm"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.131"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:layout_editor_absoluteY="416dp" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/ord_tv_magiamgia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Mã giảm giá"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.047"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ord_rdG_hinhthucgiaohang" />
+
+        <EditText
+            android:id="@+id/ord_et_magiamgia"
+            android:layout_width="353dp"
+            android:layout_height="33dp"
+            android:layout_marginTop="12dp"
+            android:bottomRightRadius="25dp"
+            android:ems="10"
+            android:hint="Nhập mã tại đây"
+            android:inputType="textPersonName"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ord_tv_magiamgia"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <TextView
+            android:id="@+id/ord_tv_chitietdonhang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Chi tiết đơn hàng"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.057"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ord_et_diachi" />
+
+        <TextView
+            android:id="@+id/ord_tv_thongtinnguoinhan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Thông tin người nhận"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.057"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/ord_et_hoten"
+            android:layout_width="353dp"
+            android:layout_height="33dp"
+            android:layout_marginTop="12dp"
+            android:ems="10"
+            android:hint="Họ tên"
+            android:inputType="textPersonName"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ord_tv_thongtinnguoinhan"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <EditText
+            android:id="@+id/ord_et_diachi"
+            android:layout_width="353dp"
+            android:layout_height="33dp"
+            android:ems="10"
+            android:hint="Địa chỉ"
+            android:inputType="textPersonName"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="@+id/ord_et_sdt"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/ord_et_sdt"
+            app:layout_constraintTop_toBottomOf="@+id/ord_et_sdt"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <EditText
+            android:id="@+id/ord_et_sdt"
+            android:layout_width="353dp"
+            android:layout_height="33dp"
+            android:ems="10"
+            android:hint="SĐT"
+            android:inputType="textPersonName"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="@+id/ord_et_hoten"
+            app:layout_constraintStart_toStartOf="@+id/ord_et_hoten"
+            app:layout_constraintTop_toBottomOf="@+id/ord_et_hoten"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/ord_invoice_recycler_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ord_tv_chitietdonhang">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <TextView
+            android:id="@+id/ord_tv_hinhthucthanhtoan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Hình thức thanh toán"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.06"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ord_et_magiamgia" />
+
+        <CheckBox
+            android:id="@+id/ord_cb_thanhtoantienmat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Thanh toán tiền mặt (Ship COD)"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.164"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ord_tv_hinhthucthanhtoan" />
+
+        <TextView
+            android:id="@+id/ord_tv_tongtien"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Tổng tiền"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.05"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ord_cb_thanhtoantienmat" />
+
+        <TextView
+            android:id="@+id/ord_tv_phivanchuyen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Phí vận chuyển"
+            app:layout_constraintEnd_toEndOf="@+id/ord_tv_tamtinh"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/ord_tv_tamtinh"
+            app:layout_constraintTop_toBottomOf="@+id/ord_tv_tamtinh" />
+
+        <TextView
+            android:id="@+id/ord_tv_tamtinh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="76dp"
+            android:layout_marginTop="16dp"
+            android:text="Tạm tính"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ord_tv_tongtien" />
+
+        <TextView
+            android:id="@+id/ord_tv_tongcong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Tổng cộng"
+            app:layout_constraintEnd_toEndOf="@+id/ord_tv_phivanchuyen"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/ord_tv_phivanchuyen"
+            app:layout_constraintTop_toBottomOf="@+id/ord_tv_phivanchuyen" />
+
+        <TextView
+            android:id="@+id/ord_tv_hinhthucgiaohang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Hình thức giao hàng"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.055"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ord_invoice_recycler_item" />
+
+
+
+        <Button
+            android:id="@+id/ord_btn_dathang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Đặt hàng"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ord_tv_tongcong_gia"
+            app:layout_constraintVertical_bias="1.0" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
