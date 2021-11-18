@@ -39,26 +39,20 @@ public class DatabaseHelper_CpType extends SQLiteOpenHelper {
 
     @Override
     public synchronized void close() {
-
         if (mDatabase != null)
             mDatabase.close();
-
         super.close();
-
     }
 
     private boolean checkDataBase() {
         SQLiteDatabase checkDB = null;
-
         try {
             String myPath = DBPATH;
             checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
         } catch (SQLiteException e) {
         }
-
         if (checkDB != null)
             checkDB.close();
-
         return checkDB != null ? true : false;
     }
 
