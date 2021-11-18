@@ -1,10 +1,14 @@
 package com.example.androidproject_coupon.CouponManagement;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.androidproject_coupon.BookManagement.BookCategory;
 import com.example.androidproject_coupon.CouponManagement.CpCondition.DatabaseHelper_CpCondition;
 import com.example.androidproject_coupon.CouponManagement.CpType.DatabaseHelper_CpType;
 import com.example.androidproject_coupon.R;
@@ -38,68 +43,96 @@ public class AddCoupon extends AppCompatActivity {
     ImageView arrowReturn;
     ArrayList<String> arrayListType = new ArrayList<>();
     ArrayList<String> arrayListCondition = new ArrayList<>();
+    ArrayList<Integer> idType = new ArrayList<Integer>();
+    ArrayList<Integer> idCondition = new ArrayList<Integer>();
     DatabaseHelper_CpType mDBHELPERTYPE;
     DatabaseHelper_CpCondition mDBHELPERCONDITION;
     File dbType, dbCondition;
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_coupon);
         matching();
 
-        // AutoTextVIew type
-        mDBHELPERTYPE = new DatabaseHelper_CpType(this, "database");
-        dbType = getApplicationContext().getDatabasePath(DatabaseHelper_CpType.DBNAME);
-        if (dbType.exists()==false){
-            mDBHELPERTYPE.getReadableDatabase();
-            if(!copydatabase(this)){
-                return;
-            }
+        mDBHELPERTYPE = new DatabaseHelper_CpType(this);
+        try {
+            mDBHELPERTYPE.createDataBase();
+            Log.d("Thanh cong", "Da tao duoc db");
+        }catch (IOException e){
+            Log.d("Bi loi roi", "khong tao duoc db");
         }
-        arrayListType = mDBHELPERTYPE.GetCouponTypes();
-        arrayAdapterType = new ArrayAdapter<>(this,R.layout.list_type_coupon,arrayListType);
-        arrayAdapterType.notifyDataSetChanged();
+        Cursor contro = mDBHELPERTYPE.getCpTypes();
+        contro.moveToFirst();
+        do {
+            idType.add(Integer.parseUnsignedInt(contro.getString(0)));
+            arrayListType.add(contro.getString(1));
+        }while (contro.moveToNext());
+
+        arrayAdapterType = new ArrayAdapter(this, R.layout.list_type_coupon,arrayListType);
         autoType = findViewById(R.id.addCp_tv_Type);
         autoType.setAdapter(arrayAdapterType);
-
-
-//        String []items = {"Giảm theo số tiền", "Giảm theo %", "Miễn phí vận chuyển"};
-//        arrayAdapter = new ArrayAdapter<String>(this, R.layout.list_type_coupon,items);
-
         autoType.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String item = parent.getItemAtPosition(position).toString();
-                Toast.makeText(getApplicationContext(),"Item: " + item, Toast.LENGTH_SHORT).show();
+//                String item = parent.getItemAtPosition(position).toString();
+                Toast.makeText(getApplicationContext(),"Item: " + idType.get(position).toString(), Toast.LENGTH_SHORT).show();
             }
         });
-
-        // AutoTextVIew condition
-        mDBHELPERCONDITION = new DatabaseHelper_CpCondition(this, "database");
-        dbCondition = getApplicationContext().getDatabasePath(DatabaseHelper_CpCondition.DBNAME);
-        if (dbCondition.exists()==false){
-            mDBHELPERTYPE.getReadableDatabase();
-            if(!copydatabase(this)){
-                return;
-            }
-        }
-        arrayListCondition = mDBHELPERCONDITION.GetCouponConditions();
-        arrayAdapterCondition = new ArrayAdapter<>(this,R.layout.list_type_coupon,arrayListCondition);
-        arrayAdapterCondition.notifyDataSetChanged();
-        autoCondition = findViewById(R.id.addCp_tv_Condition);
-        autoCondition.setAdapter(arrayAdapterCondition);
+//        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // AutoTextVIew type
+//        mDBHELPERTYPE = new DatabaseHelper_CpType(this, "database");
+//        dbType = getApplicationContext().getDatabasePath(DatabaseHelper_CpType.DBNAME);
+//        if (dbType.exists()==false){
+//            mDBHELPERTYPE.getReadableDatabase();
+//            if(!copydatabase(this)){
+//                return;
+//            }
+//        }
+//        arrayListType = mDBHELPERTYPE.GetCouponTypes();
+//        arrayAdapterType = new ArrayAdapter<>(this,R.layout.list_type_coupon,arrayListType);
+//        arrayAdapterType.notifyDataSetChanged();
+//        autoType = findViewById(R.id.addCp_tv_Type);
+//        autoType.setAdapter(arrayAdapterType);
+//
+//
+////        String []items = {"Giảm theo số tiền", "Giảm theo %", "Miễn phí vận chuyển"};
+////        arrayAdapter = new ArrayAdapter<String>(this, R.layout.list_type_coupon,items);
+//
+//        autoType.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                String item = parent.getItemAtPosition(position).toString();
+//                Toast.makeText(getApplicationContext(),"Item: " + item, Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//        // AutoTextVIew condition
+//        mDBHELPERCONDITION = new DatabaseHelper_CpCondition(this, "database");
+//        dbCondition = getApplicationContext().getDatabasePath(DatabaseHelper_CpCondition.DBNAME);
+//        if (dbCondition.exists()==false){
+//            mDBHELPERTYPE.getReadableDatabase();
+//            if(!copydatabase(this)){
+//                return;
+//            }
+//        }
+//        arrayListCondition = mDBHELPERCONDITION.GetCouponConditions();
+//        arrayAdapterCondition = new ArrayAdapter<>(this,R.layout.list_type_coupon,arrayListCondition);
+//        arrayAdapterCondition.notifyDataSetChanged();
+//        autoCondition = findViewById(R.id.addCp_tv_Condition);
+//        autoCondition.setAdapter(arrayAdapterCondition);
 
 
 //        String []items = {"Giảm theo số tiền", "Giảm theo %", "Miễn phí vận chuyển"};
 //        arrayAdapter = new ArrayAdapter<String>(this, R.layout.list_type_coupon,items);
 
-        autoCondition.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String item = parent.getItemAtPosition(position).toString();
-                Toast.makeText(getApplicationContext(),"Item: " + item, Toast.LENGTH_SHORT).show();
-            }
-        });
+//        autoCondition.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                String item = parent.getItemAtPosition(position).toString();
+//                Toast.makeText(getApplicationContext(),"Item: " + item, Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
         calendar = Calendar.getInstance();
         DatePickerDialog.OnDateSetListener dateS = new DatePickerDialog.OnDateSetListener() {
