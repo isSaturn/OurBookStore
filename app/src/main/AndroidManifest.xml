@@ -31,10 +31,10 @@
             android:name=".MainActivity"
             android:exported="true"/>
         <activity
-            android:name=".OrderManagement.OrderInformation"
+            android:name=".InvoiceManagement.InvoiceInformation"
             android:exported="true"/>
         <activity
-            android:name=".OrderManagement.ViewOrderInformation"
+            android:name=".InvoiceManagement.ViewInvoiceInformation"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

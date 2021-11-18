@@ -1,4 +1,4 @@
-package com.example.androidproject_coupon.OrderManagement;
+package com.example.androidproject_coupon.InvoiceManagement;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import com.example.androidproject_coupon.R;
 
 import java.util.List;
 
-public class OrderBookAdapter extends RecyclerView.Adapter<OrderBookAdapter.BookViewHolder> {
+public class InvoiceBookAdapter extends RecyclerView.Adapter<InvoiceBookAdapter.BookViewHolder> {
 
     private Context mContext;
-    private List<OrderBook> mOrderBooks;
+    private List<InvoiceBook> mInvoiceBooks;
 
-    public OrderBookAdapter(Context mContext){
+    public InvoiceBookAdapter(Context mContext){
         this.mContext = mContext;
     }
 
-    public void setData(List<com.example.androidproject_coupon.OrderManagement.OrderBook> list){
-        this.mOrderBooks = list;
+    public void setData(List<InvoiceBook> list){
+        this.mInvoiceBooks = list;
         notifyDataSetChanged();
     }
 
@@ -37,20 +37,20 @@ public class OrderBookAdapter extends RecyclerView.Adapter<OrderBookAdapter.Book
 
     @Override
     public void onBindViewHolder(@NonNull BookViewHolder holder, int position) {
-        OrderBook orderBook = mOrderBooks.get(position);
-        if(orderBook == null){
+        InvoiceBook invoiceBook = mInvoiceBooks.get(position);
+        if(invoiceBook == null){
             return;
         }
-        holder.imgSach.setImageResource(orderBook.getResourceId());
-        holder.tvTensach.setText(orderBook.getTitle());
-        holder.tvSoluongsach.setText(orderBook.getTitle());
-        holder.tvGiasach.setText(orderBook.getTitle());
+        holder.imgSach.setImageResource(invoiceBook.getResourceId());
+        holder.tvTensach.setText(invoiceBook.getTitle());
+        holder.tvSoluongsach.setText(invoiceBook.getTitle());
+        holder.tvGiasach.setText(invoiceBook.getTitle());
     }
 
     @Override
     public int getItemCount() {
-        if(mOrderBooks !=null){
-            return mOrderBooks.size();
+        if(mInvoiceBooks !=null){
+            return mInvoiceBooks.size();
         }
         return 0;
     }

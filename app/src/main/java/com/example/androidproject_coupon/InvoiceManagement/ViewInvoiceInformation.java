@@ -1,4 +1,4 @@
-package com.example.androidproject_coupon.OrderManagement;
+package com.example.androidproject_coupon.InvoiceManagement;
 
 import android.os.Bundle;
 
@@ -11,19 +11,10 @@ import com.example.androidproject_coupon.R;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.ArrayList;
-import java.util.List;
-
-public class ViewOrderInformation extends AppCompatActivity {
+public class ViewInvoiceInformation extends AppCompatActivity {
 
     private RecyclerView rcvInvoiceitem;
-    private OrderBookAdapter orderBookAdapter;
+    private InvoiceBookAdapter invoiceBookAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,18 +24,18 @@ public class ViewOrderInformation extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         rcvInvoiceitem = findViewById(R.id.ord_invoice_recycler_item);
-        orderBookAdapter = new OrderBookAdapter(this);
+        invoiceBookAdapter = new InvoiceBookAdapter(this);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,RecyclerView.VERTICAL,false);
         rcvInvoiceitem.setLayoutManager(linearLayoutManager);
 
-        orderBookAdapter.setData(getListBook());
-        rcvInvoiceitem.setAdapter(orderBookAdapter);
+        invoiceBookAdapter.setData(getListBook());
+        rcvInvoiceitem.setAdapter(invoiceBookAdapter);
     }
 
-    private List<OrderBook> getListBook() {
-        List<OrderBook> list = new ArrayList<>();
-        list.add(new OrderBook(R.drawable.sach,"Book Name"));
+    private List<InvoiceBook> getListBook() {
+        List<InvoiceBook> list = new ArrayList<>();
+        list.add(new InvoiceBook(R.drawable.sach,"Book Name"));
 
         return list;
     }

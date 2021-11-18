@@ -1,10 +1,10 @@
-package com.example.androidproject_coupon.OrderManagement;
+package com.example.androidproject_coupon.InvoiceManagement;
 
-public class OrderBook {
+public class InvoiceBook {
     private  int resourceId;
     private String title;
 
-    public OrderBook(int resourceId, String title) {
+    public InvoiceBook(int resourceId, String title) {
         this.resourceId = resourceId;
         this.title = title;
     }
