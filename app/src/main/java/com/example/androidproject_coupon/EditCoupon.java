@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
@@ -32,7 +33,7 @@ import java.util.Locale;
 public class EditCoupon extends AppCompatActivity {
     AutoCompleteTextView autoType, autoCondition;
     ArrayAdapter<String> arrayAdapterType, arrayAdapterCondition;
-    EditText dateStart, dateEnd, cpCode, cpName, cpValue, cpMinimum ;
+    EditText dateStart, dateEnd, cpCode, cpName, cpValue, cpValueCondition ;
     TextView cpType, cpCondition;
     Calendar calendar;
     ImageView arrowReturn;
@@ -51,6 +52,7 @@ public class EditCoupon extends AppCompatActivity {
         setContentView(R.layout.activity_edit_coupon);
 
         matching();
+
         //Loai khuyen mai
         mDBHELPERTYPE = new DatabaseHelper_CpType(this);
         try {
@@ -160,6 +162,24 @@ public class EditCoupon extends AppCompatActivity {
                 showDialog();
             }
         });
+
+        Intent intent = getIntent();
+
+        String cpCodeInput = intent.getStringExtra("code");
+        String cpNameInput= intent.getStringExtra( "name");
+        String cpValueInput = intent.getStringExtra( "value");
+        String cpValueConditionInput = intent.getStringExtra( "valueCondition");
+        String cpEStartInput = intent.getStringExtra( "eStart");
+        String cpEEndInput = intent.getStringExtra( "eEnd");
+        String cpIdTypeInput = intent.getStringExtra( "idType");
+        String cpIdConditionInput = intent.getStringExtra( "idCondition");
+        cpCode.setText(cpCodeInput);
+        cpValue.setText(cpValueInput);
+        cpValueCondition.setText(cpValueConditionInput);
+        cpName.setText(cpNameInput);
+        dateStart.setText(cpEStartInput);
+        dateEnd.setText(cpEEndInput);
+
     }
     private void showDialog(){
         Dialog dialog = new Dialog(this, R.style.DialogStyle);
@@ -185,7 +205,7 @@ public class EditCoupon extends AppCompatActivity {
         cpName = findViewById(R.id.editCp_et_Name);
         cpValue = findViewById(R.id.editCp_et_Value);
         cpCondition = findViewById(R.id.editCp_tv_Condition);
-        cpMinimum = findViewById(R.id.editCp_et_Minimum);
+        cpValueCondition = findViewById(R.id.editCp_et_ValueCondition);
         cpType = findViewById(R.id.editCp_tv_Type);
         arrowReturn = findViewById(R.id.editCp_img_Return);
         edit = findViewById(R.id.editCp_btn_Edit);
