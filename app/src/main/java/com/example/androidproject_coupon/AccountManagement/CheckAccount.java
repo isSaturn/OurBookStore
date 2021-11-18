@@ -2,7 +2,6 @@ package com.example.androidproject_coupon.AccountManagement;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -15,22 +14,24 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class ManagentRole extends SQLiteOpenHelper {
+public class CheckAccount extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
-    private static final String TABLE_ROLE = "Role";
-    private static final String KEY_ID_ROLE = "ID_Role";
-    private static final String KEY_ROLE = "Role";
+    private static final String TABLE = "TaiKhoan";
+    private static final String KEY_TAI_KHOAN = "Tai_Khoan";
+    private static final String KEY_MAT_KHAU = "Mat_Khau";
+    private static final String KEY_ROLE = "ID_Role";
     private static String DB_PATH = "/data/data/com.example.androidproject_coupon/databases/";
     private static String DB_NAME = "database";
     private final Context myContext;
     private SQLiteDatabase myDataBase;
 
-    public ManagentRole(@Nullable Context context) {
+    public CheckAccount(@Nullable Context context) {
         super(context, DB_NAME, null, DATABASE_VERSION);
 
         myContext = context;
     }
+
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -108,9 +109,9 @@ public class ManagentRole extends SQLiteOpenHelper {
         }
     }
 
-    public Cursor layRole() {
+    public Cursor laytaikhoan() {
         SQLiteDatabase database = this.getReadableDatabase();
-        String sql = "select * from " + TABLE_ROLE;
+        String sql = "select * from " + TABLE;
         Cursor contro = null;
         try {
             contro = database.rawQuery(sql, null);
@@ -119,5 +120,38 @@ public class ManagentRole extends SQLiteOpenHelper {
         }
 
         return contro;
+    }
+
+    public Boolean checkAccount(String username, String password) {
+        SQLiteDatabase database = this.getReadableDatabase();
+        //select * from TaiKhoan where Tai_Khoan = "nguyenminhphu" and Mat_Khau = "123456"
+        String sql = "select * from TaiKhoan where Tai_Khoan = ? and Mat_Khau = ?";
+        Cursor cursor = database.rawQuery(sql,new String[] {username,password} );
+        if (cursor.getCount() > 0){
+            return true;
+        }else
+            return false;
+    }
+
+    public Cursor layidaccount(String username, String password) {
+        SQLiteDatabase database = this.getReadableDatabase();
+        String sql = "select * from TaiKhoan where Tai_Khoan = ? and Mat_Khau = ?";
+        Cursor contro = null;
+        try {
+            contro = database.rawQuery(sql,new String[] {username,password} );
+        } catch (Exception e) {
+            Log.d("Loi db", e.toString());
+        }
+        return contro;
+    }
+
+    public Boolean checkUsername(String username) {
+        SQLiteDatabase database = this.getReadableDatabase();
+        String sql = "select * from " + TABLE + " where Tai_Khoan = " + username;
+        Cursor cursor = database.rawQuery(sql, null);
+        if (cursor.getCount() > 0) {
+            return false;
+        } else
+            return true;
     }
 }

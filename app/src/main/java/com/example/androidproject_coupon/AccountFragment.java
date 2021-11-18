@@ -94,7 +94,7 @@ public class AccountFragment extends Fragment {
             Log.d("Bi loi roi", "khong tao duoc db");
         }
 
-        Cursor contro = role.laytheloai();
+        Cursor contro = role.layRole();
         contro.moveToFirst();
 
         ArrayList<Integer> ID = new ArrayList<Integer>();
