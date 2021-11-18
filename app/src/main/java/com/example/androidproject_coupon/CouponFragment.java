@@ -1,24 +1,36 @@
 package com.example.androidproject_coupon;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.androidproject_coupon.CouponManagement.AddCoupon;
 import com.example.androidproject_coupon.CouponManagement.Coupon.Coupon;
+import com.example.androidproject_coupon.CouponManagement.Coupon.DatabaseHelper_Cp;
 import com.example.androidproject_coupon.CouponManagement.CouponAdapter;
+import com.example.androidproject_coupon.CouponManagement.CpCondition.DatabaseHelper_CpCondition;
 
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -78,6 +90,7 @@ public class CouponFragment extends Fragment {
 //        listAdapter = findViewById(R.layout.adapter_view_layout);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -88,22 +101,66 @@ public class CouponFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        DatabaseHelper_Cp mDBHELPERCOUPON = new DatabaseHelper_Cp(getContext());
+        try {
+            mDBHELPERCOUPON.createDataBase();
+            Log.d("Thanh cong", "Da tao duoc db");
+        }catch (IOException e){
+            Log.d("Bi loi roi", "khong tao duoc db");
+        }
+        Cursor cursor = mDBHELPERCOUPON.getCps();
+        cursor.moveToFirst();
+//        ArrayList<String> arrCpCode = new ArrayList<>();
+//        ArrayList<String> arrCpName = new ArrayList<>();
+//        ArrayList<String> arrCpDateStart = new ArrayList<String>();
+//        ArrayList<String> arrCpDateEnd = new ArrayList<String>();
+//        ArrayList<Integer> arrCpID = new ArrayList<>();
+//        ArrayList<Integer> arrCpValue = new ArrayList<>();
+//        ArrayList<Integer> arrCpConditionValue = new ArrayList<>();
+//        ArrayList<Integer> arrCpTypeId = new ArrayList<>();
+//        ArrayList<Integer> arrCpConditionId = new ArrayList<>();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
         ListView listView = view.findViewById(R.id.list_view);
         ArrayList<Coupon> couponList = new ArrayList<>();
-        couponList.add(new Coupon("NGVN", 120000, R.drawable.coupon_icon));
-        couponList.add(new Coupon("NGVN", 120000, R.drawable.coupon_icon));
-        couponList.add(new Coupon("NGVN", 120000, R.drawable.coupon_icon));
-        couponList.add(new Coupon("NGVN", 120000, R.drawable.coupon_icon));
-        couponList.add(new Coupon("NGVN", 120000, R.drawable.coupon_icon));
-        couponList.add(new Coupon("NGVN", 120000, R.drawable.coupon_icon));
-        couponList.add(new Coupon("NGVN", 120000, R.drawable.coupon_icon));
-        couponList.add(new Coupon("NGVN", 120000, R.drawable.coupon_icon));
-        couponList.add(new Coupon("NGVN", 120000, R.drawable.coupon_icon));
-        couponList.add(new Coupon("NGVN", 120000, R.drawable.coupon_icon));
-        couponList.add(new Coupon("NGVN", 120000, R.drawable.coupon_icon));
-        couponList.add(new Coupon("NGVN", 120000, R.drawable.coupon_icon));
+        do {
+//            arrCpID.add(Integer.parseUnsignedInt(cursor.getString(0)));
+//            arrCpCode.add(cursor.getString(1));
+//            arrCpName.add(cursor.getString(2));
+//            arrCpDateStart.add(cursor.getString(3));
+//            arrCpDateEnd.add(cursor.getString(4));
+//            arrCpValue.add(Integer.parseUnsignedInt(cursor.getString(5)));
+//            arrCpConditionValue.add(Integer.parseUnsignedInt(cursor.getString(6)));
+//            arrCpConditionId.add(Integer.parseUnsignedInt(cursor.getString(7)));
+//            arrCpTypeId.add(Integer.parseUnsignedInt(cursor.getString(8)));
+            couponList.add(new Coupon(cursor.getString(1),cursor.getString(2)
+                    , cursor.getString(3),cursor.getString(4)
+                    , Integer.parseUnsignedInt(cursor.getString(5)) , Integer.parseUnsignedInt(cursor.getString(6))
+                    , Integer.parseUnsignedInt(cursor.getString(7)) , Integer.parseUnsignedInt(cursor.getString(8))
+                    , R.drawable.coupon_icon));
+        }while (cursor.moveToNext());
+
+//        ArrayAdapter<String> arrAdapterName = new ArrayAdapter(getContext(), R.layout.adapter_view_layout_coupon,arrCpName);
+//        ArrayAdapter<Integer> arrAdapterValue = new ArrayAdapter(getContext(), R.layout.adapter_view_layout_coupon,arrCpValue);
+//        ArrayAdapter<String> arrAdapterDateStart = new ArrayAdapter(getContext(), R.layout.adapter_view_layout_coupon,arrCpDateStart);
+//        ArrayAdapter<String> arrAdapterDateEnd = new ArrayAdapter(getContext(), R.layout.adapter_view_layout_coupon,arrCpDateEnd);
         CouponAdapter couponAdapter = new CouponAdapter(getContext(), R.layout.adapter_view_layout_coupon, couponList);
         listView.setAdapter(couponAdapter);
+
+//        couponList.add(new Coupon("NGVN", 120000, R.drawable.coupon_icon));
+//        couponList.add(new Coupon("NGVN", 120000, R.drawable.coupon_icon));
+//        couponList.add(new Coupon("NGVN", 120000, R.drawable.coupon_icon));
+//        couponList.add(new Coupon("NGVN", 120000, R.drawable.coupon_icon));
+//        couponList.add(new Coupon("NGVN", 120000, R.drawable.coupon_icon));
+//        couponList.add(new Coupon("NGVN", 120000, R.drawable.coupon_icon));
+//        couponList.add(new Coupon("NGVN", 120000, R.drawable.coupon_icon));
+//        couponList.add(new Coupon("NGVN", 120000, R.drawable.coupon_icon));
+//        couponList.add(new Coupon("NGVN", 120000, R.drawable.coupon_icon));
+//        couponList.add(new Coupon("NGVN", 120000, R.drawable.coupon_icon));
+//        couponList.add(new Coupon("NGVN", 120000, R.drawable.coupon_icon));
+//        couponList.add(new Coupon("NGVN", 120000, R.drawable.coupon_icon));
+//        CouponAdapter couponAdapter = new CouponAdapter(getContext(), R.layout.adapter_view_layout_coupon, couponList);
+//        listView.setAdapter(couponAdapter);
 //        recyclerView = findViewById(R.id.list_view);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

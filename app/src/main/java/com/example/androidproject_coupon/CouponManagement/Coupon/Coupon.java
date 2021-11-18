@@ -1,14 +1,36 @@
 package com.example.androidproject_coupon.CouponManagement.Coupon;
 
 public class Coupon {
-    private String name, code, eStart, eEnd, applyCondition, type;
-    private Integer value, valueCondition;
+    private String name, code, eStart, eEnd;
+    private Integer value, valueCondition, idType, idCondition;
     private Integer imgUrl;
 
-    public Coupon(String name, Integer value, Integer imgUrl){
+    public Coupon(String code,String name, String eStart, String eEnd, Integer value, Integer valueCondition, Integer idCondition, Integer idType,Integer imgUrl){
+        this.code = code;
         this.name = name;
+        this.valueCondition = valueCondition;
+        this.idCondition = idCondition;
+        this.idType = idType;
         this.value = value;
         this.imgUrl= imgUrl;
+        this.eStart = eStart;
+        this.eEnd = eEnd;
+    }
+
+    public Integer getIdType() {
+        return idType;
+    }
+
+    public void setIdType(Integer idType) {
+        this.idType = idType;
+    }
+
+    public Integer getIdCondition() {
+        return idCondition;
+    }
+
+    public void setIdCondition(Integer idCondition) {
+        this.idCondition = idCondition;
     }
 
     public String getCode() {
@@ -33,22 +55,6 @@ public class Coupon {
 
     public void seteEnd(String eEnd) {
         this.eEnd = eEnd;
-    }
-
-    public String getApplyCondition() {
-        return applyCondition;
-    }
-
-    public void setApplyCondition(String applyCondition) {
-        this.applyCondition = applyCondition;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public Integer getValueCondition() {
