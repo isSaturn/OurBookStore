@@ -26,7 +26,7 @@
             android:name=".EditCoupon"
             android:exported="true" />
         <activity
-            android:name=".AddCoupon"
+            android:name=".CouponManagement.AddCoupon"
             android:exported="true" />
         <activity
             android:name=".MainActivity"

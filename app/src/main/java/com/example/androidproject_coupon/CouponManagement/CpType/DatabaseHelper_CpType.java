@@ -3,21 +3,28 @@ package com.example.androidproject_coupon.CouponManagement.CpType;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 
 public class DatabaseHelper_CpType extends SQLiteOpenHelper {
-    public static String DBNAME;
-    public static String TABLE;
-    public static final String DBLOCATION = "/data/data/com.example.androidproject_coupon.CouponManagement/databases/";
+    public static String DBNAME = "database";
+    public static String TABLE = "LoaiKhuyenMai";
+    public static String DBPATH;
+    public static final String DBLOCATION = "/data/data/com.example.androidproject_coupon/databases/";
     private Context mContext;
+    private static final int DATABASE_VERSION = 1;
     private SQLiteDatabase mDatabase;
-    public DatabaseHelper_CpType(Context context, String DBname){
-        super(context,DBNAME, null, 1);
-        DBNAME = DBname;
-        TABLE = "LoaiKhuyenMai";
-        mContext = context;
+    public DatabaseHelper_CpType(Context context){
+        super(context,DBNAME, null, DATABASE_VERSION);
+        this.mContext = context;
+        this.DBPATH = mContext.getDatabasePath(DBNAME).getAbsolutePath();
     }
 
     public void onCreate(SQLiteDatabase sqLiteDatabase){
@@ -25,37 +32,79 @@ public class DatabaseHelper_CpType extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
+        if(newVersion>oldVersion)
+            copyDataBase();
     }
 
-    public void openDatabase(){
-        String DBPath = mContext.getDatabasePath(DBNAME).getPath();
-        if(mDatabase != null && mDatabase.isOpen()){
-            return;
-        }
-        mDatabase = SQLiteDatabase.openDatabase(DBPath, null, SQLiteDatabase.OPEN_READWRITE);
-    }
-    public void CloseDatabase(){
-        if (mDatabase != null){
+    @Override
+    public synchronized void close() {
+
+        if (mDatabase != null)
             mDatabase.close();
+
+        super.close();
+
+    }
+
+    private boolean checkDataBase() {
+        SQLiteDatabase checkDB = null;
+
+        try {
+            String myPath = DBPATH;
+            checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
+        } catch (SQLiteException e) {
+        }
+
+        if (checkDB != null)
+            checkDB.close();
+
+        return checkDB != null ? true : false;
+    }
+
+    private void copyDataBase() {
+        try{
+            InputStream myInput = mContext.getAssets().open(DBNAME);
+            String outFileName = DBPATH;
+            OutputStream myOutput = new FileOutputStream(outFileName);
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = myInput.read(buffer)) > 0) {
+                myOutput.write(buffer, 0, length);
+            }
+            myOutput.flush();
+            myOutput.close();
+            myInput.close();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+    public void createDataBase() throws IOException {
+        boolean dbExist = checkDataBase();
+        if (dbExist) {
+        } else {
+            this.getReadableDatabase();
+            try {
+                copyDataBase(); //chep du lieu
+            } catch (Exception e) {
+                throw new Error("Error copying database");
+            }
         }
     }
 
-    public ArrayList<String> GetCouponTypes(){
-        CouponType cpType = null;
-        ArrayList<String> arrayListCpType = new ArrayList<>();
-        openDatabase();
-        Cursor cursor = mDatabase.rawQuery("select * from " + TABLE, null);
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()){
-            cpType = new CouponType(cursor.getString(1));
-            arrayListCpType.add(cpType.getType());
-            cursor.moveToNext();
+    public Cursor getCpTypes() {
+        SQLiteDatabase database = this.getReadableDatabase();
+        String sql = "select * from " + TABLE;
+        Cursor contro = null;
+        try {
+            contro = database.rawQuery(sql, null);
+        } catch (Exception e) {
+            Log.d("Loi db", e.toString());
         }
-        cursor.close();
-        CloseDatabase();
-        return arrayListCpType;
 
+        return contro;
     }
 }
