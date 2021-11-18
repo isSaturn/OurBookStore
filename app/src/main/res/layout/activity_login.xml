@@ -35,7 +35,6 @@
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:text="Thông tin tài khoản hoặc mật khẩu không chính xác. Vui lòng nhập lại!!!"
         android:textColor="#FF0000"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
