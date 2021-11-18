@@ -43,11 +43,11 @@ public class AddCoupon extends AppCompatActivity {
     ImageView arrowReturn;
     ArrayList<String> arrayListType = new ArrayList<>();
     ArrayList<String> arrayListCondition = new ArrayList<>();
-    ArrayList<Integer> idType = new ArrayList<Integer>();
-    ArrayList<Integer> idCondition = new ArrayList<Integer>();
+    ArrayList<Integer> idType = new ArrayList<>();
+    ArrayList<Integer> idCondition = new ArrayList<>();
     DatabaseHelper_CpType mDBHELPERTYPE;
     DatabaseHelper_CpCondition mDBHELPERCONDITION;
-    File dbType, dbCondition;
+    Cursor cursorType, cursorCondition;
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +55,7 @@ public class AddCoupon extends AppCompatActivity {
         setContentView(R.layout.activity_add_coupon);
         matching();
 
+        //Loai khuyen mai
         mDBHELPERTYPE = new DatabaseHelper_CpType(this);
         try {
             mDBHELPERTYPE.createDataBase();
@@ -62,12 +63,12 @@ public class AddCoupon extends AppCompatActivity {
         }catch (IOException e){
             Log.d("Bi loi roi", "khong tao duoc db");
         }
-        Cursor contro = mDBHELPERTYPE.getCpTypes();
-        contro.moveToFirst();
+        cursorType = mDBHELPERTYPE.getCpTypes();
+        cursorType.moveToFirst();
         do {
-            idType.add(Integer.parseUnsignedInt(contro.getString(0)));
-            arrayListType.add(contro.getString(1));
-        }while (contro.moveToNext());
+            idType.add(Integer.parseUnsignedInt(cursorType.getString(0)));
+            arrayListType.add(cursorType.getString(1));
+        }while (cursorType.moveToNext());
 
         arrayAdapterType = new ArrayAdapter(this, R.layout.list_type_coupon,arrayListType);
         autoType = findViewById(R.id.addCp_tv_Type);
@@ -79,60 +80,32 @@ public class AddCoupon extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"Item: " + idType.get(position).toString(), Toast.LENGTH_SHORT).show();
             }
         });
-//        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // AutoTextVIew type
-//        mDBHELPERTYPE = new DatabaseHelper_CpType(this, "database");
-//        dbType = getApplicationContext().getDatabasePath(DatabaseHelper_CpType.DBNAME);
-//        if (dbType.exists()==false){
-//            mDBHELPERTYPE.getReadableDatabase();
-//            if(!copydatabase(this)){
-//                return;
-//            }
-//        }
-//        arrayListType = mDBHELPERTYPE.GetCouponTypes();
-//        arrayAdapterType = new ArrayAdapter<>(this,R.layout.list_type_coupon,arrayListType);
-//        arrayAdapterType.notifyDataSetChanged();
-//        autoType = findViewById(R.id.addCp_tv_Type);
-//        autoType.setAdapter(arrayAdapterType);
-//
-//
-////        String []items = {"Giảm theo số tiền", "Giảm theo %", "Miễn phí vận chuyển"};
-////        arrayAdapter = new ArrayAdapter<String>(this, R.layout.list_type_coupon,items);
-//
-//        autoType.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+        // Loai ap dung
+        mDBHELPERCONDITION = new DatabaseHelper_CpCondition(this);
+        try {
+            mDBHELPERTYPE.createDataBase();
+            Log.d("Thanh cong", "Da tao duoc db");
+        }catch (IOException e){
+            Log.d("Bi loi roi", "khong tao duoc db");
+        }
+        cursorCondition = mDBHELPERCONDITION.getCpConditions();
+        cursorCondition.moveToFirst();
+        do {
+            idCondition.add(Integer.parseUnsignedInt(cursorCondition.getString(0)));
+            arrayListCondition.add(cursorCondition.getString(1));
+        }while (cursorCondition.moveToNext());
+
+        arrayAdapterCondition = new ArrayAdapter(this, R.layout.list_type_coupon,arrayListCondition);
+        autoCondition = findViewById(R.id.addCp_tv_Condition);
+        autoCondition.setAdapter(arrayAdapterCondition);
+        autoCondition.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 //                String item = parent.getItemAtPosition(position).toString();
-//                Toast.makeText(getApplicationContext(),"Item: " + item, Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//
-//        // AutoTextVIew condition
-//        mDBHELPERCONDITION = new DatabaseHelper_CpCondition(this, "database");
-//        dbCondition = getApplicationContext().getDatabasePath(DatabaseHelper_CpCondition.DBNAME);
-//        if (dbCondition.exists()==false){
-//            mDBHELPERTYPE.getReadableDatabase();
-//            if(!copydatabase(this)){
-//                return;
-//            }
-//        }
-//        arrayListCondition = mDBHELPERCONDITION.GetCouponConditions();
-//        arrayAdapterCondition = new ArrayAdapter<>(this,R.layout.list_type_coupon,arrayListCondition);
-//        arrayAdapterCondition.notifyDataSetChanged();
-//        autoCondition = findViewById(R.id.addCp_tv_Condition);
-//        autoCondition.setAdapter(arrayAdapterCondition);
-
-
-//        String []items = {"Giảm theo số tiền", "Giảm theo %", "Miễn phí vận chuyển"};
-//        arrayAdapter = new ArrayAdapter<String>(this, R.layout.list_type_coupon,items);
-
-//        autoCondition.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                String item = parent.getItemAtPosition(position).toString();
-//                Toast.makeText(getApplicationContext(),"Item: " + item, Toast.LENGTH_SHORT).show();
-//            }
-//        });
+                Toast.makeText(getApplicationContext(),"Item: " + idCondition.get(position).toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
         calendar = Calendar.getInstance();
         DatePickerDialog.OnDateSetListener dateS = new DatePickerDialog.OnDateSetListener() {
@@ -144,7 +117,7 @@ public class AddCoupon extends AppCompatActivity {
                 updateCalendar();
             }
             private void updateCalendar() {
-                String Format = "MM/dd/yy";
+                String Format = "yyyy/MM/dd";
                 SimpleDateFormat sdf = new SimpleDateFormat(Format, Locale.US);
                 dateStart.setText(sdf.format(calendar.getTime()));
             }
@@ -158,7 +131,7 @@ public class AddCoupon extends AppCompatActivity {
                 updateCalendar();
             }
             private void updateCalendar() {
-                String Format = "MM/dd/yy";
+                String Format = "yyyy/MM/dd";
                 SimpleDateFormat sdf = new SimpleDateFormat(Format, Locale.US);
                 dateEnd.setText(sdf.format(calendar.getTime()));
             }
@@ -186,29 +159,6 @@ public class AddCoupon extends AppCompatActivity {
             }
         });
     }
-    public Boolean copydatabase(Context context){
-        try {
-            InputStream inputStream = context.getAssets().open(DatabaseHelper_CpType.DBNAME);
-            String OutFileName = DatabaseHelper_CpType.DBLOCATION + DatabaseHelper_CpType.DBNAME;
-            File file = new File(OutFileName);
-            file.getParentFile().mkdirs();
-            OutputStream outputStream = new FileOutputStream(OutFileName);
-            byte[] buffer = new byte[1024];
-            int length = 0;
-            while ((length = inputStream.read(buffer))>0){
-                outputStream.write(buffer,0,length);
-            }
-            outputStream.flush();
-            outputStream.close();
-            return true;
-        }
-        catch (IOException e){
-            return false;
-        }
-    }
-
-
-
     private void matching(){
         dateEnd = findViewById(R.id.addCp_et_DateEnd);
         dateStart = findViewById(R.id.addCp_et_DateStart);
