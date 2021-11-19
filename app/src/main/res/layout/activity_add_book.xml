@@ -60,20 +60,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/addBook_img_Sach" />
 
-        <TextView
-            android:id="@+id/addBook_tv_TenSach"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:text="Tên sách"
-            android:textColor="#000000"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/addBook_btn_ChonAnh" />
-
         <EditText
             android:id="@+id/addBook_et_TenSach"
             android:layout_width="400dp"
@@ -93,6 +79,20 @@
             app:layout_constraintTop_toBottomOf="@+id/addBook_tv_TenSach" />
 
         <TextView
+            android:id="@+id/addBook_tv_TenSach"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="Tên sách"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addBook_et_MaSach" />
+
+        <TextView
             android:id="@+id/addBook_tv_MaSach"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -104,14 +104,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/addBook_et_TenSach" />
+            app:layout_constraintTop_toBottomOf="@+id/addBook_btn_ChonAnh" />
 
         <EditText
             android:id="@+id/addBook_et_MaSach"
             android:layout_width="400dp"
             android:layout_height="48dp"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:background="@drawable/custom_input"
             android:ems="10"
             android:hint="Nhập mã sách"
@@ -137,10 +137,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/addBook_et_MaSach" />
+            app:layout_constraintTop_toBottomOf="@+id/addBook_et_TenSach" />
 
         <EditText
-            android:id="@+id/addBook_et_GiaTen"
+            android:id="@+id/addBook_et_GiaTien"
             android:layout_width="400dp"
             android:layout_height="48dp"
             android:layout_marginStart="20dp"
@@ -170,7 +170,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/addBook_et_GiaTen" />
+            app:layout_constraintTop_toBottomOf="@+id/addBook_et_GiaTien" />
 
         <EditText
             android:id="@+id/addBook_et_MoTa"

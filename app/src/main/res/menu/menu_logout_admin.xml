@@ -3,6 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/mnuLogin"
-        android:title="Login" />
+        android:id="@+id/mnuLogout_admin"
+        android:title="Logout" />
+    <item
+        android:id="@+id/mnuAdmin"
+        android:title="Admin" />
 </menu>
