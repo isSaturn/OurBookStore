@@ -10,6 +10,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -21,13 +24,18 @@ import java.util.ArrayList;
 public class AddBook extends AppCompatActivity {
 
     Spinner spinnerTheLoai;
+    Button ChonAnh, ThemSach;
+    EditText MaSach, TenSach, GiaTien, Mota, TacGia;
+    ImageView AnhSach, Back;
+
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_book);
 
-        spinnerTheLoai = findViewById(R.id.addBook_spn_TheLoai);
+        matching();
 
         BookCategory category = new BookCategory(this);
         try {
@@ -61,6 +69,25 @@ public class AddBook extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
+            }
+        });
+    }
+
+    private void matching() {
+        spinnerTheLoai = findViewById(R.id.addBook_spn_TheLoai);
+        ChonAnh = findViewById(R.id.addBook_btn_ChonAnh);
+        ThemSach = findViewById(R.id.addBook_btn_ThemSach);
+        MaSach = findViewById(R.id.addBook_et_MaSach);
+        TenSach = findViewById(R.id.addBook_et_TenSach);
+        GiaTien = findViewById(R.id.addBook_et_GiaTien);
+        Mota = findViewById(R.id.addBook_et_MoTa);
+        TacGia = findViewById(R.id.addBook_et_TacGia);
+        AnhSach = findViewById(R.id.addBook_img_Sach);
+        Back = findViewById(R.id.addBook_img_Back);
+        Back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }
