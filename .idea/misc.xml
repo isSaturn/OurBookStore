@@ -50,10 +50,6 @@
         <entry key="..\:/Phu/Android/OurBookStore/app/src/main/res/menu/menu_login.xml" value="0.20416666666666666" />
         <entry key="..\:/Phu/Android/OurBookStore/app/src/main/res/menu/menu_logout.xml" value="0.20416666666666666" />
         <entry key="..\:/Phu/Android/OurBookStore/app/src/main/res/menu/menu_logout_admin.xml" value="0.20416666666666666" />
-        <entry key="app/src/main/res/layout/activity_oderdetails.xml" value="0.14375" />
-        <entry key="app/src/main/res/layout/fragment_coupon.xml" value="0.1503623188405797" />
-        <entry key="app/src/main/res/layout/fragment_order.xml" value="0.14361702127659576" />
-        <entry key="app/src/main/res/layout/item_oder.xml" value="0.1503623188405797" />
       </map>
     </option>
   </component>
