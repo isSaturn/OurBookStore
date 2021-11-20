@@ -24,7 +24,7 @@ public class InvoiceInformation extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.ord_infomation);
+        setContentView(R.layout.inv_infomation);
 
         getSupportActionBar().setTitle("Đặt hàng");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -41,7 +41,7 @@ public class InvoiceInformation extends AppCompatActivity {
 
         cbThanhtoan.setChecked(true);
 
-        rcvInvoiceitem = findViewById(R.id.ord_invoice_recycler_item);
+        rcvInvoiceitem = findViewById(R.id.inv_rv_item);
         invoiceBookAdapter = new InvoiceBookAdapter(this);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,RecyclerView.VERTICAL,false);
@@ -60,7 +60,7 @@ public class InvoiceInformation extends AppCompatActivity {
     }
 
     private void matching() {
-        btnDathang = (Button)findViewById(R.id.ord_btn_dathang);
-        cbThanhtoan = (CheckBox) findViewById(R.id.ord_cb_thanhtoantienmat);
+        btnDathang = (Button)findViewById(R.id.inv_btn_dathang);
+        cbThanhtoan = (CheckBox) findViewById(R.id.inv_cb_thanhtoantienmat);
     }
 }

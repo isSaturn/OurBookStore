@@ -18,12 +18,12 @@ public class ViewInvoiceInformation extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.ord_information_view);
+        setContentView(R.layout.inv_information_view);
 
         getSupportActionBar().setTitle("Thông tin đơn hàng");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        rcvInvoiceitem = findViewById(R.id.ord_invoice_recycler_item);
+        rcvInvoiceitem = findViewById(R.id.inv_rv_item);
         invoiceBookAdapter = new InvoiceBookAdapter(this);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,RecyclerView.VERTICAL,false);
