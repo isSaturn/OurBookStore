@@ -12,7 +12,7 @@
         tools:context=".OrderInfomation">
 
         <TextView
-            android:id="@+id/ord_tv_chitietdonhang"
+            android:id="@+id/inv_tv_chitietdonhang"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -21,10 +21,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.059"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_diachi" />
+            app:layout_constraintTop_toBottomOf="@+id/inv_tv_diachi" />
 
         <TextView
-            android:id="@+id/ord_tv_thongtinnguoinhan"
+            android:id="@+id/inv_tv_thongtinnguoinhan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
@@ -35,13 +35,13 @@
             app:layout_constraintTop_toTopOf="@+id/imageView" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/ord_invoice_recycler_item"
+            android:id="@+id/inv_rv_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ord_tv_chitietdonhang">
+            app:layout_constraintTop_toBottomOf="@+id/inv_tv_chitietdonhang">
 
         </androidx.recyclerview.widget.RecyclerView>
 
@@ -56,7 +56,7 @@
             app:srcCompat="@drawable/delivery" />
 
         <TextView
-            android:id="@+id/tv_thongtingiaohang_hinhthucgiaohang"
+            android:id="@+id/inv_tv_hinhthucgiaohang"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -64,7 +64,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.186"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ord_tv_thongtinnguoinhan" />
+            app:layout_constraintTop_toBottomOf="@+id/inv_tv_thongtinnguoinhan" />
 
         <ImageView
             android:id="@+id/imageView2"
@@ -73,7 +73,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_thongtingiaohang_hinhthucgiaohang"
+            app:layout_constraintTop_toBottomOf="@+id/inv_tv_hinhthucgiaohang"
             app:srcCompat="@drawable/location" />
 
         <TextView
@@ -88,7 +88,7 @@
             app:layout_constraintTop_toTopOf="@+id/imageView2" />
 
         <TextView
-            android:id="@+id/tv_hoten"
+            android:id="@+id/inv_tv_hoten"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -99,24 +99,24 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_thongtinkhachhang" />
 
         <TextView
-            android:id="@+id/tv_sdt"
+            android:id="@+id/inv_tv_sdt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="TextView"
-            app:layout_constraintEnd_toEndOf="@+id/tv_hoten"
-            app:layout_constraintStart_toStartOf="@+id/tv_hoten"
-            app:layout_constraintTop_toBottomOf="@+id/tv_hoten" />
+            app:layout_constraintEnd_toEndOf="@+id/inv_tv_hoten"
+            app:layout_constraintStart_toStartOf="@+id/inv_tv_hoten"
+            app:layout_constraintTop_toBottomOf="@+id/inv_tv_hoten" />
 
         <TextView
-            android:id="@+id/tv_diachi"
+            android:id="@+id/inv_tv_diachi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="TextView"
-            app:layout_constraintEnd_toEndOf="@+id/tv_sdt"
-            app:layout_constraintStart_toStartOf="@+id/tv_sdt"
-            app:layout_constraintTop_toBottomOf="@+id/tv_sdt" />
+            app:layout_constraintEnd_toEndOf="@+id/inv_tv_sdt"
+            app:layout_constraintStart_toStartOf="@+id/inv_tv_sdt"
+            app:layout_constraintTop_toBottomOf="@+id/inv_tv_sdt" />
 
         <ImageView
             android:id="@+id/imgLine"
@@ -126,7 +126,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ord_invoice_recycler_item"
+            app:layout_constraintTop_toBottomOf="@+id/inv_rv_item"
             app:srcCompat="@drawable/line" />
 
         <ImageView
@@ -140,7 +140,7 @@
             app:srcCompat="@drawable/hand" />
 
         <TextView
-            android:id="@+id/ord_tv_phuongthucthanhtoan"
+            android:id="@+id/inv_tv_phuongthucthanhtoan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
@@ -151,7 +151,7 @@
             app:layout_constraintTop_toTopOf="@+id/imageView4" />
 
         <TextView
-            android:id="@+id/ord_tv_phuongthucthanhtoan_thongtin"
+            android:id="@+id/inv_tv_thongtinthanhtoan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -159,7 +159,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.215"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ord_tv_phuongthucthanhtoan" />
+            app:layout_constraintTop_toBottomOf="@+id/inv_tv_phuongthucthanhtoan" />
 
         <ImageView
             android:id="@+id/imgLine2"
@@ -168,11 +168,11 @@
             android:layout_marginTop="50dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ord_tv_phuongthucthanhtoan_thongtin"
+            app:layout_constraintTop_toBottomOf="@+id/inv_tv_thongtinthanhtoan"
             app:srcCompat="@drawable/line" />
 
         <TextView
-            android:id="@+id/ord_tv_madonhang"
+            android:id="@+id/inv_tv_madonhang"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
@@ -184,14 +184,14 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/ord_tv_madonhang_id"
+            android:id="@+id/inv_tv_madonhang_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:text="TextView"
-            app:layout_constraintBottom_toBottomOf="@+id/ord_tv_madonhang"
-            app:layout_constraintStart_toEndOf="@+id/ord_tv_madonhang"
-            app:layout_constraintTop_toTopOf="@+id/ord_tv_madonhang" />
+            app:layout_constraintBottom_toBottomOf="@+id/inv_tv_madonhang"
+            app:layout_constraintStart_toEndOf="@+id/inv_tv_madonhang"
+            app:layout_constraintTop_toTopOf="@+id/inv_tv_madonhang" />
 
         <ImageView
             android:id="@+id/imageView6"
@@ -201,7 +201,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.503"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ord_tv_madonhang_id"
+            app:layout_constraintTop_toBottomOf="@+id/inv_tv_madonhang_id"
             app:srcCompat="@drawable/line" />
 
         <ImageView
@@ -209,12 +209,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView6"
+            app:layout_constraintTop_toBottomOf="@+id/inv_tv_time"
             app:srcCompat="@drawable/xacnhan" />
+
+        <TextView
+            android:id="@+id/inv_tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="TextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView6" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
