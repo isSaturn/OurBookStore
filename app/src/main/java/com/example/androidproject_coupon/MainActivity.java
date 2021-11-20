@@ -97,9 +97,8 @@ public class MainActivity extends AppCompatActivity {
         }
         else if(item.getItemId() == R.id.mnuLogout || item.getItemId() == R.id.mnuLogout_admin){
             Toast.makeText(getApplicationContext(), "Bạn đã đăng xuất", Toast.LENGTH_LONG).show();
-            check = 0;
-            role = 0;
-            startActivity(new Intent(MainActivity.this,Login.class));
+            idAndRole.id = 0;
+            startActivity(new Intent(MainActivity.this,MainActivity.class));
         }
         else if(item.getItemId()==R.id.mnuLogin){
             startActivity(new Intent(MainActivity.this,Login.class));
