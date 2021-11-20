@@ -34,9 +34,19 @@ public class CouponAdapter extends ArrayAdapter<Coupon> {
         ImageView imageView = convertView.findViewById(R.id.img_image);
         TextView txtName = convertView.findViewById(R.id.Cp_tv_Name);
         TextView txtValue = convertView.findViewById(R.id.Cp_tv_Value);
+        TextView txtDateStart = convertView.findViewById(R.id.Cp_tv_DateStart);
+        TextView txtDateEnd = convertView.findViewById(R.id.Cp_tv_DateEnd);
         imageView.setImageResource(getItem(position).getImgUrl());
         txtName.setText(getItem(position).getName());
-        txtValue.setText("Giá trị: "+getItem(position).getValue().toString());
+        txtDateStart.setText(getItem(position).geteStart());
+        txtDateEnd.setText(getItem(position).geteEnd());
+        if(getItem(position).getIdType() == 2){
+            txtValue.setText("Giá trị: "+getItem(position).getValue().toString() + "%");
+        }
+        else{
+            txtValue.setText("Giá trị: "+getItem(position).getValue().toString() + " VNĐ");
+        }
+
         return convertView;
     }
 }

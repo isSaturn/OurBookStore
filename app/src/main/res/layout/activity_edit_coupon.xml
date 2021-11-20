@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".AddCoupon">
+        tools:context=".CouponManagement.AddCoupon">
 
 
         <EditText
@@ -47,7 +47,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.115"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editCp_et_Minimum" />
+            app:layout_constraintTop_toBottomOf="@+id/editCp_et_ValueCondition" />
 
         <TextView
             android:id="@+id/textView9"
@@ -142,7 +142,7 @@
             tools:ignore="TouchTargetSizeCheck" />
 
         <EditText
-            android:id="@+id/editCp_et_Minimum"
+            android:id="@+id/editCp_et_ValueCondition"
             android:layout_width="329dp"
             android:layout_height="55dp"
             android:layout_marginTop="4dp"
@@ -267,8 +267,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:inputType="none"
-                android:text="Giảm theo số tiền"
-                tools:ignore="TouchTargetSizeCheck,DuplicateClickableBoundsCheck"
+                android:text=""
+                tools:ignore="TouchTargetSizeCheck,DuplicateClickableBoundsCheck,SpeakableTextPresentCheck"
                 tools:layout_editor_absoluteX="33dp"
                 tools:layout_editor_absoluteY="334dp" />
 
@@ -291,11 +291,11 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:inputType="none"
-                android:text="Giá trị đơn hàng từ"
-                tools:ignore="TouchTargetSizeCheck"
+                android:text=""
+                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck"
                 tools:layout_editor_absoluteX="33dp"
                 tools:layout_editor_absoluteY="619dp"
-                tools:text="Giá trị đơn hàng từ" />
+                tools:text="" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

@@ -1,7 +1,5 @@
-package com.example.androidproject_coupon.OrderManagement;
+package com.example.androidproject_coupon.InvoiceManagement;
 
-import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -17,9 +15,9 @@ import com.example.androidproject_coupon.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderInformation extends AppCompatActivity {
+public class InvoiceInformation extends AppCompatActivity {
     private RecyclerView rcvInvoiceitem;
-    private OrderBookAdapter orderBookAdapter;
+    private InvoiceBookAdapter invoiceBookAdapter;
     Button btnDathang;
     CheckBox cbThanhtoan;
 
@@ -32,7 +30,7 @@ public class OrderInformation extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         matching();
-        Intent intent = new Intent(this, ViewOrderInformation.class);
+        Intent intent = new Intent(this, ViewInvoiceInformation.class);
 
         btnDathang.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,19 +42,19 @@ public class OrderInformation extends AppCompatActivity {
         cbThanhtoan.setChecked(true);
 
         rcvInvoiceitem = findViewById(R.id.ord_invoice_recycler_item);
-        orderBookAdapter = new OrderBookAdapter(this);
+        invoiceBookAdapter = new InvoiceBookAdapter(this);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,RecyclerView.VERTICAL,false);
         rcvInvoiceitem.setLayoutManager(linearLayoutManager);
 
-        orderBookAdapter.setData(getListBook());
-        rcvInvoiceitem.setAdapter(orderBookAdapter);
+        invoiceBookAdapter.setData(getListBook());
+        rcvInvoiceitem.setAdapter(invoiceBookAdapter);
     }
 
 
-    private List<OrderBook> getListBook() {
-        List<OrderBook> list = new ArrayList<>();
-        list.add(new OrderBook(R.drawable.sach,"Book Name"));
+    private List<InvoiceBook> getListBook() {
+        List<InvoiceBook> list = new ArrayList<>();
+        list.add(new InvoiceBook(R.drawable.sach,"Book Name"));
 
         return list;
     }

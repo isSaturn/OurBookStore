@@ -11,6 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidProject_Coupon">
         <activity
+            android:name=".activity_oderdetails"
+            android:exported="false" />
+        <activity
             android:name=".AccountManagement.RegisterAccount"
             android:exported="true" />
         <activity
@@ -26,8 +29,14 @@
             android:name=".EditCoupon"
             android:exported="true" />
         <activity
-            android:name=".AddCoupon"
+            android:name=".CouponManagement.AddCoupon"
             android:exported="true" />
+        <activity
+            android:name=".InvoiceManagement.ViewInvoiceInformation"
+            android:exported="true"/>
+        <activity
+            android:name=".InvoiceManagement.InvoiceInformation"
+            android:exported="true"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -39,13 +48,7 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".OrderManagement.OrderInformation"
-            android:exported="true"/>
 
-        <activity
-            android:name=".OrderManagement.ViewOrderInformation"
-            android:exported="true"/>
 
     </application>
 

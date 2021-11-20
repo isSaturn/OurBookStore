@@ -1,4 +1,4 @@
-package com.example.androidproject_coupon.CouponManagement.CpType;
+package com.example.androidproject_coupon.CouponManagement.Coupon;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -11,17 +11,16 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
 
-public class DatabaseHelper_CpType extends SQLiteOpenHelper {
+public class DatabaseHelper_Cp extends SQLiteOpenHelper {
     public static String DBNAME = "database";
-    public static String TABLE = "LoaiKhuyenMai";
+    public static String TABLE = "KhuyenMai";
     public static String DBPATH;
     public static final String DBLOCATION = "/data/data/com.example.androidproject_coupon/databases/";
     private Context mContext;
     private static final int DATABASE_VERSION = 1;
     private SQLiteDatabase mDatabase;
-    public DatabaseHelper_CpType(Context context){
+    public DatabaseHelper_Cp(Context context){
         super(context,DBNAME, null, DATABASE_VERSION);
         this.mContext = context;
         this.DBPATH = mContext.getDatabasePath(DBNAME).getAbsolutePath();
@@ -89,7 +88,7 @@ public class DatabaseHelper_CpType extends SQLiteOpenHelper {
         }
     }
 
-    public Cursor getCpTypes() {
+    public Cursor getCps() {
         SQLiteDatabase database = this.getReadableDatabase();
         String sql = "select * from " + TABLE;
         Cursor contro = null;
@@ -98,7 +97,6 @@ public class DatabaseHelper_CpType extends SQLiteOpenHelper {
         } catch (Exception e) {
             Log.d("Loi db", e.toString());
         }
-
         return contro;
     }
 }
