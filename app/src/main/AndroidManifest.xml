@@ -11,6 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidProject_Coupon">
         <activity
+            android:name=".activity_oderdetails"
+            android:exported="false" />
+        <activity
             android:name=".AccountManagement.RegisterAccount"
             android:exported="true" />
         <activity
