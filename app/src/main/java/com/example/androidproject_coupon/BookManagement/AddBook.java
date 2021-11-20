@@ -1,11 +1,13 @@
 package com.example.androidproject_coupon.BookManagement;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.ArrayMap;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,9 +19,16 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.androidproject_coupon.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class AddBook extends AppCompatActivity {
 
@@ -27,6 +36,7 @@ public class AddBook extends AppCompatActivity {
     Button ChonAnh, ThemSach;
     EditText MaSach, TenSach, GiaTien, Mota, TacGia;
     ImageView AnhSach, Back;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -37,27 +47,42 @@ public class AddBook extends AppCompatActivity {
 
         matching();
 
-        BookCategory category = new BookCategory(this);
-        try {
-            category.createDataBase();
-            Log.d("Thanh cong", "Da tao duoc db");
-        }catch (IOException e){
-            Log.d("Bi loi roi", "khong tao duoc db");
-        }
+//        BookCategory category = new BookCategory(this);
+//        try {
+//            category.createDataBase();
+//            Log.d("Thanh cong", "Da tao duoc db");
+//        }catch (IOException e){
+//            Log.d("Bi loi roi", "khong tao duoc db");
+//        }
+//
+//        Cursor contro = category.laytheloai();
+//        contro.moveToFirst();
 
-        Cursor contro = category.laytheloai();
-        contro.moveToFirst();
-
+//        do {
+//            ID.add(Integer.parseUnsignedInt(contro.getString(0)));
+//            arrayList.add(contro.getString(1));
+//        }while (contro.moveToNext());
         ArrayList<Integer> ID = new ArrayList<Integer>();
         ArrayList<String> arrayList = new ArrayList<String>();
-
-        do {
-            ID.add(Integer.parseUnsignedInt(contro.getString(0)));
-            arrayList.add(contro.getString(1));
-        }while (contro.moveToNext());
-
         ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item,arrayList);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        DatabaseReference nhomSach = database.getReference("NhomSach");
+        nhomSach.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot chilSnapshot:dataSnapshot.getChildren()){
+                    ID.add(Integer.parseUnsignedInt(chilSnapshot.getKey()));
+                    arrayList.add(chilSnapshot.child("Loai_Sach").getValue(String.class));
+                }
+                arrayAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         spinnerTheLoai.setAdapter(arrayAdapter);
 
         spinnerTheLoai.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
