@@ -1,5 +1,6 @@
 package com.example.androidproject_coupon;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -11,6 +12,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ListView;
+
+import com.example.androidproject_coupon.OrderManagement.Oder;
+import com.example.androidproject_coupon.OrderManagement.Oder_adapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,6 +26,10 @@ import android.widget.AdapterView;
  * create an instance of this fragment.
  */
 public class OrderFragment extends Fragment {
+    ListView listView;
+    ArrayList<Oder> dataList = new ArrayList<>();
+    Oder_adapter oder_adapter;
+    Context context;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -70,6 +82,17 @@ public class OrderFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        listView = view.findViewById(R.id.lv_status_oder);
+        dataList.add(new Oder("04/11/2021 14:00", "211104SACH0001", "Cho xac nhan", "85.000d", "69/68 Dang Thuy Tram"));
+        oder_adapter = new Oder_adapter(getContext(),R.layout.item_oder, dataList);
+        listView.setAdapter(oder_adapter);
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
+                Intent intent = new Intent(getContext(), activity_oderdetails.class);
+                startActivity(intent);
+            }
+        });
     }
 }
