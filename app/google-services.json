@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "198042668954",
+    "project_id": "ourbookstore-e8241",
+    "storage_bucket": "ourbookstore-e8241.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:198042668954:android:e9d3050a2e982fac023423",
+        "android_client_info": {
+          "package_name": "com.example.androidproject_coupon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "198042668954-cb1ulqlmturuhmptqonsmibnc839rs6b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVRB5fsGaE2a2yr8Qx4pBSMxYLUtKWv6k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "198042668954-cb1ulqlmturuhmptqonsmibnc839rs6b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
