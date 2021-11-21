@@ -47,7 +47,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.115"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/addCp_et_Minimum" />
+            app:layout_constraintTop_toBottomOf="@+id/addCp_et_ValueCondition" />
 
         <TextView
             android:id="@+id/textView9"
@@ -142,7 +142,7 @@
             tools:ignore="TouchTargetSizeCheck" />
 
         <EditText
-            android:id="@+id/addCp_et_Minimum"
+            android:id="@+id/addCp_et_ValueCondition"
             android:layout_width="329dp"
             android:layout_height="55dp"
             android:layout_marginTop="4dp"
@@ -322,7 +322,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/addCp_et_DateEnd" />
+            app:layout_constraintTop_toBottomOf="@+id/addCp_et_DateEnd"
+            tools:ignore="TouchTargetSizeCheck" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

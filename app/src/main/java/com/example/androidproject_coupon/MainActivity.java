@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.androidproject_coupon.AccountManagement.Login;
+import com.example.androidproject_coupon.User.MainActivity_User;
 import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity {
@@ -72,12 +73,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.mnuAdmin){
+            startActivity(new Intent(getApplicationContext(),ProductFragment.class));
         }
         else if(item.getItemId() == R.id.mnuLogout){
             Toast.makeText(getApplicationContext(), "Chao mung ban den voi mon \n Chuyen de lap trinh di dong", Toast.LENGTH_LONG).show();
         }
         else if(item.getItemId()==R.id.mnuLogin){
             startActivity(new Intent(MainActivity.this,Login.class));
+        }
+        else if(item.getItemId()==R.id.mnuUser){
+            startActivity(new Intent(getApplicationContext(), MainActivity_User.class));
         }
         return super.onOptionsItemSelected(item);
     }
