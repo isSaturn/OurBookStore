@@ -25,6 +25,11 @@ import com.example.androidproject_coupon.CouponManagement.Coupon.Coupon;
 import com.example.androidproject_coupon.CouponManagement.Coupon.DatabaseHelper_Cp;
 import com.example.androidproject_coupon.CouponManagement.CouponAdapter;
 import com.example.androidproject_coupon.CouponManagement.CpCondition.DatabaseHelper_CpCondition;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -94,13 +99,38 @@ public class CouponFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        Button add = view.findViewById(R.id.Cp_btn_Add);
-//        add.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getContext(), AddCoupon.class);
-//                startActivity(intent);
-//            }
-//        });
+        Button add = view.findViewById(R.id.Cp_btn_Add);
+        add.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), AddCoupon.class);
+                startActivity(intent);
+            }
+        });
+        String TAG="FIREBASE";
+        FirebaseDatabase database = FirebaseDatabase.getInstance("https://ourbookstore-e8241-default-rtdb.firebaseio.com/");
+        DatabaseReference myRef = database.getReference("KhuyenMai");
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot data: snapshot.getChildren()){
+                    String id = data.getKey().toString();
+                    String code = data.child("Ma_Khuyen_Mai").getValue().toString();
+                    String name = data.child("Ten_Khuyen_Mai").getValue().toString();
+                    String value = data.child("Gia_Giam").getValue().toString();
+                    String valueCondition = data.child("Gia_Ap_Dung").getValue().toString();
+                    String idType = data.child("ID_Loai_Khuyen_Mai").getValue().toString();
+                    String idCondition = data.child("ID_Loai_Ap_Dung").getValue().toString();
+                    String eStart = data.child("Time_Start").getValue().toString();
+                    String eEnd = data.child("Time_End").getValue().toString();
+
+                    
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
 //
 //        DatabaseHelper_Cp mDBHELPERCOUPON = new DatabaseHelper_Cp(getContext());
 //        try {
