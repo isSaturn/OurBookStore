@@ -1,9 +1,13 @@
 package com.example.androidproject_coupon.CouponManagement;
 
+import static android.content.ContentValues.TAG;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,13 +26,20 @@ import android.widget.Toast;
 import com.example.androidproject_coupon.CouponFragment;
 import com.example.androidproject_coupon.CouponManagement.Coupon.DatabaseHelper_Cp;
 import com.example.androidproject_coupon.CouponManagement.CpCondition.DatabaseHelper_CpCondition;
+import com.example.androidproject_coupon.CouponManagement.CpType.CouponType;
 import com.example.androidproject_coupon.CouponManagement.CpType.DatabaseHelper_CpType;
 import com.example.androidproject_coupon.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Locale;
 
 public class AddCoupon extends AppCompatActivity {
@@ -42,12 +53,9 @@ public class AddCoupon extends AppCompatActivity {
     ArrayList<String> arrayListCondition = new ArrayList<>();
     ArrayList<Integer> idType = new ArrayList<>();
     ArrayList<Integer> idCondition = new ArrayList<>();
-    DatabaseHelper_CpType mDBHELPERTYPE;
-    DatabaseHelper_CpCondition mDBHELPERCONDITION;
-    DatabaseHelper_Cp mDBHELPERCOUPON;
-    Cursor cursorType, cursorCondition, cursor;
     Button addBtn;
     String selectedType, selectedCondition;
+    String TAG="FIREBASE";
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,57 +63,59 @@ public class AddCoupon extends AppCompatActivity {
         setContentView(R.layout.activity_add_coupon);
         matching();
 
-        //Loai khuyen mai
-        mDBHELPERTYPE = new DatabaseHelper_CpType(this);
-        try {
-            mDBHELPERTYPE.createDataBase();
-            Log.d("Thanh cong", "Da tao duoc db");
-        }catch (IOException e){
-            Log.d("Bi loi roi", "khong tao duoc db");
-        }
-        cursorType = mDBHELPERTYPE.getCpTypes();
-        cursorType.moveToFirst();
-        do {
-            idType.add(Integer.parseUnsignedInt(cursorType.getString(0)));
-            arrayListType.add(cursorType.getString(1));
-        }while (cursorType.moveToNext());
 
-        arrayAdapterType = new ArrayAdapter(this, R.layout.list_type_coupon,arrayListType);
-        autoType = findViewById(R.id.addCp_tv_Type);
+        //Loai khuyen mai
+        arrayAdapterType = new ArrayAdapter<>(this, R.layout.list_type_coupon,arrayListType);
+        FirebaseDatabase database = FirebaseDatabase.getInstance("https://ourbookstore-e8241-default-rtdb.firebaseio.com/");
+        DatabaseReference myRef = database.getReference("LoaiKhuyenMai");
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot data: snapshot.getChildren()){
+                    String value = data.child("Loai_Khuyen_Mai").getValue().toString();
+                    arrayListType.add(value);
+                    idType.add(Integer.parseInt(data.getKey()));
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+
         autoType.setAdapter(arrayAdapterType);
         autoType.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                String item = parent.getItemAtPosition(position).toString();
+                Toast.makeText(getApplicationContext(),"Item: " + arrayListType.get(position), Toast.LENGTH_SHORT).show();
                 selectedType = idType.get(position).toString();
-                Toast.makeText(getApplicationContext(),"Item: " + idType.get(position).toString(), Toast.LENGTH_SHORT).show();
             }
         });
 
         // Loai ap dung
-        mDBHELPERCONDITION = new DatabaseHelper_CpCondition(this);
-        try {
-            mDBHELPERTYPE.createDataBase();
-            Log.d("Thanh cong", "Da tao duoc db");
-        }catch (IOException e){
-            Log.d("Bi loi roi", "khong tao duoc db");
-        }
-        cursorCondition = mDBHELPERCONDITION.getCpConditions();
-        cursorCondition.moveToFirst();
-        do {
-            idCondition.add(Integer.parseUnsignedInt(cursorCondition.getString(0)));
-            arrayListCondition.add(cursorCondition.getString(1));
-        }while (cursorCondition.moveToNext());
-
         arrayAdapterCondition = new ArrayAdapter(this, R.layout.list_type_coupon,arrayListCondition);
-        autoCondition = findViewById(R.id.addCp_tv_Condition);
+        DatabaseReference myRefCondition = database.getReference("LoaiApDung");
+        myRefCondition.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot data: snapshot.getChildren()){
+                    String value = data.child("Loai_Ap_Dung").getValue().toString();
+                    arrayListCondition.add(value);
+                    idCondition.add(Integer.parseInt(data.getKey()));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
         autoCondition.setAdapter(arrayAdapterCondition);
         autoCondition.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                String item = parent.getItemAtPosition(position).toString();
+                Toast.makeText(getApplicationContext(),"Item: " + arrayListCondition.get(position), Toast.LENGTH_SHORT).show();
                 selectedCondition = idCondition.get(position).toString();
-                Toast.makeText(getApplicationContext(),"Item: " + idCondition.get(position).toString(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -164,29 +174,31 @@ public class AddCoupon extends AppCompatActivity {
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CouponFragment cpFragment = new CouponFragment();
-//                Integer count = cpFragment.countItem;
-//                cursor = mDBHELPERCOUPON.getCps();
-//                cursor.moveToFirst();
-//                Integer count = 0;
-//                do {
-//                    count +=1;
-//                }while (cursor.moveToNext());
-//                Integer id = dob.getText().toString();
-                String codeTxt = cpCode.getText().toString();
-                String nameTxt = cpName.getText().toString();
-                String eStart = dateStart.getText().toString();
-                String eEnd = dateEnd.getText().toString();
-                Integer value = Integer.parseInt(cpValue.getText().toString());
-                Integer valueCondition = Integer.parseInt(cpValueCondition.getText().toString());
-                Integer idCondition = Integer.parseInt(selectedCondition);
-                Integer idType = Integer.parseInt(selectedType);
-
-//                Boolean checkinsertdata = mDBHELPERCOUPON.insertCpData(nameTXT, contactTXT, dobTXT);
-//                if(checkinsertdata==true)
-//                    Toast.makeText(getApplicationContext(), "New Entry Inserted", Toast.LENGTH_SHORT).show();
-//                else
-//                    Toast.makeText(getApplicationContext(), "New Entry Not Inserted", Toast.LENGTH_SHORT).show();
+                try {
+                    DatabaseReference addCpRef = database.getReference("KhuyenMai");
+                    String codeTxt = cpCode.getText().toString();
+                    String nameTxt = cpName.getText().toString();
+                    String eStart = dateStart.getText().toString();
+                    String eEnd = dateEnd.getText().toString();
+                    Integer value = Integer.parseInt(cpValue.getText().toString());
+                    Integer valueCondition = Integer.parseInt(cpValueCondition.getText().toString());
+                    Integer idCondition = Integer.parseInt(selectedCondition);
+                    Integer idType = Integer.parseInt(selectedType);
+                    addCpRef.child(codeTxt).child("Ma_Khuyen_Mai").setValue(codeTxt);
+                    addCpRef.child(codeTxt).child("Ten_Khuyen_Mai").setValue(nameTxt);
+                    addCpRef.child(codeTxt).child("Time_End").setValue(eStart);
+                    addCpRef.child(codeTxt).child("Time_Start").setValue(eEnd);
+                    addCpRef.child(codeTxt).child("Gia_Ap_Dung").setValue(valueCondition);
+                    addCpRef.child(codeTxt).child("Gia_Giam").setValue(value);
+                    addCpRef.child(codeTxt).child("ID_Loai_Ap_Dung").setValue(idCondition);
+                    addCpRef.child(codeTxt).child("ID_Loai_Khuyen_Mai").setValue(idType);
+                    Toast.makeText(getApplicationContext(),"Them lien ket thanh cong", Toast.LENGTH_LONG).show();
+                    finish();
+                }
+                catch (Exception ex)
+                {
+                    Toast.makeText(getApplicationContext(),"Error:"+ex.toString(),Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
@@ -201,5 +213,7 @@ public class AddCoupon extends AppCompatActivity {
         cpType = findViewById(R.id.addCp_tv_Type);
         arrowReturn = findViewById(R.id.addCp_img_Return);
         addBtn = findViewById(R.id.addCp_btn_Add);
+        autoCondition = findViewById(R.id.addCp_tv_Condition);
+        autoType = findViewById(R.id.addCp_tv_Type);
     }
 }
