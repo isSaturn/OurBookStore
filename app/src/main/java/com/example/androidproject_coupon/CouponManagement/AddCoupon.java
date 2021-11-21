@@ -165,7 +165,7 @@ public class AddCoupon extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 CouponFragment cpFragment = new CouponFragment();
-                Integer count = cpFragment.countItem;
+//                Integer count = cpFragment.countItem;
 //                cursor = mDBHELPERCOUPON.getCps();
 //                cursor.moveToFirst();
 //                Integer count = 0;
