@@ -33,7 +33,6 @@
         <entry key="..\:/Android course/project/OurBookStore/app/src/main/res/layout/fragment_blank.xml" value="0.21927083333333333" />
         <entry key="..\:/Android course/project/OurBookStore/app/src/main/res/layout/fragment_coupon.xml" value="0.21927083333333333" />
         <entry key="..\:/Android course/project/OurBookStore/app/src/main/res/layout/list_type_coupon.xml" value="0.21927083333333333" />
-        <entry key="..\:/Android course/project/OurBookStore/app/src/main/res/menu/main_menu.xml" value="0.21927083333333333" />
         <entry key="..\:/Phu/Android/OurBookStore/app/src/main/res/drawable-xhdpi/custom_button_edit.xml" value="0.10885416666666667" />
         <entry key="..\:/Phu/Android/OurBookStore/app/src/main/res/drawable-xhdpi/custom_button_sach_delete.xml" value="0.10885416666666667" />
         <entry key="..\:/Phu/Android/OurBookStore/app/src/main/res/drawable/custom_button_add_Sach.xml" value="0.2203125" />
@@ -55,6 +54,8 @@
         <entry key="..\:/Phu/Android/OurBookStore/app/src/main/res/layout/fragment_coupon.xml" value="0.20416666666666666" />
         <entry key="..\:/Phu/Android/OurBookStore/app/src/main/res/layout/fragment_product.xml" value="0.292259083728278" />
         <entry key="..\:/Phu/Android/OurBookStore/app/src/main/res/layout/ord_infomation.xml" value="0.1" />
+        <entry key="..\:/Learn/moblie/OurBookStore/app/src/main/res/layout/inv_infomation.xml" value="0.33" />
+        <entry key="..\:/Learn/moblie/OurBookStore/app/src/main/res/layout/ord_information_view.xml" value="0.33" />
         <entry key="..\:/Phu/Android/OurBookStore/app/src/main/res/layout/sach.xml" value="0.25" />
       </map>
     </option>

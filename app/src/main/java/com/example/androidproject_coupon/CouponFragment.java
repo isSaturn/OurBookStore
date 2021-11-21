@@ -103,41 +103,41 @@ public class CouponFragment extends Fragment {
             }
         });
 
-//        DatabaseHelper_Cp mDBHELPERCOUPON = new DatabaseHelper_Cp(getContext());
-//        try {
-//            mDBHELPERCOUPON.createDataBase();
-//            Log.d("Thanh cong", "Da tao duoc db");
-//        }catch (IOException e){
-//            Log.d("Bi loi roi", "khong tao duoc db");
-//        }
-//        Cursor cursor = mDBHELPERCOUPON.getCps();
-//        cursor.moveToFirst();
+        DatabaseHelper_Cp mDBHELPERCOUPON = new DatabaseHelper_Cp(getContext());
+        try {
+            mDBHELPERCOUPON.createDataBase();
+            Log.d("Thanh cong", "Da tao duoc db");
+        }catch (IOException e){
+            Log.d("Bi loi roi", "khong tao duoc db");
+        }
+        Cursor cursor = mDBHELPERCOUPON.getCps();
+        cursor.moveToFirst();
 //
         ListView listView = view.findViewById(R.id.list_view);
-//        ArrayList<Coupon> couponList = new ArrayList<>();
-//        do {
-//            couponList.add(new Coupon(Integer.parseUnsignedInt(cursor.getString(0)),cursor.getString(1),cursor.getString(2)
-//                    , cursor.getString(3),cursor.getString(4), Integer.parseUnsignedInt(cursor.getString(5))
-//                    , Integer.parseUnsignedInt(cursor.getString(6)), Integer.parseUnsignedInt(cursor.getString(7))
-//                    , Integer.parseUnsignedInt(cursor.getString(8)), R.drawable.coupon_icon));
-//            countItem += 1;
-//        }while (cursor.moveToNext());
-//        CouponAdapter couponAdapter = new CouponAdapter(getContext(), R.layout.adapter_view_layout_coupon, couponList);
-//        listView.setAdapter(couponAdapter);
+        ArrayList<Coupon> couponList = new ArrayList<>();
+        do {
+            couponList.add(new Coupon(Integer.parseUnsignedInt(cursor.getString(0)),cursor.getString(1),cursor.getString(2)
+                    , cursor.getString(3),cursor.getString(4), Integer.parseUnsignedInt(cursor.getString(5))
+                    , Integer.parseUnsignedInt(cursor.getString(6)), Integer.parseUnsignedInt(cursor.getString(7))
+                    , Integer.parseUnsignedInt(cursor.getString(8)), R.drawable.coupon_icon));
+            countItem += 1;
+        }while (cursor.moveToNext());
+        CouponAdapter couponAdapter = new CouponAdapter(getContext(), R.layout.adapter_view_layout_coupon, couponList);
+        listView.setAdapter(couponAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                Intent intent = new Intent ( getContext(), EditCoupon.class);
-//                intent.putExtra("id", couponList.get(i).getId());
-//                intent.putExtra( "code", couponList.get(i).getCode());
-//                intent.putExtra( "name", couponList.get(i).getName());
-//                intent.putExtra( "value", couponList.get(i).getValue().toString());
-//                intent.putExtra( "valueCondition", couponList.get(i).getValueCondition().toString());
-//                intent.putExtra( "eStart", couponList.get(i).geteStart());
-//                intent.putExtra( "eEnd", couponList.get(i).geteEnd());
-//                intent.putExtra( "idType", couponList.get(i).getIdType());
-//                intent.putExtra( "idCondition", couponList.get(i).getIdCondition());
-//                startActivity(intent);
+                Intent intent = new Intent ( getContext(), EditCoupon.class);
+                intent.putExtra("id", couponList.get(i).getId());
+                intent.putExtra( "code", couponList.get(i).getCode());
+                intent.putExtra( "name", couponList.get(i).getName());
+                intent.putExtra( "value", couponList.get(i).getValue().toString());
+                intent.putExtra( "valueCondition", couponList.get(i).getValueCondition().toString());
+                intent.putExtra( "eStart", couponList.get(i).geteStart());
+                intent.putExtra( "eEnd", couponList.get(i).geteEnd());
+                intent.putExtra( "idType", couponList.get(i).getIdType());
+                intent.putExtra( "idCondition", couponList.get(i).getIdCondition());
+                startActivity(intent);
             }
         });
     }

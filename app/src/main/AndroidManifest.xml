@@ -23,12 +23,14 @@
         <activity
             android:name=".BookManagement.EditAndDeleteBook"
             android:exported="true" />
+
         <activity
             android:name=".BookManagement.AddBook"
             android:exported="true" />
         <activity
             android:name=".EditCoupon"
             android:exported="true" />
+
         <activity
             android:name=".CouponManagement.AddCoupon"
             android:exported="true" />
@@ -47,10 +49,6 @@
         <activity
             android:name=".OrderManagement.ViewOrderInformation"
             android:exported="true" />
-        <activity
-            android:name=".User.MainActivity_User"
-            android:exported="true"
-            tools:ignore="DuplicateActivity" />
     </application>
 
 </manifest>
