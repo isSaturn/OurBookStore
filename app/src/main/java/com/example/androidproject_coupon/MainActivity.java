@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
             menuInflater.inflate(R.menu.main_menu,menu);
         }else {
             if (role == 1){
-                menuInflater.inflate(R.menu.menu_logout_admin_inuser,menu);
+                menuInflater.inflate(R.menu.menu_logout_admin_inadmin,menu);
             }else{
                 menuInflater.inflate(R.menu.menu_logout,menu);
             }
