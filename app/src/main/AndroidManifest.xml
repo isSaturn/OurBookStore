@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.androidproject_coupon">
 
     <application
@@ -12,8 +11,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidProject_Coupon">
         <activity
-            android:name=".User.MainActivity_User"
-            android:exported="true" />
+            android:name=".activity_oderdetails"
+            android:exported="false" />
         <activity
             android:name=".AccountManagement.RegisterAccount"
             android:exported="true" />
@@ -23,17 +22,21 @@
         <activity
             android:name=".BookManagement.EditAndDeleteBook"
             android:exported="true" />
-
         <activity
             android:name=".BookManagement.AddBook"
             android:exported="true" />
         <activity
             android:name=".EditCoupon"
             android:exported="true" />
-
         <activity
             android:name=".CouponManagement.AddCoupon"
             android:exported="true" />
+        <activity
+            android:name=".InvoiceManagement.ViewInvoiceInformation"
+            android:exported="true"/>
+        <activity
+            android:name=".InvoiceManagement.InvoiceInformation"
+            android:exported="true"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -41,14 +44,12 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+
             </intent-filter>
         </activity>
-        <activity
-            android:name=".OrderManagement.OrderInformation"
-            android:exported="true" />
-        <activity
-            android:name=".OrderManagement.ViewOrderInformation"
-            android:exported="true" />
+
+
+
     </application>
 
 </manifest>
