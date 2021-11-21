@@ -66,7 +66,7 @@ public class Login extends AppCompatActivity {
                         Integer id_account = Integer.parseUnsignedInt(cursor.getString(0));
                         Integer id_role = Integer.parseUnsignedInt(cursor.getString(3));
                         Toast.makeText(Login.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(Login.this, MainActivity.class);
+                        Intent intent = new Intent(Login.this, MainActivity_User.class);
 
                         idAndRole.id = id_account;
                         idAndRole.role = id_role;
