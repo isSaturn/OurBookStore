@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
             menuInflater.inflate(R.menu.main_menu,menu);
         }else {
             if (role == 1){
-                menuInflater.inflate(R.menu.menu_logout_admin,menu);
+                menuInflater.inflate(R.menu.menu_logout_admin_inuser,menu);
             }else{
                 menuInflater.inflate(R.menu.menu_logout,menu);
             }
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         if(item.getItemId() == R.id.mnuAdmin){
             startActivity(new Intent(MainActivity.this, RegisterAccount.class));
         }
-        else if(item.getItemId() == R.id.mnuLogout || item.getItemId() == R.id.mnuLogout_admin){
+        else if(item.getItemId() == R.id.mnuLogout || item.getItemId() == R.id.mnuLogout_admin_inadmin){
             Toast.makeText(getApplicationContext(), "Bạn đã đăng xuất", Toast.LENGTH_LONG).show();
             idAndRole.id = 0;
             startActivity(new Intent(MainActivity.this,MainActivity.class));
