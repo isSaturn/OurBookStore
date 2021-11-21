@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.androidproject_coupon.MainActivity;
 import com.example.androidproject_coupon.R;
+import com.example.androidproject_coupon.User.MainActivity_User;
 
 import java.io.IOException;
 
