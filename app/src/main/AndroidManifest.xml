@@ -16,6 +16,8 @@
         <activity
             android:name=".AccountManagement.RegisterAccount"
             android:exported="true" />
+        <activity android:name=".User.MainActivity_User"
+            android:exported="true"/>
         <activity
             android:name=".AccountManagement.Login"
             android:exported="true" />

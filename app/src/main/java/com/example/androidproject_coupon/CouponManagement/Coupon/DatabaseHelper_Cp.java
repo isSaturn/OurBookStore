@@ -1,5 +1,6 @@
 package com.example.androidproject_coupon.CouponManagement.Coupon;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -26,14 +27,16 @@ public class DatabaseHelper_Cp extends SQLiteOpenHelper {
         this.DBPATH = mContext.getDatabasePath(DBNAME).getAbsolutePath();
     }
 
-    public void onCreate(SQLiteDatabase sqLiteDatabase){
-
+    public void onCreate(SQLiteDatabase DB){
+        DB.execSQL("create Table KhuyenMai(IDKhuyenMai INTEGER primary key, MaKhuyenMai TEXT, TenKhuyenMai TEXT,TimeStart DATE, TimeEnd DATE, GiaGiam INTEGER, GiaApDung INTEGER, IDLoaiApDung INTEGER, IDLoaiKhuyenMai INTEGER)");
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
-        if(newVersion>oldVersion)
-            copyDataBase();
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+//        if(newVersion>oldVersion)
+//            copyDataBase();
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE);
+        onCreate(db);
     }
 
     @Override
@@ -89,7 +92,7 @@ public class DatabaseHelper_Cp extends SQLiteOpenHelper {
     }
 
     public Cursor getCps() {
-        SQLiteDatabase database = this.getReadableDatabase();
+        SQLiteDatabase database = this.getWritableDatabase();
         String sql = "select * from " + TABLE;
         Cursor contro = null;
         try {
@@ -98,5 +101,53 @@ public class DatabaseHelper_Cp extends SQLiteOpenHelper {
             Log.d("Loi db", e.toString());
         }
         return contro;
+    }
+    public Boolean insertCpData(Integer id, String code, String name, String eStart, String eEnd, Integer value, Integer valueCondition, Integer idCondition, Integer idType)
+    {
+
+        SQLiteDatabase DB = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("IDKhuyenMai", id);
+        contentValues.put("MaKhuyenMai", code);
+        contentValues.put("TenKhuyenMai", name);
+        contentValues.put("TimeStart", eStart);
+        contentValues.put("TimeEnd", eEnd);
+        contentValues.put("GiaGiam", value);
+        contentValues.put("GiaApDung", valueCondition);
+        contentValues.put("IDLoaiApDung", idCondition);
+        contentValues.put("IDLoaiKhuyenMai", idType);
+        long result=DB.insert(TABLE, null, contentValues);
+        if(result==-1){
+            return false;
+        }else{
+            return true;
+        }
+    }
+    public Boolean updateCpData(Integer id, String code, String name, String eStart, String eEnd, Integer value, Integer valueCondition, Integer idCondition, Integer idType) {
+        SQLiteDatabase DB = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("ID_Khuyen_Mai", id);
+        contentValues.put("Ma_Khuyen_Mai", code);
+        contentValues.put("Ten_Khuyen_Mai", name);
+        contentValues.put("Time_Start", eStart);
+        contentValues.put("Time_End", eEnd);
+        contentValues.put("Gia_Giam", value);
+        contentValues.put("Gia_Ap_Dung", valueCondition);
+        contentValues.put("ID_Loai_Ap_Dung", idCondition);
+        contentValues.put("ID_Loai_Khuyen_Mai", idType);
+        Cursor cursor = DB.rawQuery("select * from KhuyenMai where ID_Khuyen_Mai = ?", new String[]{String.valueOf(id)});
+        if (cursor.getCount() > 0) {
+            long result = DB.update(TABLE, contentValues, "ID_Khuyen_Mai=?", new String[]{String.valueOf(id)});
+            DB.close();
+            if (result == -1) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+        else {
+        return false;
+        }
+
     }
 }

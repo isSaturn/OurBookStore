@@ -4,7 +4,6 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,22 +12,20 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.androidproject_coupon.BookManagement.BookCategory;
+import com.example.androidproject_coupon.CouponFragment;
+import com.example.androidproject_coupon.CouponManagement.Coupon.DatabaseHelper_Cp;
 import com.example.androidproject_coupon.CouponManagement.CpCondition.DatabaseHelper_CpCondition;
 import com.example.androidproject_coupon.CouponManagement.CpType.DatabaseHelper_CpType;
 import com.example.androidproject_coupon.R;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -37,7 +34,7 @@ import java.util.Locale;
 public class AddCoupon extends AppCompatActivity {
     AutoCompleteTextView autoType, autoCondition;
     ArrayAdapter<String> arrayAdapterType, arrayAdapterCondition;
-    EditText dateStart, dateEnd, cpCode, cpName, cpValue, cpMinimum ;
+    EditText dateStart, dateEnd, cpCode, cpName, cpValue, cpValueCondition ;
     TextView cpType, cpCondition;
     Calendar calendar;
     ImageView arrowReturn;
@@ -47,7 +44,10 @@ public class AddCoupon extends AppCompatActivity {
     ArrayList<Integer> idCondition = new ArrayList<>();
     DatabaseHelper_CpType mDBHELPERTYPE;
     DatabaseHelper_CpCondition mDBHELPERCONDITION;
-    Cursor cursorType, cursorCondition;
+    DatabaseHelper_Cp mDBHELPERCOUPON;
+    Cursor cursorType, cursorCondition, cursor;
+    Button addBtn;
+    String selectedType, selectedCondition;
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +77,7 @@ public class AddCoupon extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 //                String item = parent.getItemAtPosition(position).toString();
+                selectedType = idType.get(position).toString();
                 Toast.makeText(getApplicationContext(),"Item: " + idType.get(position).toString(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -103,6 +104,7 @@ public class AddCoupon extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 //                String item = parent.getItemAtPosition(position).toString();
+                selectedCondition = idCondition.get(position).toString();
                 Toast.makeText(getApplicationContext(),"Item: " + idCondition.get(position).toString(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -158,6 +160,35 @@ public class AddCoupon extends AppCompatActivity {
                 finish();
             }
         });
+
+        addBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CouponFragment cpFragment = new CouponFragment();
+//                Integer count = cpFragment.countItem;
+//                cursor = mDBHELPERCOUPON.getCps();
+//                cursor.moveToFirst();
+//                Integer count = 0;
+//                do {
+//                    count +=1;
+//                }while (cursor.moveToNext());
+//                Integer id = dob.getText().toString();
+                String codeTxt = cpCode.getText().toString();
+                String nameTxt = cpName.getText().toString();
+                String eStart = dateStart.getText().toString();
+                String eEnd = dateEnd.getText().toString();
+                Integer value = Integer.parseInt(cpValue.getText().toString());
+                Integer valueCondition = Integer.parseInt(cpValueCondition.getText().toString());
+                Integer idCondition = Integer.parseInt(selectedCondition);
+                Integer idType = Integer.parseInt(selectedType);
+
+//                Boolean checkinsertdata = mDBHELPERCOUPON.insertCpData(nameTXT, contactTXT, dobTXT);
+//                if(checkinsertdata==true)
+//                    Toast.makeText(getApplicationContext(), "New Entry Inserted", Toast.LENGTH_SHORT).show();
+//                else
+//                    Toast.makeText(getApplicationContext(), "New Entry Not Inserted", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
     private void matching(){
         dateEnd = findViewById(R.id.addCp_et_DateEnd);
@@ -166,8 +197,9 @@ public class AddCoupon extends AppCompatActivity {
         cpName = findViewById(R.id.addCp_et_Name);
         cpValue = findViewById(R.id.addCp_et_Value);
         cpCondition = findViewById(R.id.addCp_tv_Condition);
-        cpMinimum = findViewById(R.id.addCp_et_Minimum);
+        cpValueCondition = findViewById(R.id.addCp_et_ValueCondition);
         cpType = findViewById(R.id.addCp_tv_Type);
         arrowReturn = findViewById(R.id.addCp_img_Return);
+        addBtn = findViewById(R.id.addCp_btn_Add);
     }
 }

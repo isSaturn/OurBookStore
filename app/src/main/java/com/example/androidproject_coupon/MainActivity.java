@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.example.androidproject_coupon.AccountManagement.GetIDandRole;
 import com.example.androidproject_coupon.AccountManagement.Login;
 import com.example.androidproject_coupon.AccountManagement.RegisterAccount;
+import com.example.androidproject_coupon.User.MainActivity_User;
 import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity {
@@ -103,6 +104,9 @@ public class MainActivity extends AppCompatActivity {
         else if(item.getItemId()==R.id.mnuLogin){
             startActivity(new Intent(MainActivity.this,Login.class));
             //check = 1;
+        }
+        else if(item.getItemId() == R.id.mnuUser){
+            startActivity(new Intent(MainActivity.this, MainActivity_User.class));
         }
         return super.onOptionsItemSelected(item);
     }

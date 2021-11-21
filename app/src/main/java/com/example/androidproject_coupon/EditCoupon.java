@@ -21,19 +21,27 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.androidproject_coupon.CouponManagement.Coupon.Coupon;
+import com.example.androidproject_coupon.CouponManagement.Coupon.DatabaseHelper_Cp;
 import com.example.androidproject_coupon.CouponManagement.CpCondition.DatabaseHelper_CpCondition;
 import com.example.androidproject_coupon.CouponManagement.CpType.DatabaseHelper_CpType;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 public class EditCoupon extends AppCompatActivity {
     AutoCompleteTextView autoType, autoCondition;
     ArrayAdapter<String> arrayAdapterType, arrayAdapterCondition;
-    EditText dateStart, dateEnd, cpCode, cpName, cpValue, cpValueCondition ;
+    EditText dateStart, dateEnd, cpCode,cpName, cpValue, cpValueCondition ;
     TextView cpType, cpCondition;
     Calendar calendar;
     ImageView arrowReturn;
@@ -43,8 +51,10 @@ public class EditCoupon extends AppCompatActivity {
     ArrayList<Integer> idCondition = new ArrayList<>();
     DatabaseHelper_CpType mDBHELPERTYPE;
     DatabaseHelper_CpCondition mDBHELPERCONDITION;
+    DatabaseHelper_Cp mDBHELPERCOUPON;
     Cursor cursorType, cursorCondition;
     Button edit, delete;
+    Integer selectedType, selectedCondition;
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +62,35 @@ public class EditCoupon extends AppCompatActivity {
         setContentView(R.layout.activity_edit_coupon);
 
         matching();
+        Intent intent = getIntent();
+        Integer cpId = intent.getIntExtra("id",1);
+        String cpCodeInput = intent.getStringExtra("code");
+        String cpNameInput= intent.getStringExtra( "name");
+        String cpValueInput = intent.getStringExtra( "value");
+        String cpValueConditionInput = intent.getStringExtra( "valueCondition");
+        String cpEStartInput = intent.getStringExtra( "eStart");
+        String cpEEndInput = intent.getStringExtra( "eEnd");
+//        Date dStart = null;
+//        Date dEnd = null;
+//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+//        try {
+//            dStart = formatter.parse(cpEStartInput);
+//            dEnd = formatter.parse(cpEEndInput);
+//            formatter.applyPattern("yy/MM/dd");
+//            cpEStartInput = formatter.format(dStart);
+//            cpEEndInput = formatter.format(dEnd);
+//
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+        Integer cpIdTypeInput = intent.getIntExtra( "idType",123);
+        Integer cpIdConditionInput = intent.getIntExtra("idCondition", 1);
+        cpCode.setText(cpCodeInput);
+        cpValue.setText(cpValueInput);
+        cpValueCondition.setText(cpValueConditionInput);
+        cpName.setText(cpNameInput);
+        dateStart.setText(cpEStartInput);
+        dateEnd.setText(cpEEndInput);
 
         //Loai khuyen mai
         mDBHELPERTYPE = new DatabaseHelper_CpType(this);
@@ -70,12 +109,30 @@ public class EditCoupon extends AppCompatActivity {
 
         arrayAdapterType = new ArrayAdapter(this, R.layout.list_type_coupon,arrayListType);
         autoType = findViewById(R.id.editCp_tv_Type);
+        switch (cpIdTypeInput){
+            case 1: autoType.setText(arrayListType.get(0));break;
+            case 2: autoType.setText(arrayListType.get(1));break;
+            case 3: {
+                autoType.setText(arrayListType.get(2));
+                cpValue.setEnabled(false);
+            }break;
+        }
         autoType.setAdapter(arrayAdapterType);
         autoType.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                String item = parent.getItemAtPosition(position).toString();
-                Toast.makeText(getApplicationContext(),"Item: " + idType.get(position).toString(), Toast.LENGTH_SHORT).show();
+                selectedType = idType.get(position);
+                Toast.makeText(getApplicationContext(),"Item: " + selectedType, Toast.LENGTH_SHORT).show();
+
+                // Block field khi user chon Mien phi giao hang
+                if(idType.get(position) == 3){
+                    cpValue.setText("25000");
+                    cpValue.setEnabled(false);
+                }
+                else{
+                    cpValue.setText("");
+                    cpValue.setEnabled(true);
+                }
             }
         });
 
@@ -96,12 +153,16 @@ public class EditCoupon extends AppCompatActivity {
 
         arrayAdapterCondition = new ArrayAdapter(this, R.layout.list_type_coupon,arrayListCondition);
         autoCondition = findViewById(R.id.editCp_tv_Condition);
+        if(cpIdConditionInput == 1){
+            autoCondition.setText(arrayListCondition.get(0));
+        }
         autoCondition.setAdapter(arrayAdapterCondition);
+
         autoCondition.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                String item = parent.getItemAtPosition(position).toString();
-                Toast.makeText(getApplicationContext(),"Item: " + idCondition.get(position).toString(), Toast.LENGTH_SHORT).show();
+                selectedCondition = idCondition.get(position);
+                Toast.makeText(getApplicationContext(),"Item: " + selectedCondition, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -115,7 +176,7 @@ public class EditCoupon extends AppCompatActivity {
                 updateCalendar();
             }
             private void updateCalendar() {
-                String Format = "MM/dd/yy";
+                String Format = "yyyy/MM/dd";
                 SimpleDateFormat sdf = new SimpleDateFormat(Format, Locale.US);
                 dateStart.setText(sdf.format(calendar.getTime()));
             }
@@ -129,7 +190,7 @@ public class EditCoupon extends AppCompatActivity {
                 updateCalendar();
             }
             private void updateCalendar() {
-                String Format = "MM/dd/yy";
+                String Format = "yyyy/MM/dd";
                 SimpleDateFormat sdf = new SimpleDateFormat(Format, Locale.US);
                 dateEnd.setText(sdf.format(calendar.getTime()));
             }
@@ -163,23 +224,44 @@ public class EditCoupon extends AppCompatActivity {
             }
         });
 
-        Intent intent = getIntent();
 
-        String cpCodeInput = intent.getStringExtra("code");
-        String cpNameInput= intent.getStringExtra( "name");
-        String cpValueInput = intent.getStringExtra( "value");
-        String cpValueConditionInput = intent.getStringExtra( "valueCondition");
-        String cpEStartInput = intent.getStringExtra( "eStart");
-        String cpEEndInput = intent.getStringExtra( "eEnd");
-        String cpIdTypeInput = intent.getStringExtra( "idType");
-        String cpIdConditionInput = intent.getStringExtra( "idCondition");
-        cpCode.setText(cpCodeInput);
-        cpValue.setText(cpValueInput);
-        cpValueCondition.setText(cpValueConditionInput);
-        cpName.setText(cpNameInput);
-        dateStart.setText(cpEStartInput);
-        dateEnd.setText(cpEEndInput);
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(cpName.getText().toString().trim().length() == 0  || cpValue.getText().toString().trim().length() == 0
+                        || cpCondition.getText().toString().length() == 0 ){
+                    Toast.makeText(getApplicationContext(), "All field must be not empty", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+//                CouponFragment cpFragment = new CouponFragment();
+//                Integer count = cpFragment.countItem;
+////                cursor = mDBHELPERCOUPON.getCps();
+////                cursor.moveToFirst();
+////                Integer count = 0;
+////                do {
+////                    count +=1;
+////                }while (cursor.moveToNext());
+////                Integer id = dob.getText().toString();
+                mDBHELPERCOUPON = new DatabaseHelper_Cp(getApplicationContext());
 
+                String codeTxt = cpCode.getText().toString();
+                String nameTxt = cpName.getText().toString();
+                String eStart = dateStart.getText().toString();
+                String eEnd = dateEnd.getText().toString();
+                Integer value = Integer.parseUnsignedInt(cpValue.getText().toString());
+                Integer valueCondition = Integer.parseUnsignedInt(cpValueCondition.getText().toString());
+                Integer idCondition = selectedCondition;
+                Integer idType = selectedType;
+                Boolean checkupdatedata = mDBHELPERCOUPON.updateCpData(cpId, codeTxt, nameTxt, eStart, eEnd, value, valueCondition, idCondition, idType);
+                if(checkupdatedata==true)
+                    Toast.makeText(getApplicationContext(), "New Entry Inserted", Toast.LENGTH_SHORT).show();
+                else{
+                    Toast.makeText(getApplicationContext(), "New Entry Not Inserted", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                finish();
+            }
+        });
     }
     private void showDialog(){
         Dialog dialog = new Dialog(this, R.style.DialogStyle);
