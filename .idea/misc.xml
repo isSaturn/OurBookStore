@@ -57,6 +57,8 @@
         <entry key="..\:/Phu/Android/OurBookStore/app/src/main/res/menu/menu_login.xml" value="0.20416666666666666" />
         <entry key="..\:/Phu/Android/OurBookStore/app/src/main/res/menu/menu_logout.xml" value="0.20416666666666666" />
         <entry key="..\:/Phu/Android/OurBookStore/app/src/main/res/menu/menu_logout_admin.xml" value="0.20416666666666666" />
+        <entry key="..\:/Phu/Android/OurBookStore/app/src/main/res/menu/menu_logout_admin_inadmin.xml" value="0.25" />
+        <entry key="..\:/Phu/Android/OurBookStore/app/src/main/res/menu/menu_logout_user.xml" value="0.1" />
       </map>
     </option>
   </component>
