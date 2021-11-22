@@ -28,6 +28,7 @@ import com.example.androidproject_coupon.CouponManagement.Coupon.DatabaseHelper_
 import com.example.androidproject_coupon.CouponManagement.CpCondition.DatabaseHelper_CpCondition;
 import com.example.androidproject_coupon.CouponManagement.CpType.CouponType;
 import com.example.androidproject_coupon.CouponManagement.CpType.DatabaseHelper_CpType;
+import com.example.androidproject_coupon.EditCoupon;
 import com.example.androidproject_coupon.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -46,7 +47,6 @@ public class AddCoupon extends AppCompatActivity {
     AutoCompleteTextView autoType, autoCondition;
     ArrayAdapter<String> arrayAdapterType, arrayAdapterCondition;
     EditText dateStart, dateEnd, cpCode, cpName, cpValue, cpValueCondition ;
-    TextView cpType, cpCondition;
     Calendar calendar;
     ImageView arrowReturn;
     ArrayList<String> arrayListType = new ArrayList<>();
@@ -186,7 +186,9 @@ public class AddCoupon extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(cpName.getText().toString().trim().length() == 0  || cpValue.getText().toString().trim().length() == 0
-                        || cpCondition.getText().toString().length() == 0 ){
+                        || dateStart.getText().toString().length() == 0 || cpCode.getText().toString().length() == 0
+                        || autoType.getText().toString().length() == 0 || dateEnd.getText().toString().length() == 0
+                        || autoCondition.getText().toString().length() == 0 || cpValueCondition.getText().toString().length() == 0){
                     Toast.makeText(getApplicationContext(), "All field must be not empty", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -209,7 +211,9 @@ public class AddCoupon extends AppCompatActivity {
                     addCpRef.child(codeTxt).child("ID_Loai_Ap_Dung").setValue(idCondition);
                     addCpRef.child(codeTxt).child("ID_Loai_Khuyen_Mai").setValue(idType);
                     Toast.makeText(getApplicationContext(),"Thêm mã khuyến mãi thành công", Toast.LENGTH_LONG).show();
-                    finish();
+                    CouponFragment.couponAdapter.notifyDataSetChanged();
+                    Intent intent = new Intent ( getApplicationContext(), CouponFragment.class);
+                    startActivity(intent);
                 }
                 catch (Exception ex)
                 {
@@ -224,9 +228,7 @@ public class AddCoupon extends AppCompatActivity {
         cpCode = findViewById(R.id.addCp_et_Code);
         cpName = findViewById(R.id.addCp_et_Name);
         cpValue = findViewById(R.id.addCp_et_Value);
-        cpCondition = findViewById(R.id.addCp_tv_Condition);
         cpValueCondition = findViewById(R.id.addCp_et_ValueCondition);
-        cpType = findViewById(R.id.addCp_tv_Type);
         arrowReturn = findViewById(R.id.addCp_img_Return);
         addBtn = findViewById(R.id.addCp_btn_Add);
         autoCondition = findViewById(R.id.addCp_tv_Condition);

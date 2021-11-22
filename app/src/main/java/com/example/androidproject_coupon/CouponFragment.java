@@ -50,7 +50,7 @@ public class CouponFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    public static CouponAdapter couponAdapter;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -122,9 +122,12 @@ public class CouponFragment extends Fragment {
         String TAG="FIREBASE";
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://ourbookstore-e8241-default-rtdb.firebaseio.com/");
         DatabaseReference myRef = database.getReference("KhuyenMai");
+        couponAdapter = new CouponAdapter(getContext(), R.layout.adapter_view_layout_coupon, couponList);
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                couponAdapter.clear();
+                couponList.clear();
                 for (DataSnapshot data: snapshot.getChildren()){
                     String id = data.getKey();
                     String code = data.child("Ma_Khuyen_Mai").getValue().toString();
@@ -187,12 +190,13 @@ public class CouponFragment extends Fragment {
 ////        ArrayAdapter<Integer> arrAdapterValue = new ArrayAdapter(getContext(), R.layout.adapter_view_layout_coupon,arrCpValue);
 ////        ArrayAdapter<String> arrAdapterDateStart = new ArrayAdapter(getContext(), R.layout.adapter_view_layout_coupon,arrCpDateStart);
 ////        ArrayAdapter<String> arrAdapterDateEnd = new ArrayAdapter(getContext(), R.layout.adapter_view_layout_coupon,arrCpDateEnd);
-        CouponAdapter couponAdapter = new CouponAdapter(getContext(), R.layout.adapter_view_layout_coupon, couponList);
+
         listView.setAdapter(couponAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent ( getContext(), EditCoupon.class);
+                intent.putExtra( "id", couponList.get(i).getId());
                 intent.putExtra( "code", couponList.get(i).getCode());
                 intent.putExtra( "name", couponList.get(i).getName());
                 intent.putExtra( "value", couponList.get(i).getValue().toString());
