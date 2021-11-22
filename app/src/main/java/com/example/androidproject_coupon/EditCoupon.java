@@ -233,15 +233,6 @@ public class EditCoupon extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "All field must be not empty", Toast.LENGTH_SHORT).show();
                     return;
                 }
-//                CouponFragment cpFragment = new CouponFragment();
-//                Integer count = cpFragment.countItem;
-////                cursor = mDBHELPERCOUPON.getCps();
-////                cursor.moveToFirst();
-////                Integer count = 0;
-////                do {
-////                    count +=1;
-////                }while (cursor.moveToNext());
-////                Integer id = dob.getText().toString();
                 mDBHELPERCOUPON = new DatabaseHelper_Cp(getApplicationContext());
 
                 String codeTxt = cpCode.getText().toString();
