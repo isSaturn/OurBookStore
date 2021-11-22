@@ -146,7 +146,6 @@ public class CouponFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent ( getContext(), EditCoupon.class);
                 int size = couponAdapter.getCount();
-                intent.putExtra("size", size);
                 intent.putExtra( "id", couponList.get(i).getId());
                 intent.putExtra( "code", couponList.get(i).getCode());
                 intent.putExtra( "name", couponList.get(i).getName());

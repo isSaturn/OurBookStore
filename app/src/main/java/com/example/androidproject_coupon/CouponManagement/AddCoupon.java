@@ -236,15 +236,16 @@ public class AddCoupon extends AppCompatActivity {
                     Integer idType = Integer.parseInt(selectedType);
                     addCpRef.child(id).child("Ma_Khuyen_Mai").setValue(codeTxt);
                     addCpRef.child(id).child("Ten_Khuyen_Mai").setValue(nameTxt);
-                    addCpRef.child(id).child("Time_End").setValue(eStart);
-                    addCpRef.child(id).child("Time_Start").setValue(eEnd);
+                    addCpRef.child(id).child("Time_Start").setValue(eStart);
+                    addCpRef.child(id).child("Time_End").setValue(eEnd);
                     addCpRef.child(id).child("Gia_Ap_Dung").setValue(valueCondition);
                     addCpRef.child(id).child("Gia_Giam").setValue(value);
                     addCpRef.child(id).child("ID_Loai_Ap_Dung").setValue(idCondition);
                     addCpRef.child(id).child("ID_Loai_Khuyen_Mai").setValue(idType);
                     Toast.makeText(getApplicationContext(),"Thêm mã khuyến mãi thành công", Toast.LENGTH_LONG).show();
                     CouponFragment.couponAdapter.notifyDataSetChanged();
-                    finish();
+                    Intent intent = new Intent(getApplicationContext(), CouponFragment.class);
+                    startActivity(intent);
                 }
                 catch (Exception ex)
                 {
