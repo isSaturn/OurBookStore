@@ -147,7 +147,7 @@
             android:layout_marginTop="4dp"
             android:background="@drawable/custom_input"
             android:ems="10"
-            android:hint="0 đ"
+            android:hint="Nhập giá tiền"
             android:inputType="textPersonName"
             android:minHeight="48dp"
             android:paddingLeft="5dp"
@@ -156,6 +156,39 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/addBook_tv_GiaTen" />
+
+        <TextView
+            android:id="@+id/addBook_tv_SoLuong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+
+            android:layout_marginTop="20dp"
+            android:text="Số lượng"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addBook_et_GiaTien" />
+
+        <EditText
+            android:id="@+id/addBook_et_SoLuong"
+            android:layout_width="400dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/custom_input"
+            android:ems="10"
+            android:hint="Nhập số lượng"
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            android:paddingLeft="5dp"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addBook_tv_SoLuong" />
 
         <TextView
             android:id="@+id/addBook_tv_MoTa"
@@ -170,7 +203,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/addBook_et_GiaTien" />
+            app:layout_constraintTop_toBottomOf="@+id/addBook_et_SoLuong" />
 
         <EditText
             android:id="@+id/addBook_et_MoTa"
