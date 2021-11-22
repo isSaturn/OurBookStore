@@ -136,7 +136,7 @@ public class CouponFragment extends Fragment {
                     String eStart = data.child("Time_Start").getValue().toString();
                     String eEnd = data.child("Time_End").getValue().toString();
                     couponList.add(new Coupon(id,code,name, eStart, eEnd, Integer.parseUnsignedInt(value),
-                            Integer.parseUnsignedInt(valueCondition),Integer.parseUnsignedInt(idCondition),Integer.parseUnsignedInt(idType),R.drawable.coupon_icon));
+                            Integer.parseInt(valueCondition),Integer.parseInt(idCondition),Integer.parseInt(idType),R.drawable.coupon_icon));
 
 //                    arrCpID.add(id);
 //                    arrCpCode.add(code);

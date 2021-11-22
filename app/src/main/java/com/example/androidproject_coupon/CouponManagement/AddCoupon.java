@@ -75,6 +75,7 @@ public class AddCoupon extends AppCompatActivity {
                     String value = data.child("Loai_Khuyen_Mai").getValue().toString();
                     arrayListType.add(value);
                     idType.add(Integer.parseInt(data.getKey()));
+
                 }
             }
             @Override
@@ -84,11 +85,21 @@ public class AddCoupon extends AppCompatActivity {
         });
 
         autoType.setAdapter(arrayAdapterType);
+
         autoType.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(getApplicationContext(),"Item: " + arrayListType.get(position), Toast.LENGTH_SHORT).show();
                 selectedType = idType.get(position).toString();
+                // Block field khi user chon Mien phi giao hang
+                if(idType.get(position) == 3){
+                    cpValue.setText("25000");
+                    cpValue.setEnabled(false);
+                }
+                else{
+                    cpValue.setText("");
+                    cpValue.setEnabled(true);
+                }
             }
         });
 
@@ -174,6 +185,11 @@ public class AddCoupon extends AppCompatActivity {
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(cpName.getText().toString().trim().length() == 0  || cpValue.getText().toString().trim().length() == 0
+                        || cpCondition.getText().toString().length() == 0 ){
+                    Toast.makeText(getApplicationContext(), "All field must be not empty", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 try {
                     DatabaseReference addCpRef = database.getReference("KhuyenMai");
                     String codeTxt = cpCode.getText().toString();
@@ -192,7 +208,7 @@ public class AddCoupon extends AppCompatActivity {
                     addCpRef.child(codeTxt).child("Gia_Giam").setValue(value);
                     addCpRef.child(codeTxt).child("ID_Loai_Ap_Dung").setValue(idCondition);
                     addCpRef.child(codeTxt).child("ID_Loai_Khuyen_Mai").setValue(idType);
-                    Toast.makeText(getApplicationContext(),"Them lien ket thanh cong", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"Thêm mã khuyến mãi thành công", Toast.LENGTH_LONG).show();
                     finish();
                 }
                 catch (Exception ex)
