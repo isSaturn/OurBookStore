@@ -136,7 +136,7 @@ public class CouponFragment extends Fragment {
         add.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), AddCoupon.class);
-                int size = couponAdapter.getCount();
+                int size = couponAdapter.getCount() + 1;
                 intent.putExtra("size", size);
                 startActivity(intent);
             }
@@ -146,7 +146,7 @@ public class CouponFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent ( getContext(), EditCoupon.class);
-                int size = couponAdapter.getCount() + 1;
+                int size = couponAdapter.getCount();
                 intent.putExtra("size", size);
                 intent.putExtra( "id", couponList.get(i).getId());
                 intent.putExtra( "code", couponList.get(i).getCode());

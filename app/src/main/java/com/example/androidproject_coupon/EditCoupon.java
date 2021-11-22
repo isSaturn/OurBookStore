@@ -55,10 +55,6 @@ public class EditCoupon extends AppCompatActivity {
     ArrayList<String> arrayListCondition = new ArrayList<>();
     ArrayList<Integer> idType = new ArrayList<>();
     ArrayList<Integer> idCondition = new ArrayList<>();
-    DatabaseHelper_CpType mDBHELPERTYPE;
-    DatabaseHelper_CpCondition mDBHELPERCONDITION;
-    DatabaseHelper_Cp mDBHELPERCOUPON;
-    Cursor cursorType, cursorCondition;
     Button edit, delete;
     Integer selectedType, selectedCondition;
     String TAG="FIREBASE";
@@ -234,24 +230,30 @@ public class EditCoupon extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "All field must be not empty", Toast.LENGTH_SHORT).show();
                     return;
                 }
-//                mDBHELPERCOUPON = new DatabaseHelper_Cp(getApplicationContext());
-//
-//                String codeTxt = cpCode.getText().toString();
-//                String nameTxt = cpName.getText().toString();
-//                String eStart = dateStart.getText().toString();
-//                String eEnd = dateEnd.getText().toString();
-//                Integer value = Integer.parseUnsignedInt(cpValue.getText().toString());
-//                Integer valueCondition = Integer.parseUnsignedInt(cpValueCondition.getText().toString());
-//                Integer idCondition = selectedCondition;
-//                Integer idType = selectedType;
-//                Boolean checkupdatedata = mDBHELPERCOUPON.updateCpData(cpId, codeTxt, nameTxt, eStart, eEnd, value, valueCondition, idCondition, idType);
-//                if(checkupdatedata==true)
-//                    Toast.makeText(getApplicationContext(), "New Entry Inserted", Toast.LENGTH_SHORT).show();
-//                else{
-//                    Toast.makeText(getApplicationContext(), "New Entry Not Inserted", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//                finish();
+                Bundle extras = getIntent().getExtras();
+                int size = 0;
+                if(extras!=null){
+                    size = extras.getInt("size");
+                }
+                DatabaseReference editCpRef = database.getReference("KhuyenMai");
+                String id = String.valueOf(size);
+                String codeTxt = cpCode.getText().toString();
+                String nameTxt = cpName.getText().toString();
+                String eStart = dateStart.getText().toString();
+                String eEnd = dateEnd.getText().toString();
+                Integer value = Integer.parseUnsignedInt(cpValue.getText().toString());
+                Integer valueCondition = Integer.parseUnsignedInt(cpValueCondition.getText().toString());
+                Integer idCondition = selectedCondition;
+                Integer idType = selectedType;
+                editCpRef.child(id).child("Ma_Khuyen_Mai").setValue(codeTxt);
+                editCpRef.child(id).child("Ten_Khuyen_Mai").setValue(nameTxt);
+                editCpRef.child(id).child("Time_End").setValue(eStart);
+                editCpRef.child(id).child("Time_Start").setValue(eEnd);
+                editCpRef.child(id).child("Gia_Ap_Dung").setValue(valueCondition);
+                editCpRef.child(id).child("Gia_Giam").setValue(value);
+                editCpRef.child(id).child("ID_Loai_Ap_Dung").setValue(idCondition);
+                editCpRef.child(id).child("ID_Loai_Khuyen_Mai").setValue(idType);
+                finish();
             }
         });
     }
