@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -106,6 +107,18 @@ public class CouponFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        ArrayList<Coupon> couponList = new ArrayList<>();
+        ListView listView = view.findViewById(R.id.list_view);
+//        ArrayList<Coupon> couponList = new ArrayList<>();
+//        ArrayList<String> arrCpCode = new ArrayList<>();
+//        ArrayList<String> arrCpName = new ArrayList<>();
+//        ArrayList<String> arrCpDateStart = new ArrayList<String>();
+//        ArrayList<String> arrCpDateEnd = new ArrayList<String>();
+//        ArrayList<String> arrCpID = new ArrayList<>();
+//        ArrayList<Integer> arrCpValue = new ArrayList<>();
+//        ArrayList<Integer> arrCpConditionValue = new ArrayList<>();
+//        ArrayList<Integer> arrCpTypeId = new ArrayList<>();
+//        ArrayList<Integer> arrCpConditionId = new ArrayList<>();
         String TAG="FIREBASE";
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://ourbookstore-e8241-default-rtdb.firebaseio.com/");
         DatabaseReference myRef = database.getReference("KhuyenMai");
@@ -113,7 +126,7 @@ public class CouponFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot data: snapshot.getChildren()){
-                    String id = data.getKey().toString();
+                    String id = data.getKey();
                     String code = data.child("Ma_Khuyen_Mai").getValue().toString();
                     String name = data.child("Ten_Khuyen_Mai").getValue().toString();
                     String value = data.child("Gia_Giam").getValue().toString();
@@ -122,8 +135,18 @@ public class CouponFragment extends Fragment {
                     String idCondition = data.child("ID_Loai_Ap_Dung").getValue().toString();
                     String eStart = data.child("Time_Start").getValue().toString();
                     String eEnd = data.child("Time_End").getValue().toString();
+                    couponList.add(new Coupon(id,code,name, eStart, eEnd, Integer.parseUnsignedInt(value),
+                            Integer.parseUnsignedInt(valueCondition),Integer.parseUnsignedInt(idCondition),Integer.parseUnsignedInt(idType),R.drawable.coupon_icon));
 
-                    
+//                    arrCpID.add(id);
+//                    arrCpCode.add(code);
+//                    arrCpName.add(name);
+//                    arrCpDateStart.add(eStart);
+//                    arrCpDateEnd.add(eEnd);
+//                    arrCpValue.add(Integer.parseUnsignedInt(value));
+//                    arrCpConditionValue.add(Integer.parseUnsignedInt(valueCondition));
+//                    arrCpConditionId.add(Integer.parseUnsignedInt(idCondition));
+//                    arrCpTypeId.add(Integer.parseUnsignedInt(idType));
                 }
             }
             @Override
@@ -141,18 +164,9 @@ public class CouponFragment extends Fragment {
 //        }
 //        Cursor cursor = mDBHELPERCOUPON.getCps();
 //        cursor.moveToFirst();
-////        ArrayList<String> arrCpCode = new ArrayList<>();
-////        ArrayList<String> arrCpName = new ArrayList<>();
-////        ArrayList<String> arrCpDateStart = new ArrayList<String>();
-////        ArrayList<String> arrCpDateEnd = new ArrayList<String>();
-////        ArrayList<Integer> arrCpID = new ArrayList<>();
-////        ArrayList<Integer> arrCpValue = new ArrayList<>();
-////        ArrayList<Integer> arrCpConditionValue = new ArrayList<>();
-////        ArrayList<Integer> arrCpTypeId = new ArrayList<>();
-////        ArrayList<Integer> arrCpConditionId = new ArrayList<>();
+////
 //        SimpleDateFormat formatter = new SimpleDateFormat("yy/MM/dd");
-//        ListView listView = view.findViewById(R.id.list_view);
-//        ArrayList<Coupon> couponList = new ArrayList<>();
+//
 //        do {
 ////            arrCpID.add(Integer.parseUnsignedInt(cursor.getString(0)));
 ////            arrCpCode.add(cursor.getString(1));
@@ -173,22 +187,22 @@ public class CouponFragment extends Fragment {
 ////        ArrayAdapter<Integer> arrAdapterValue = new ArrayAdapter(getContext(), R.layout.adapter_view_layout_coupon,arrCpValue);
 ////        ArrayAdapter<String> arrAdapterDateStart = new ArrayAdapter(getContext(), R.layout.adapter_view_layout_coupon,arrCpDateStart);
 ////        ArrayAdapter<String> arrAdapterDateEnd = new ArrayAdapter(getContext(), R.layout.adapter_view_layout_coupon,arrCpDateEnd);
-//        CouponAdapter couponAdapter = new CouponAdapter(getContext(), R.layout.adapter_view_layout_coupon, couponList);
-//        listView.setAdapter(couponAdapter);
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                Intent intent = new Intent ( getContext(), EditCoupon.class);
-//                intent.putExtra( "code", couponList.get(i).getCode());
-//                intent.putExtra( "name", couponList.get(i).getName());
-//                intent.putExtra( "value", couponList.get(i).getValue().toString());
-//                intent.putExtra( "valueCondition", couponList.get(i).getValueCondition().toString());
-//                intent.putExtra( "eStart", couponList.get(i).geteStart());
-//                intent.putExtra( "eEnd", couponList.get(i).geteEnd());
-//                intent.putExtra( "idType", couponList.get(i).getIdType().toString());
-//                intent.putExtra( "idCondition", couponList.get(i).getIdCondition().toString());
-//                startActivity(intent);
-//            }
-//        });
+        CouponAdapter couponAdapter = new CouponAdapter(getContext(), R.layout.adapter_view_layout_coupon, couponList);
+        listView.setAdapter(couponAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent ( getContext(), EditCoupon.class);
+                intent.putExtra( "code", couponList.get(i).getCode());
+                intent.putExtra( "name", couponList.get(i).getName());
+                intent.putExtra( "value", couponList.get(i).getValue().toString());
+                intent.putExtra( "valueCondition", couponList.get(i).getValueCondition().toString());
+                intent.putExtra( "eStart", couponList.get(i).geteStart());
+                intent.putExtra( "eEnd", couponList.get(i).geteEnd());
+                intent.putExtra( "idType", couponList.get(i).getIdType().toString());
+                intent.putExtra( "idCondition", couponList.get(i).getIdCondition().toString());
+                startActivity(intent);
+            }
+        });
     }
 }
