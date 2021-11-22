@@ -100,29 +100,13 @@ public class CouponFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Button add = view.findViewById(R.id.Cp_btn_Add);
-        add.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), AddCoupon.class);
-                startActivity(intent);
-            }
-        });
         ArrayList<Coupon> couponList = new ArrayList<>();
         ListView listView = view.findViewById(R.id.list_view);
-//        ArrayList<Coupon> couponList = new ArrayList<>();
-//        ArrayList<String> arrCpCode = new ArrayList<>();
-//        ArrayList<String> arrCpName = new ArrayList<>();
-//        ArrayList<String> arrCpDateStart = new ArrayList<String>();
-//        ArrayList<String> arrCpDateEnd = new ArrayList<String>();
-//        ArrayList<String> arrCpID = new ArrayList<>();
-//        ArrayList<Integer> arrCpValue = new ArrayList<>();
-//        ArrayList<Integer> arrCpConditionValue = new ArrayList<>();
-//        ArrayList<Integer> arrCpTypeId = new ArrayList<>();
-//        ArrayList<Integer> arrCpConditionId = new ArrayList<>();
+        couponAdapter = new CouponAdapter(getContext(), R.layout.adapter_view_layout_coupon, couponList);
+
         String TAG="FIREBASE";
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://ourbookstore-e8241-default-rtdb.firebaseio.com/");
         DatabaseReference myRef = database.getReference("KhuyenMai");
-        couponAdapter = new CouponAdapter(getContext(), R.layout.adapter_view_layout_coupon, couponList);
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -140,62 +124,30 @@ public class CouponFragment extends Fragment {
                     String eEnd = data.child("Time_End").getValue().toString();
                     couponList.add(new Coupon(id,code,name, eStart, eEnd, Integer.parseUnsignedInt(value),
                             Integer.parseInt(valueCondition),Integer.parseInt(idCondition),Integer.parseInt(idType),R.drawable.coupon_icon));
-
-//                    arrCpID.add(id);
-//                    arrCpCode.add(code);
-//                    arrCpName.add(name);
-//                    arrCpDateStart.add(eStart);
-//                    arrCpDateEnd.add(eEnd);
-//                    arrCpValue.add(Integer.parseUnsignedInt(value));
-//                    arrCpConditionValue.add(Integer.parseUnsignedInt(valueCondition));
-//                    arrCpConditionId.add(Integer.parseUnsignedInt(idCondition));
-//                    arrCpTypeId.add(Integer.parseUnsignedInt(idType));
                 }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
-        });
-//
-//        DatabaseHelper_Cp mDBHELPERCOUPON = new DatabaseHelper_Cp(getContext());
-//        try {
-//            mDBHELPERCOUPON.createDataBase();
-//            Log.d("Thanh cong", "Da tao duoc db");
-//        }catch (IOException e){
-//            Log.d("Bi loi roi", "khong tao duoc db");
-//        }
-//        Cursor cursor = mDBHELPERCOUPON.getCps();
-//        cursor.moveToFirst();
-////
-//        SimpleDateFormat formatter = new SimpleDateFormat("yy/MM/dd");
-//
-//        do {
-////            arrCpID.add(Integer.parseUnsignedInt(cursor.getString(0)));
-////            arrCpCode.add(cursor.getString(1));
-////            arrCpName.add(cursor.getString(2));
-////            arrCpDateStart.add(cursor.getString(3));
-////            arrCpDateEnd.add(cursor.getString(4));
-////            arrCpValue.add(Integer.parseUnsignedInt(cursor.getString(5)));
-////            arrCpConditionValue.add(Integer.parseUnsignedInt(cursor.getString(6)));
-////            arrCpConditionId.add(Integer.parseUnsignedInt(cursor.getString(7)));
-////            arrCpTypeId.add(Integer.parseUnsignedInt(cursor.getString(8)));
-//            couponList.add(new Coupon(Integer.parseUnsignedInt(cursor.getString(0)),cursor.getString(1),cursor.getString(2)
-//                    , cursor.getString(3),cursor.getString(4), Integer.parseUnsignedInt(cursor.getString(5))
-//                    , Integer.parseUnsignedInt(cursor.getString(6)), Integer.parseUnsignedInt(cursor.getString(7))
-//                    , Integer.parseUnsignedInt(cursor.getString(8)), R.drawable.coupon_icon));
-//        }while (cursor.moveToNext());
-//
-////        ArrayAdapter<String> arrAdapterName = new ArrayAdapter(getContext(), R.layout.adapter_view_layout_coupon,arrCpName);
-////        ArrayAdapter<Integer> arrAdapterValue = new ArrayAdapter(getContext(), R.layout.adapter_view_layout_coupon,arrCpValue);
-////        ArrayAdapter<String> arrAdapterDateStart = new ArrayAdapter(getContext(), R.layout.adapter_view_layout_coupon,arrCpDateStart);
-////        ArrayAdapter<String> arrAdapterDateEnd = new ArrayAdapter(getContext(), R.layout.adapter_view_layout_coupon,arrCpDateEnd);
 
+        });
+        Button add = view.findViewById(R.id.Cp_btn_Add);
+        add.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), AddCoupon.class);
+                int size = couponAdapter.getCount();
+                intent.putExtra("size", size);
+                startActivity(intent);
+            }
+        });
         listView.setAdapter(couponAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent ( getContext(), EditCoupon.class);
+                int size = couponAdapter.getCount() + 1;
+                intent.putExtra("size", size);
                 intent.putExtra( "id", couponList.get(i).getId());
                 intent.putExtra( "code", couponList.get(i).getCode());
                 intent.putExtra( "name", couponList.get(i).getName());
