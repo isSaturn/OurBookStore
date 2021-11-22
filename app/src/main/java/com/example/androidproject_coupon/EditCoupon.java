@@ -264,13 +264,9 @@ public class EditCoupon extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Date start < Date end", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Bundle extras = getIntent().getExtras();
-                int size = 0;
-                if(extras!=null){
-                    size = extras.getInt("size");
-                }
+                Intent intent2 = getIntent();
                 DatabaseReference editCpRef = database.getReference("KhuyenMai");
-                String id = String.valueOf(size);
+                String id = intent2.getStringExtra("id");
                 String codeTxt = cpCode.getText().toString();
                 String nameTxt = cpName.getText().toString();
                 String eStart = dateStart.getText().toString();
@@ -281,8 +277,8 @@ public class EditCoupon extends AppCompatActivity {
                 Integer idType = selectedType;
                 editCpRef.child(id).child("Ma_Khuyen_Mai").setValue(codeTxt);
                 editCpRef.child(id).child("Ten_Khuyen_Mai").setValue(nameTxt);
-                editCpRef.child(id).child("Time_End").setValue(eStart);
-                editCpRef.child(id).child("Time_Start").setValue(eEnd);
+                editCpRef.child(id).child("Time_Start").setValue(eStart);
+                editCpRef.child(id).child("Time_End").setValue(eEnd);
                 editCpRef.child(id).child("Gia_Ap_Dung").setValue(valueCondition);
                 editCpRef.child(id).child("Gia_Giam").setValue(value);
                 editCpRef.child(id).child("ID_Loai_Ap_Dung").setValue(idCondition);
@@ -333,7 +329,6 @@ public class EditCoupon extends AppCompatActivity {
                 FirebaseDatabase database = FirebaseDatabase.getInstance("https://ourbookstore-e8241-default-rtdb.firebaseio.com/");
                 DatabaseReference myRefCp = database.getReference("KhuyenMai");
                 myRefCp.child(cpId).removeValue();
-//                CouponFragment.couponAdapter.notifyDataSetChanged();
                 finish();
             }
         });
