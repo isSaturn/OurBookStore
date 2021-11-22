@@ -193,6 +193,12 @@ public class AddCoupon extends AppCompatActivity {
                     return;
                 }
                 try {
+                    Bundle extras = getIntent().getExtras();
+                    int size = 0;
+                    if(extras!=null){
+                        size = extras.getInt("size");
+                    }
+                    String id = String.valueOf(size);
                     DatabaseReference addCpRef = database.getReference("KhuyenMai");
                     String codeTxt = cpCode.getText().toString();
                     String nameTxt = cpName.getText().toString();
@@ -202,18 +208,17 @@ public class AddCoupon extends AppCompatActivity {
                     Integer valueCondition = Integer.parseInt(cpValueCondition.getText().toString());
                     Integer idCondition = Integer.parseInt(selectedCondition);
                     Integer idType = Integer.parseInt(selectedType);
-                    addCpRef.child(codeTxt).child("Ma_Khuyen_Mai").setValue(codeTxt);
-                    addCpRef.child(codeTxt).child("Ten_Khuyen_Mai").setValue(nameTxt);
-                    addCpRef.child(codeTxt).child("Time_End").setValue(eStart);
-                    addCpRef.child(codeTxt).child("Time_Start").setValue(eEnd);
-                    addCpRef.child(codeTxt).child("Gia_Ap_Dung").setValue(valueCondition);
-                    addCpRef.child(codeTxt).child("Gia_Giam").setValue(value);
-                    addCpRef.child(codeTxt).child("ID_Loai_Ap_Dung").setValue(idCondition);
-                    addCpRef.child(codeTxt).child("ID_Loai_Khuyen_Mai").setValue(idType);
+                    addCpRef.child(id).child("Ma_Khuyen_Mai").setValue(codeTxt);
+                    addCpRef.child(id).child("Ten_Khuyen_Mai").setValue(nameTxt);
+                    addCpRef.child(id).child("Time_End").setValue(eStart);
+                    addCpRef.child(id).child("Time_Start").setValue(eEnd);
+                    addCpRef.child(id).child("Gia_Ap_Dung").setValue(valueCondition);
+                    addCpRef.child(id).child("Gia_Giam").setValue(value);
+                    addCpRef.child(id).child("ID_Loai_Ap_Dung").setValue(idCondition);
+                    addCpRef.child(id).child("ID_Loai_Khuyen_Mai").setValue(idType);
                     Toast.makeText(getApplicationContext(),"Thêm mã khuyến mãi thành công", Toast.LENGTH_LONG).show();
                     CouponFragment.couponAdapter.notifyDataSetChanged();
-                    Intent intent = new Intent ( getApplicationContext(), CouponFragment.class);
-                    startActivity(intent);
+                    finish();
                 }
                 catch (Exception ex)
                 {
