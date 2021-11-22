@@ -111,7 +111,6 @@ public class CouponFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 couponAdapter.clear();
-                couponList.clear();
                 for (DataSnapshot data: snapshot.getChildren()){
                     String id = data.getKey();
                     String code = data.child("Ma_Khuyen_Mai").getValue().toString();
@@ -155,8 +154,8 @@ public class CouponFragment extends Fragment {
                 intent.putExtra( "valueCondition", couponList.get(i).getValueCondition().toString());
                 intent.putExtra( "eStart", couponList.get(i).geteStart());
                 intent.putExtra( "eEnd", couponList.get(i).geteEnd());
-                intent.putExtra( "idType", couponList.get(i).getIdType().toString());
-                intent.putExtra( "idCondition", couponList.get(i).getIdCondition().toString());
+                intent.putExtra( "idType", couponList.get(i).getIdType());
+                intent.putExtra( "idCondition", couponList.get(i).getIdCondition());
                 startActivity(intent);
             }
         });
