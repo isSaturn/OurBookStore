@@ -37,9 +37,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -192,6 +197,27 @@ public class AddCoupon extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "All field must be not empty", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                else if(autoType.getText().toString().indexOf("%") != -1){
+                    if(Integer.parseInt(cpValue.getText().toString())>100 || Integer.parseInt(cpValue.getText().toString()) < 0){
+                        Toast.makeText(getApplicationContext(), "Chỉ giảm từ 1 - 100% giá trị", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
+                else if(autoType.getText().toString().indexOf("tiền") != -1 || autoType.getText().toString().indexOf("vận") !=-1){
+                    if(Integer.parseInt(cpValue.getText().toString()) > Integer.parseInt(cpValueCondition.getText().toString())){
+                        Toast.makeText(getApplicationContext(), "Giá trị giảm phải < giá trị tối thiểu", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
+                else if(Integer.parseInt(cpValueCondition.getText().toString()) < 1000){
+                    Toast.makeText(getApplicationContext(), "Đơn hàng tối thiểu từ 1000đ", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                long compareDate = compareDate(dateStart.getText().toString(),dateEnd.getText().toString());
+                if(compareDate <= 0){
+                    Toast.makeText(getApplicationContext(), "Date start < Date end", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 try {
                     Bundle extras = getIntent().getExtras();
                     int size = 0;
@@ -226,6 +252,28 @@ public class AddCoupon extends AppCompatActivity {
                 }
             }
         });
+    }
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private long compareDate(String dateStart, String dateEnd){
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+        Date dStart = null;
+        Date dEnd = null;
+        try {
+            dStart = formatter.parse(dateStart);
+            dEnd = formatter.parse(dateEnd);
+            formatter.applyPattern("yyyy-MM-dd");
+            dateStart = formatter.format(dStart);
+            dateEnd = formatter.format(dEnd);
+            LocalDate d1 = LocalDate.parse(dateStart, DateTimeFormatter.ISO_LOCAL_DATE);
+            LocalDate d2 = LocalDate.parse(dateEnd, DateTimeFormatter.ISO_LOCAL_DATE);
+            Duration diff = Duration.between(d1.atStartOfDay(), d2.atStartOfDay());
+            long diffDays = diff.toDays();
+            return diffDays;
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
     private void matching(){
         dateEnd = findViewById(R.id.addCp_et_DateEnd);

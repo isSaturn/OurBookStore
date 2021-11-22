@@ -37,6 +37,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -81,26 +82,34 @@ public class EditCoupon extends AppCompatActivity {
         cpName.setText(cpNameInput);
         dateStart.setText(cpEStartInput);
         dateEnd.setText(cpEEndInput);
-
+        selectedType = cpIdTypeInput;
+        selectedCondition = cpIdConditionInput;
         //Loai khuyen mai
+        arrayListType.add("Giảm theo số tiền");
+        arrayListType.add("Giảm theo số %");
+        arrayListType.add("Miễn phí vận chuyển");
+        idType.add(1);
+        idType.add(2);
+        idType.add(3);
         arrayAdapterType = new ArrayAdapter<>(this, R.layout.list_type_coupon,arrayListType);
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://ourbookstore-e8241-default-rtdb.firebaseio.com/");
-        DatabaseReference myRefType = database.getReference("LoaiKhuyenMai");
-        myRefType.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot data: snapshot.getChildren()){
-                    String value = data.child("Loai_Khuyen_Mai").getValue().toString();
-                    arrayListType.add(value);
-                    idType.add(Integer.parseInt(data.getKey()));
-
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.w(TAG, "Failed to read value.", error.toException());
-            }
-        });
+//        DatabaseReference myRefType = database.getReference("LoaiKhuyenMai");
+//
+//        myRefType.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                for (DataSnapshot data: snapshot.getChildren()){
+//                    String value = data.child("Loai_Khuyen_Mai").getValue().toString();
+//                    arrayListType.add(value);
+//                    idType.add(Integer.parseInt(data.getKey()));
+//
+//                }
+//            }
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//                Log.w(TAG, "Failed to read value.", error.toException());
+//            }
+//        });
         arrayAdapterType = new ArrayAdapter(this, R.layout.list_type_coupon,arrayListType);
         autoType = findViewById(R.id.editCp_tv_Type);
         switch (cpIdTypeInput){
@@ -131,23 +140,25 @@ public class EditCoupon extends AppCompatActivity {
         });
 
         // Loai ap dung
+        arrayListCondition.add("Giá trị đơn hàng từ");
+        idCondition.add(1);
         arrayAdapterCondition = new ArrayAdapter(this, R.layout.list_type_coupon,arrayListCondition);
-        DatabaseReference myRefCondition = database.getReference("LoaiApDung");
-        myRefCondition.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot data: snapshot.getChildren()){
-                    String value = data.child("Loai_Ap_Dung").getValue().toString();
-                    arrayListCondition.add(value);
-                    idCondition.add(Integer.parseInt(data.getKey()));
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.w(TAG, "Failed to read value.", error.toException());
-            }
-        });
+//        DatabaseReference myRefCondition = database.getReference("LoaiApDung");
+//        myRefCondition.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                for (DataSnapshot data: snapshot.getChildren()){
+//                    String value = data.child("Loai_Ap_Dung").getValue().toString();
+//                    arrayListCondition.add(value);
+//                    idCondition.add(Integer.parseInt(data.getKey()));
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//                Log.w(TAG, "Failed to read value.", error.toException());
+//            }
+//        });
         arrayAdapterCondition = new ArrayAdapter(this, R.layout.list_type_coupon,arrayListCondition);
         autoCondition = findViewById(R.id.editCp_tv_Condition);
         if(cpIdConditionInput == 1){
@@ -226,8 +237,31 @@ public class EditCoupon extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(cpName.getText().toString().trim().length() == 0  || cpValue.getText().toString().trim().length() == 0
-                        || cpCondition.getText().toString().length() == 0 ){
+                        || dateStart.getText().toString().length() == 0 || cpCode.getText().toString().length() == 0
+                        || autoType.getText().toString().length() == 0 || dateEnd.getText().toString().length() == 0
+                        || autoCondition.getText().toString().length() == 0 || cpValueCondition.getText().toString().length() == 0){
                     Toast.makeText(getApplicationContext(), "All field must be not empty", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                else if(autoType.getText().toString().indexOf("%") != -1){
+                    if(Integer.parseInt(cpValue.getText().toString())>100 || Integer.parseInt(cpValue.getText().toString()) < 0){
+                        Toast.makeText(getApplicationContext(), "Chỉ giảm từ 1 - 100% giá trị", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
+                else if(autoType.getText().toString().indexOf("tiền") != -1 || autoType.getText().toString().indexOf("vận") !=-1){
+                    if(Integer.parseInt(cpValue.getText().toString()) > Integer.parseInt(cpValueCondition.getText().toString())){
+                        Toast.makeText(getApplicationContext(), "Giá trị giảm phải < giá trị tối thiểu", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
+                else if(Integer.parseInt(cpValueCondition.getText().toString()) < 1000){
+                    Toast.makeText(getApplicationContext(), "Đơn hàng tối thiểu từ 1000đ", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                long compareDate = compareDate(dateStart.getText().toString(),dateEnd.getText().toString());
+                if(compareDate <= 0){
+                    Toast.makeText(getApplicationContext(), "Date start < Date end", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 Bundle extras = getIntent().getExtras();
@@ -256,6 +290,28 @@ public class EditCoupon extends AppCompatActivity {
                 finish();
             }
         });
+    }
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private long compareDate(String dateStart, String dateEnd){
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+        Date dStart = null;
+        Date dEnd = null;
+        try {
+            dStart = formatter.parse(dateStart);
+            dEnd = formatter.parse(dateEnd);
+            formatter.applyPattern("yyyy-MM-dd");
+            dateStart = formatter.format(dStart);
+            dateEnd = formatter.format(dEnd);
+            LocalDate d1 = LocalDate.parse(dateStart, DateTimeFormatter.ISO_LOCAL_DATE);
+            LocalDate d2 = LocalDate.parse(dateEnd, DateTimeFormatter.ISO_LOCAL_DATE);
+            Duration diff = Duration.between(d1.atStartOfDay(), d2.atStartOfDay());
+            long diffDays = diff.toDays();
+            return diffDays;
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
     private void showDialog(String cpId){
         Dialog dialog = new Dialog(this, R.style.DialogStyle);
