@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -85,7 +86,7 @@ public class ProductFragment extends Fragment {
             }
         });
         //hiển thị danh sách sản phẩm
-        ListView listViewSach = view.findViewById(R.id.sach_lv_Sach);
+        ListView recyclerViewBook = view.findViewById(R.id.sach_rv_Sach);
         ArrayList<Book> arrayList;
         AdapterBook adapterBook;
 
@@ -103,6 +104,6 @@ public class ProductFragment extends Fragment {
         arrayList.add(new Book("Nguyen Minh Phu",R.drawable.anhsach));
 
         adapterBook = new AdapterBook(getContext(),R.layout.sach,arrayList);
-        listViewSach.setAdapter(adapterBook);
+        recyclerViewBook.setAdapter(adapterBook);
     }
 }

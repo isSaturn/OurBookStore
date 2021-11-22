@@ -37,10 +37,10 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/sach_search" />
 
-        <ListView
-            android:id="@+id/sach_lv_Sach"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/sach_rv_Sach"
             android:layout_width="400dp"
-            android:layout_height="656dp"
+            android:layout_height="600dp"
             android:layout_marginStart="5dp"
             android:layout_marginTop="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
