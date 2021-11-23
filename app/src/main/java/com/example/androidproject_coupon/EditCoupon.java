@@ -322,7 +322,6 @@ public class EditCoupon extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
-
         btnYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

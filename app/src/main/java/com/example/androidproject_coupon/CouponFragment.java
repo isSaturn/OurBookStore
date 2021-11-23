@@ -11,6 +11,7 @@ import androidx.annotation.RequiresApi;
 
 import androidx.fragment.app.Fragment;
 
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +34,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -51,6 +53,7 @@ public class CouponFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     public static CouponAdapter couponAdapter;
+    public static ArrayList<Coupon> couponList = new ArrayList<>();
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -74,7 +77,6 @@ public class CouponFragment extends Fragment {
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
-
         return fragment;
     }
 
@@ -91,16 +93,12 @@ public class CouponFragment extends Fragment {
 
         return mView;
     }
-    private void matching(){
-//        add = find;
-//        listAdapter = findViewById(R.layout.adapter_view_layout);
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ArrayList<Coupon> couponList = new ArrayList<>();
+
         ListView listView = view.findViewById(R.id.list_view);
         couponAdapter = new CouponAdapter(getContext(), R.layout.adapter_view_layout_coupon, couponList);
 
@@ -111,6 +109,7 @@ public class CouponFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 couponAdapter.clear();
+                couponList.clear();
                 for (DataSnapshot data: snapshot.getChildren()){
                     String id = data.getKey();
                     String code = data.child("Ma_Khuyen_Mai").getValue().toString();
@@ -145,7 +144,7 @@ public class CouponFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent ( getContext(), EditCoupon.class);
-                int size = couponAdapter.getCount();
+
                 intent.putExtra( "id", couponList.get(i).getId());
                 intent.putExtra( "code", couponList.get(i).getCode());
                 intent.putExtra( "name", couponList.get(i).getName());

@@ -1,14 +1,11 @@
 package com.example.androidproject_coupon.CouponManagement;
 
-import static android.content.ContentValues.TAG;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,15 +17,11 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.androidproject_coupon.CouponFragment;
-import com.example.androidproject_coupon.CouponManagement.Coupon.DatabaseHelper_Cp;
-import com.example.androidproject_coupon.CouponManagement.CpCondition.DatabaseHelper_CpCondition;
-import com.example.androidproject_coupon.CouponManagement.CpType.CouponType;
-import com.example.androidproject_coupon.CouponManagement.CpType.DatabaseHelper_CpType;
-import com.example.androidproject_coupon.EditCoupon;
+import com.example.androidproject_coupon.CouponManagement.Coupon.Coupon;
+import com.example.androidproject_coupon.MainActivity;
 import com.example.androidproject_coupon.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -36,7 +29,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
@@ -45,7 +37,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Locale;
 
 public class AddCoupon extends AppCompatActivity {
@@ -218,6 +209,15 @@ public class AddCoupon extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Date start < Date end", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                ArrayList<Coupon> cpList = CouponFragment.couponList;
+                String str1 = cpCode.getText().toString();
+                for (int i = 0; i < cpList.size(); i++) {
+                    String str = cpList.get(i).getCode();
+                    if(str.equals(str1)){
+                        Toast.makeText(getApplicationContext(),  str1 + ": is already exist", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
                 try {
                     Bundle extras = getIntent().getExtras();
                     int size = 0;
@@ -244,8 +244,9 @@ public class AddCoupon extends AppCompatActivity {
                     addCpRef.child(id).child("ID_Loai_Khuyen_Mai").setValue(idType);
                     Toast.makeText(getApplicationContext(),"Thêm mã khuyến mãi thành công", Toast.LENGTH_LONG).show();
                     CouponFragment.couponAdapter.notifyDataSetChanged();
-                    Intent intent = new Intent(getApplicationContext(), CouponFragment.class);
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(intent);
+//                    finish();
                 }
                 catch (Exception ex)
                 {
