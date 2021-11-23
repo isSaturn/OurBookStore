@@ -1,6 +1,6 @@
 package com.example.androidproject_coupon.CouponManagement.Coupon;
 
-public class Coupon {
+public class Coupon  {
     private String name, code, eStart, eEnd, id;
     private Integer value, valueCondition, idType, idCondition;
     private Integer imgUrl;
