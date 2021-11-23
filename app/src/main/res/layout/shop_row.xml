@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="product"
+            type="com.example.androidproject_coupon.models.Product" />
+        <variable
+            name="shopInterface"
+            type="com.example.androidproject_coupon.adapters.ShopListAdapter.ShopInterface" />
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:onClick="@{() -> shopInterface.onItemClick(product)}">
+
+        <ImageView
+            android:id="@+id/productImageView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/sach"
+            android:productImage="@{product.imageUrl}"/>
+
+        <TextView
+            android:id="@+id/productNameTextView"
+            android:text="@{product.name}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+        <TextView
+            android:id="@+id/priceTextView"
+            android:text="@{String.valueOf(product.price) + ` vnđ`}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
+        <ImageButton
+            android:id="@+id/addToCartButton"
+            android:layout_width="40dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:background="@color/white"
+            android:src="@drawable/themvaogio"
+            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+    </LinearLayout>
+</layout>

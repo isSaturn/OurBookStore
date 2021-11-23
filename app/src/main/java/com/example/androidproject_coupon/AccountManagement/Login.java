@@ -8,7 +8,6 @@ import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,9 +15,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.androidproject_coupon.MainActivity;
 import com.example.androidproject_coupon.R;
-import com.example.androidproject_coupon.User.MainActivity_User;
+import com.example.androidproject_coupon.viewUser.MainActivity_User;
 
 import java.io.IOException;
 

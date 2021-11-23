@@ -18,7 +18,7 @@ import android.widget.Toast;
 import com.example.androidproject_coupon.AccountManagement.GetIDandRole;
 import com.example.androidproject_coupon.AccountManagement.Login;
 import com.example.androidproject_coupon.AccountManagement.RegisterAccount;
-import com.example.androidproject_coupon.User.MainActivity_User;
+import com.example.androidproject_coupon.viewUser.MainActivity_User;
 import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity {
