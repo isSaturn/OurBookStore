@@ -158,14 +158,14 @@ public class AddBook extends AppCompatActivity {
                             fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
-                                    Toast.makeText(AddBook.this, "Thêm sách mới thành công", Toast.LENGTH_LONG).show();
-                                    Upload upload = new Upload(sMaSach,  sTenSach, sTacGia, sMoTa,
-                                            sGia, sSoLuong,uri.toString(), ID_Nhom_Sach);
                                     Bundle extras = getIntent().getExtras();
                                     if (extras != null) {
                                         size = extras.getInt("size");
                                     }
                                     String uploadId = String.valueOf(size);
+                                    Toast.makeText(AddBook.this, "Thêm sách mới thành công", Toast.LENGTH_LONG).show();
+                                    Upload upload = new Upload(uploadId,sMaSach,  sTenSach, sTacGia, sMoTa,
+                                            sGia, sSoLuong,uri.toString(), ID_Nhom_Sach);
                                     mDatabaseRef.child(uploadId).setValue(upload);
                                 }
                             });

@@ -1,10 +1,13 @@
 package com.example.androidproject_coupon.BookManagement;
 
-public class Upload {
-    private String Ma_Sach, Ten_Sach, Tac_Gia, Mo_Ta, Gia, So_Luong, Anh, ID_Nhom_Sach;
+import java.io.Serializable;
 
-    public Upload(String ma_Sach, String ten_Sach, String tac_Gia, String mo_Ta,
+public class Upload implements Serializable {
+    private String ID,Ma_Sach, Ten_Sach, Tac_Gia, Mo_Ta, Gia, So_Luong, Anh, ID_Nhom_Sach;
+
+    public Upload(String ID, String ma_Sach, String ten_Sach, String tac_Gia, String mo_Ta,
                   String gia, String so_Luong, String anh, String ID_Nhom_Sach) {
+        this.ID = ID;
         Ma_Sach = ma_Sach;
         Ten_Sach = ten_Sach;
         Tac_Gia = tac_Gia;
@@ -13,6 +16,14 @@ public class Upload {
         So_Luong = so_Luong;
         Anh = anh;
         this.ID_Nhom_Sach = ID_Nhom_Sach;
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
     }
 
     public String getMa_Sach() {

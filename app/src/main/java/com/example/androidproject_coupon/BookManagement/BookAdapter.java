@@ -1,10 +1,14 @@
 package com.example.androidproject_coupon.BookManagement;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,9 +22,9 @@ import java.util.List;
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder> {
 
     private Context mContext;
-    private List<Book> mUploads;
+    private List<Upload> mUploads;
 
-    public BookAdapter(Context context, List<Book> uploads) {
+    public BookAdapter(Context context, List<Upload> uploads) {
         mContext = context;
         mUploads = uploads;
     }
@@ -34,7 +38,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull BookViewHolder holder, int position) {
-        Book uploadCurrent = mUploads.get(position);
+        Upload uploadCurrent = mUploads.get(position);
         holder.textViewTenSach.setText(uploadCurrent.getTen_Sach());
         holder.textViewGiaTien.setText(uploadCurrent.getGia());
         Picasso.with(mContext)
@@ -42,6 +46,20 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
                 .fit()
                 .centerCrop()
                 .into(holder.imageView);
+        holder.layoutSach.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickGoToEdit(uploadCurrent);
+            }
+        });
+    }
+
+    private void onClickGoToEdit(Upload uploadCurrent) {
+        Intent intent = new Intent(mContext, EditAndDeleteBook.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("object_sach", uploadCurrent);
+        intent.putExtras(bundle);
+        mContext.startActivity(intent);
     }
 
     @Override
@@ -50,8 +68,11 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
     }
 
     public class BookViewHolder extends RecyclerView.ViewHolder {
+
+        private LinearLayout layoutSach;
         public TextView textViewTenSach, textViewGiaTien;
         public ImageView imageView;
+        public Button btnChinhSua;
 
         public BookViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -59,6 +80,8 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
             textViewTenSach = itemView.findViewById(R.id.ten_sach);
             textViewGiaTien = itemView.findViewById(R.id.gia_tien);
             imageView = itemView.findViewById(R.id.img_Sach);
+            btnChinhSua = itemView.findViewById(R.id.btn_ChinhSua);
+            layoutSach = itemView.findViewById(R.id.layout_Sach);
         }
     }
 
