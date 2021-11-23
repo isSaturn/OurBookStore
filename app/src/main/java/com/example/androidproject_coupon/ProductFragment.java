@@ -6,19 +6,27 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ListView;
+import android.widget.Toast;
 
-import com.example.androidproject_coupon.BookManagement.AdapterBook;
 import com.example.androidproject_coupon.BookManagement.AddBook;
 import com.example.androidproject_coupon.BookManagement.Book;
+import com.example.androidproject_coupon.BookManagement.BookAdapter;
+import com.example.androidproject_coupon.BookManagement.EditAndDeleteBook;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,6 +34,12 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class ProductFragment extends Fragment {
+
+    private RecyclerView mRecyclerView;
+    private BookAdapter mAdapter;
+
+    private DatabaseReference mDatabaseReference;
+    private List<Book> mUploads;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -82,28 +96,48 @@ public class ProductFragment extends Fragment {
         themsach.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(), AddBook.class));
+                Intent intent = new Intent(getContext(), AddBook.class);
+                int size = mAdapter.getItemCount();
+                intent.putExtra("size", size);
+                startActivity(intent);
             }
         });
         //hiển thị danh sách sản phẩm
-        ListView recyclerViewBook = view.findViewById(R.id.sach_rv_Sach);
-        ArrayList<Book> arrayList;
-        AdapterBook adapterBook;
+        mRecyclerView = view.findViewById(R.id.sach_rv_Sach);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        arrayList = new ArrayList<>();
-        arrayList.add(new Book("Nguyen Minh Phu",R.drawable.anhsach));
-        arrayList.add(new Book("Nguyen Minh Phu",R.drawable.anhsach));
-        arrayList.add(new Book("Nguyen Minh Phu",R.drawable.anhsach));
-        arrayList.add(new Book("Nguyen Minh Phu",R.drawable.anhsach));
-        arrayList.add(new Book("Nguyen Minh Phu",R.drawable.anhsach));
-        arrayList.add(new Book("Nguyen Minh Phu",R.drawable.anhsach));
-        arrayList.add(new Book("Nguyen Minh Phu",R.drawable.anhsach));
-        arrayList.add(new Book("Nguyen Minh Phu",R.drawable.anhsach));
-        arrayList.add(new Book("Nguyen Minh Phu",R.drawable.anhsach));
-        arrayList.add(new Book("Nguyen Minh Phu",R.drawable.anhsach));
-        arrayList.add(new Book("Nguyen Minh Phu",R.drawable.anhsach));
+        mUploads = new ArrayList<>();
 
-        adapterBook = new AdapterBook(getContext(),R.layout.sach,arrayList);
-        recyclerViewBook.setAdapter(adapterBook);
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference("Sach");
+
+        mDatabaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                mUploads.clear();
+
+                for (DataSnapshot posSnapshot: dataSnapshot.getChildren()){
+                    String tensach = posSnapshot.child("ten_Sach").getValue().toString();
+                    String giatien = posSnapshot.child("gia").getValue().toString();
+                    String anh = posSnapshot.child("anh").getValue().toString();
+                    mUploads.add(new Book(tensach,giatien,anh));
+                }
+
+                mAdapter = new BookAdapter(getContext(), mUploads);
+
+                mRecyclerView.setAdapter(mAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(), error.getMessage() , Toast.LENGTH_SHORT).show();
+            }
+        });
+        mRecyclerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), EditAndDeleteBook.class));
+            }
+        });
     }
 }

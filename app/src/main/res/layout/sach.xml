@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="10dp">
 
 
     <ImageView
         android:id="@+id/img_Sach"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         app:srcCompat="@drawable/anhsach" />
 
@@ -38,4 +40,12 @@
             android:textSize="16sp"
             android:textStyle="bold" />
     </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_ChinhSua"
+        android:layout_width="70dp"
+        android:layout_height="match_parent"
+        android:text="Chỉnh sửa"
+        android:background="@drawable/custom_button_sach_edit"
+        tools:ignore="SpeakableTextPresentCheck" />
 </LinearLayout>
