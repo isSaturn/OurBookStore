@@ -17,9 +17,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.androidproject_coupon.BookManagement.AddBook;
-import com.example.androidproject_coupon.BookManagement.Book;
 import com.example.androidproject_coupon.BookManagement.BookAdapter;
-import com.example.androidproject_coupon.BookManagement.EditAndDeleteBook;
 import com.example.androidproject_coupon.BookManagement.Upload;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
