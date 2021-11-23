@@ -72,7 +72,6 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
         private LinearLayout layoutSach;
         public TextView textViewTenSach, textViewGiaTien;
         public ImageView imageView;
-        public Button btnChinhSua;
 
         public BookViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -80,7 +79,6 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
             textViewTenSach = itemView.findViewById(R.id.ten_sach);
             textViewGiaTien = itemView.findViewById(R.id.gia_tien);
             imageView = itemView.findViewById(R.id.img_Sach);
-            btnChinhSua = itemView.findViewById(R.id.btn_ChinhSua);
             layoutSach = itemView.findViewById(R.id.layout_Sach);
         }
     }

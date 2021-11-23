@@ -42,11 +42,4 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_ChinhSua"
-        android:layout_width="70dp"
-        android:layout_height="match_parent"
-        android:text="Chỉnh sửa"
-        android:background="@drawable/custom_button_sach_edit"
-        tools:ignore="SpeakableTextPresentCheck" />
 </LinearLayout>
