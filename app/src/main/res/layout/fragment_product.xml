@@ -40,7 +40,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/sach_rv_Sach"
             android:layout_width="400dp"
-            android:layout_height="600dp"
+            android:layout_height="550dp"
             android:layout_marginStart="5dp"
             android:layout_marginTop="10dp"
             app:layout_constraintBottom_toBottomOf="parent"

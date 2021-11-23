@@ -1,27 +1,35 @@
 package com.example.androidproject_coupon.BookManagement;
 
 public class Book {
-    private String tensach;
-    private int hinh;
+    private String Ten_Sach, Gia, Anh;
 
-    public Book(String tensach, int hinh){
-        this.tensach = tensach;
-        this.hinh = hinh;
+    public Book(String ten_Sach, String gia, String anh) {
+        Ten_Sach = ten_Sach;
+        Gia = gia;
+        Anh = anh;
     }
 
-    public String getTensach() {
-        return tensach;
+    public String getTen_Sach() {
+        return Ten_Sach;
     }
 
-    public void setTensach(String tensach) {
-        this.tensach = tensach;
+    public void setTen_Sach(String ten_Sach) {
+        Ten_Sach = ten_Sach;
     }
 
-    public int getHinh() {
-        return hinh;
+    public String getGia() {
+        return Gia;
     }
 
-    public void setHinh(int hinh) {
-        this.hinh = hinh;
+    public void setGia(String gia) {
+        Gia = gia;
+    }
+
+    public String getAnh() {
+        return Anh;
+    }
+
+    public void setAnh(String anh) {
+        Anh = anh;
     }
 }

@@ -63,6 +63,7 @@ public class AddBook extends AppCompatActivity {
     private String ID_Nhom_Sach;
 
     private Uri mImageUri;
+    int size;
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -148,18 +149,26 @@ public class AddBook extends AppCompatActivity {
                             String sGia, String sSoLuong, String ID_Nhom_Sach) {
 
         if (mImageUri != null) {
-            StorageReference fileReference = mStorageRef.child(System.currentTimeMillis()
-                    + "." + getFileExtension(mImageUri));
+            StorageReference fileReference = mStorageRef.child(getFileExtension(mImageUri));
 
             mUploadTask = fileReference.putFile(mImageUri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(AddBook.this, "Thêm sách mới thành công", Toast.LENGTH_LONG).show();
-                            Upload upload = new Upload(sMaSach,  sTenSach, sTacGia, sMoTa,
-                                     sGia, sSoLuong,taskSnapshot.getUploadSessionUri().toString(), ID_Nhom_Sach);
-                            String uploadId = "4";
-                            mDatabaseRef.child(uploadId).setValue(upload);
+                            fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    Toast.makeText(AddBook.this, "Thêm sách mới thành công", Toast.LENGTH_LONG).show();
+                                    Upload upload = new Upload(sMaSach,  sTenSach, sTacGia, sMoTa,
+                                            sGia, sSoLuong,uri.toString(), ID_Nhom_Sach);
+                                    Bundle extras = getIntent().getExtras();
+                                    if (extras != null) {
+                                        size = extras.getInt("size");
+                                    }
+                                    String uploadId = String.valueOf(size);
+                                    mDatabaseRef.child(uploadId).setValue(upload);
+                                }
+                            });
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
