@@ -61,38 +61,6 @@
             app:layout_constraintTop_toBottomOf="@+id/editBook_img_Sach" />
 
         <TextView
-            android:id="@+id/editBook_tv_TenSach"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:text="Tên sách"
-            android:textColor="#000000"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editBook_btn_ChonAnh" />
-
-        <EditText
-            android:id="@+id/editBook_et_TenSach"
-            android:layout_width="400dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="4dp"
-            android:background="@drawable/custom_input"
-            android:ems="10"
-            android:hint="Nhập tên sách"
-            android:inputType="textPersonName"
-            android:minHeight="48dp"
-            android:paddingLeft="5dp"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editBook_tv_TenSach" />
-
-        <TextView
             android:id="@+id/editBook_tv_MaSach"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -104,7 +72,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editBook_et_TenSach" />
+            app:layout_constraintTop_toBottomOf="@+id/editBook_btn_ChonAnh" />
 
         <EditText
             android:id="@+id/editBook_et_MaSach"
@@ -125,7 +93,39 @@
             app:layout_constraintTop_toBottomOf="@+id/editBook_tv_MaSach" />
 
         <TextView
-            android:id="@+id/editBook_tv_GiaTen"
+            android:id="@+id/editBook_tv_TenSach"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="Tên sách"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editBook_et_MaSach" />
+
+        <EditText
+            android:id="@+id/editBook_et_TenSach"
+            android:layout_width="400dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/custom_input"
+            android:ems="10"
+            android:hint="Nhập tên sách"
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            android:paddingLeft="5dp"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editBook_tv_TenSach" />
+
+        <TextView
+            android:id="@+id/editBook_tv_GiaTien"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -137,17 +137,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editBook_et_MaSach" />
+            app:layout_constraintTop_toBottomOf="@+id/editBook_et_TenSach" />
 
         <EditText
-            android:id="@+id/editBook_et_GiaTen"
+            android:id="@+id/editBook_et_GiaTien"
             android:layout_width="400dp"
             android:layout_height="48dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="4dp"
             android:background="@drawable/custom_input"
             android:ems="10"
-            android:hint="0 đ"
+            android:hint="Nhập giá tiền"
             android:inputType="textPersonName"
             android:minHeight="48dp"
             android:paddingLeft="5dp"
@@ -155,7 +155,40 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editBook_tv_GiaTen" />
+            app:layout_constraintTop_toBottomOf="@+id/editBook_tv_GiaTien" />
+
+        <TextView
+            android:id="@+id/editBook_tv_SoLuong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+
+            android:layout_marginTop="20dp"
+            android:text="Số lượng"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editBook_et_GiaTien" />
+
+        <EditText
+            android:id="@+id/editBook_et_SoLuong"
+            android:layout_width="400dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/custom_input"
+            android:ems="10"
+            android:hint="Nhập số lượng"
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            android:paddingLeft="5dp"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editBook_tv_SoLuong" />
 
         <TextView
             android:id="@+id/editBook_tv_MoTa"
@@ -170,7 +203,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editBook_et_GiaTen" />
+            app:layout_constraintTop_toBottomOf="@+id/editBook_et_SoLuong" />
 
         <EditText
             android:id="@+id/editBook_et_MoTa"
