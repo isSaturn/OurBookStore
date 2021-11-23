@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,6 +20,7 @@ import com.example.androidproject_coupon.BookManagement.AddBook;
 import com.example.androidproject_coupon.BookManagement.Book;
 import com.example.androidproject_coupon.BookManagement.BookAdapter;
 import com.example.androidproject_coupon.BookManagement.EditAndDeleteBook;
+import com.example.androidproject_coupon.BookManagement.Upload;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,7 +41,7 @@ public class ProductFragment extends Fragment {
     private BookAdapter mAdapter;
 
     private DatabaseReference mDatabaseReference;
-    private List<Book> mUploads;
+    private List<Upload> mUploads;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -106,6 +108,8 @@ public class ProductFragment extends Fragment {
         mRecyclerView = view.findViewById(R.id.sach_rv_Sach);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+        mRecyclerView.addItemDecoration(itemDecoration);
 
         mUploads = new ArrayList<>();
 
@@ -116,11 +120,18 @@ public class ProductFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mUploads.clear();
 
-                for (DataSnapshot posSnapshot: dataSnapshot.getChildren()){
-                    String tensach = posSnapshot.child("ten_Sach").getValue().toString();
-                    String giatien = posSnapshot.child("gia").getValue().toString();
+                for (DataSnapshot posSnapshot : dataSnapshot.getChildren()) {
+                    String sID = posSnapshot.child("id").getValue().toString().trim();
+                    String sMaSach = posSnapshot.child("ma_Sach").getValue().toString().trim();
+                    String sTenSach = posSnapshot.child("ten_Sach").getValue().toString().trim();
+                    String sTacGia = posSnapshot.child("tac_Gia").getValue().toString().trim();
+                    String sMoTa = posSnapshot.child("mo_Ta").getValue().toString().trim();
+                    String sGia = posSnapshot.child("gia").getValue().toString().trim();
+                    String sSoLuong = posSnapshot.child("so_Luong").getValue().toString().trim();
                     String anh = posSnapshot.child("anh").getValue().toString();
-                    mUploads.add(new Book(tensach,giatien,anh));
+                    String id_Nhom_Sach = posSnapshot.child("id_Nhom_Sach").getValue().toString().trim();
+
+                    mUploads.add(new Upload(sID, sMaSach, sTenSach, sTacGia, sMoTa, sGia, sSoLuong, anh, id_Nhom_Sach));
                 }
 
                 mAdapter = new BookAdapter(getContext(), mUploads);
@@ -130,13 +141,7 @@ public class ProductFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getContext(), error.getMessage() , Toast.LENGTH_SHORT).show();
-            }
-        });
-        mRecyclerView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getContext(), EditAndDeleteBook.class));
+                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
