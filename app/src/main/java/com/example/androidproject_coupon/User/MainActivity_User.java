@@ -2,6 +2,8 @@ package com.example.androidproject_coupon.User;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,9 +19,13 @@ import com.example.androidproject_coupon.AccountManagement.RegisterAccount;
 import com.example.androidproject_coupon.MainActivity;
 import com.example.androidproject_coupon.ProductFragment;
 import com.example.androidproject_coupon.R;
+import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity_User extends AppCompatActivity {
 
+    TabLayout tabLayout;
+    ViewPager2 viewPager2;
+    com.example.androidproject_coupon.User.FragmentAdapter adapterFragment;
     Integer check, role;
     GetIDandRole idAndRole = new GetIDandRole();
 
@@ -27,7 +33,44 @@ public class MainActivity_User extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_user);
+        tabLayout = findViewById(R.id.tab_layout_user);
+        viewPager2 = findViewById(R.id.view_pager2_user);
+
+        FragmentManager fm = getSupportFragmentManager();
+        adapterFragment = new FragmentAdapter(fm, getLifecycle());
+        viewPager2.setAdapter(adapterFragment);
+        // Add tên và icon vào các tab
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.home).setText("Shop"));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.giohanguser).setText("Cart"));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.invoice_icon).setText("Coupon"));
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            // di chuyển tab được chọn
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager2.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+
+        viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                tabLayout.selectTab(tabLayout.getTabAt(position));
+            }
+        });
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
