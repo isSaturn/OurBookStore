@@ -6,18 +6,30 @@
     android:layout_height="match_parent"
     tools:context=".User.MainActivity_User">
 
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="73dp"
-        android:layout_height="108dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="184dp"
-        android:layout_marginBottom="100dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/view_pager2_user"
+        android:layout_width="match_parent"
+        android:layout_height="680dp"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toTopOf="@+id/tab_layout_user"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.243"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.256" />
+        app:layout_constraintVertical_bias="0.0" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="1dp"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:tabIndicatorColor="@color/textColor"
+        app:tabSelectedTextColor="@color/textColor"
+        app:tabTextAppearance="@style/tab_text"
+        tools:ignore="SpeakableTextPresentCheck" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
