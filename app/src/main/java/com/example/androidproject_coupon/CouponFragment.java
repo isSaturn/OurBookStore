@@ -110,8 +110,9 @@ public class CouponFragment extends Fragment {
                     String idCondition = data.child("ID_Loai_Ap_Dung").getValue().toString();
                     String eStart = data.child("Time_Start").getValue().toString();
                     String eEnd = data.child("Time_End").getValue().toString();
-                    couponList.add(new Coupon(id,code,name, eStart, eEnd, Integer.parseUnsignedInt(value),
-                            Integer.parseInt(valueCondition),Integer.parseInt(idCondition),Integer.parseInt(idType),R.drawable.coupon_icon));
+
+                    couponList.add(new Coupon(id,code,name, eStart, eEnd, value,
+                            valueCondition,idCondition, idType,R.drawable.coupon_icon));
                 }
             }
             @Override
@@ -134,12 +135,11 @@ public class CouponFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent ( getContext(), EditCoupon.class);
-
                 intent.putExtra( "id", couponList.get(i).getId());
                 intent.putExtra( "code", couponList.get(i).getCode());
                 intent.putExtra( "name", couponList.get(i).getName());
-                intent.putExtra( "value", couponList.get(i).getValue().toString());
-                intent.putExtra( "valueCondition", couponList.get(i).getValueCondition().toString());
+                intent.putExtra( "value", couponList.get(i).getValue());
+                intent.putExtra( "valueCondition", couponList.get(i).getValueCondition());
                 intent.putExtra( "eStart", couponList.get(i).geteStart());
                 intent.putExtra( "eEnd", couponList.get(i).geteEnd());
                 intent.putExtra( "idType", couponList.get(i).getIdType());
