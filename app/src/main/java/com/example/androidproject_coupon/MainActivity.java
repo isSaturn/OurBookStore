@@ -80,8 +80,6 @@ public class MainActivity extends AppCompatActivity {
         MenuInflater menuInflater = getMenuInflater();
         email = idAndRole.email;
         role = idAndRole.role;
-        Log.d("Kiem tra email", email);
-        Log.d("Kiem tra role", role);
         if (email.equals("")){
             menuInflater.inflate(R.menu.main_menu,menu);
         }else if (role.equals("admin")){
@@ -105,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
             firebaseAuth.signOut();
             Toast.makeText(getApplicationContext(), "Bạn đã đăng xuất", Toast.LENGTH_LONG).show();
             idAndRole.email = "";
-            startActivity(new Intent(MainActivity.this,MainActivity.class));
+            startActivity(new Intent(MainActivity.this,MainActivity_User.class));
             finish();
         }
         else if(item.getItemId()==R.id.mnuLogin){

@@ -17,11 +17,14 @@ import com.example.androidproject_coupon.AccountManagement.RegisterAccount;
 import com.example.androidproject_coupon.MainActivity;
 import com.example.androidproject_coupon.ProductFragment;
 import com.example.androidproject_coupon.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity_User extends AppCompatActivity {
 
-    Integer check, role;
+    String role,email;
     GetIDandRole idAndRole = new GetIDandRole();
+
+    private FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,18 +34,17 @@ public class MainActivity_User extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
-        check = idAndRole.id;
+        email = idAndRole.email;
         role = idAndRole.role;
         Log.d("Kiem tra:", String.valueOf(role));
-        if (check == 0){
+        if (email.equals("")){
             menuInflater.inflate(R.menu.main_menu,menu);
+        }else if (role.equals("admin")){
+            menuInflater.inflate(R.menu.menu_logout_admin_inuser,menu);
         }else{
-            if (role == 1){
-                menuInflater.inflate(R.menu.menu_logout_admin_inuser,menu);
-            }else{
-                menuInflater.inflate(R.menu.menu_logout,menu);
-            }
+            menuInflater.inflate(R.menu.menu_logout,menu);
         }
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -52,13 +54,15 @@ public class MainActivity_User extends AppCompatActivity {
             startActivity(new Intent(MainActivity_User.this, MainActivity.class));
         }
         else if(item.getItemId() == R.id.mnuLogout || item.getItemId() == R.id.mnuLogout_admin_inuser){
+            firebaseAuth = FirebaseAuth.getInstance();
+            firebaseAuth.signOut();
             Toast.makeText(getApplicationContext(), "Bạn đã đăng xuất", Toast.LENGTH_LONG).show();
-            idAndRole.id = 0;
-            startActivity(new Intent(MainActivity_User.this,MainActivity.class));
+            idAndRole.email = "";
+            startActivity(new Intent(MainActivity_User.this,MainActivity_User.class));
+            finish();
         }
         else if(item.getItemId()==R.id.mnuLogin){
             startActivity(new Intent(MainActivity_User.this,Login.class));
-            //check = 1;
         }
         return super.onOptionsItemSelected(item);
     }
