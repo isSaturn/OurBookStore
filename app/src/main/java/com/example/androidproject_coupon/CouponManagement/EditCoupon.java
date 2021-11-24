@@ -1,16 +1,13 @@
-package com.example.androidproject_coupon;
+package com.example.androidproject_coupon.CouponManagement;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -22,19 +19,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.androidproject_coupon.CouponManagement.Coupon.Coupon;
-import com.example.androidproject_coupon.CouponManagement.Coupon.DatabaseHelper_Cp;
-import com.example.androidproject_coupon.CouponManagement.CpCondition.DatabaseHelper_CpCondition;
-import com.example.androidproject_coupon.CouponManagement.CpType.DatabaseHelper_CpType;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
+import com.example.androidproject_coupon.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;

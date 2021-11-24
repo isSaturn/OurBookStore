@@ -1,7 +1,6 @@
 package com.example.androidproject_coupon;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -11,34 +10,25 @@ import androidx.annotation.RequiresApi;
 
 import androidx.fragment.app.Fragment;
 
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.androidproject_coupon.CouponManagement.AddCoupon;
 import com.example.androidproject_coupon.CouponManagement.Coupon.Coupon;
-import com.example.androidproject_coupon.CouponManagement.Coupon.DatabaseHelper_Cp;
 import com.example.androidproject_coupon.CouponManagement.CouponAdapter;
-import com.example.androidproject_coupon.CouponManagement.CpCondition.DatabaseHelper_CpCondition;
+import com.example.androidproject_coupon.CouponManagement.EditCoupon;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.IOException;
-import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
