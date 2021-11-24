@@ -67,9 +67,9 @@ public class InvoiceBookAdapter extends RecyclerView.Adapter<InvoiceBookAdapter.
             super(itemView);
 
             imgSach = itemView.findViewById(R.id.ord_iv_sach);
-            tvTensach = itemView.findViewById(R.id.ord_tv_chitietdonhang_tensach);
-            tvSoluongsach = itemView.findViewById(R.id.ord_tv_chitietdonhang_sl);
-            tvGiasach = itemView.findViewById(R.id.ord_tv_chitietdonhang_gia);
+            tvTensach = itemView.findViewById(R.id.inv_tv_chitietdonhang_tensach);
+            tvSoluongsach = itemView.findViewById(R.id.inv_tv_chitietdonhang_sl);
+            tvGiasach = itemView.findViewById(R.id.inv_tv_chitietdonhang_gia);
         }
     }
 }
