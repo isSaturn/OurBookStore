@@ -32,7 +32,7 @@
             android:name=".BookManagement.AddBook"
             android:exported="true" />
         <activity
-            android:name=".EditCoupon"
+            android:name=".CouponManagement.EditCoupon"
             android:exported="true" />
         <activity
             android:name=".CouponManagement.AddCoupon"

@@ -244,7 +244,7 @@ public class AddCoupon extends AppCompatActivity {
                     addCpRef.child(id).child("ID_Loai_Khuyen_Mai").setValue(idType);
                     Toast.makeText(getApplicationContext(),"Thêm mã khuyến mãi thành công", Toast.LENGTH_LONG).show();
                     CouponFragment.couponAdapter.notifyDataSetChanged();
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), CouponFragment.class);
                     startActivity(intent);
 //                    finish();
                 }
