@@ -42,10 +42,10 @@ public class EditCoupon extends AppCompatActivity {
     ImageView arrowReturn;
     ArrayList<String> arrayListType = new ArrayList<>();
     ArrayList<String> arrayListCondition = new ArrayList<>();
-    ArrayList<Integer> idType = new ArrayList<>();
-    ArrayList<Integer> idCondition = new ArrayList<>();
+    ArrayList<String> idType = new ArrayList<>();
+    ArrayList<String> idCondition = new ArrayList<>();
     Button edit, delete;
-    Integer selectedType, selectedCondition;
+    String selectedType, selectedCondition;
     String TAG="FIREBASE";
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -62,8 +62,8 @@ public class EditCoupon extends AppCompatActivity {
         String cpValueConditionInput = intent.getStringExtra( "valueCondition");
         String cpEStartInput = intent.getStringExtra( "eStart");
         String cpEEndInput = intent.getStringExtra( "eEnd");
-        Integer cpIdTypeInput = intent.getIntExtra( "idType",123);
-        Integer cpIdConditionInput = intent.getIntExtra("idCondition", 2);
+        String cpIdTypeInput = intent.getStringExtra( "idType");
+        String cpIdConditionInput = intent.getStringExtra("idCondition");
         cpCode.setText(cpCodeInput);
         cpValue.setText(cpValueInput);
         cpValueCondition.setText(cpValueConditionInput);
@@ -76,34 +76,17 @@ public class EditCoupon extends AppCompatActivity {
         arrayListType.add("Giảm theo số tiền");
         arrayListType.add("Giảm theo số %");
         arrayListType.add("Miễn phí vận chuyển");
-        idType.add(1);
-        idType.add(2);
-        idType.add(3);
+        idType.add("1");
+        idType.add("2");
+        idType.add("3");
         arrayAdapterType = new ArrayAdapter<>(this, R.layout.list_type_coupon,arrayListType);
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://ourbookstore-e8241-default-rtdb.firebaseio.com/");
-//        DatabaseReference myRefType = database.getReference("LoaiKhuyenMai");
-//
-//        myRefType.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                for (DataSnapshot data: snapshot.getChildren()){
-//                    String value = data.child("Loai_Khuyen_Mai").getValue().toString();
-//                    arrayListType.add(value);
-//                    idType.add(Integer.parseInt(data.getKey()));
-//
-//                }
-//            }
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//                Log.w(TAG, "Failed to read value.", error.toException());
-//            }
-//        });
         arrayAdapterType = new ArrayAdapter(this, R.layout.list_type_coupon,arrayListType);
         autoType = findViewById(R.id.editCp_tv_Type);
         switch (cpIdTypeInput){
-            case 1: autoType.setText(arrayListType.get(0));break;
-            case 2: autoType.setText(arrayListType.get(1));break;
-            case 3: {
+            case "1": autoType.setText(arrayListType.get(0));break;
+            case "2": autoType.setText(arrayListType.get(1));break;
+            case "3": {
                 autoType.setText(arrayListType.get(2));
                 cpValue.setEnabled(false);
             }break;
@@ -116,7 +99,7 @@ public class EditCoupon extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"Item: " + selectedType, Toast.LENGTH_SHORT).show();
 
                 // Block field khi user chon Mien phi giao hang
-                if(idType.get(position) == 3){
+                if(idType.get(position).equals("3")){
                     cpValue.setText("25000");
                     cpValue.setEnabled(false);
                 }
@@ -129,27 +112,11 @@ public class EditCoupon extends AppCompatActivity {
 
         // Loai ap dung
         arrayListCondition.add("Giá trị đơn hàng từ");
-        idCondition.add(1);
+        idCondition.add("1");
         arrayAdapterCondition = new ArrayAdapter(this, R.layout.list_type_coupon,arrayListCondition);
-//        DatabaseReference myRefCondition = database.getReference("LoaiApDung");
-//        myRefCondition.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                for (DataSnapshot data: snapshot.getChildren()){
-//                    String value = data.child("Loai_Ap_Dung").getValue().toString();
-//                    arrayListCondition.add(value);
-//                    idCondition.add(Integer.parseInt(data.getKey()));
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//                Log.w(TAG, "Failed to read value.", error.toException());
-//            }
-//        });
         arrayAdapterCondition = new ArrayAdapter(this, R.layout.list_type_coupon,arrayListCondition);
         autoCondition = findViewById(R.id.editCp_tv_Condition);
-        if(cpIdConditionInput == 1){
+        if(cpIdConditionInput.equals("1")){
             autoCondition.setText(arrayListCondition.get(0));
         }
         autoCondition.setAdapter(arrayAdapterCondition);
@@ -255,14 +222,14 @@ public class EditCoupon extends AppCompatActivity {
                 Intent intent2 = getIntent();
                 DatabaseReference editCpRef = database.getReference("KhuyenMai");
                 String id = intent2.getStringExtra("id");
-                String codeTxt = cpCode.getText().toString();
-                String nameTxt = cpName.getText().toString();
-                String eStart = dateStart.getText().toString();
-                String eEnd = dateEnd.getText().toString();
-                Integer value = Integer.parseUnsignedInt(cpValue.getText().toString());
-                Integer valueCondition = Integer.parseUnsignedInt(cpValueCondition.getText().toString());
-                Integer idCondition = selectedCondition;
-                Integer idType = selectedType;
+                String codeTxt = cpCode.getText().toString().trim();
+                String nameTxt = cpName.getText().toString().trim();
+                String eStart = dateStart.getText().toString().trim();
+                String eEnd = dateEnd.getText().toString().trim();
+                String value = cpValue.getText().toString();
+                String valueCondition = cpValueCondition.getText().toString();
+                String idCondition = selectedCondition;
+                String idType = selectedType;
                 editCpRef.child(id).child("Ma_Khuyen_Mai").setValue(codeTxt);
                 editCpRef.child(id).child("Ten_Khuyen_Mai").setValue(nameTxt);
                 editCpRef.child(id).child("Time_Start").setValue(eStart);
@@ -304,6 +271,7 @@ public class EditCoupon extends AppCompatActivity {
         Button btnYes, btnNo;
         btnYes = dialog.findViewById(R.id.Cp_btn_Yes);
         btnNo = dialog.findViewById(R.id.Cp_btn_No);
+        dialog.show();
         btnNo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -316,10 +284,11 @@ public class EditCoupon extends AppCompatActivity {
                 FirebaseDatabase database = FirebaseDatabase.getInstance("https://ourbookstore-e8241-default-rtdb.firebaseio.com/");
                 DatabaseReference myRefCp = database.getReference("KhuyenMai");
                 myRefCp.child(cpId).removeValue();
+                dialog.dismiss();
                 finish();
             }
         });
-        dialog.show();
+
     }
     private void matching(){
         dateEnd = findViewById(R.id.editCp_et_DateEnd);

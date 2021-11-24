@@ -40,7 +40,7 @@ public class CouponAdapter extends ArrayAdapter<Coupon> {
         txtName.setText(getItem(position).getName());
         txtDateStart.setText(getItem(position).geteStart());
         txtDateEnd.setText(getItem(position).geteEnd());
-        if(getItem(position).getIdType() == 2){
+        if(getItem(position).getIdType().equals("2")){
             txtValue.setText("Giá trị: "+getItem(position).getValue().toString() + "%");
         }
         else{
