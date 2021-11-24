@@ -31,15 +31,15 @@
         app:layout_constraintTop_toBottomOf="@+id/dangKy_img_Back" />
 
     <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/dangKy_et_TaiKhoan"
+        android:id="@+id/dangKy_et_name"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:background="@drawable/custom_input"
-        android:drawableStart="@drawable/custom_email_icon"
+        android:drawableStart="@drawable/custom_name_icon"
         android:drawablePadding="10dp"
         android:ems="10"
-        android:hint="Tài khoản"
+        android:hint="Your name"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:paddingLeft="10dp"
@@ -48,49 +48,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dangKy_tv_Title" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/dangKy_tv_LoiTK"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:text="Lỗi!!"
-        android:textColor="#FF0000"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dangKy_et_TaiKhoan" />
-
     <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/dangKy_et_MatKhau"
+        android:id="@+id/dangKy_et_email"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:background="@drawable/custom_input"
-        android:drawableStart="@drawable/custom_lock_icon"
+        android:drawableStart="@drawable/custom_email_icon"
         android:drawablePadding="10dp"
         android:ems="10"
-        android:hint="Mật khẩu"
-        android:inputType="textWebPassword"
+        android:hint="Email"
+        android:inputType="textPersonName"
         android:minHeight="48dp"
         android:paddingLeft="10dp"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dangKy_tv_LoiTK" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/dangKy_tv_LoiMK"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:text="Lỗi!!"
-        android:textColor="#FF0000"
-        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dangKy_et_MatKhau" />
+        app:layout_constraintTop_toBottomOf="@+id/dangKy_et_name" />
 
     <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/dangKy_et_XNMK"
+        android:id="@+id/dangKy_et_password"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -98,40 +76,46 @@
         android:drawableStart="@drawable/custom_lock_icon"
         android:drawablePadding="10dp"
         android:ems="10"
-        android:hint="Xác nhận mật khẩu"
+        android:hint="Password"
         android:inputType="textWebPassword"
         android:minHeight="48dp"
         android:paddingLeft="10dp"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dangKy_tv_LoiMK" />
+        app:layout_constraintTop_toBottomOf="@+id/dangKy_et_email" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/dangKy_tv_LoiXNMK"
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/dangKy_et_cpassword"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:text="Lỗi!!"
-        android:textColor="#FF0000"
-        android:textSize="12sp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/custom_input"
+        android:drawableStart="@drawable/custom_lock_icon"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:hint="Confirm password"
+        android:inputType="textWebPassword"
+        android:minHeight="48dp"
+        android:paddingLeft="10dp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dangKy_et_XNMK" />
+        app:layout_constraintTop_toBottomOf="@+id/dangKy_et_password" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/dangKy_btn_DangKy"
+        android:id="@+id/dangKy_btn_Register"
         android:layout_width="150dp"
         android:layout_height="48dp"
         android:layout_marginTop="40dp"
         android:background="@drawable/custom_button_sach_edit"
-        android:text="Đăng Ký"
+        android:text="Register"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dangKy_tv_LoiXNMK"
+        app:layout_constraintTop_toBottomOf="@+id/dangKy_et_cpassword"
         tools:ignore="TextContrastCheck,DuplicateSpeakableTextCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

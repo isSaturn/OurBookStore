@@ -1,13 +1,17 @@
 package com.example.androidproject_coupon.AccountManagement;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -19,78 +23,137 @@ import android.widget.Toast;
 import com.example.androidproject_coupon.MainActivity;
 import com.example.androidproject_coupon.R;
 import com.example.androidproject_coupon.User.MainActivity_User;
+import com.example.androidproject_coupon.databinding.ActivityLoginBinding;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 
 public class Login extends AppCompatActivity {
 
-    Button Login;
-    EditText username, password;
-    TextView Error, Register;
-    ImageView Back;
     GetIDandRole idAndRole = new GetIDandRole();
+
+    private ActivityLoginBinding binding;
+
+    private FirebaseAuth firebaseAuth;
+
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        binding = ActivityLoginBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        matching();
-
-        CheckAccount account = new CheckAccount(this);
-        try {
-            account.createDataBase();
-            Log.d("Thanh cong", "Da tao duoc db");
-        }catch (IOException e){
-            Log.d("Bi loi roi", "khong tao duoc db");
-        }
-
-
-        Login.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
-            @Override
-            public void onClick(View v) {
-                Error.setText("");
-                String tk = username.getText().toString();
-                String mk = password.getText().toString();
-                if (tk.length() < 1 || mk.length() < 1){
-                    Error.setText("Không được bỏ trống username hoặc password");
-                }else {
-                    Boolean checkAccount = account.checkAccount(tk,mk);
-                    //Kiểm tra thông tin tài khoản
-                    if (checkAccount == false){
-                        Error.setText("Thông tin tài khoản hoặc mật khẩu không chính xác. Vui lòng nhập lại!!!");
-                    }else{
-                        Cursor cursor = account.layidaccount(tk,mk);
-                        cursor.moveToFirst();
-                        Integer id_account = Integer.parseUnsignedInt(cursor.getString(0));
-                        Integer id_role = Integer.parseUnsignedInt(cursor.getString(3));
-                        Toast.makeText(Login.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(Login.this, MainActivity_User.class);
-
-                        idAndRole.id = id_account;
-                        idAndRole.role = id_role;
-                        startActivity(intent);
-                    }
-                }
-            }
-        });
-
-    }
-
-    private void matching() {
-        Login = findViewById(R.id.dangNhap_btn_DangNhap);
-        username = findViewById(R.id.dangNhap_et_TaiKhoan);
-        password = findViewById(R.id.dangNhap_et_MatKhau);
-        Error = findViewById(R.id.dangNhap_tv_BaoLoi);
-        Register = findViewById(R.id.dangNhap_tv_DangKy);
-        Back = findViewById(R.id.dangNhap_img_Back);
-        Back.setOnClickListener(new View.OnClickListener() {
+        binding.dangNhapImgBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+
+        binding.dangNhapTvDangKy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Login.this, RegisterAccount.class));
+            }
+        });
+
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Please wait");
+        progressDialog.setCanceledOnTouchOutside(false);
+
+
+        binding.dangNhapBtnDangNhap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                validateData();
+            }
+        });
+
+    }
+    private String email = "", password = "";
+    private void validateData() {
+        email = binding.dangNhapEtTaiKhoan.getText().toString().trim();
+        password = binding.dangNhapEtMatKhau.getText().toString().trim();
+
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            Toast.makeText(this,"Vui lòng nhập đúng gmail",Toast.LENGTH_SHORT).show();
+        }
+        else if (TextUtils.isEmpty(password)){
+            Toast.makeText(this,"Vui lòng nhập password",Toast.LENGTH_SHORT).show();
+        }
+        else {
+            loginUser();
+        }
+    }
+
+    private void loginUser() {
+        progressDialog.setMessage("Logging In...");
+        progressDialog.show();
+
+        firebaseAuth.signInWithEmailAndPassword(email,password)
+                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                    @Override
+                    public void onSuccess(AuthResult authResult) {
+                        checkUser();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        progressDialog.dismiss();
+                        Toast.makeText(Login.this,"" + e.toString(),Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void checkUser() {
+        progressDialog.setMessage("Checking User...");
+
+
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+        ref.child(firebaseUser.getUid())
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        progressDialog.dismiss();
+
+                        String email = "" + snapshot.child("email").getValue();
+                        String userType = ""+snapshot.child("userType").getValue();
+                        if (userType.equals("user")){
+                            startActivity(new Intent(Login.this,MainActivity_User.class));
+                            Log.d("Type", userType);
+                            idAndRole.email = email.trim();
+                            idAndRole.role = userType.trim();
+                            finish();
+                        }
+                        else if (userType.equals("admin")){
+                            startActivity(new Intent(Login.this,MainActivity.class));
+                            Log.d("Type:", userType);
+                            idAndRole.email = email.trim();
+                            idAndRole.role = userType.trim();
+                            finish();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
     }
 
 }
