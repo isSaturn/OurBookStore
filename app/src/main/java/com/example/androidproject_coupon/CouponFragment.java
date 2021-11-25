@@ -102,15 +102,14 @@ public class CouponFragment extends Fragment {
                 couponList.clear();
                 for (DataSnapshot data: snapshot.getChildren()){
                     String id = data.getKey();
-                    String code = data.child("Ma_Khuyen_Mai").getValue().toString();
-                    String name = data.child("Ten_Khuyen_Mai").getValue().toString();
-                    String value = data.child("Gia_Giam").getValue().toString();
-                    String valueCondition = data.child("Gia_Ap_Dung").getValue().toString();
-                    String idType = data.child("ID_Loai_Khuyen_Mai").getValue().toString();
-                    String idCondition = data.child("ID_Loai_Ap_Dung").getValue().toString();
-                    String eStart = data.child("Time_Start").getValue().toString();
-                    String eEnd = data.child("Time_End").getValue().toString();
-
+                    String code = data.child("code").getValue().toString();
+                    String name = data.child("name").getValue().toString();
+                    String value = data.child("value").getValue().toString();
+                    String valueCondition = data.child("valueCondition").getValue().toString();
+                    String idType = data.child("idType").getValue().toString();
+                    String idCondition = data.child("idCondition").getValue().toString();
+                    String eStart = data.child("eStart").getValue().toString();
+                    String eEnd = data.child("eEnd").getValue().toString();
                     couponList.add(new Coupon(id,code,name, eStart, eEnd, value,
                             valueCondition,idCondition, idType,R.drawable.coupon_icon));
                 }

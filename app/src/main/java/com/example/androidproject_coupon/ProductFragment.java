@@ -117,7 +117,6 @@ public class ProductFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mUploads.clear();
-
                 for (DataSnapshot posSnapshot : dataSnapshot.getChildren()) {
                     String sID = posSnapshot.child("id").getValue().toString().trim();
                     String sMaSach = posSnapshot.child("ma_Sach").getValue().toString().trim();
@@ -128,7 +127,6 @@ public class ProductFragment extends Fragment {
                     String sSoLuong = posSnapshot.child("so_Luong").getValue().toString().trim();
                     String anh = posSnapshot.child("anh").getValue().toString();
                     String id_Nhom_Sach = posSnapshot.child("id_Nhom_Sach").getValue().toString().trim();
-
                     mUploads.add(new Upload(sID, sMaSach, sTenSach, sTacGia, sMoTa, sGia, sSoLuong, anh, id_Nhom_Sach));
                 }
 
