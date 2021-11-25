@@ -1,21 +1,26 @@
 package com.example.androidproject_coupon;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.androidproject_coupon.OrderManagement.Oder;
-import com.example.androidproject_coupon.OrderManagement.Oder_adapter;
+import com.example.androidproject_coupon.OrderManagement.OderAdapter;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,10 +31,13 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class OrderFragment extends Fragment {
-    ListView listView;
-    ArrayList<Oder> dataList = new ArrayList<>();
-    Oder_adapter oder_adapter;
-    Context context;
+
+
+    private RecyclerView mRecyclerView;
+    private OderAdapter mAdapter;
+
+    private DatabaseReference mDatabaseReference;
+    private List<Oder> mUploads;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -82,17 +90,42 @@ public class OrderFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        listView = view.findViewById(R.id.lv_status_oder);
-        dataList.add(new Oder("04/11/2021 14:00", "211104SACH0001", "Cho xac nhan", "85.000d", "69/68 Dang Thuy Tram"));
-        oder_adapter = new Oder_adapter(getContext(),R.layout.item_oder, dataList);
-        listView.setAdapter(oder_adapter);
+        mRecyclerView = view.findViewById(R.id.oder_rv_danhsach);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+        mRecyclerView.addItemDecoration(itemDecoration);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mUploads = new ArrayList<>();
+
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference("DonHang");
+        mDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
-                Intent intent = new Intent(getContext(), activity_oderdetails.class);
-                startActivity(intent);
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                mUploads.clear();
+                for (DataSnapshot data : snapshot.getChildren()) {
+                    String time = data.child("Time").getValue().toString();
+                    String code = data.child("Ma_Don_Hang").getValue().toString();
+                    String status = data.child("ID_Trang_Thai_DH").getValue().toString();
+                    String price = data.child("Tong_Tien").getValue().toString();
+                    String address = data.child("Dia_Chi").getValue().toString();
+                    String name = data.child("Ho_Ten").getValue().toString();
+                    String phone = data.child("SDT").getValue().toString();
+                    String hinhthuc = data.child("ID_Hinh_Thuc_GH").getValue().toString();
+                    String khuyenmai = data.child("ID_Khuyen_Mai").getValue().toString();
+                    String taikhoan = data.child("ID_Tai_Khoan").getValue().toString();
+                    mUploads.add(new Oder(address,name,hinhthuc,khuyenmai,taikhoan,status,code,phone,time,price));
+                }
+                mAdapter = new OderAdapter(getContext(),mUploads);
+                mRecyclerView.setAdapter(mAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+
             }
         });
+        //abc
     }
 }

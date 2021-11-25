@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.androidproject_coupon.CouponManagement.Coupon.Coupon;
 import com.example.androidproject_coupon.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -55,7 +56,6 @@ public class EditCoupon extends AppCompatActivity {
 
         matching();
         Intent intent = getIntent();
-        String cpId = intent.getStringExtra("id");
         String cpCodeInput = intent.getStringExtra("code");
         String cpNameInput= intent.getStringExtra( "name");
         String cpValueInput = intent.getStringExtra( "value");
@@ -113,7 +113,6 @@ public class EditCoupon extends AppCompatActivity {
         // Loai ap dung
         arrayListCondition.add("Giá trị đơn hàng từ");
         idCondition.add("1");
-        arrayAdapterCondition = new ArrayAdapter(this, R.layout.list_type_coupon,arrayListCondition);
         arrayAdapterCondition = new ArrayAdapter(this, R.layout.list_type_coupon,arrayListCondition);
         autoCondition = findViewById(R.id.editCp_tv_Condition);
         if(cpIdConditionInput.equals("1")){
@@ -183,7 +182,7 @@ public class EditCoupon extends AppCompatActivity {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showDialog(cpId);
+                showDialog(cpCodeInput);
             }
         });
 
@@ -219,26 +218,19 @@ public class EditCoupon extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Date start < Date end", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Intent intent2 = getIntent();
                 DatabaseReference editCpRef = database.getReference("KhuyenMai");
-                String id = intent2.getStringExtra("id");
                 String codeTxt = cpCode.getText().toString().trim();
                 String nameTxt = cpName.getText().toString().trim();
-                String eStart = dateStart.getText().toString().trim();
-                String eEnd = dateEnd.getText().toString().trim();
-                String value = cpValue.getText().toString();
-                String valueCondition = cpValueCondition.getText().toString();
-                String idCondition = selectedCondition;
-                String idType = selectedType;
-                editCpRef.child(id).child("Ma_Khuyen_Mai").setValue(codeTxt);
-                editCpRef.child(id).child("Ten_Khuyen_Mai").setValue(nameTxt);
-                editCpRef.child(id).child("Time_Start").setValue(eStart);
-                editCpRef.child(id).child("Time_End").setValue(eEnd);
-                editCpRef.child(id).child("Gia_Ap_Dung").setValue(valueCondition);
-                editCpRef.child(id).child("Gia_Giam").setValue(value);
-                editCpRef.child(id).child("ID_Loai_Ap_Dung").setValue(idCondition);
-                editCpRef.child(id).child("ID_Loai_Khuyen_Mai").setValue(idType);
+                String eStartTxt = dateStart.getText().toString().trim();
+                String eEndTxt = dateEnd.getText().toString().trim();
+                String valueTxt = cpValue.getText().toString();
+                String valueConditionTxt = cpValueCondition.getText().toString();
+                String idConditionTxt = selectedCondition;
+                String idTypeTxt = selectedType;
+                Coupon coupon = new Coupon(codeTxt,nameTxt,eStartTxt,eEndTxt,valueTxt, valueConditionTxt,idConditionTxt, idTypeTxt, R.drawable.coupon_icon);
+                editCpRef.child(codeTxt).setValue(coupon);
                 finish();
+                Toast.makeText(getApplicationContext(),"Sửa thông tin khuyến mãi thành công", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -286,6 +278,7 @@ public class EditCoupon extends AppCompatActivity {
                 myRefCp.child(cpId).removeValue();
                 dialog.dismiss();
                 finish();
+                Toast.makeText(getApplicationContext(),"Xóa mã khuyến mãi thành công", Toast.LENGTH_LONG).show();
             }
         });
 
