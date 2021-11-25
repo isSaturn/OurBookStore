@@ -157,16 +157,17 @@
             android:layout_marginTop="12dp"
             android:text="TextView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.215"
+            app:layout_constraintHorizontal_bias="0.22"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/inv_tv_phuongthucthanhtoan" />
+            app:layout_constraintTop_toBottomOf="@+id/inv_tv_nhacnho" />
 
         <ImageView
             android:id="@+id/imgLine2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/inv_tv_thongtinthanhtoan"
             app:srcCompat="@drawable/line" />
@@ -175,13 +176,13 @@
             android:id="@+id/inv_tv_madonhang"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:text="Mã đơn hàng:"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.22"
+            app:layout_constraintHorizontal_bias="0.222"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imgLine2"
-            android:textSize="20sp" />
+            app:layout_constraintTop_toBottomOf="@+id/imgLine2" />
 
         <TextView
             android:id="@+id/inv_tv_madonhang_id"
@@ -197,11 +198,11 @@
             android:id="@+id/imageView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.503"
+            app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/inv_tv_madonhang_id"
+            app:layout_constraintTop_toBottomOf="@+id/inv_tv_thoigiandathang_date"
             app:srcCompat="@drawable/line" />
 
         <ImageView
@@ -214,6 +215,7 @@
             app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/inv_tv_time"
+            app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/xacnhan" />
 
         <TextView
@@ -226,6 +228,40 @@
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+
+        <TextView
+            android:id="@+id/inv_tv_thoigiandathang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="64dp"
+            android:layout_marginTop="16dp"
+            android:text="Thời gian đặt hàng:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/inv_tv_madonhang" />
+
+        <TextView
+            android:id="@+id/inv_tv_thoigiandathang_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="@+id/inv_tv_thoigiandathang"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/inv_tv_thoigiandathang"
+            app:layout_constraintTop_toTopOf="@+id/inv_tv_thoigiandathang"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/inv_tv_nhacnho"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Vui lòng thanh toán khi nhận hàng"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.388"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/inv_tv_phuongthucthanhtoan" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

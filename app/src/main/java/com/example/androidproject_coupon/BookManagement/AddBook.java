@@ -1,15 +1,23 @@
 package com.example.androidproject_coupon.BookManagement;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentResolver;
+import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.ArrayMap;
 import android.util.Log;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -18,12 +26,21 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.androidproject_coupon.MainActivity;
 import com.example.androidproject_coupon.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
+import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,9 +51,19 @@ public class AddBook extends AppCompatActivity {
 
     Spinner spinnerTheLoai;
     Button ChonAnh, ThemSach;
-    EditText MaSach, TenSach, GiaTien, Mota, TacGia;
+    EditText MaSach, TenSach, GiaTien, SoLuong, Mota, TacGia;
     ImageView AnhSach, Back;
+
     FirebaseDatabase database = FirebaseDatabase.getInstance();
+    StorageReference mStorageRef;
+    DatabaseReference mDatabaseRef;
+    StorageTask mUploadTask;
+
+    private static final int PICK_IMAGE_REQUEST = 1;
+    private String ID_Nhom_Sach;
+
+    private Uri mImageUri;
+    int size;
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -47,21 +74,6 @@ public class AddBook extends AppCompatActivity {
 
         matching();
 
-//        BookCategory category = new BookCategory(this);
-//        try {
-//            category.createDataBase();
-//            Log.d("Thanh cong", "Da tao duoc db");
-//        }catch (IOException e){
-//            Log.d("Bi loi roi", "khong tao duoc db");
-//        }
-//
-//        Cursor contro = category.laytheloai();
-//        contro.moveToFirst();
-
-//        do {
-//            ID.add(Integer.parseUnsignedInt(contro.getString(0)));
-//            arrayList.add(contro.getString(1));
-//        }while (contro.moveToNext());
         ArrayList<Integer> ID = new ArrayList<Integer>();
         ArrayList<String> arrayList = new ArrayList<String>();
         ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item,arrayList);
@@ -88,6 +100,7 @@ public class AddBook extends AppCompatActivity {
         spinnerTheLoai.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                ID_Nhom_Sach = ID.get(i).toString();
                 Toast.makeText(AddBook.this, ID.get(i).toString(), Toast.LENGTH_SHORT).show();
             }
 
@@ -96,7 +109,98 @@ public class AddBook extends AppCompatActivity {
 
             }
         });
+
+        ChonAnh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openFileChooser();
+            }
+        });
+
+        mStorageRef = FirebaseStorage.getInstance().getReference("Sach");
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference("Sach");
+
+        ThemSach.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String sMaSach = MaSach.getText().toString().trim();
+                String sTenSach = TenSach.getText().toString().trim();
+                String sTacGia = TacGia.getText().toString().trim();
+                String sMoTa = Mota.getText().toString().trim();
+                String sGia = GiaTien.getText().toString().trim();
+                String sSoLuong = SoLuong.getText().toString().trim();
+                if (mUploadTask != null && mUploadTask.isInProgress()){
+                    Toast.makeText(AddBook.this, "Đang thêm mới sản phẩm", Toast.LENGTH_LONG).show();
+                }else {
+                    uploadFile(sMaSach,sTenSach,sTacGia,sMoTa,sGia,sSoLuong,ID_Nhom_Sach);
+                    startActivity(new Intent(AddBook.this, MainActivity.class));
+                }
+            }
+        });
     }
+
+    private String getFileExtension(Uri uri) {
+        ContentResolver cR = getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(cR.getType(uri));
+    }
+
+    private void uploadFile(String sMaSach, String sTenSach, String sTacGia, String sMoTa,
+                            String sGia, String sSoLuong, String ID_Nhom_Sach) {
+
+        if (mImageUri != null) {
+            StorageReference fileReference = mStorageRef.child(getFileExtension(mImageUri));
+
+            mUploadTask = fileReference.putFile(mImageUri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    Bundle extras = getIntent().getExtras();
+                                    if (extras != null) {
+                                        size = extras.getInt("size");
+                                    }
+                                    String uploadId = String.valueOf(size);
+                                    Toast.makeText(AddBook.this, "Thêm sách mới thành công", Toast.LENGTH_LONG).show();
+                                    Upload upload = new Upload(uploadId,sMaSach,  sTenSach, sTacGia, sMoTa,
+                                            sGia, sSoLuong,uri.toString(), ID_Nhom_Sach);
+                                    mDatabaseRef.child(uploadId).setValue(upload);
+                                }
+                            });
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(AddBook.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        } else {
+            Toast.makeText(this, "Chưa chọn file ảnh", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void openFileChooser() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, PICK_IMAGE_REQUEST);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
+                && data != null && data.getData() != null) {
+            mImageUri = data.getData();
+
+            Picasso.with(this).load(mImageUri).into(AnhSach);
+            //mImageView.setImageURI(mImageUri);
+        }
+    }
+
 
     private void matching() {
         spinnerTheLoai = findViewById(R.id.addBook_spn_TheLoai);
@@ -105,6 +209,7 @@ public class AddBook extends AppCompatActivity {
         MaSach = findViewById(R.id.addBook_et_MaSach);
         TenSach = findViewById(R.id.addBook_et_TenSach);
         GiaTien = findViewById(R.id.addBook_et_GiaTien);
+        SoLuong = findViewById(R.id.addBook_et_SoLuong);
         Mota = findViewById(R.id.addBook_et_MoTa);
         TacGia = findViewById(R.id.addBook_et_TacGia);
         AnhSach = findViewById(R.id.addBook_img_Sach);

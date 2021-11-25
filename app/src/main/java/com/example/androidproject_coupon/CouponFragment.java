@@ -1,7 +1,6 @@
 package com.example.androidproject_coupon;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -16,27 +15,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.androidproject_coupon.CouponManagement.AddCoupon;
 import com.example.androidproject_coupon.CouponManagement.Coupon.Coupon;
-import com.example.androidproject_coupon.CouponManagement.Coupon.DatabaseHelper_Cp;
 import com.example.androidproject_coupon.CouponManagement.CouponAdapter;
-import com.example.androidproject_coupon.CouponManagement.CpCondition.DatabaseHelper_CpCondition;
+import com.example.androidproject_coupon.CouponManagement.EditCoupon;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -50,7 +42,8 @@ public class CouponFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    public static CouponAdapter couponAdapter;
+    public static ArrayList<Coupon> couponList = new ArrayList<>();
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -74,7 +67,6 @@ public class CouponFragment extends Fragment {
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
-
         return fragment;
     }
 
@@ -91,29 +83,23 @@ public class CouponFragment extends Fragment {
 
         return mView;
     }
-    private void matching(){
-
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Button add = view.findViewById(R.id.Cp_btn_Add);
-        add.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), AddCoupon.class);
-                startActivity(intent);
-            }
-        });
-        ArrayList<Coupon> couponList = new ArrayList<>();
+
         ListView listView = view.findViewById(R.id.list_view);
+        couponAdapter = new CouponAdapter(getContext(), R.layout.adapter_view_layout_coupon, couponList);
+
         String TAG="FIREBASE";
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://ourbookstore-e8241-default-rtdb.firebaseio.com/");
         DatabaseReference myRef = database.getReference("KhuyenMai");
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                couponAdapter.clear();
+                couponList.clear();
                 for (DataSnapshot data: snapshot.getChildren()){
                     String id = data.getKey();
                     String code = data.child("Ma_Khuyen_Mai").getValue().toString();
@@ -124,32 +110,40 @@ public class CouponFragment extends Fragment {
                     String idCondition = data.child("ID_Loai_Ap_Dung").getValue().toString();
                     String eStart = data.child("Time_Start").getValue().toString();
                     String eEnd = data.child("Time_End").getValue().toString();
-                    couponList.add(new Coupon(id,code,name, eStart, eEnd, Integer.parseUnsignedInt(value),
-                            Integer.parseInt(valueCondition),Integer.parseInt(idCondition),Integer.parseInt(idType),R.drawable.coupon_icon));
 
-
+                    couponList.add(new Coupon(id,code,name, eStart, eEnd, value,
+                            valueCondition,idCondition, idType,R.drawable.coupon_icon));
                 }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
-        });
 
-        CouponAdapter couponAdapter = new CouponAdapter(getContext(), R.layout.adapter_view_layout_coupon, couponList);
+        });
+        Button add = view.findViewById(R.id.Cp_btn_Add);
+        add.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), AddCoupon.class);
+                int size = couponAdapter.getCount() + 1;
+                intent.putExtra("size", size);
+                startActivity(intent);
+            }
+        });
         listView.setAdapter(couponAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent ( getContext(), EditCoupon.class);
+                intent.putExtra( "id", couponList.get(i).getId());
                 intent.putExtra( "code", couponList.get(i).getCode());
                 intent.putExtra( "name", couponList.get(i).getName());
-                intent.putExtra( "value", couponList.get(i).getValue().toString());
-                intent.putExtra( "valueCondition", couponList.get(i).getValueCondition().toString());
+                intent.putExtra( "value", couponList.get(i).getValue());
+                intent.putExtra( "valueCondition", couponList.get(i).getValueCondition());
                 intent.putExtra( "eStart", couponList.get(i).geteStart());
                 intent.putExtra( "eEnd", couponList.get(i).geteEnd());
-                intent.putExtra( "idType", couponList.get(i).getIdType().toString());
-                intent.putExtra( "idCondition", couponList.get(i).getIdCondition().toString());
+                intent.putExtra( "idType", couponList.get(i).getIdType());
+                intent.putExtra( "idCondition", couponList.get(i).getIdCondition());
                 startActivity(intent);
             }
         });

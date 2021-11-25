@@ -49,8 +49,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/Cp_tv_Value"
-        android:layout_marginTop="5dp"
         android:layout_marginLeft="40dp"
+        android:layout_marginTop="5dp"
         android:layout_toRightOf="@id/img_image"
         android:text="TextView"
         android:textColor="#000000"
@@ -72,12 +72,13 @@
         android:textStyle="normal"
         tools:layout_editor_absoluteX="248dp"
         tools:layout_editor_absoluteY="29dp" />
+
     <TextView
         android:id="@+id/Cp_tv_DateEnd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
         android:layout_below="@id/Cp_tv_Value"
+        android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
         android:layout_toRightOf="@id/Cp_tv_Gap"
         android:text="TextView"
