@@ -1,24 +1,21 @@
 package com.example.androidproject_coupon;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
+import android.widget.Toast;
 
-import com.example.androidproject_coupon.CouponManagement.Coupon.Coupon;
-import com.example.androidproject_coupon.CouponManagement.CouponAdapter;
 import com.example.androidproject_coupon.OrderManagement.Oder;
-import com.example.androidproject_coupon.OrderManagement.Oder_adapter;
+import com.example.androidproject_coupon.OrderManagement.OderAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,10 +31,13 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class OrderFragment extends Fragment {
-    ListView listView;
-    ArrayList<Oder> dataList = new ArrayList<>();
-    Oder_adapter oder_adapter;
-    Context context;
+
+
+    private RecyclerView mRecyclerView;
+    private OderAdapter mAdapter;
+
+    private DatabaseReference mDatabaseReference;
+    private List<Oder> mUploads;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -90,22 +90,20 @@ public class OrderFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-      listView = view.findViewById(R.id.lv_status_oder);
-//        dataList.add(new Oder("04/11/2021 14:00", "211104SACH0001", "Cho xac nhan", "85.000d", "69/68 Dang Thuy Tram"));
-//        oder_adapter = new Oder_adapter(getContext(),R.layout.item_oder, dataList);
-//        listView.setAdapter(oder_adapter);
+        mRecyclerView = view.findViewById(R.id.oder_rv_danhsach);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+        mRecyclerView.addItemDecoration(itemDecoration);
 
+        mUploads = new ArrayList<>();
 
-
-        ListView listView = view.findViewById(R.id.list_view);
-        String TAG="FIREBASE";
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("DonHang");
-        myRef.addValueEventListener(new ValueEventListener() {
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference("DonHang");
+        mDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                for (DataSnapshot data: snapshot.getChildren()){
+                mUploads.clear();
+                for (DataSnapshot data : snapshot.getChildren()) {
                     String time = data.child("Time").getValue().toString();
                     String code = data.child("Ma_Don_Hang").getValue().toString();
                     String status = data.child("ID_Trang_Thai_DH").getValue().toString();
@@ -116,30 +114,17 @@ public class OrderFragment extends Fragment {
                     String hinhthuc = data.child("ID_Hinh_Thuc_GH").getValue().toString();
                     String khuyenmai = data.child("ID_Khuyen_Mai").getValue().toString();
                     String taikhoan = data.child("ID_Tai_Khoan").getValue().toString();
-
-                    dataList.add(new Oder(address,time, code, status, price));
+                    mUploads.add(new Oder(address,name,hinhthuc,khuyenmai,taikhoan,status,code,phone,time,price));
                 }
+                mAdapter = new OderAdapter(getContext(),mUploads);
+                mRecyclerView.setAdapter(mAdapter);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.w(TAG, "Failed to read value.", error.toException());
-            }
-        });
+                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
 
-        Oder_adapter oder_adapter  = new Oder_adapter(getContext(), R.layout.item_oder, dataList);
-        listView.setAdapter(oder_adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent ( getContext(), EditCoupon.class);
-                intent.putExtra( "code", dataList.get(i).getCode());
-                intent.putExtra( "time", dataList.get(i).getTime());
-                intent.putExtra( "status", dataList.get(i).getStatus());
-                intent.putExtra( "price", dataList.get(i).getPrice().toString());
-                intent.putExtra( "address", dataList.get(i).getAddress());
-                startActivity(intent);
             }
         });
-        }
     }
+}
