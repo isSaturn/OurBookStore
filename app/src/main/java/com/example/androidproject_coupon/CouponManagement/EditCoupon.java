@@ -114,7 +114,6 @@ public class EditCoupon extends AppCompatActivity {
         arrayListCondition.add("Giá trị đơn hàng từ");
         idCondition.add("1");
         arrayAdapterCondition = new ArrayAdapter(this, R.layout.list_type_coupon,arrayListCondition);
-        arrayAdapterCondition = new ArrayAdapter(this, R.layout.list_type_coupon,arrayListCondition);
         autoCondition = findViewById(R.id.editCp_tv_Condition);
         if(cpIdConditionInput.equals("1")){
             autoCondition.setText(arrayListCondition.get(0));
@@ -230,15 +229,16 @@ public class EditCoupon extends AppCompatActivity {
                 String valueCondition = cpValueCondition.getText().toString();
                 String idCondition = selectedCondition;
                 String idType = selectedType;
-                editCpRef.child(id).child("Ma_Khuyen_Mai").setValue(codeTxt);
-                editCpRef.child(id).child("Ten_Khuyen_Mai").setValue(nameTxt);
-                editCpRef.child(id).child("Time_Start").setValue(eStart);
-                editCpRef.child(id).child("Time_End").setValue(eEnd);
-                editCpRef.child(id).child("Gia_Ap_Dung").setValue(valueCondition);
-                editCpRef.child(id).child("Gia_Giam").setValue(value);
-                editCpRef.child(id).child("ID_Loai_Ap_Dung").setValue(idCondition);
-                editCpRef.child(id).child("ID_Loai_Khuyen_Mai").setValue(idType);
+                editCpRef.child(id).child("code").setValue(codeTxt);
+                editCpRef.child(id).child("name").setValue(nameTxt);
+                editCpRef.child(id).child("eStart").setValue(eStart);
+                editCpRef.child(id).child("eEnd").setValue(eEnd);
+                editCpRef.child(id).child("valueCondition").setValue(valueCondition);
+                editCpRef.child(id).child("value").setValue(value);
+                editCpRef.child(id).child("idCondition").setValue(idCondition);
+                editCpRef.child(id).child("idType").setValue(idType);
                 finish();
+                Toast.makeText(getApplicationContext(),"Sửa thông tin khuyến mãi thành công", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -286,6 +286,7 @@ public class EditCoupon extends AppCompatActivity {
                 myRefCp.child(cpId).removeValue();
                 dialog.dismiss();
                 finish();
+                Toast.makeText(getApplicationContext(),"Xóa mã khuyến mãi thành công", Toast.LENGTH_LONG).show();
             }
         });
 
