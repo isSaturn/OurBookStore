@@ -53,11 +53,13 @@ public class InvoiceInformation extends AppCompatActivity {
     RadioButton rdBtnNhanh, rdBtnTietkiem;
     RecyclerView rvListitem;
     AutoCompleteTextView autotvMagiamgia;
+    ArrayAdapter<String> arrayAdapterMagiamgia;
     ArrayList<String> arrayMagiamgia = new ArrayList<>();
     ArrayList<Integer> idMagiagia = new ArrayList<>();
-    String TAG="FIREBASE";
     String slcMagiamgia;
-    ArrayAdapter<String> arrayAdapterMagiamgia;
+    String TAG="FIREBASE";
+
+
     int i = 0;
 
     @Override
@@ -107,7 +109,7 @@ public class InvoiceInformation extends AppCompatActivity {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://ourbookstore-e8241-default-rtdb.firebaseio.com/");
         DatabaseReference invRef = database.getReference().child("DonHang");
-        DatabaseReference invDetailRef = database.getReference().child("ChiTietDonHang");
+
 
 
         invRef.addValueEventListener(new ValueEventListener() {
@@ -162,8 +164,9 @@ public class InvoiceInformation extends AppCompatActivity {
         });
 
         //ChiTietDonHang
+        DatabaseReference invDetailRef = database.getReference().child("ChiTietDonHang");
 
-
+        //Dialog complete
         Toast.makeText(InvoiceInformation.this,"Đặt hàng thành công",Toast.LENGTH_LONG).show();
     }
 
