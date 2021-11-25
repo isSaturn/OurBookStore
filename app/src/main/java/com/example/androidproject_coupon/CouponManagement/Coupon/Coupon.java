@@ -1,12 +1,11 @@
 package com.example.androidproject_coupon.CouponManagement.Coupon;
 
 public class Coupon  {
-    private String name, code, eStart, eEnd, id ,value, valueCondition, idType, idCondition;
+    private String name, code, eStart, eEnd ,value, valueCondition, idType, idCondition;
     private Integer imgUrl;
 
-    public Coupon(String id,String code,String name, String eStart, String eEnd, String value, String valueCondition, String idCondition, String idType,Integer imgUrl){
+    public Coupon(String code,String name, String eStart, String eEnd, String value, String valueCondition, String idCondition, String idType,Integer imgUrl){
         this.code = code;
-        this.id = id;
         this.name = name;
         this.valueCondition = valueCondition;
         this.idCondition = idCondition;
@@ -16,15 +15,6 @@ public class Coupon  {
         this.eStart = eStart;
         this.eEnd = eEnd;
     }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
 
     public String getCode() {
         return code;

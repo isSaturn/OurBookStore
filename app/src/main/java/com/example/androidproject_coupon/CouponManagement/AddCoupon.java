@@ -220,12 +220,12 @@ public class AddCoupon extends AppCompatActivity {
                     }
                 }
                 try {
-                    Bundle extras = getIntent().getExtras();
-                    int size = 0;
-                    if(extras!=null){
-                        size = extras.getInt("size");
-                    }
-                    String id = String.valueOf(size);
+//                    Bundle extras = getIntent().getExtras();
+//                    int size = 0;
+//                    if(extras!=null){
+//                        size = extras.getInt("size");
+//                    }
+//                    String id = String.valueOf(size);
                     String codeTxt = cpCode.getText().toString().trim();
                     String nameTxt = cpName.getText().toString().trim();
                     String eStartTxt = dateStart.getText().toString().trim();
@@ -234,8 +234,8 @@ public class AddCoupon extends AppCompatActivity {
                     String valueConditionTxt = cpValueCondition.getText().toString().trim();
                     String idConditionTxt = selectedCondition.trim();
                     String idTypeTxt = selectedType.trim();
-                    Coupon coupon = new Coupon(id, codeTxt,nameTxt,eStartTxt,eEndTxt,valueConditionTxt,valueTxt,idTypeTxt,idConditionTxt, R.drawable.coupon_icon);
-                    addCpRef.child(id).setValue(coupon);
+                    Coupon coupon = new Coupon(codeTxt,nameTxt,eStartTxt,eEndTxt,valueTxt, valueConditionTxt,idConditionTxt, idTypeTxt, R.drawable.coupon_icon);
+                    addCpRef.child(codeTxt).setValue(coupon);
                     finish();
                     Toast.makeText(getApplicationContext(),"Thêm mã khuyến mãi thành công", Toast.LENGTH_LONG).show();
                 }

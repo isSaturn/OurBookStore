@@ -101,7 +101,6 @@ public class CouponFragment extends Fragment {
                 couponAdapter.clear();
                 couponList.clear();
                 for (DataSnapshot data: snapshot.getChildren()){
-                    String id = data.getKey();
                     String code = data.child("code").getValue().toString();
                     String name = data.child("name").getValue().toString();
                     String value = data.child("value").getValue().toString();
@@ -110,7 +109,7 @@ public class CouponFragment extends Fragment {
                     String idCondition = data.child("idCondition").getValue().toString();
                     String eStart = data.child("eStart").getValue().toString();
                     String eEnd = data.child("eEnd").getValue().toString();
-                    couponList.add(new Coupon(id,code,name, eStart, eEnd, value,
+                    couponList.add(new Coupon(code,name, eStart, eEnd, value,
                             valueCondition,idCondition, idType,R.drawable.coupon_icon));
                 }
             }
@@ -134,7 +133,6 @@ public class CouponFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent ( getContext(), EditCoupon.class);
-                intent.putExtra( "id", couponList.get(i).getId());
                 intent.putExtra( "code", couponList.get(i).getCode());
                 intent.putExtra( "name", couponList.get(i).getName());
                 intent.putExtra( "value", couponList.get(i).getValue());
