@@ -182,7 +182,6 @@ public class AddCoupon extends AppCompatActivity {
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Xét đk cho từng field
                 if(cpName.getText().toString().trim().length() == 0  || cpValue.getText().toString().trim().length() == 0
                         || dateStart.getText().toString().length() == 0 || cpCode.getText().toString().length() == 0
                         || autoType.getText().toString().length() == 0 || dateEnd.getText().toString().length() == 0
@@ -220,7 +219,6 @@ public class AddCoupon extends AppCompatActivity {
                         return;
                     }
                 }
-                //Add dữ liệu vào fbase
                 try {
                     Bundle extras = getIntent().getExtras();
                     int size = 0;
@@ -236,17 +234,15 @@ public class AddCoupon extends AppCompatActivity {
                     String valueConditionTxt = cpValueCondition.getText().toString().trim();
                     String idConditionTxt = selectedCondition.trim();
                     String idTypeTxt = selectedType.trim();
-                    addCouponInfo(id, codeTxt,nameTxt,eStartTxt,eEndTxt,valueConditionTxt,valueTxt,idTypeTxt,idConditionTxt);
+                    Coupon coupon = new Coupon(id, codeTxt,nameTxt,eStartTxt,eEndTxt,valueConditionTxt,valueTxt,idTypeTxt,idConditionTxt, R.drawable.coupon_icon);
+                    addCpRef.child(id).setValue(coupon);
+                    finish();
                     Toast.makeText(getApplicationContext(),"Thêm mã khuyến mãi thành công", Toast.LENGTH_LONG).show();
-
-
                 }
                 catch (Exception ex)
                 {
                     Toast.makeText(getApplicationContext(),"Error:"+ex.toString(),Toast.LENGTH_LONG).show();
                 }
-                Intent intent = new Intent(getApplicationContext(), CouponFragment.class);
-                startService(intent);
             }
         });
     }
@@ -266,21 +262,10 @@ public class AddCoupon extends AppCompatActivity {
             Duration diff = Duration.between(d1.atStartOfDay(), d2.atStartOfDay());
             long diffDays = diff.toDays();
             return diffDays;
-
         } catch (ParseException e) {
             e.printStackTrace();
         }
         return 0;
-    }
-    private void addCouponInfo(String id, String code, String name, String eStart, String eEnd, String valueCondition, String value, String idType, String idCondition){
-        addCpRef.child(id).child("Ma_Khuyen_Mai").setValue(code).isSuccessful();
-        addCpRef.child(id).child("Ten_Khuyen_Mai").setValue(name);
-        addCpRef.child(id).child("Time_Start").setValue(eStart);
-        addCpRef.child(id).child("Time_End").setValue(eEnd);
-        addCpRef.child(id).child("Gia_Ap_Dung").setValue(valueCondition);
-        addCpRef.child(id).child("Gia_Giam").setValue(value);
-        addCpRef.child(id).child("ID_Loai_Ap_Dung").setValue(idCondition);
-        addCpRef.child(id).child("ID_Loai_Khuyen_Mai").setValue(idType);
     }
     private void matching(){
         dateEnd = findViewById(R.id.addCp_et_DateEnd);
