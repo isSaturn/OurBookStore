@@ -103,8 +103,8 @@
 
         <EditText
             android:id="@+id/addCp_et_Value"
-            android:layout_width="329dp"
-            android:layout_height="55dp"
+            android:layout_width="327dp"
+            android:layout_height="51dp"
             android:layout_marginTop="4dp"
             android:background="@drawable/custom_textfield"
             android:ems="10"
@@ -259,7 +259,7 @@
 
 
             <AutoCompleteTextView
-                android:id="@+id/addCp_tv_Type"
+                android:id="@+id/inv_tv_magiamgia_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
