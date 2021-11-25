@@ -38,7 +38,7 @@
             android:id="@+id/inv_tv_tongcong_gia"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="162dp"
+            android:layout_marginStart="165dp"
             android:text="TextView"
             app:layout_constraintBottom_toBottomOf="@+id/inv_tv_tongcong"
             app:layout_constraintStart_toEndOf="@+id/inv_tv_tongcong"
@@ -109,20 +109,30 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/inv_rdG_hinhthucgiaohang" />
 
-        <EditText
-            android:id="@+id/inv_et_magiamgia"
-            android:layout_width="262dp"
-            android:layout_height="33dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="12dp"
-            android:bottomRightRadius="25dp"
-            android:ems="10"
-            android:hint="Nhập mã tại đây"
-            android:inputType="textPersonName"
-            android:textSize="10sp"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout1"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="329dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.439"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/inv_tv_magiamgia"
-            tools:ignore="TouchTargetSizeCheck" />
+            app:layout_constraintTop_toBottomOf="@+id/inv_tv_magiamgia">
+
+
+            <AutoCompleteTextView
+                android:id="@+id/inv_tv_magiamgia_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:inputType="none"
+                android:text=""
+                tools:ignore="TouchTargetSizeCheck ,SpeakableTextPresentCheck"
+                tools:layout_editor_absoluteX="33dp"
+                tools:layout_editor_absoluteY="619dp"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/inv_tv_chitietdonhang"
@@ -202,12 +212,12 @@
             android:id="@+id/inv_tv_hinhthucthanhtoan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="16dp"
             android:text="Hình thức thanh toán"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.06"
+            app:layout_constraintHorizontal_bias="0.056"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/inv_et_magiamgia" />
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout1" />
 
         <CheckBox
             android:id="@+id/inv_cb_thanhtoantienmat"
@@ -287,17 +297,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/inv_tv_tongcong_gia"
             app:layout_constraintVertical_bias="1.0" />
-
-        <Button
-            android:id="@+id/inv_btn_magiamgia"
-            android:layout_width="95dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="28dp"
-            android:text="Xác nhận"
-            android:textSize="8sp"
-            app:layout_constraintBottom_toBottomOf="@+id/inv_et_magiamgia"
-            app:layout_constraintStart_toEndOf="@+id/inv_et_magiamgia"
-            app:layout_constraintTop_toTopOf="@+id/inv_et_magiamgia" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

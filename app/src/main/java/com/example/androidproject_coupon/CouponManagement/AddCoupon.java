@@ -21,7 +21,6 @@ import android.widget.Toast;
 
 import com.example.androidproject_coupon.CouponFragment;
 import com.example.androidproject_coupon.CouponManagement.Coupon.Coupon;
-import com.example.androidproject_coupon.MainActivity;
 import com.example.androidproject_coupon.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -277,6 +276,6 @@ public class AddCoupon extends AppCompatActivity {
         arrowReturn = findViewById(R.id.addCp_img_Return);
         addBtn = findViewById(R.id.addCp_btn_Add);
         autoCondition = findViewById(R.id.addCp_tv_Condition);
-        autoType = findViewById(R.id.addCp_tv_Type);
+        autoType = findViewById(R.id.inv_tv_magiamgia_list);
     }
 }
