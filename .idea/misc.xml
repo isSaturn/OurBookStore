@@ -79,6 +79,10 @@
         <entry key="..\:/Phu/Android/OurBookStore/app/src/main/res/menu/menu_logout_admin_inadmin.xml" value="0.25" />
         <entry key="..\:/Phu/Android/OurBookStore/app/src/main/res/menu/menu_logout_admin_inuser.xml" value="0.1" />
         <entry key="..\:/Phu/Android/OurBookStore/app/src/main/res/menu/menu_logout_user.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_edit_coupon.xml" value="0.21557971014492755" />
+        <entry key="app/src/main/res/layout/activity_oderdetails.xml" value="0.19972826086956522" />
+        <entry key="app/src/main/res/layout/adapter_view_layout_coupon.xml" value="0.16770833333333332" />
+        <entry key="app/src/main/res/layout/item_oder.xml" value="0.16770833333333332" />
       </map>
     </option>
   </component>
