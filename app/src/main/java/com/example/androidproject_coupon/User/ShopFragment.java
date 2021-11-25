@@ -2,13 +2,29 @@ package com.example.androidproject_coupon.User;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.example.androidproject_coupon.BookManagement.BookAdapter;
+import com.example.androidproject_coupon.BookManagement.Upload;
 import com.example.androidproject_coupon.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +41,12 @@ public class ShopFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private RecyclerView mRecyclerView;
+    private UserAdapter mAdapter;
+
+    private DatabaseReference mDatabaseReference;
+    private List<Upload> mUploads;
 
     public ShopFragment() {
         // Required empty public constructor
@@ -62,5 +84,51 @@ public class ShopFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_shop, container, false);
+
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        mRecyclerView = view.findViewById(R.id.rcv_shop_user);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+        mRecyclerView.addItemDecoration(itemDecoration);
+
+        mUploads = new ArrayList<>();
+
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference("Sach");
+
+        mDatabaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                mUploads.clear();
+
+                for (DataSnapshot posSnapshot : dataSnapshot.getChildren()) {
+                    String sID = posSnapshot.child("id").getValue().toString().trim();
+                    String sMaSach = posSnapshot.child("ma_Sach").getValue().toString().trim();
+                    String sTenSach = posSnapshot.child("ten_Sach").getValue().toString().trim();
+                    String sTacGia = posSnapshot.child("tac_Gia").getValue().toString().trim();
+                    String sMoTa = posSnapshot.child("mo_Ta").getValue().toString().trim();
+                    String sGia = posSnapshot.child("gia").getValue().toString().trim();
+                    String sSoLuong = posSnapshot.child("so_Luong").getValue().toString().trim();
+                    String anh = posSnapshot.child("anh").getValue().toString();
+                    String id_Nhom_Sach = posSnapshot.child("id_Nhom_Sach").getValue().toString().trim();
+
+                    mUploads.add(new Upload(sID, sMaSach, sTenSach, sTacGia, sMoTa, sGia, sSoLuong, anh, id_Nhom_Sach));
+                }
+
+                mAdapter = new UserAdapter(getContext(), mUploads);
+
+                mRecyclerView.setAdapter(mAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
