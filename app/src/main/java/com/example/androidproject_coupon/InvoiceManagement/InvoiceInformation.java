@@ -139,7 +139,7 @@ public class InvoiceInformation extends AppCompatActivity {
         //add ma giam gia
         arrayAdapterMagiamgia = new ArrayAdapter<>(this, R.layout.list_type_coupon,arrayMagiamgia);
         DatabaseReference cpnRef = database.getReference("KhuyenMai");
-        invRef.addValueEventListener(new ValueEventListener() {
+        cpnRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot data: snapshot.getChildren()){
