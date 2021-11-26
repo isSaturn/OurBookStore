@@ -92,21 +92,6 @@ public class AccountFragment extends Fragment {
 
         spinnerRole = view.findViewById(R.id.account_spn_Role);
 
-//        ManagentRole role = new ManagentRole(getContext());
-//        try {
-//            role.createDataBase();
-//            Log.d("Thanh cong", "Da tao duoc db");
-//        }catch (IOException e){
-//            Log.d("Bi loi roi", "khong tao duoc db");
-//        }
-//
-//        Cursor contro = role.layRole();
-//        contro.moveToFirst();
-
-//        do {
-//            ID.add(Integer.parseUnsignedInt(contro.getString(0)));
-//            arrayList.add(contro.getString(1));
-//        }while (contro.moveToNext());
         ArrayList<Integer> ID = new ArrayList<Integer>();
         ArrayList<String> arrayList = new ArrayList<String>();
 
