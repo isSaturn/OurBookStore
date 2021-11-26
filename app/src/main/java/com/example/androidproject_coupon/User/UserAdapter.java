@@ -1,6 +1,8 @@
 package com.example.androidproject_coupon.User;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.androidproject_coupon.BookManagement.EditAndDeleteBook;
 import com.example.androidproject_coupon.BookManagement.Upload;
 import com.example.androidproject_coupon.R;
 import com.squareup.picasso.Picasso;
@@ -44,21 +47,21 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
                 .fit()
                 .centerCrop()
                 .into(holder.imageView);
-//        holder.layoutSach.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                onClick(uploadCurrent);
-//            }
-//        });
+        holder.layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickDetail(uploadCurrent);
+            }
+        });
     }
 
-//    private void onClickGoToEdit(Upload uploadCurrent) {
-//        Intent intent = new Intent(mContext, EditAndDeleteBook.class);
-//        Bundle bundle = new Bundle();
-//        bundle.putSerializable("object_sach", uploadCurrent);
-//        intent.putExtras(bundle);
-//        mContext.startActivity(intent);
-//    }
+    private void onClickDetail(Upload uploadCurrent) {
+        Intent intent = new Intent(mContext, ItemDetailActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("object_sach", uploadCurrent);
+        intent.putExtras(bundle);
+        mContext.startActivity(intent);
+    }
 
     @Override
     public int getItemCount() {
@@ -67,7 +70,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 
     public class UserViewHolder extends RecyclerView.ViewHolder {
 
-        private ConstraintLayout layoutSach;
+        private ConstraintLayout layout;
         public TextView textViewTenSach, textViewGiaTien;
         public ImageView imageView;
 
@@ -77,7 +80,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             textViewTenSach = itemView.findViewById(R.id.tv_shop_tensach);
             textViewGiaTien = itemView.findViewById(R.id.tv_shop_giasach);
             imageView = itemView.findViewById(R.id.img_shop_sach);
-            layoutSach = itemView.findViewById(R.id.layout_item_row);
+            layout = itemView.findViewById(R.id.layout_item_row);
         }
     }
 
