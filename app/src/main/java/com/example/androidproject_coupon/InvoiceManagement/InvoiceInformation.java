@@ -4,7 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -29,21 +34,33 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class InvoiceInformation extends AppCompatActivity {
     private RecyclerView rcvInvoiceitem;
     private InvoiceBookAdapter invoiceBookAdapter;
 
-    Button btnDathang, btnMagiamgia;
-    EditText etHoten, etSDT, etDiachi, etMagiamgia;
-    TextView tvGiaohangnhanh, tvGiaohangtietkiem, tvTamtinh, tvPhivanchuyen, tvTongcong, tvTensach, tvSoluong, tvGia;
+    Button btnDathang;
+    EditText etHoten, etSDT, etDiachi;
+    TextView tvGiaohangnhanh, tvGiaohangtietkiem, tvTamtinh, tvPhivanchuyen, tvTongcong, tvTensach, tvSoluong, tvGia, tvMagiamgia;
     CheckBox cbShipCOD;
     RadioGroup rdGHinhthuc;
     RadioButton rdBtnNhanh, rdBtnTietkiem;
     RecyclerView rvListitem;
+    AutoCompleteTextView autotvMagiamgia;
+    ArrayAdapter<String> arrayAdapterMagiamgia;
+    ArrayList<String> arrayMagiamgia = new ArrayList<>();
+    ArrayList<Integer> idMagiagia = new ArrayList<>();
+    String slcMagiamgia;
+    String TAG="FIREBASE";
+
+
+    int i = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,31 +109,65 @@ public class InvoiceInformation extends AppCompatActivity {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://ourbookstore-e8241-default-rtdb.firebaseio.com/");
         DatabaseReference invRef = database.getReference().child("DonHang");
-        try {
-            Bundle extras = getIntent().getExtras();
-            int size = 0;
-            if(extras!=null){
-                size = extras.getInt("size");
+
+
+
+        invRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    i = (int)snapshot.getChildrenCount();
+                }
             }
-            String id = String.valueOf(size);
-            String nameTxt = etHoten.getText().toString();
-            String numphonesTxt = etSDT.getText().toString();
-            String addressTxt = etDiachi.getText().toString();
-            String rdGiaohangnhanh = rdBtnNhanh.getText().toString();
-            String rdGiaohangtietkiem = rdBtnTietkiem.getText().toString();
-            invRef.child(id).child("Ho_ten").setValue(nameTxt);
-            invRef.child(id).child("SDT").setValue(numphonesTxt);
-            invRef.child(id).child("Dia_chi").setValue(addressTxt);
-            if (rdBtnNhanh.isChecked()){
-                invRef.child(id).child("ID_Hinh_Thuc_GH").setValue(rdGiaohangnhanh);
-            }else{
-                invRef.child(id).child("ID_Hinh_Thuc_GH").setValue(rdGiaohangtietkiem);
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(InvoiceInformation.this, "Error",Toast.LENGTH_LONG).show();
             }
-            Toast.makeText(InvoiceInformation.this,"Đặt hàng thành công",Toast.LENGTH_LONG).show();
+        });
+        //hoten,sdt,diachi nguoi dat don hang
+        String nameTxt = etHoten.getText().toString();
+        String numphonesTxt = etSDT.getText().toString();
+        String addressTxt = etDiachi.getText().toString();
+        invRef.child(String.valueOf(i+1)).child("Ho_Ten").setValue(nameTxt);
+        invRef.child(String.valueOf(i+1)).child("SDT").setValue(numphonesTxt);
+        invRef.child(String.valueOf(i+1)).child("Dia_Chi").setValue(addressTxt);
+        //Hinh thuc giao hang
+        if (rdBtnNhanh.isChecked()){
+            invRef.child(String.valueOf(i+1)).child("ID_Hinh_Thuc_GH").setValue("0");
+        }else {
+            invRef.child(String.valueOf(i+1)).child("ID_Hinh_Thuc_GH").setValue("1");
         }
-        catch (Exception ex) {
-            Toast.makeText(getApplicationContext(), "Error:" + ex.toString(), Toast.LENGTH_LONG).show();
-        }
+        //add ma giam gia
+        arrayAdapterMagiamgia = new ArrayAdapter<>(this, R.layout.list_type_coupon,arrayMagiamgia);
+        DatabaseReference cpnRef = database.getReference("KhuyenMai");
+        cpnRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot data: snapshot.getChildren()){
+                    String value = data.getValue().toString();
+                    arrayMagiamgia.add(value);
+                    idMagiagia.add(Integer.parseInt(data.getKey()));
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+        autotvMagiamgia.setAdapter(arrayAdapterMagiamgia);
+        autotvMagiamgia.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                slcMagiamgia = idMagiagia.get(position).toString();
+            }
+        });
+
+        //ChiTietDonHang
+        DatabaseReference invDetailRef = database.getReference().child("ChiTietDonHang");
+
+        //Dialog complete
+        Toast.makeText(InvoiceInformation.this,"Đặt hàng thành công",Toast.LENGTH_LONG).show();
     }
 
     private List<InvoiceBook> getListBook() {
@@ -129,12 +180,10 @@ public class InvoiceInformation extends AppCompatActivity {
     private void matching() {
         rcvInvoiceitem = findViewById(R.id.inv_rv_item);
         btnDathang = (Button)findViewById(R.id.inv_btn_dathang);
-        btnMagiamgia = (Button) findViewById(R.id.inv_btn_magiamgia);
         cbShipCOD = (CheckBox) findViewById(R.id.inv_cb_thanhtoantienmat);
         etHoten = (EditText) findViewById(R.id.inv_et_hoten);
         etSDT = (EditText) findViewById(R.id.inv_et_sdt);
         etDiachi = (EditText) findViewById(R.id.inv_et_diachi);
-        etMagiamgia = (EditText) findViewById(R.id.inv_et_magiamgia);
         tvGiaohangnhanh = (TextView) findViewById(R.id.inv_tv_giaohangnhanh_gia);
         tvGiaohangtietkiem = (TextView) findViewById(R.id.inv_tv_giaohangtietkiem_gia);
         tvTamtinh = (TextView) findViewById(R.id.inv_tv_tamtinh_gia);
@@ -147,5 +196,6 @@ public class InvoiceInformation extends AppCompatActivity {
         rdBtnNhanh = (RadioButton) findViewById(R.id.inv_rdBtn_giaohangnhanh);
         rdBtnTietkiem = (RadioButton) findViewById(R.id.inv_rdBtn_giaohangtietkiem);
         rvListitem = (RecyclerView) findViewById(R.id.inv_rv_item);
+        autotvMagiamgia = (AutoCompleteTextView) findViewById(R.id.inv_tv_magiamgia_list);
     }
 }
