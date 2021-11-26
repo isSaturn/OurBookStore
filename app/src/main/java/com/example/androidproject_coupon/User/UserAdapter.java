@@ -13,7 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.androidproject_coupon.BookManagement.Book;
+import com.example.androidproject_coupon.BookManagement.EditAndDeleteBook;
+import com.example.androidproject_coupon.BookManagement.Upload;
 import com.example.androidproject_coupon.R;
 import com.squareup.picasso.Picasso;
 
@@ -22,11 +23,11 @@ import java.util.List;
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder> {
 
     private Context mContext;
-    private List<Book> mBooks;
+    private List<Upload> mUploads;
 
-    public UserAdapter(Context context, List<Book> books) {
+    public UserAdapter(Context context, List<Upload> uploads) {
         mContext = context;
-        mBooks = books;
+        mUploads = uploads;
     }
 
     @NonNull
@@ -38,33 +39,33 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
-        Book bookCurrent = mBooks.get(position);
-        holder.textViewTenSach.setText(bookCurrent.getTen_Sach());
-        holder.textViewGiaTien.setText(bookCurrent.getGia());
+        Upload uploadCurrent = mUploads.get(position);
+        holder.textViewTenSach.setText(uploadCurrent.getTen_Sach());
+        holder.textViewGiaTien.setText(uploadCurrent.getGia());
         Picasso.with(mContext)
-                .load(bookCurrent.getAnh())
+                .load(uploadCurrent.getAnh())
                 .fit()
                 .centerCrop()
                 .into(holder.imageView);
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClickDetail(bookCurrent);
+                onClickDetail(uploadCurrent);
             }
         });
     }
 
-    private void onClickDetail(Book bookCurrent) {
+    private void onClickDetail(Upload uploadCurrent) {
         Intent intent = new Intent(mContext, ItemDetailActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putSerializable("detail_sach", bookCurrent);
+        bundle.putSerializable("detail_sach", uploadCurrent);
         intent.putExtras(bundle);
         mContext.startActivity(intent);
     }
 
     @Override
     public int getItemCount() {
-        return mBooks.size();
+        return mUploads.size();
     }
 
     public class UserViewHolder extends RecyclerView.ViewHolder {

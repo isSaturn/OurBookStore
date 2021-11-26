@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/layout_itemdetail"
     tools:context=".User.ItemDetailActivity">
 
     <ImageView
@@ -48,6 +47,30 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_itemdetail_name" />
 
     <TextView
+        android:id="@+id/tv_itemdetail_masach"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="TextView"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_itemdetail_price" />
+
+    <TextView
+        android:id="@+id/tv_itemdetail_tacgia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="TextView"
+        android:textColor="#080F35"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_itemdetail_masach" />
+
+    <TextView
         android:id="@+id/tv_itemdetail_theloai"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -57,7 +80,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_itemdetail_price" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_itemdetail_tacgia" />
 
     <TextView
         android:id="@+id/tv_itemdetail_mota"
