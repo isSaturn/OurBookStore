@@ -8,44 +8,34 @@
 
     <ImageView
         android:id="@+id/dangNhap_img_Back"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/back" />
+        app:srcCompat="@drawable/back_icon" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/dangNhap_tv_Tittle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
         android:text="Đăng nhập"
         android:textColor="#000000"
-        android:textSize="34sp"
+        android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/dangNhap_tv_BaoLoi"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:textColor="#FF0000"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dangNhap_tv_Tittle" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView8" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/dangNhap_et_TaiKhoan"
-        android:layout_width="350dp"
+        android:layout_width="320dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="36dp"
         android:background="@drawable/custom_input"
         android:drawableStart="@drawable/custom_email_icon"
         android:drawablePadding="10dp"
@@ -54,17 +44,18 @@
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:paddingLeft="10dp"
+        android:paddingEnd="15dp"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dangNhap_tv_BaoLoi" />
+        app:layout_constraintTop_toBottomOf="@+id/dangNhap_tv_Tittle" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/dangNhap_et_MatKhau"
-        android:layout_width="350dp"
+        android:layout_width="320dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/custom_input"
         android:drawableStart="@drawable/custom_lock_icon"
         android:drawablePadding="10dp"
@@ -73,20 +64,23 @@
         android:inputType="textWebPassword"
         android:minHeight="48dp"
         android:paddingLeft="10dp"
+        android:paddingEnd="15dp"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dangNhap_et_TaiKhoan" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/dangNhap_btn_DangNhap"
-        android:layout_width="150dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="40dp"
-        android:background="@drawable/custom_button_sach_edit"
-        android:text="Đăng nhập"
+        android:layout_width="104dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/buttonshape_icon"
+        android:text="Login"
+        android:textAllCaps="false"
         android:textColor="#FFFFFF"
-        android:textSize="20sp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -112,11 +106,20 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:text="Đăng ký"
-        android:textColor="#03A9F4"
+        android:textColor="#5669FF"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/dangNhap_tv_GoiY"
         app:layout_constraintTop_toBottomOf="@+id/dangNhap_btn_DangNhap" />
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="159dp"
+        android:layout_height="146dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dangNhap_img_Back"
+        app:srcCompat="@drawable/image_2021_11_25_211222_removebg_preview" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
