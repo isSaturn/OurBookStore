@@ -14,7 +14,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidproject_coupon.BookManagement.EditAndDeleteBook;
-import com.example.androidproject_coupon.BookManagement.Upload;
+import com.example.androidproject_coupon.BookManagement.Book;
 import com.example.androidproject_coupon.R;
 import com.squareup.picasso.Picasso;
 
@@ -23,9 +23,9 @@ import java.util.List;
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder> {
 
     private Context mContext;
-    private List<Upload> mUploads;
+    private List<Book> mUploads;
 
-    public UserAdapter(Context context, List<Upload> uploads) {
+    public UserAdapter(Context context, List<Book> uploads) {
         mContext = context;
         mUploads = uploads;
     }
@@ -39,7 +39,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
-        Upload uploadCurrent = mUploads.get(position);
+        Book uploadCurrent = mUploads.get(position);
         holder.textViewTenSach.setText(uploadCurrent.getTen_Sach());
         holder.textViewGiaTien.setText(uploadCurrent.getGia());
         Picasso.with(mContext)
@@ -55,7 +55,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         });
     }
 
-    private void onClickDetail(Upload uploadCurrent) {
+    private void onClickDetail(Book uploadCurrent) {
         Intent intent = new Intent(mContext, ItemDetailActivity.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("detail_sach", uploadCurrent);

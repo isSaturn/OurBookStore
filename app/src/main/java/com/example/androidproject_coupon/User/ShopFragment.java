@@ -14,8 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.androidproject_coupon.BookManagement.BookAdapter;
-import com.example.androidproject_coupon.BookManagement.Upload;
+import com.example.androidproject_coupon.BookManagement.Book;
 import com.example.androidproject_coupon.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -46,7 +45,7 @@ public class ShopFragment extends Fragment {
     private UserAdapter mAdapter;
 
     private DatabaseReference mDatabaseReference;
-    private List<Upload> mUploads;
+    private List<Book> mBooks;
 
     public ShopFragment() {
         // Required empty public constructor
@@ -97,14 +96,14 @@ public class ShopFragment extends Fragment {
         RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
         mRecyclerView.addItemDecoration(itemDecoration);
 
-        mUploads = new ArrayList<>();
+        mBooks = new ArrayList<>();
 
         mDatabaseReference = FirebaseDatabase.getInstance().getReference("Sach");
 
         mDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                mUploads.clear();
+                mBooks.clear();
 
                 for (DataSnapshot posSnapshot : dataSnapshot.getChildren()) {
                     String sID = posSnapshot.child("id").getValue().toString().trim();
@@ -117,10 +116,10 @@ public class ShopFragment extends Fragment {
                     String anh = posSnapshot.child("anh").getValue().toString();
                     String id_Nhom_Sach = posSnapshot.child("id_Nhom_Sach").getValue().toString().trim();
 
-                    mUploads.add(new Upload(sID, sMaSach, sTenSach, sTacGia, sMoTa, sGia, sSoLuong, anh, id_Nhom_Sach));
+                    mBooks.add(new Book(sID, sMaSach, sTenSach, sTacGia, sMoTa, sGia, sSoLuong, anh, id_Nhom_Sach));
                 }
 
-                mAdapter = new UserAdapter(getContext(), mUploads);
+                mAdapter = new UserAdapter(getContext(), mBooks);
 
                 mRecyclerView.setAdapter(mAdapter);
             }

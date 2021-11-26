@@ -1,21 +1,16 @@
 package com.example.androidproject_coupon.BookManagement;
 
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.ArrayMap;
-import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
@@ -36,16 +31,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 public class AddBook extends AppCompatActivity {
 
@@ -58,6 +49,8 @@ public class AddBook extends AppCompatActivity {
     StorageReference mStorageRef;
     DatabaseReference mDatabaseRef;
     StorageTask mUploadTask;
+
+    private ProgressDialog progressDialog;
 
     private static final int PICK_IMAGE_REQUEST = 1;
     private String ID_Nhom_Sach;
@@ -73,6 +66,10 @@ public class AddBook extends AppCompatActivity {
         setContentView(R.layout.activity_add_book);
 
         matching();
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Please wait");
+        progressDialog.setCanceledOnTouchOutside(false);
 
         ArrayList<Integer> ID = new ArrayList<Integer>();
         ArrayList<String> arrayList = new ArrayList<String>();
@@ -101,7 +98,6 @@ public class AddBook extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 ID_Nhom_Sach = ID.get(i).toString();
-                Toast.makeText(AddBook.this, ID.get(i).toString(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -123,15 +119,24 @@ public class AddBook extends AppCompatActivity {
         ThemSach.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressDialog.setMessage("Check Data...");
+                progressDialog.show();
                 String sMaSach = MaSach.getText().toString().trim();
                 String sTenSach = TenSach.getText().toString().trim();
                 String sTacGia = TacGia.getText().toString().trim();
                 String sMoTa = Mota.getText().toString().trim();
                 String sGia = GiaTien.getText().toString().trim();
                 String sSoLuong = SoLuong.getText().toString().trim();
-                if (mUploadTask != null && mUploadTask.isInProgress()){
+                if (sMaSach.equals("") || sTenSach.equals("") ||
+                    sTacGia.equals("") || sMoTa.equals("") ||
+                    sGia.equals("") || sSoLuong.equals("")){
+                    progressDialog.dismiss();
+                    Toast.makeText(AddBook.this, "Vui lòng nhập đầy đủ dữ liệu", Toast.LENGTH_LONG).show();
+                }else if (mUploadTask != null && mUploadTask.isInProgress()){
+                    progressDialog.dismiss();
                     Toast.makeText(AddBook.this, "Đang thêm mới sản phẩm", Toast.LENGTH_LONG).show();
                 }else {
+                    progressDialog.dismiss();
                     uploadFile(sMaSach,sTenSach,sTacGia,sMoTa,sGia,sSoLuong,ID_Nhom_Sach);
                     startActivity(new Intent(AddBook.this, MainActivity.class));
                 }
@@ -147,9 +152,11 @@ public class AddBook extends AppCompatActivity {
 
     private void uploadFile(String sMaSach, String sTenSach, String sTacGia, String sMoTa,
                             String sGia, String sSoLuong, String ID_Nhom_Sach) {
-
+        progressDialog.setMessage("Upload Book...");
+        progressDialog.show();
         if (mImageUri != null) {
-            StorageReference fileReference = mStorageRef.child(getFileExtension(mImageUri));
+            StorageReference fileReference = mStorageRef.child(System.currentTimeMillis() + "."
+                    + getFileExtension(mImageUri));
 
             mUploadTask = fileReference.putFile(mImageUri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -158,15 +165,16 @@ public class AddBook extends AppCompatActivity {
                             fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
+                                    progressDialog.dismiss();
                                     Bundle extras = getIntent().getExtras();
                                     if (extras != null) {
                                         size = extras.getInt("size");
                                     }
-                                    String uploadId = String.valueOf(size);
+                                    String BookId = String.valueOf(size);
                                     Toast.makeText(AddBook.this, "Thêm sách mới thành công", Toast.LENGTH_LONG).show();
-                                    Upload upload = new Upload(uploadId,sMaSach,  sTenSach, sTacGia, sMoTa,
+                                    Book book = new Book(BookId,sMaSach,  sTenSach, sTacGia, sMoTa,
                                             sGia, sSoLuong,uri.toString(), ID_Nhom_Sach);
-                                    mDatabaseRef.child(uploadId).setValue(upload);
+                                    mDatabaseRef.child(BookId).setValue(book);
                                 }
                             });
                         }
@@ -174,10 +182,12 @@ public class AddBook extends AppCompatActivity {
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
+                            progressDialog.dismiss();
                             Toast.makeText(AddBook.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
         } else {
+            progressDialog.dismiss();
             Toast.makeText(this, "Chưa chọn file ảnh", Toast.LENGTH_SHORT).show();
         }
     }
@@ -192,12 +202,14 @@ public class AddBook extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        progressDialog.setMessage("Loading Image...");
+        progressDialog.show();
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
                 && data != null && data.getData() != null) {
             mImageUri = data.getData();
 
             Picasso.with(this).load(mImageUri).into(AnhSach);
-            //mImageView.setImageURI(mImageUri);
+            progressDialog.dismiss();
         }
     }
 

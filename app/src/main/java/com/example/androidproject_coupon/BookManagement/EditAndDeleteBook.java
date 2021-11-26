@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
@@ -51,6 +52,8 @@ public class EditAndDeleteBook extends AppCompatActivity {
     DatabaseReference mDatabaseRef;
     StorageTask mUploadTask;
 
+    private ProgressDialog progressDialog;
+
     private static final int PICK_IMAGE_REQUEST = 1;
 
     private Uri mImageUri;
@@ -61,6 +64,10 @@ public class EditAndDeleteBook extends AppCompatActivity {
         setContentView(R.layout.activity_edit_and_delete_book);
 
         matching();
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Please wait");
+        progressDialog.setCanceledOnTouchOutside(false);
 
         //Spiner loại sách
         ArrayList<Integer> ID = new ArrayList<Integer>();
@@ -91,7 +98,6 @@ public class EditAndDeleteBook extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 ID_Nhom_Sach = ID.get(i).toString();
-                Toast.makeText(EditAndDeleteBook.this, ID.get(i).toString(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -105,17 +111,17 @@ public class EditAndDeleteBook extends AppCompatActivity {
         if (bundle == null){
             return;
         }
-        Upload upload = (Upload) bundle.get("object_sach");
+        Book book = (Book) bundle.get("object_sach");
 
-        ID_Sach = upload.getID();
-        Ma_Sach = upload.getMa_Sach();
-        Ten_Sach = upload.getTen_Sach();
-        Tac_Gia = upload.getTac_Gia();
-        Mo_Ta = upload.getMo_Ta();
-        Gia = upload.getGia();
-        So_Luong = upload.getSo_Luong();
-        Anh = upload.getAnh();
-        ID_Nhom_Sach = upload.getID_Nhom_Sach();
+        ID_Sach = book.getID();
+        Ma_Sach = book.getMa_Sach();
+        Ten_Sach = book.getTen_Sach();
+        Tac_Gia = book.getTac_Gia();
+        Mo_Ta = book.getMo_Ta();
+        Gia = book.getGia();
+        So_Luong = book.getSo_Luong();
+        Anh = book.getAnh();
+        ID_Nhom_Sach = book.getID_Nhom_Sach();
         //Hiển thị thông tin sản phẩm lên app
         MaSach.setText(Ma_Sach);
         TenSach.setText(Ten_Sach);
@@ -144,15 +150,24 @@ public class EditAndDeleteBook extends AppCompatActivity {
         Sua.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressDialog.setMessage("Check Data...");
+                progressDialog.show();
                 String sMaSach = MaSach.getText().toString().trim();
                 String sTenSach = TenSach.getText().toString().trim();
                 String sTacGia = TacGia.getText().toString().trim();
                 String sMoTa = Mota.getText().toString().trim();
                 String sGia = GiaTien.getText().toString().trim();
                 String sSoLuong = SoLuong.getText().toString().trim();
-                if (mUploadTask != null && mUploadTask.isInProgress()){
+                if (sMaSach.equals("") || sTenSach.equals("") ||
+                        sTacGia.equals("") || sMoTa.equals("") ||
+                        sGia.equals("") || sSoLuong.equals("")){
+                    progressDialog.dismiss();
+                    Toast.makeText(EditAndDeleteBook.this, "Vui lòng nhập đầy đủ dữ liệu", Toast.LENGTH_LONG).show();
+                }else if (mUploadTask != null && mUploadTask.isInProgress()){
+                    progressDialog.dismiss();
                     Toast.makeText(EditAndDeleteBook.this, "Đang sửa đổi thông tin sản phẩm", Toast.LENGTH_LONG).show();
                 }else {
+                    progressDialog.dismiss();
                     uploadFile(sMaSach,sTenSach,sTacGia,sMoTa,sGia,sSoLuong,ID_Nhom_Sach);
                     startActivity(new Intent(EditAndDeleteBook.this, MainActivity.class));
                 }
@@ -163,6 +178,7 @@ public class EditAndDeleteBook extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mDatabaseRef.child(ID_Sach).removeValue();
+                Toast.makeText(EditAndDeleteBook.this, "Đã xóa thành công", Toast.LENGTH_LONG).show();
                 startActivity(new Intent(EditAndDeleteBook.this, MainActivity.class));
             }
         });
@@ -177,7 +193,10 @@ public class EditAndDeleteBook extends AppCompatActivity {
     private void uploadFile(String sMaSach, String sTenSach, String sTacGia, String sMoTa,
                             String sGia, String sSoLuong, String id_nhom_sach) {
         if (mImageUri != null) {
-            StorageReference fileReference = mStorageRef.child(getFileExtension(mImageUri));
+            progressDialog.setMessage("Upload Book...");
+            progressDialog.show();
+            StorageReference fileReference = mStorageRef.child(System.currentTimeMillis() + "."
+                    + getFileExtension(mImageUri));
 
             mUploadTask = fileReference.putFile(mImageUri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -186,11 +205,12 @@ public class EditAndDeleteBook extends AppCompatActivity {
                             fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
-                                    String uploadId = ID_Sach;
+                                    progressDialog.dismiss();
+                                    String BookId = ID_Sach;
                                     Toast.makeText(EditAndDeleteBook.this, "Chỉnh Sửa thành công", Toast.LENGTH_LONG).show();
-                                    Upload upload = new Upload(uploadId,sMaSach,  sTenSach, sTacGia, sMoTa,
+                                    Book book = new Book(BookId,sMaSach,  sTenSach, sTacGia, sMoTa,
                                             sGia, sSoLuong,uri.toString(), id_nhom_sach);
-                                    mDatabaseRef.child(uploadId).setValue(upload);
+                                    mDatabaseRef.child(BookId).setValue(book);
                                 }
                             });
                         }
@@ -198,15 +218,17 @@ public class EditAndDeleteBook extends AppCompatActivity {
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
+                            progressDialog.dismiss();
                             Toast.makeText(EditAndDeleteBook.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
         } else {
-            String uploadId = ID_Sach;
-            Toast.makeText(EditAndDeleteBook.this, "Thêm sách mới thành công", Toast.LENGTH_LONG).show();
-            Upload upload = new Upload(uploadId,sMaSach,  sTenSach, sTacGia, sMoTa,
+            progressDialog.dismiss();
+            String BookId = ID_Sach;
+            Toast.makeText(EditAndDeleteBook.this, "Chỉnh Sửa thành công", Toast.LENGTH_LONG).show();
+            Book book = new Book(BookId,sMaSach,  sTenSach, sTacGia, sMoTa,
                     sGia, sSoLuong,Anh, id_nhom_sach);
-            mDatabaseRef.child(uploadId).setValue(upload);
+            mDatabaseRef.child(BookId).setValue(book);
         }
     }
 
@@ -220,10 +242,12 @@ public class EditAndDeleteBook extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        progressDialog.setMessage("Loading Image...");
+        progressDialog.show();
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
                 && data != null && data.getData() != null) {
             mImageUri = data.getData();
-
+            progressDialog.dismiss();
             Picasso.with(this).load(mImageUri).into(AnhSach);
             //mImageView.setImageURI(mImageUri);
         }
