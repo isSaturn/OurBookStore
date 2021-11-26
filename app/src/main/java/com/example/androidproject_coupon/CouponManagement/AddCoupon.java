@@ -219,12 +219,6 @@ public class AddCoupon extends AppCompatActivity {
                     }
                 }
                 try {
-//                    Bundle extras = getIntent().getExtras();
-//                    int size = 0;
-//                    if(extras!=null){
-//                        size = extras.getInt("size");
-//                    }
-//                    String id = String.valueOf(size);
                     String codeTxt = cpCode.getText().toString().trim();
                     String nameTxt = cpName.getText().toString().trim();
                     String eStartTxt = dateStart.getText().toString().trim();

@@ -10,18 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/sach_search"
-            android:layout_width="400dp"
-            android:layout_height="46dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/custom_input"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/sach_btn_Them"
             android:layout_width="100dp"
@@ -35,12 +23,12 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sach_search" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/sach_rv_Sach"
             android:layout_width="400dp"
-            android:layout_height="550dp"
+            android:layout_height="650dp"
             android:layout_marginStart="5dp"
             android:layout_marginTop="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
