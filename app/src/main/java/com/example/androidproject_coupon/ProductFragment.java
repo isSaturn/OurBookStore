@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import com.example.androidproject_coupon.BookManagement.AddBook;
 import com.example.androidproject_coupon.BookManagement.BookAdapter;
-import com.example.androidproject_coupon.BookManagement.Upload;
+import com.example.androidproject_coupon.BookManagement.Book;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,7 +39,7 @@ public class ProductFragment extends Fragment {
     private BookAdapter mAdapter;
 
     private DatabaseReference mDatabaseReference;
-    private List<Upload> mUploads;
+    private List<Book> mBooks;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -109,14 +109,14 @@ public class ProductFragment extends Fragment {
         RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
         mRecyclerView.addItemDecoration(itemDecoration);
 
-        mUploads = new ArrayList<>();
+        mBooks = new ArrayList<>();
 
         mDatabaseReference = FirebaseDatabase.getInstance().getReference("Sach");
 
         mDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                mUploads.clear();
+                mBooks.clear();
                 for (DataSnapshot posSnapshot : dataSnapshot.getChildren()) {
                     String sID = posSnapshot.child("id").getValue().toString().trim();
                     String sMaSach = posSnapshot.child("ma_Sach").getValue().toString().trim();
@@ -127,10 +127,10 @@ public class ProductFragment extends Fragment {
                     String sSoLuong = posSnapshot.child("so_Luong").getValue().toString().trim();
                     String anh = posSnapshot.child("anh").getValue().toString();
                     String id_Nhom_Sach = posSnapshot.child("id_Nhom_Sach").getValue().toString().trim();
-                    mUploads.add(new Upload(sID, sMaSach, sTenSach, sTacGia, sMoTa, sGia, sSoLuong, anh, id_Nhom_Sach));
+                    mBooks.add(new Book(sID, sMaSach, sTenSach, sTacGia, sMoTa, sGia, sSoLuong, anh, id_Nhom_Sach));
                 }
 
-                mAdapter = new BookAdapter(getContext(), mUploads);
+                mAdapter = new BookAdapter(getContext(), mBooks);
 
                 mRecyclerView.setAdapter(mAdapter);
             }

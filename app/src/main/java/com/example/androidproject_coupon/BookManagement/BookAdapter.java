@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -22,11 +21,11 @@ import java.util.List;
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder> {
 
     private Context mContext;
-    private List<Upload> mUploads;
+    private List<Book> mBooks;
 
-    public BookAdapter(Context context, List<Upload> uploads) {
+    public BookAdapter(Context context, List<Book> books) {
         mContext = context;
-        mUploads = uploads;
+        mBooks = books;
     }
 
     @NonNull
@@ -38,33 +37,33 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull BookViewHolder holder, int position) {
-        Upload uploadCurrent = mUploads.get(position);
-        holder.textViewTenSach.setText(uploadCurrent.getTen_Sach());
-        holder.textViewGiaTien.setText("Giá tiền: " + uploadCurrent.getGia() + " Vnđ");
+        Book bookCurrent = mBooks.get(position);
+        holder.textViewTenSach.setText(bookCurrent.getTen_Sach());
+        holder.textViewGiaTien.setText("Giá tiền: " + bookCurrent.getGia() + " Vnđ");
         Picasso.with(mContext)
-                .load(uploadCurrent.getAnh())
+                .load(bookCurrent.getAnh())
                 .fit()
                 .centerCrop()
                 .into(holder.imageView);
         holder.layoutSach.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClickGoToEdit(uploadCurrent);
+                onClickGoToEdit(bookCurrent);
             }
         });
     }
 
-    private void onClickGoToEdit(Upload uploadCurrent) {
+    private void onClickGoToEdit(Book bookCurrent) {
         Intent intent = new Intent(mContext, EditAndDeleteBook.class);
         Bundle bundle = new Bundle();
-        bundle.putSerializable("object_sach", uploadCurrent);
+        bundle.putSerializable("object_sach", bookCurrent);
         intent.putExtras(bundle);
         mContext.startActivity(intent);
     }
 
     @Override
     public int getItemCount() {
-        return mUploads.size();
+        return mBooks.size();
     }
 
     public class BookViewHolder extends RecyclerView.ViewHolder {
