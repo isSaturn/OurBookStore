@@ -57,7 +57,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     private void onClickDetail(Book bookCurrent) {
         Intent intent = new Intent(mContext, ItemDetailActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putSerializable("object_sach", bookCurrent);
+        bundle.putSerializable("detail_sach", bookCurrent);
         intent.putExtras(bundle);
         mContext.startActivity(intent);
     }
