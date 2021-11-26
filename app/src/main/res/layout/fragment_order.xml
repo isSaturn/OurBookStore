@@ -7,10 +7,10 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <ListView
-        android:id="@+id/lv_status_oder"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/oder_rv_danhsach"
         android:layout_width="wrap_content"
-        android:layout_height="500dp"
+        android:layout_height="match_parent"
         android:layout_weight="200"
         android:rotationX="0" />
 </LinearLayout>

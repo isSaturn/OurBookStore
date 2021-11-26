@@ -1,13 +1,11 @@
 package com.example.androidproject_coupon.CouponManagement.Coupon;
 
 public class Coupon  {
-    private String name, code, eStart, eEnd, id;
-    private Integer value, valueCondition, idType, idCondition;
+    private String name, code, eStart, eEnd ,value, valueCondition, idType, idCondition;
     private Integer imgUrl;
 
-    public Coupon(String id,String code,String name, String eStart, String eEnd, Integer value, Integer valueCondition, Integer idCondition, Integer idType,Integer imgUrl){
+    public Coupon(String code,String name, String eStart, String eEnd, String value, String valueCondition, String idCondition, String idType,Integer imgUrl){
         this.code = code;
-        this.id = id;
         this.name = name;
         this.valueCondition = valueCondition;
         this.idCondition = idCondition;
@@ -16,30 +14,6 @@ public class Coupon  {
         this.imgUrl= imgUrl;
         this.eStart = eStart;
         this.eEnd = eEnd;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public Integer getIdType() {
-        return idType;
-    }
-
-    public void setIdType(Integer idType) {
-        this.idType = idType;
-    }
-
-    public Integer getIdCondition() {
-        return idCondition;
-    }
-
-    public void setIdCondition(Integer idCondition) {
-        this.idCondition = idCondition;
     }
 
     public String getCode() {
@@ -66,13 +40,6 @@ public class Coupon  {
         this.eEnd = eEnd;
     }
 
-    public Integer getValueCondition() {
-        return valueCondition;
-    }
-
-    public void setValueCondition(Integer valueCondition) {
-        this.valueCondition = valueCondition;
-    }
 
     public Integer getImgUrl() {
         return imgUrl;
@@ -88,10 +55,36 @@ public class Coupon  {
     public void setName(String name){
         this.name = name;
     }
-    public Integer getValue(){
+
+    public String getValue() {
         return value;
     }
-    public void setValue(Integer value){
+
+    public void setValue(String value) {
         this.value = value;
+    }
+
+    public String getValueCondition() {
+        return valueCondition;
+    }
+
+    public void setValueCondition(String valueCondition) {
+        this.valueCondition = valueCondition;
+    }
+
+    public String getIdType() {
+        return idType;
+    }
+
+    public void setIdType(String idType) {
+        this.idType = idType;
+    }
+
+    public String getIdCondition() {
+        return idCondition;
+    }
+
+    public void setIdCondition(String idCondition) {
+        this.idCondition = idCondition;
     }
 }

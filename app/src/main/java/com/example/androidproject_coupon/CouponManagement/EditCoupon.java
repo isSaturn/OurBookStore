@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.androidproject_coupon.CouponManagement.Coupon.Coupon;
 import com.example.androidproject_coupon.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -42,10 +43,10 @@ public class EditCoupon extends AppCompatActivity {
     ImageView arrowReturn;
     ArrayList<String> arrayListType = new ArrayList<>();
     ArrayList<String> arrayListCondition = new ArrayList<>();
-    ArrayList<Integer> idType = new ArrayList<>();
-    ArrayList<Integer> idCondition = new ArrayList<>();
+    ArrayList<String> idType = new ArrayList<>();
+    ArrayList<String> idCondition = new ArrayList<>();
     Button edit, delete;
-    Integer selectedType, selectedCondition;
+    String selectedType, selectedCondition;
     String TAG="FIREBASE";
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -55,15 +56,14 @@ public class EditCoupon extends AppCompatActivity {
 
         matching();
         Intent intent = getIntent();
-        String cpId = intent.getStringExtra("id");
         String cpCodeInput = intent.getStringExtra("code");
         String cpNameInput= intent.getStringExtra( "name");
         String cpValueInput = intent.getStringExtra( "value");
         String cpValueConditionInput = intent.getStringExtra( "valueCondition");
         String cpEStartInput = intent.getStringExtra( "eStart");
         String cpEEndInput = intent.getStringExtra( "eEnd");
-        Integer cpIdTypeInput = intent.getIntExtra( "idType",123);
-        Integer cpIdConditionInput = intent.getIntExtra("idCondition", 2);
+        String cpIdTypeInput = intent.getStringExtra( "idType");
+        String cpIdConditionInput = intent.getStringExtra("idCondition");
         cpCode.setText(cpCodeInput);
         cpValue.setText(cpValueInput);
         cpValueCondition.setText(cpValueConditionInput);
@@ -76,34 +76,17 @@ public class EditCoupon extends AppCompatActivity {
         arrayListType.add("Giảm theo số tiền");
         arrayListType.add("Giảm theo số %");
         arrayListType.add("Miễn phí vận chuyển");
-        idType.add(1);
-        idType.add(2);
-        idType.add(3);
+        idType.add("1");
+        idType.add("2");
+        idType.add("3");
         arrayAdapterType = new ArrayAdapter<>(this, R.layout.list_type_coupon,arrayListType);
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://ourbookstore-e8241-default-rtdb.firebaseio.com/");
-//        DatabaseReference myRefType = database.getReference("LoaiKhuyenMai");
-//
-//        myRefType.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                for (DataSnapshot data: snapshot.getChildren()){
-//                    String value = data.child("Loai_Khuyen_Mai").getValue().toString();
-//                    arrayListType.add(value);
-//                    idType.add(Integer.parseInt(data.getKey()));
-//
-//                }
-//            }
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//                Log.w(TAG, "Failed to read value.", error.toException());
-//            }
-//        });
         arrayAdapterType = new ArrayAdapter(this, R.layout.list_type_coupon,arrayListType);
         autoType = findViewById(R.id.editCp_tv_Type);
         switch (cpIdTypeInput){
-            case 1: autoType.setText(arrayListType.get(0));break;
-            case 2: autoType.setText(arrayListType.get(1));break;
-            case 3: {
+            case "1": autoType.setText(arrayListType.get(0));break;
+            case "2": autoType.setText(arrayListType.get(1));break;
+            case "3": {
                 autoType.setText(arrayListType.get(2));
                 cpValue.setEnabled(false);
             }break;
@@ -116,7 +99,7 @@ public class EditCoupon extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"Item: " + selectedType, Toast.LENGTH_SHORT).show();
 
                 // Block field khi user chon Mien phi giao hang
-                if(idType.get(position) == 3){
+                if(idType.get(position).equals("3")){
                     cpValue.setText("25000");
                     cpValue.setEnabled(false);
                 }
@@ -129,27 +112,10 @@ public class EditCoupon extends AppCompatActivity {
 
         // Loai ap dung
         arrayListCondition.add("Giá trị đơn hàng từ");
-        idCondition.add(1);
-        arrayAdapterCondition = new ArrayAdapter(this, R.layout.list_type_coupon,arrayListCondition);
-//        DatabaseReference myRefCondition = database.getReference("LoaiApDung");
-//        myRefCondition.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                for (DataSnapshot data: snapshot.getChildren()){
-//                    String value = data.child("Loai_Ap_Dung").getValue().toString();
-//                    arrayListCondition.add(value);
-//                    idCondition.add(Integer.parseInt(data.getKey()));
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//                Log.w(TAG, "Failed to read value.", error.toException());
-//            }
-//        });
+        idCondition.add("1");
         arrayAdapterCondition = new ArrayAdapter(this, R.layout.list_type_coupon,arrayListCondition);
         autoCondition = findViewById(R.id.editCp_tv_Condition);
-        if(cpIdConditionInput == 1){
+        if(cpIdConditionInput.equals("1")){
             autoCondition.setText(arrayListCondition.get(0));
         }
         autoCondition.setAdapter(arrayAdapterCondition);
@@ -216,7 +182,7 @@ public class EditCoupon extends AppCompatActivity {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showDialog(cpId);
+                showDialog(cpCodeInput);
             }
         });
 
@@ -252,26 +218,19 @@ public class EditCoupon extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Date start < Date end", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Intent intent2 = getIntent();
                 DatabaseReference editCpRef = database.getReference("KhuyenMai");
-                String id = intent2.getStringExtra("id");
-                String codeTxt = cpCode.getText().toString();
-                String nameTxt = cpName.getText().toString();
-                String eStart = dateStart.getText().toString();
-                String eEnd = dateEnd.getText().toString();
-                Integer value = Integer.parseUnsignedInt(cpValue.getText().toString());
-                Integer valueCondition = Integer.parseUnsignedInt(cpValueCondition.getText().toString());
-                Integer idCondition = selectedCondition;
-                Integer idType = selectedType;
-                editCpRef.child(id).child("Ma_Khuyen_Mai").setValue(codeTxt);
-                editCpRef.child(id).child("Ten_Khuyen_Mai").setValue(nameTxt);
-                editCpRef.child(id).child("Time_Start").setValue(eStart);
-                editCpRef.child(id).child("Time_End").setValue(eEnd);
-                editCpRef.child(id).child("Gia_Ap_Dung").setValue(valueCondition);
-                editCpRef.child(id).child("Gia_Giam").setValue(value);
-                editCpRef.child(id).child("ID_Loai_Ap_Dung").setValue(idCondition);
-                editCpRef.child(id).child("ID_Loai_Khuyen_Mai").setValue(idType);
+                String codeTxt = cpCode.getText().toString().trim();
+                String nameTxt = cpName.getText().toString().trim();
+                String eStartTxt = dateStart.getText().toString().trim();
+                String eEndTxt = dateEnd.getText().toString().trim();
+                String valueTxt = cpValue.getText().toString();
+                String valueConditionTxt = cpValueCondition.getText().toString();
+                String idConditionTxt = selectedCondition;
+                String idTypeTxt = selectedType;
+                Coupon coupon = new Coupon(codeTxt,nameTxt,eStartTxt,eEndTxt,valueTxt, valueConditionTxt,idConditionTxt, idTypeTxt, R.drawable.coupon_icon);
+                editCpRef.child(codeTxt).setValue(coupon);
                 finish();
+                Toast.makeText(getApplicationContext(),"Sửa thông tin khuyến mãi thành công", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -304,6 +263,7 @@ public class EditCoupon extends AppCompatActivity {
         Button btnYes, btnNo;
         btnYes = dialog.findViewById(R.id.Cp_btn_Yes);
         btnNo = dialog.findViewById(R.id.Cp_btn_No);
+        dialog.show();
         btnNo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -316,10 +276,12 @@ public class EditCoupon extends AppCompatActivity {
                 FirebaseDatabase database = FirebaseDatabase.getInstance("https://ourbookstore-e8241-default-rtdb.firebaseio.com/");
                 DatabaseReference myRefCp = database.getReference("KhuyenMai");
                 myRefCp.child(cpId).removeValue();
+                dialog.dismiss();
                 finish();
+                Toast.makeText(getApplicationContext(),"Xóa mã khuyến mãi thành công", Toast.LENGTH_LONG).show();
             }
         });
-        dialog.show();
+
     }
     private void matching(){
         dateEnd = findViewById(R.id.editCp_et_DateEnd);

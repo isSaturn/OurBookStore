@@ -23,9 +23,9 @@ public class FragmentAdapter extends FragmentStateAdapter {
         switch (position)
         {
             case 1 :
-                return new DetailFragment();
-            case 2 :
                 return new CartFragment();
+            case 2 :
+                return new OrderFragment();
         }
 
         return new ShopFragment();
