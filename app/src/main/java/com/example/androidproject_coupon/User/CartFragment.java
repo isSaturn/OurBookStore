@@ -2,7 +2,11 @@ package com.example.androidproject_coupon.User;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -11,9 +15,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.androidproject_coupon.BookManagement.Book;
 import com.example.androidproject_coupon.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -35,19 +45,12 @@ public class CartFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private int totalPrice;
-    private View mView;
-//    private Home home;
-    private DecimalFormat format;
+    private RecyclerView mRecyclerView;
+    private UserAdapter mAdapter;
 
-    private List<Book> listCartProduct;
-    private TextView tvCartTotalPrice;
-    private Button btnCartOrder;
-    private RecyclerView recyclerView;
+    private DatabaseReference mDatabaseReference;
 
-    private CartAdapter productCartAdapter;
-
-    private RelativeLayout rlCartEmpty,rlCart;
+    private List<Book> mCart;
 
     public CartFragment() {
         // Required empty public constructor
@@ -85,10 +88,51 @@ public class CartFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_cart, container, false);
+    }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-//        setVisibilityView();
-//        initItem();
+        mRecyclerView = view.findViewById(R.id.rcv_cart);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+        mRecyclerView.addItemDecoration(itemDecoration);
+
+        mCart = new ArrayList<>();
+
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference("Sach");
+
+        mDatabaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                mCart.clear();
+
+                for (DataSnapshot posSnapshot : dataSnapshot.getChildren()) {
+                    String sID = posSnapshot.child("id").getValue().toString().trim();
+                    String sMaSach = posSnapshot.child("ma_Sach").getValue().toString().trim();
+                    String sTenSach = posSnapshot.child("ten_Sach").getValue().toString().trim();
+                    String sTacGia = posSnapshot.child("tac_Gia").getValue().toString().trim();
+                    String sMoTa = posSnapshot.child("mo_Ta").getValue().toString().trim();
+                    String sGia = posSnapshot.child("gia").getValue().toString().trim();
+                    String sSoLuong = posSnapshot.child("so_Luong").getValue().toString().trim();
+                    String anh = posSnapshot.child("anh").getValue().toString();
+                    String id_Nhom_Sach = posSnapshot.child("id_Nhom_Sach").getValue().toString().trim();
+
+                    mCart.add(new Book(sID, sMaSach, sTenSach, sTacGia, sMoTa, sGia, sSoLuong, anh, id_Nhom_Sach));
+                }
+
+                mAdapter = new UserAdapter(getContext(), mCart);
+
+                mRecyclerView.setAdapter(mAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 //    private void initItem() {
