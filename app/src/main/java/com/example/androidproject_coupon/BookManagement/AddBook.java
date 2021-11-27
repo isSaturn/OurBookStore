@@ -167,8 +167,9 @@ public class AddBook extends AppCompatActivity {
                                 public void onSuccess(Uri uri) {
                                     progressDialog.dismiss();
                                     Bundle extras = getIntent().getExtras();
+                                    //thêm 1 đơn vị
                                     if (extras != null) {
-                                        size = extras.getInt("size");
+                                        size = extras.getInt("size") + 1;
                                     }
                                     String BookId = String.valueOf(size);
                                     Toast.makeText(AddBook.this, "Thêm sách mới thành công", Toast.LENGTH_LONG).show();
