@@ -41,7 +41,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
         Book uploadCurrent = mUploads.get(position);
         holder.textViewTenSach.setText(uploadCurrent.getTen_Sach());
-        holder.textViewGiaTien.setText(uploadCurrent.getGia());
+        holder.textViewGiaTien.setText("Giá tiền: " + uploadCurrent.getGia() + " vnđ");
         Picasso.with(mContext)
                 .load(uploadCurrent.getAnh())
                 .fit()
