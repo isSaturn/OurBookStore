@@ -27,21 +27,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/account_et_TaiKhoan"
+        <Spinner
+            android:id="@+id/account_spn_Email"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
-            android:background="@drawable/custom_input"
-            android:ems="10"
-            android:hint="Nhập tài khoản"
-            android:inputType="textPersonName"
+            android:layout_marginTop="5dp"
+
             android:minHeight="48dp"
-            android:paddingLeft="5dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/account_tv_TaiKhoan" />
+            app:layout_constraintTop_toBottomOf="@+id/account_tv_TaiKhoan"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <TextView
             android:id="@+id/account_tv_Role"
@@ -56,7 +52,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/account_et_TaiKhoan" />
+            app:layout_constraintTop_toBottomOf="@+id/account_spn_Email" />
 
         <Spinner
             android:id="@+id/account_spn_Role"

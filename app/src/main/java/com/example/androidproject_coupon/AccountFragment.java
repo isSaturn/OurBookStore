@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,7 +38,9 @@ import java.util.ArrayList;
  */
 public class AccountFragment extends Fragment {
 
-    Spinner spinnerRole;
+    Spinner spinnerRole, spinnerEmail;
+    private String key, role, email = "", name = "", profileImage="", timetamp="", uid="";
+    Button Luu;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -91,21 +95,23 @@ public class AccountFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         spinnerRole = view.findViewById(R.id.account_spn_Role);
+        spinnerEmail = view.findViewById(R.id.account_spn_Email);
+        Luu = view.findViewById(R.id.account_btn_Luu);
 
-        ArrayList<Integer> ID = new ArrayList<Integer>();
-        ArrayList<String> arrayList = new ArrayList<String>();
+        ArrayList<String> keyaccount = new ArrayList<>();
+        ArrayList<String> ListEmail = new ArrayList<>();
 
-        ArrayAdapter arrayAdapter = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_item,arrayList);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        DatabaseReference Role = database.getReference("Role");
-        Role.addValueEventListener(new ValueEventListener() {
+        ArrayAdapter arrayAdapterEmail = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_item, ListEmail);
+        arrayAdapterEmail.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        DatabaseReference Users = database.getReference("Users");
+        Users.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot chilSnapshot:snapshot.getChildren()){
-                    ID.add(Integer.parseUnsignedInt(chilSnapshot.getKey()));
-                    arrayList.add(chilSnapshot.child("role").getValue(String.class));
+                for (DataSnapshot chilSnapshot : snapshot.getChildren()) {
+                    keyaccount.add(chilSnapshot.getKey());
+                    ListEmail.add(chilSnapshot.child("email").getValue(String.class));
                 }
-                arrayAdapter.notifyDataSetChanged();
+                arrayAdapterEmail.notifyDataSetChanged();
             }
 
             @Override
@@ -114,12 +120,50 @@ public class AccountFragment extends Fragment {
             }
         });
 
-        spinnerRole.setAdapter(arrayAdapter);
+        spinnerEmail.setAdapter(arrayAdapterEmail);
+
+        spinnerEmail.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int i, long id) {
+                Toast.makeText(getContext(), keyaccount.get(i), Toast.LENGTH_SHORT).show();
+                key = keyaccount.get(i);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        ArrayList<Integer> ID = new ArrayList<Integer>();
+        ArrayList<String> arrayList = new ArrayList<String>();
+
+        ArrayAdapter arrayAdapterRole = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_item, arrayList);
+        arrayAdapterRole.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        DatabaseReference Role = database.getReference("Role");
+        Role.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot chilSnapshot : snapshot.getChildren()) {
+                    ID.add(Integer.parseUnsignedInt(chilSnapshot.getKey()));
+                    arrayList.add(chilSnapshot.child("role").getValue(String.class));
+                }
+                arrayAdapterRole.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        spinnerRole.setAdapter(arrayAdapterRole);
 
         spinnerRole.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getContext(), ID.get(i).toString(), Toast.LENGTH_SHORT).show();
+
+                role = arrayList.get(i);
             }
 
             @Override
@@ -127,5 +171,20 @@ public class AccountFragment extends Fragment {
 
             }
         });
+
+
+        Luu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UpdateRole();
+            }
+        });
+    }
+
+    private void UpdateRole() {
+        DatabaseReference Users = database.getReference("Users");
+
+        Users.child(key).child("userType").setValue(role);
+        Toast.makeText(getContext(),"Đã cập nhật role mới", Toast.LENGTH_SHORT ).show();
     }
 }
