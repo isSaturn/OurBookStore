@@ -120,7 +120,7 @@ public class InvoiceFragment extends Fragment {
                 }
 
 //                mAdapter = new InvoiceBookAdapter(getContext(), mInvoice);
-
+//
                 mRecyclerView.setAdapter(mAdapter);
             }
 
