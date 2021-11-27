@@ -8,4 +8,6 @@
     <!--        <item>Giảm theo số %</item>-->
     <!--        <item>Miễn phí vận chuyển</item>-->
     <!--    </string-array>-->
+    <string name="title_thongtin"><u>Thông tin</u></string>
+    <string name="title_mota"><u>Mô tả</u></string>
 </resources>

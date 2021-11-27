@@ -29,14 +29,18 @@
                 android:layout_height="wrap_content"
                 android:text="Tổng: 0 vnđ"
                 android:textSize="20sp"
+                android:textColor="@color/black"
                 android:textStyle="bold" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_cart_dathang"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Đặt Hàng"
-                android:textStyle="bold" />
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="128dp"
+                android:layout_height="43dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/button_addcart"
+                android:text="Place an order"
+                android:textAllCaps="false"
+                android:textStyle="bold"/>
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
