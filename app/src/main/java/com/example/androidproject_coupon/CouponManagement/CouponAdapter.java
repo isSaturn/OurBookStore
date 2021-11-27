@@ -29,7 +29,6 @@ public class CouponAdapter extends ArrayAdapter<Coupon> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater layoutInflater = LayoutInflater.from(mContext);
-
         convertView = layoutInflater.inflate(mResource,parent,false);
         ImageView imageView = convertView.findViewById(R.id.img_image);
         TextView txtName = convertView.findViewById(R.id.Cp_tv_Name);

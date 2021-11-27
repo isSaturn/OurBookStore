@@ -96,6 +96,7 @@ public class CouponFragment extends Fragment {
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://ourbookstore-e8241-default-rtdb.firebaseio.com/");
         DatabaseReference myRef = database.getReference("KhuyenMai");
         myRef.addValueEventListener(new ValueEventListener() {
+            // Đẩy dữ liệu vào list
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 couponAdapter.clear();

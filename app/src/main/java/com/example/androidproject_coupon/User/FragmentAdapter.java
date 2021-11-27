@@ -27,7 +27,6 @@ public class FragmentAdapter extends FragmentStateAdapter {
             case 2 :
                 return new InvoiceFragment();
         }
-
         return new ShopFragment();
     }
 
