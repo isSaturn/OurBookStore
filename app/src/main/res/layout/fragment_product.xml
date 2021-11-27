@@ -13,7 +13,7 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/sach_btn_Them"
             android:layout_width="103dp"
-            android:layout_height="45dp"
+            android:layout_height="48dp"
             android:layout_marginStart="5dp"
             android:layout_marginTop="60dp"
             android:background="@drawable/buttonshape_icon"
@@ -29,7 +29,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/sach_rv_Sach"
             android:layout_width="400dp"
-            android:layout_height="650dp"
+            android:layout_height="600dp"
             android:layout_marginStart="5dp"
             android:layout_marginTop="10dp"
             app:layout_constraintBottom_toBottomOf="parent"

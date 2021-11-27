@@ -32,11 +32,12 @@
             android:id="@+id/tv_shop_tensach"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ten sach"
             android:inputType="textMultiLine"
+            android:text="Ten sach"
             android:textColor="#000000"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <TextView
             android:id="@+id/tv_shop_giasach"
@@ -44,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="Giá tiền"
-            android:textColor="#3F51B5"
+            android:textColor="@color/textColor"
             android:textSize="16sp"
             android:textStyle="bold" />
 
