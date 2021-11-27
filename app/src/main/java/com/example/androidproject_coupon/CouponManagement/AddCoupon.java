@@ -236,6 +236,7 @@ public class AddCoupon extends AppCompatActivity {
                 {
                     Toast.makeText(getApplicationContext(),"Error:"+ex.toString(),Toast.LENGTH_LONG).show();
                 }
+                //
             }
         });
     }
