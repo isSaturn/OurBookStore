@@ -45,6 +45,9 @@ import java.util.List;
 public class InvoiceInformation extends AppCompatActivity {
     private RecyclerView rcvInvoiceitem;
     private InvoiceBookAdapter invoiceBookAdapter;
+    private ProgressDialog progressDialog;
+    GetIDandRole idAndRole = new GetIDandRole();
+    ArrayList<String> arrRole = new ArrayList<>();
     Button btnDathang;
     EditText etHoten, etSDT, etDiachi;
     TextView tvGiaohangnhanh, tvGiaohangtietkiem, tvTamtinh, tvPhivanchuyen, tvTongcong, tvTensach, tvGia, tvSoluong;
@@ -137,7 +140,29 @@ public class InvoiceInformation extends AppCompatActivity {
         });
         //show tong tien
 
+        //gan role
+        DatabaseReference roleRef = database.getReference("Users");
+        roleRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                progressDialog.dismiss();
+                String userType = ""+snapshot.child("userType").getValue();
+                arrRole.add(userType);
+                if (arrRole.equals("user")){
+                    idAndRole.role = userType.trim();
+                    finish();
+                }
+                else if (arrRole.equals("admin")){
+                    idAndRole.role = userType.trim();
+                    finish();
+                }
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
 
@@ -184,7 +209,8 @@ public class InvoiceInformation extends AppCompatActivity {
         //sanpham
 
         //id role
-
+        String userTxt = arrRole.toString();
+        invRef.child(String.valueOf(i+1)).child("ID_Tai_Khoan").setValue(arrRole);
         //id trang thai
         invRef.child(String.valueOf(i+1)).child("ID_Trang_Thai_DH").setValue("1");
 
