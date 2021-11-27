@@ -47,7 +47,7 @@
                 android:layout_marginTop="20dp"
                 android:text="Giá tiền: ... VNĐ"
                 android:textAlignment="center"
-                android:textColor="#3F51B5"
+                android:textColor="@color/textColor"
                 android:textSize="17sp"
                 android:textStyle="bold" />
 
