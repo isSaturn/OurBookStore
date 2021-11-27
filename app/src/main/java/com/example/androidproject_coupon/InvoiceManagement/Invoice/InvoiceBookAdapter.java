@@ -1,4 +1,4 @@
-package com.example.androidproject_coupon.InvoiceManagement;
+package com.example.androidproject_coupon.InvoiceManagement.Invoice;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidproject_coupon.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class InvoiceBookAdapter extends RecyclerView.Adapter<InvoiceBookAdapter.
     @NonNull
     @Override
     public BookViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.invoice_recycler_item,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_cart,parent,false);
         return new BookViewHolder(view);
     }
 
@@ -41,10 +42,7 @@ public class InvoiceBookAdapter extends RecyclerView.Adapter<InvoiceBookAdapter.
         if(invoiceBook == null){
             return;
         }
-        holder.imgSach.setImageResource(invoiceBook.getResourceId());
-        holder.tvTensach.setText(invoiceBook.getTitle());
-        holder.tvSoluongsach.setText(invoiceBook.getTitle());
-        holder.tvGiasach.setText(invoiceBook.getTitle());
+
     }
 
     @Override
@@ -60,7 +58,6 @@ public class InvoiceBookAdapter extends RecyclerView.Adapter<InvoiceBookAdapter.
 
         private ImageView imgSach;
         private TextView tvTensach;
-        private TextView tvSoluongsach;
         private TextView tvGiasach;
 
         public BookViewHolder(@NonNull View itemView) {
@@ -68,7 +65,6 @@ public class InvoiceBookAdapter extends RecyclerView.Adapter<InvoiceBookAdapter.
 
             imgSach = itemView.findViewById(R.id.ord_iv_sach);
             tvTensach = itemView.findViewById(R.id.inv_tv_chitietdonhang_tensach);
-            tvSoluongsach = itemView.findViewById(R.id.inv_tv_chitietdonhang_sl);
             tvGiasach = itemView.findViewById(R.id.inv_tv_chitietdonhang_gia);
         }
     }
