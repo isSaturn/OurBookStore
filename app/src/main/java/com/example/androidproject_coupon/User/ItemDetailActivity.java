@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -35,7 +36,7 @@ public class ItemDetailActivity extends AppCompatActivity {
 
     ImageView img;
     TextView name, price, masach, tacgia, theloai, mota;
-    ImageButton addtocart;
+    Button addtocart;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     StorageReference mStorageRef;
