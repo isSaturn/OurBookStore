@@ -15,7 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.androidproject_coupon.BookManagement.EditAndDeleteBook;
-import com.example.androidproject_coupon.BookManagement.Upload;
+import com.example.androidproject_coupon.BookManagement.Book;
 import com.example.androidproject_coupon.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -53,7 +53,7 @@ public class ItemDetailActivity extends AppCompatActivity {
         if (bundle == null){
             return;
         }
-        Upload upload = (Upload) bundle.get("detail_sach");
+        Book upload = (Book) bundle.get("detail_sach");
 
         ID_Sach = upload.getID();
         Ma_Sach = upload.getMa_Sach();
