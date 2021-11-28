@@ -45,7 +45,7 @@ public class MainActivity_User extends AppCompatActivity {
         // Add tên và icon vào các tab
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.home).setText("Shop"));
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.giohanguser).setText("Cart"));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.invoice_icon).setText("Coupon"));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.invoice_icon).setText("Order"));
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             // di chuyển tab được chọn
