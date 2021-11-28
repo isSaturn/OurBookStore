@@ -1,10 +1,12 @@
 package com.example.androidproject_coupon.InvoiceManagement.Invoice;
 
-public class Invoice {
-    public String diachi, hoten, idHinhthucGH, idKhuyenmai, idTaiKhoan, idTrangthaiDH, maDonhang, sdt, time, tongtien;
+import java.io.Serializable;
+
+public class Invoice implements Serializable {
+    public String diachi, hoten,  idHinhthucGH,  idKhuyenmai,  idTaiKhoan,  idTrangthaiDH,  maDonhang,  sdt,  time,  tongtien;
 
 
-    public Invoice(String invoiceID, String diachi, String hoten, String idHinhthucGH, String idKhuyenmai, String idTaiKhoan, String idTrangthaiDH, String maDonhang, String sdt, String time, String tongtien) {
+    public Invoice(String diachi, String hoten, String idHinhthucGH, String idKhuyenmai, String idTaiKhoan, String idTrangthaiDH, String maDonhang, String sdt, String time, String tongtien) {
         this.diachi = diachi;
         this.hoten = hoten;
         this.idHinhthucGH = idHinhthucGH;
@@ -16,6 +18,8 @@ public class Invoice {
         this.time = time;
         this.tongtien = tongtien;
     }
+
+
 
 
     public String getDiachi() {
