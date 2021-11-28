@@ -90,45 +90,45 @@ public class InvoiceFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mRecyclerView = view.findViewById(R.id.inv_rv_item);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
-        mRecyclerView.addItemDecoration(itemDecoration);
-
-        mInvoice = new ArrayList<>();
-
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference("Sach");
-
-        mDatabaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                mInvoice.clear();
-
-                for (DataSnapshot data : dataSnapshot.getChildren()) {
-                    String time = data.child("Time").getValue().toString();
-                    String code = data.child("Ma_Don_Hang").getValue().toString();
-                    String status = data.child("ID_Trang_Thai_DH").getValue().toString();
-                    String price = data.child("Tong_Tien").getValue().toString();
-                    String address = data.child("Dia_Chi").getValue().toString();
-                    String name = data.child("Ho_Ten").getValue().toString();
-                    String phone = data.child("SDT").getValue().toString();
-                    String hinhthuc = data.child("ID_Hinh_Thuc_GH").getValue().toString();
-                    String khuyenmai = data.child("ID_Khuyen_Mai").getValue().toString();
-                    String taikhoan = data.child("ID_Tai_Khoan").getValue().toString();
-                    mInvoice.add(new InvoiceBook(address,name,hinhthuc,khuyenmai,taikhoan,status,code,phone,time,price));
-                }
-
-//                mAdapter = new InvoiceBookAdapter(getContext(), mInvoice);
+//        mRecyclerView = view.findViewById(R.id.inv_rv_item);
+//        mRecyclerView.setHasFixedSize(true);
+//        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+//        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+//        mRecyclerView.addItemDecoration(itemDecoration);
 //
-                mRecyclerView.setAdapter(mAdapter);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+//        mInvoice = new ArrayList<>();
+//
+//        mDatabaseReference = FirebaseDatabase.getInstance().getReference("Sach");
+//
+//        mDatabaseReference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                mInvoice.clear();
+//
+//                for (DataSnapshot data : dataSnapshot.getChildren()) {
+//                    String time = data.child("Time").getValue().toString();
+//                    String code = data.child("Ma_Don_Hang").getValue().toString();
+//                    String status = data.child("ID_Trang_Thai_DH").getValue().toString();
+//                    String price = data.child("Tong_Tien").getValue().toString();
+//                    String address = data.child("Dia_Chi").getValue().toString();
+//                    String name = data.child("Ho_Ten").getValue().toString();
+//                    String phone = data.child("SDT").getValue().toString();
+//                    String hinhthuc = data.child("ID_Hinh_Thuc_GH").getValue().toString();
+//                    String khuyenmai = data.child("ID_Khuyen_Mai").getValue().toString();
+//                    String taikhoan = data.child("ID_Tai_Khoan").getValue().toString();
+//                    mInvoice.add(new InvoiceBook(address,name,hinhthuc,khuyenmai,taikhoan,status,code,phone,time,price));
+//                }
+//
+////                mAdapter = new InvoiceBookAdapter(getContext(), mInvoice);
+////
+//                mRecyclerView.setAdapter(mAdapter);
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
     }
 }

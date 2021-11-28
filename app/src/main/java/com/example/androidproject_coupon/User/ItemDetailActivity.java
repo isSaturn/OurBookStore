@@ -69,10 +69,11 @@ public class ItemDetailActivity extends AppCompatActivity {
         ID_Nhom_Sach = upload.getID_Nhom_Sach();
 
         //Hiển thị thông tin sản phẩm lên app
-        masach.setText(Ma_Sach);
+
+        masach.setText("Mã sách: " + upload.getMa_Sach());
         name.setText(Ten_Sach);
-        tacgia.setText(Tac_Gia);
-        mota.setText(Mo_Ta);
+        tacgia.setText("Tác giả: " + upload.getTac_Gia());
+        mota.setText("Mô tả: " + upload.getMo_Ta());
         price.setText("Giá tiền: " + upload.getGia() + " vnđ");
 
         //Lấy Id nhóm sách thành chữ
