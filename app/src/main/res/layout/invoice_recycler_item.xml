@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/ord_iv_sach"
+        android:id="@+id/inv_iv_sach"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -21,7 +21,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Sách"
-        app:layout_constraintStart_toEndOf="@+id/ord_iv_sach"
+        app:layout_constraintStart_toEndOf="@+id/inv_iv_sach"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView

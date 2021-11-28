@@ -1,99 +1,45 @@
 package com.example.androidproject_coupon.InvoiceManagement.Invoice;
 
 public class InvoiceBook {
-    private String diachi, hoten, idHinhthucGH, idKhuyenmai, idTaiKhoan, idTrangthaiDH, maDonhang, sdt, time, tongtien;
+    private String anh,ten,gia,xoa;
 
 
-    public InvoiceBook(String diachi,String hoten,String idHinhthucGH,String idKhuyenmai,String idTaiKhoan,String idTrangthaiDH,String maDonhang,String sdt,String time,String tongtien) {
-        this.diachi = diachi;
-        this.hoten = hoten;
-        this.idHinhthucGH = idHinhthucGH;
-        this.idKhuyenmai = idKhuyenmai;
-        this.idTaiKhoan = idTaiKhoan;
-        this.idTrangthaiDH = idTrangthaiDH;
-        this.maDonhang = maDonhang;
-        this.sdt = sdt;
-        this.time = time;
-        this.tongtien = tongtien;
+    public InvoiceBook(String anh,String ten,String gia,String xoa) {
+        this.anh = anh;
+        this.ten = ten;
+        this.gia = gia;
+        this.xoa = xoa;
     }
 
-    public String getDiachi() {
-        return diachi;
+    public String getAnh() {
+        return anh;
     }
 
-    public void setDiachi(String diachi) {
-        this.diachi = diachi;
+    public void setAnh(String anh) {
+        this.anh = anh;
     }
 
-    public String getHoten() {
-        return hoten;
+    public String getTen() {
+        return ten;
     }
 
-    public void setHoten(String hoten) {
-        this.hoten = hoten;
+    public void setTen(String ten) {
+        this.ten = ten;
     }
 
-    public String getIdHinhthucGH() {
-        return idHinhthucGH;
+    public String getGia() {
+        return gia;
     }
 
-    public void setIdHinhthucGH(String diachi) {
-        this.idHinhthucGH = idHinhthucGH;
+    public void setGia(String gia) {
+        this.gia = gia;
     }
 
-    public String getIdKhuyenmai() {
-        return idKhuyenmai;
+    public String getXoa() {
+        return xoa;
     }
 
-    public void setIdKhuyenmai(String diachi) {
-        this.idKhuyenmai = idKhuyenmai;
-    }
-
-    public String getIdTaiKhoan() {
-        return diachi;
-    }
-
-    public void setIdTaiKhoan(String diachi) {
-        this.idTaiKhoan = idTaiKhoan;
-    }
-
-    public String getIdTrangthaiDH() {
-        return diachi;
-    }
-
-    public void setIdTrangthaiDH(String diachi) {
-        this.idTrangthaiDH = idTrangthaiDH;
-    }
-
-    public String getMaDonhang() {
-        return diachi;
-    }
-
-    public void setMaDonhang(String diachi) {
-        this.maDonhang = maDonhang;
-    }
-
-    public String getSdt() {
-        return diachi;
-    }
-
-    public void setSdt(String diachi) {
-        this.sdt = sdt;
-    }
-
-    public String getTime() {
-        return diachi;
-    }
-
-    public void setTime(String diachi) {
-        this.time = time;
-    }
-
-    public String getTongtien() {
-        return tongtien;
-    }
-
-    public void setTongtien(String diachi) {
-        this.tongtien = tongtien;
+    public void setXoa(String xoa) {
+        this.xoa = xoa;
     }
 }

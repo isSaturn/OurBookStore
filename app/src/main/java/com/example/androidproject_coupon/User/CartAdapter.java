@@ -24,7 +24,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
     private Context mContext;
     private List<Book> mUploads;
-
     public CartAdapter(Context context, List<Book> uploads) {
         mContext = context;
         mUploads = uploads;
