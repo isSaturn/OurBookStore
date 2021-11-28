@@ -90,6 +90,8 @@ public class ShopFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        CartFragment.cartAdapter = new CartAdapter(getContext(),CartFragment.cart);
+
         mRecyclerView = view.findViewById(R.id.rcv_shop_user);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
