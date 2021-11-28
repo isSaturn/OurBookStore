@@ -1,5 +1,6 @@
 package com.example.androidproject_coupon.InvoiceManagement.Invoice;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -18,12 +19,17 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidproject_coupon.BookManagement.Book;
+import com.example.androidproject_coupon.OrderFragment;
+import com.example.androidproject_coupon.OrderManagement.Oder;
+import com.example.androidproject_coupon.OrderManagement.OderAdapter;
 import com.example.androidproject_coupon.R;
 import com.example.androidproject_coupon.User.CartAdapter;
+import com.example.androidproject_coupon.User.CartFragment;
 import com.example.androidproject_coupon.User.MainActivity_User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -38,9 +44,10 @@ import java.util.List;
 
 public class InvoiceInformation extends AppCompatActivity {
 
-    private RecyclerView rcvInvoiceitem;
-    public static ArrayList<Invoice> invList = new ArrayList<>();
+    private RecyclerView rcvInvoiceitem,rcvInvoiceList;
+    public static List<Oder> invList = new ArrayList<>();
     public static ArrayList<CartAdapter> cartAdapters = new ArrayList<>();
+    public OderAdapter mInvoiceInfo;
     Button btnDathang;
     EditText etHoten, etSDT, etDiachi;
     TextView tvGiaohangnhanh, tvGiaohangtietkiem, tvTamtinh, tvPhivanchuyen, tvTongcong, tvTensach, tvGia;
@@ -61,6 +68,15 @@ public class InvoiceInformation extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.inv_infomation);
+
+        rcvInvoiceitem = findViewById(R.id.inv_rv_item);
+        rcvInvoiceitem.setHasFixedSize(true);
+        rcvInvoiceitem.setLayoutManager(new LinearLayoutManager(InvoiceInformation.this));
+        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(InvoiceInformation.this, DividerItemDecoration.VERTICAL);
+        rcvInvoiceitem.addItemDecoration(itemDecoration);
+
+        CartFragment.cartAdapter = new CartAdapter(InvoiceInformation.this,CartFragment.cart);
+        rcvInvoiceitem.setAdapter(CartFragment.cartAdapter);
 
         matching();
 //        CartAdapter cartAdapter = new CartAdapter(this,cartAdapters);
@@ -107,15 +123,8 @@ public class InvoiceInformation extends AppCompatActivity {
             private void ConfirmOrder() {
                 DatabaseReference invRef = database.getReference().child("DonHang");
                 //id
-                String InvID = String.valueOf(size);
-                ArrayList<Invoice> invList = InvoiceInformation.invList;
-                for (int i = 0; i < invList.size(); i++) {
-                    String str = invList.get(i).getMaDonhang();
-                    if(str.equals(InvID)){
-                        Toast.makeText(getApplicationContext(),  InvID + ": is already exist", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                }
+                size = OrderFragment.mAdapter.getItemCount()+1;
+
                 try {
                     //ma don hang
                     final String saveCurrentIDDate;
@@ -123,7 +132,7 @@ public class InvoiceInformation extends AppCompatActivity {
                     SimpleDateFormat idDate = new SimpleDateFormat("yyMMdd");
                     saveCurrentIDDate = idDate.format(calendarIDDate.getTime());
                     String saveIDDate = saveCurrentIDDate.trim();
-                    String maDonhang = saveIDDate+"SACH"+InvID;
+                    String maDonhang = saveIDDate+"SACH"+size;
                     invRef.child(maDonhang).setValue(maDonhang);
 
                     String diachi = etDiachi.getText().toString().trim();
@@ -155,7 +164,7 @@ public class InvoiceInformation extends AppCompatActivity {
                     //tong tien
                     String tongtien = tvTongcong.getText().toString().trim();
 
-                    Invoice invoice = new Invoice(diachi, hoten,  idHinhthucGH,  idKhuyenmai,  idTaiKhoan,  idTrangthaiDH,  maDonhang,  sdt,  time,  tongtien);
+                    Oder invoice = new Oder(diachi, hoten,  idHinhthucGH,  idKhuyenmai,  idTaiKhoan,  idTrangthaiDH,  maDonhang,  sdt,  time,  tongtien);
                     invRef.child(maDonhang).setValue(invoice);
                     finish();
                     Toast.makeText(getApplicationContext(),"Thêm mã khuyến mãi thành công", Toast.LENGTH_LONG).show();
@@ -165,7 +174,6 @@ public class InvoiceInformation extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"Error:"+ex.toString(),Toast.LENGTH_LONG).show();
                 }
                 Toast.makeText(InvoiceInformation.this, "Thêm sách mới thành công", Toast.LENGTH_LONG).show();
-
 
 //                //sanpham
 //                //ma don hang
@@ -246,6 +254,34 @@ public class InvoiceInformation extends AppCompatActivity {
 //                Toast.makeText(InvoiceInformation.this, "Đặt hàng thành công",Toast.LENGTH_LONG).show();
             }
         });
+//        invList = new ArrayList<>();
+//        DatabaseReference invRef = FirebaseDatabase.getInstance().getReference("DonHang");
+//        invRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+//                    invList.clear();
+//                    String diachi = dataSnapshot.child("dia_Chi").getValue().toString().trim();
+//                    String hoten = dataSnapshot.child("ho_Ten").getValue().toString().trim();
+//                    String idHinhthucGH = dataSnapshot.child("id_Hinh_Thuc_GH").getValue().toString().trim();
+//                    String idKhuyenmai = dataSnapshot.child("id_Khuyen_Mai").getValue().toString().trim();
+//                    String idTaiKhoan = dataSnapshot.child("id_Tai_Khoan").getValue().toString().trim();
+//                    String idTrangthaiDH = dataSnapshot.child("id_Trang_Thai_DH").getValue().toString().trim();
+//                    String maDonhang = dataSnapshot.child("ma_Don_Hang").getValue().toString().trim();
+//                    String sdt = dataSnapshot.child("sdt").getValue().toString().trim();
+//                    String time = dataSnapshot.child("time").getValue().toString().trim();
+//                    String tongtien = dataSnapshot.child("tong_Tien").getValue().toString().trim();
+//                    invList.add(new Oder(diachi, hoten,  idHinhthucGH,  idKhuyenmai,  idTaiKhoan,  idTrangthaiDH,  maDonhang,  sdt,  time,  tongtien));
+//                }
+//                mInvoiceInfo = new OderAdapter(InvoiceInformation.this,invList);
+//                rcvInvoiceList.setAdapter(mInvoiceInfo);
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
 
 //        DatabaseReference invCartDetailsRef = database.getReference("DonHang");
 //        invCartDetailsRef.addValueEventListener(new ValueEventListener() {
@@ -322,6 +358,5 @@ public class InvoiceInformation extends AppCompatActivity {
         rdBtnTietkiem = (RadioButton) findViewById(R.id.inv_rdBtn_giaohangtietkiem);
         rvListitem = (RecyclerView) findViewById(R.id.inv_rv_item);
         autotvMagiamgia = (AutoCompleteTextView) findViewById(R.id.inv_tv_magiamgia_list);
-
     }
 }

@@ -12,10 +12,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.androidproject_coupon.InvoiceManagement.Invoice.InvoiceBook;
 import com.example.androidproject_coupon.InvoiceManagement.Invoice.InvoiceBookAdapter;
+import com.example.androidproject_coupon.InvoiceManagement.Invoice.InvoiceInformation;
+import com.example.androidproject_coupon.OrderManagement.Oder;
+import com.example.androidproject_coupon.OrderManagement.OderAdapter;
 import com.example.androidproject_coupon.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -38,17 +42,14 @@ public class InvoiceFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private RecyclerView mRecyclerView;
-    private InvoiceBookAdapter mAdapter;
-
-    private DatabaseReference mDatabaseReference;
-    private List<InvoiceBook> mInvoice;
-
+    private List<Oder> invList;
+    public OderAdapter mInvoiceInfo;
+    private RecyclerView rcvInvoiceitem;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    public RecyclerView rcvInvoiceList;
     public InvoiceFragment() {
         // Required empty public constructor
     }
@@ -89,7 +90,41 @@ public class InvoiceFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        
+        rcvInvoiceList = view.findViewById(R.id.inv_rv_danhsach);
+
+        rcvInvoiceList.setHasFixedSize(true);
+        rcvInvoiceList.setLayoutManager(new LinearLayoutManager(getContext()));
+        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+        rcvInvoiceList.addItemDecoration(itemDecoration);
+
+        invList = new ArrayList<>();
+        DatabaseReference invRef = FirebaseDatabase.getInstance().getReference("DonHang");
+        invRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    invList.clear();
+                    String diachi = dataSnapshot.child("dia_Chi").getValue().toString().trim();
+                    String hoten = dataSnapshot.child("ho_Ten").getValue().toString().trim();
+                    String idHinhthucGH = dataSnapshot.child("id_Hinh_Thuc_GH").getValue().toString().trim();
+                    String idKhuyenmai = dataSnapshot.child("id_Khuyen_Mai").getValue().toString().trim();
+                    String idTaiKhoan = dataSnapshot.child("id_Tai_Khoan").getValue().toString().trim();
+                    String idTrangthaiDH = dataSnapshot.child("id_Trang_Thai_DH").getValue().toString().trim();
+                    String maDonhang = dataSnapshot.child("ma_Don_Hang").getValue().toString().trim();
+                    String sdt = dataSnapshot.child("sdt").getValue().toString().trim();
+                    String time = dataSnapshot.child("time").getValue().toString().trim();
+                    String tongtien = dataSnapshot.child("tong_Tien").getValue().toString().trim();
+                    invList.add(new Oder(diachi, hoten,  idHinhthucGH,  idKhuyenmai,  idTaiKhoan,  idTrangthaiDH,  maDonhang,  sdt,  time,  tongtien));
+                }
+                mInvoiceInfo = new OderAdapter(getContext(),invList);
+                rcvInvoiceList.setAdapter(mInvoiceInfo);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
     }
 }
