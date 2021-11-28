@@ -36,37 +36,15 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/ord_tv_sl"
+        android:id="@+id/ord_tv_gia"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="SL"
+        android:layout_marginTop="16dp"
+        android:text="Giá"
         app:layout_constraintEnd_toEndOf="@+id/ord_tv_sach"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/ord_tv_sach"
         app:layout_constraintTop_toBottomOf="@+id/ord_tv_sach" />
-
-    <TextView
-        android:id="@+id/ord_tv_gia"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Giá"
-        app:layout_constraintEnd_toEndOf="@+id/ord_tv_sl"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/ord_tv_sl"
-        app:layout_constraintTop_toBottomOf="@+id/ord_tv_sl" />
-
-    <TextView
-        android:id="@+id/inv_tv_chitietdonhang_sl"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="@+id/ord_tv_sl"
-        app:layout_constraintStart_toEndOf="@+id/ord_tv_sl"
-        app:layout_constraintTop_toTopOf="@+id/ord_tv_sl"
-        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/inv_tv_chitietdonhang_gia"

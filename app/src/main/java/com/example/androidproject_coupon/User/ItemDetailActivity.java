@@ -38,6 +38,7 @@ public class ItemDetailActivity extends AppCompatActivity {
     ImageView img;
     TextView name, price, masach, tacgia, theloai, mota;
     Button addtocart;
+    ImageView back;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     StorageReference mStorageRef;
@@ -127,5 +128,12 @@ public class ItemDetailActivity extends AppCompatActivity {
         theloai = findViewById(R.id.tv_itemdetail_theloai);
         mota = findViewById(R.id.tv_itemdetail_mota);
         addtocart = findViewById(R.id.btn_itemdetail_add);
+        back = findViewById(R.id.itemDetail_btn_back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 }

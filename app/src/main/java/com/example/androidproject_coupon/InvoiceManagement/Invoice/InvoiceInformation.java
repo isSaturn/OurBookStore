@@ -1,7 +1,6 @@
-package com.example.androidproject_coupon.InvoiceManagement;
+package com.example.androidproject_coupon.InvoiceManagement.Invoice;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 
 import android.text.TextUtils;
@@ -13,7 +12,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -25,18 +23,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidproject_coupon.AccountManagement.GetIDandRole;
-import com.example.androidproject_coupon.AccountManagement.Login;
-import com.example.androidproject_coupon.MainActivity;
 import com.example.androidproject_coupon.R;
-import com.example.androidproject_coupon.User.MainActivity_User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.lang.ref.Reference;
-import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -50,7 +43,7 @@ public class InvoiceInformation extends AppCompatActivity {
     ArrayList<String> arrRole = new ArrayList<>();
     Button btnDathang;
     EditText etHoten, etSDT, etDiachi;
-    TextView tvGiaohangnhanh, tvGiaohangtietkiem, tvTamtinh, tvPhivanchuyen, tvTongcong, tvTensach, tvGia, tvSoluong;
+    TextView tvGiaohangnhanh, tvGiaohangtietkiem, tvTamtinh, tvPhivanchuyen, tvTongcong, tvTensach, tvGia;
     CheckBox cbShipCOD;
     RadioGroup rdGHinhthuc;
     RadioButton rdBtnNhanh, rdBtnTietkiem;
@@ -76,15 +69,7 @@ public class InvoiceInformation extends AppCompatActivity {
 
         matching();
 
-        Intent intent = new Intent(this, ViewInvoiceInformation.class);
-
-        btnDathang.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Check();
-                startActivity(intent);
-            }
-        });
+        Check();
 
         //auto tích checkbox thanh toán
         cbShipCOD.setChecked(true);
@@ -141,28 +126,7 @@ public class InvoiceInformation extends AppCompatActivity {
         //show tong tien
 
         //gan role
-        DatabaseReference roleRef = database.getReference("Users");
-        roleRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                progressDialog.dismiss();
-                String userType = ""+snapshot.child("userType").getValue();
-                arrRole.add(userType);
-                if (arrRole.equals("user")){
-                    idAndRole.role = userType.trim();
-                    finish();
-                }
-                else if (arrRole.equals("admin")){
-                    idAndRole.role = userType.trim();
-                    finish();
-                }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
     }
 
 
@@ -258,7 +222,6 @@ public class InvoiceInformation extends AppCompatActivity {
 
     private List<InvoiceBook> getListBook() {
         List<InvoiceBook> list = new ArrayList<>();
-        list.add(new InvoiceBook(R.drawable.sach,"Book Name"));
 
         return list;
     }
@@ -276,7 +239,6 @@ public class InvoiceInformation extends AppCompatActivity {
         tvPhivanchuyen = (TextView) findViewById(R.id.inv_tv_phivanchuyen_gia);
         tvTongcong = (TextView) findViewById(R.id.inv_tv_tongcong_gia);
         tvTensach = (TextView) findViewById(R.id.inv_tv_chitietdonhang_tensach);
-        tvSoluong = (TextView) findViewById(R.id.inv_tv_chitietdonhang_sl);
         tvGia = (TextView) findViewById(R.id.inv_tv_chitietdonhang_gia);
         rdGHinhthuc = (RadioGroup) findViewById(R.id.inv_rdG_hinhthucgiaohang);
         rdBtnNhanh = (RadioButton) findViewById(R.id.inv_rdBtn_giaohangnhanh);

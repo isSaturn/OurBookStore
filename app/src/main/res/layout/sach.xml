@@ -37,7 +37,7 @@
             android:layout_height="58dp"
             android:paddingLeft="10dp"
             android:text="Giá tiền"
-            android:textColor="#03A9F4"
+            android:textColor="@color/textColor"
             android:textSize="16sp"
             android:textStyle="bold" />
     </LinearLayout>

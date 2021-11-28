@@ -34,7 +34,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Tổng: "
-                    android:textColor="#FF9800"
+                    android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -49,16 +49,17 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_cart_dathang"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="3dp"
-                android:background="@drawable/custom_btn_dathang"
-                android:backgroundTint="@null"
-                android:text="Đặt Hàng"
-                android:textStyle="bold" />
+                android:layout_width="128dp"
+                android:layout_height="43dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/button_addcart"
+                android:text="Place to order"
+                android:textAllCaps="false"
+                android:textStyle="bold"
+                tools:ignore="TouchTargetSizeCheck" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
