@@ -44,12 +44,9 @@ public class CartFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
     private RecyclerView mRecyclerView;
     private UserAdapter mAdapter;
-
     private DatabaseReference mDatabaseReference;
-
     private List<Book> mCart;
 
     public CartFragment() {
