@@ -1,9 +1,8 @@
 package com.example.androidproject_coupon.InvoiceManagement.Invoice;
 
-import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,18 +18,13 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.androidproject_coupon.AccountManagement.GetIDandRole;
-import com.example.androidproject_coupon.BookManagement.AddBook;
 import com.example.androidproject_coupon.BookManagement.Book;
-import com.example.androidproject_coupon.CouponFragment;
-import com.example.androidproject_coupon.CouponManagement.Coupon.Coupon;
-import com.example.androidproject_coupon.CouponManagement.CouponAdapter;
 import com.example.androidproject_coupon.R;
 import com.example.androidproject_coupon.User.CartAdapter;
+import com.example.androidproject_coupon.User.MainActivity_User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -43,9 +37,10 @@ import java.util.Calendar;
 import java.util.List;
 
 public class InvoiceInformation extends AppCompatActivity {
+
     private RecyclerView rcvInvoiceitem;
-    public static InvoiceBookAdapter invoiceBookAdapter;
     public static ArrayList<Invoice> invList = new ArrayList<>();
+    public static ArrayList<CartAdapter> cartAdapters = new ArrayList<>();
     Button btnDathang;
     EditText etHoten, etSDT, etDiachi;
     TextView tvGiaohangnhanh, tvGiaohangtietkiem, tvTamtinh, tvPhivanchuyen, tvTongcong, tvTensach, tvGia;
@@ -57,8 +52,6 @@ public class InvoiceInformation extends AppCompatActivity {
     ArrayAdapter<String> arrayAdapterMagiamgia;
     ArrayList<String> arrayMagiamgia = new ArrayList<>();
     ArrayList<String> idMagiamgia = new ArrayList<>();
-    ArrayList<Integer> idSach = new ArrayList<>();
-    ArrayList<Integer> soLuong = new ArrayList<>();
     String slcMagiamgia;
     String TAG="FIREBASE";
     FirebaseDatabase database = FirebaseDatabase.getInstance("https://ourbookstore-e8241-default-rtdb.firebaseio.com/");
@@ -70,7 +63,7 @@ public class InvoiceInformation extends AppCompatActivity {
         setContentView(R.layout.inv_infomation);
 
         matching();
-
+//        CartAdapter cartAdapter = new CartAdapter(this,cartAdapters);
         //show list ma giam gia va gan id ma khuyen mai
         arrayAdapterMagiamgia = new ArrayAdapter<>(this, R.layout.list_type_coupon,arrayMagiamgia);
         DatabaseReference cpnRef = database.getReference("KhuyenMai");
@@ -78,7 +71,7 @@ public class InvoiceInformation extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot data: snapshot.getChildren()){
-                    String value = data.child("name").getValue().toString()+ " - " + data.child("code").getValue().toString();;
+                    String value = data.child("name").getValue().toString()+ " - " + data.child("code").getValue().toString();
                     arrayMagiamgia.add(value);
                     idMagiamgia.add(data.child("code").getValue().toString());
                 }
@@ -100,37 +93,77 @@ public class InvoiceInformation extends AppCompatActivity {
         btnDathang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String diachi = etDiachi.getText().toString().trim();
-                String hoten = etHoten.getText().toString().trim();
-                String sdt = etSDT.toString().trim();
-                String idHinhthucGH = etSDT.toString().trim();
-                String idKhuyenmai = etSDT.toString().trim();
-                String idTaiKhoan = etSDT.toString().trim();
-                String idTrangthaiDH = etSDT.toString().trim();
-                String tongtien = tvTongcong.getText().toString().trim();
-                String maDonhang = tvTongcong.getText().toString().trim();
-                String time = tvTongcong.getText().toString().trim();
 
                 if (etHoten.getText().toString().trim().length() == 0 || etSDT.getText().toString().trim().length() == 0
                         || etDiachi.getText().toString().length() == 0 || autotvMagiamgia.getText().toString().length() == 0) {
                     Toast.makeText(getApplicationContext(), "All field must be not empty", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
-                    ConfirmOrder(diachi, hoten, idHinhthucGH, idKhuyenmai, idTaiKhoan, idTrangthaiDH, maDonhang, sdt, time, tongtien);//
+                    ConfirmOrder();
+                    startActivity(new Intent(InvoiceInformation.this, MainActivity_User.class));
                 }
             }
 
-            private void ConfirmOrder(String diachi, String hoten, String idHinhthucGH, String idKhuyenmai, String idTaiKhoan, String idTrangthaiDH, String maDonhang, String sdt, String time, String tongtien) {
+            private void ConfirmOrder() {
                 DatabaseReference invRef = database.getReference().child("DonHang");
                 //id
-                Bundle extras = getIntent().getExtras();
-                if (extras != null) {
-                    size = extras.getInt("size") + 1;
+                String InvID = String.valueOf(size);
+                ArrayList<Invoice> invList = InvoiceInformation.invList;
+                for (int i = 0; i < invList.size(); i++) {
+                    String str = invList.get(i).getMaDonhang();
+                    if(str.equals(InvID)){
+                        Toast.makeText(getApplicationContext(),  InvID + ": is already exist", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                 }
-                String InvoiceID = String.valueOf(size);
-                Invoice invoice = new Invoice(InvoiceID, diachi, hoten, idHinhthucGH, idKhuyenmai, idTaiKhoan, idTrangthaiDH, maDonhang, sdt, time, tongtien);
-                invRef.child(InvoiceID).setValue(invoice);
+                try {
+                    //ma don hang
+                    final String saveCurrentIDDate;
+                    Calendar calendarIDDate = Calendar.getInstance();
+                    SimpleDateFormat idDate = new SimpleDateFormat("yyMMdd");
+                    saveCurrentIDDate = idDate.format(calendarIDDate.getTime());
+                    String saveIDDate = saveCurrentIDDate.trim();
+                    String maDonhang = saveIDDate+"SACH"+InvID;
+                    invRef.child(maDonhang).setValue(maDonhang);
 
+                    String diachi = etDiachi.getText().toString().trim();
+                    String hoten = etHoten.getText().toString().trim();
+                    String sdt = etSDT.getText().toString().trim();
+
+                    //hinhthucgh
+                    String idHinhthucGH = etSDT.getText().toString().trim();
+
+                    //makhuyenmai
+                    String idKhuyenmai = slcMagiamgia.trim();
+                    invRef.child(maDonhang).setValue(idKhuyenmai);
+
+                    //taikhoan
+                    String idTaiKhoan = etSDT.getText().toString().trim();
+
+                    //id trang thai
+                    String idTrangthaiDH = "1";
+                    invRef.child(maDonhang).setValue(idTrangthaiDH);
+
+                    //time
+                    final String saveCurrentDate;
+                    Calendar calendar = Calendar.getInstance();
+                    SimpleDateFormat currentDate = new SimpleDateFormat("yyyy/MM/dd");
+                    saveCurrentDate = currentDate.format(calendar.getTime());
+                    String time = saveCurrentDate.trim();
+                    invRef.child(maDonhang).setValue(time);
+
+                    //tong tien
+                    String tongtien = tvTongcong.getText().toString().trim();
+
+                    Invoice invoice = new Invoice(diachi, hoten,  idHinhthucGH,  idKhuyenmai,  idTaiKhoan,  idTrangthaiDH,  maDonhang,  sdt,  time,  tongtien);
+                    invRef.child(maDonhang).setValue(invoice);
+                    finish();
+                    Toast.makeText(getApplicationContext(),"Thêm mã khuyến mãi thành công", Toast.LENGTH_LONG).show();
+                }
+                catch (Exception ex)
+                {
+                    Toast.makeText(getApplicationContext(),"Error:"+ex.toString(),Toast.LENGTH_LONG).show();
+                }
                 Toast.makeText(InvoiceInformation.this, "Thêm sách mới thành công", Toast.LENGTH_LONG).show();
 
 
@@ -244,6 +277,7 @@ public class InvoiceInformation extends AppCompatActivity {
 
 
 
+
 //        //auto tích checkbox thanh toán
 //
 //        invoiceBookAdapter = new InvoiceBookAdapter(this);
@@ -263,8 +297,8 @@ public class InvoiceInformation extends AppCompatActivity {
 //
 //
 //
-//    private List<InvoiceBook> getListBook() {
-//        List<InvoiceBook> list = new ArrayList<>();
+//    private List<CartAdapter> getListBook() {
+//        List<CartAdapter> list = new ArrayList<>();
 //
 //        return list;
 //    }
