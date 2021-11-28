@@ -36,6 +36,8 @@ import java.util.List;
  */
 public class CartFragment extends Fragment {
 
+    public static List<Book> cart = new ArrayList<>();
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -44,10 +46,9 @@ public class CartFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
     private RecyclerView mRecyclerView;
-    private UserAdapter mAdapter;
-    private DatabaseReference mDatabaseReference;
-    private List<Book> mCart;
+    public static CartAdapter cartAdapter;
 
     public CartFragment() {
         // Required empty public constructor
@@ -97,105 +98,7 @@ public class CartFragment extends Fragment {
         RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
         mRecyclerView.addItemDecoration(itemDecoration);
 
-        mCart = new ArrayList<>();
-
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference("Sach");
-
-        mDatabaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                mCart.clear();
-
-                for (DataSnapshot posSnapshot : dataSnapshot.getChildren()) {
-                    String sID = posSnapshot.child("id").getValue().toString().trim();
-                    String sMaSach = posSnapshot.child("ma_Sach").getValue().toString().trim();
-                    String sTenSach = posSnapshot.child("ten_Sach").getValue().toString().trim();
-                    String sTacGia = posSnapshot.child("tac_Gia").getValue().toString().trim();
-                    String sMoTa = posSnapshot.child("mo_Ta").getValue().toString().trim();
-                    String sGia = posSnapshot.child("gia").getValue().toString().trim();
-                    String sSoLuong = posSnapshot.child("so_Luong").getValue().toString().trim();
-                    String anh = posSnapshot.child("anh").getValue().toString();
-                    String id_Nhom_Sach = posSnapshot.child("id_Nhom_Sach").getValue().toString().trim();
-
-                    mCart.add(new Book(sID, sMaSach, sTenSach, sTacGia, sMoTa, sGia, sSoLuong, anh, id_Nhom_Sach));
-                }
-
-                mAdapter = new UserAdapter(getContext(), mCart);
-
-                mRecyclerView.setAdapter(mAdapter);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+        cartAdapter = new CartAdapter(getContext(), cart);
+        mRecyclerView.setAdapter(cartAdapter);
     }
-
-//    private void initItem() {
-//        productCartAdapter = new CartAdapter();
-//        rlCartEmpty = mView.findViewById(R.id.rl_cart_empty);
-//        rlCart = mView.findViewById(R.id.rl_cart);
-//        recyclerView = mView.findViewById(R.id.rcv_cart);
-//        tvCartTotalPrice = mView.findViewById(R.id.tv_cart_tongtien);
-//    }
-//
-//    private void setVisibilityView() {
-//        if (listCartProduct.size() == 0){
-//
-//            // Hiển thị giỏ hàng rỗng
-//            setVisibilityEmptyCart();
-//        }else {
-//
-//            // Hiển thị giỏ hàng
-//            setVisibilityCart();
-//            setDataProductCartAdapter();
-//        }
-//    }
-//
-//    private void setDataProductCartAdapter() {
-//    }
-//
-//    private void setVisibilityCart() {
-//        rlCartEmpty.setVisibility(View.GONE);
-//        rlCart.setVisibility(View.VISIBLE);
-//        String total = format.format(getTotalPrice());
-//        tvCartTotalPrice.setText( total +" vnđ" );
-//    }
-//
-//    private void setVisibilityEmptyCart() {
-//    }
-//
-//    private int getTotalPrice(){
-//        for (Book product : listCartProduct){
-//            int priceProduct = product.getProductPrice() ;
-//            totalPrice = totalPrice +  priceProduct * product.getNumProduct();
-//        }
-//        return totalPrice;
-//    }
-//
-//    private List<Book> makeDetailOrder( String odrNo){
-//        List<Book> listDetailOrder = new ArrayList<>();
-//        for (Product product : home.getListCartProduct()){
-//            DetailOrder detailOrder = new DetailOrder();
-//            detailOrder.setOrderNo(odrNo);
-//            detailOrder.setProductName(product.getProductName());
-//            detailOrder.setProductPrice(product.getProductPrice());
-//            detailOrder.setUrlImg(product.getUrlImg());
-//            detailOrder.setNumProduct(product.getNumProduct());
-//            detailOrder.setStatus("Đang chờ xác nhận");
-//            listDetailOrder.add(detailOrder);
-//        }
-//        return listDetailOrder;
-//    }
-//
-//    public void setTotalPrice(int mode,int count, int priceProduct ){
-//        if( mode == 0){
-//            totalPrice = totalPrice - priceProduct * count;
-//        }else if (mode == 1){
-//            totalPrice = totalPrice + priceProduct * count;
-//        }
-//
-//        tvCartTotalPrice.setText( format.format(totalPrice) + " VNĐ");
-//    }
 }

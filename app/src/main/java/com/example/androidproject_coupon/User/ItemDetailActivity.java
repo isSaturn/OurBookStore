@@ -29,6 +29,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class ItemDetailActivity extends AppCompatActivity {
 
@@ -68,11 +69,12 @@ public class ItemDetailActivity extends AppCompatActivity {
         ID_Nhom_Sach = upload.getID_Nhom_Sach();
 
         //Hiển thị thông tin sản phẩm lên app
-        masach.setText(Ma_Sach);
+
+        masach.setText("Mã sách: " + upload.getMa_Sach());
         name.setText(Ten_Sach);
-        tacgia.setText(Tac_Gia);
-        mota.setText(Mo_Ta);
-        price.setText(Gia);
+        tacgia.setText("Tác giả: " + upload.getTac_Gia());
+        mota.setText("Mô tả: " + upload.getMo_Ta());
+        price.setText("Giá tiền: " + upload.getGia() + " vnđ");
 
         //Lấy Id nhóm sách thành chữ
         DatabaseReference nhomSach = database.getReference("NhomSach");
@@ -101,7 +103,19 @@ public class ItemDetailActivity extends AppCompatActivity {
         addtocart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String sid_sach = ID_Sach.toString().trim();
+                String sma_sach = Ma_Sach.toString().trim();
+                String sten_sach = Ten_Sach.toString().trim();
+                String stac_gia = Tac_Gia.toString().trim();
+                String smo_ta = Mo_Ta.toString().trim();
+                String sgia = Gia.toString().trim();
+                String sso_luong = So_Luong.toString().trim();
+                String sanh = Anh.toString().trim();
+                String sid_nhom_sach = ID_Nhom_Sach.toString().trim();
 
+                CartFragment.cart.add(new Book(sid_sach, sma_sach, sten_sach, stac_gia, smo_ta, sgia, sso_luong, sanh, sid_nhom_sach));
+                CartFragment.cartAdapter.notifyDataSetChanged();
+                Toast.makeText(ItemDetailActivity.this, "Đã thêm sản phẩm vào giỏ hàng", Toast.LENGTH_SHORT).show();
             }
         });
     }
