@@ -35,6 +35,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     public CartViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(mContext).inflate(R.layout.item_cart, parent, false);
         return new CartViewHolder(v);
+
     }
 
     @Override
@@ -72,14 +73,15 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
         private Button layout;
         public TextView textViewTenSach, textViewGiaTien, masach, tacgia, theloai, mota;
-        public ImageView imageView;
+        public ImageView imageView, delete;
 
         public CartViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            textViewTenSach = itemView.findViewById(R.id.tv_itemdetail_name);
-            textViewGiaTien = itemView.findViewById(R.id.tv_itemdetail_price);
-            imageView = itemView.findViewById(R.id.img_itemdetail_book);
+            textViewTenSach = itemView.findViewById(R.id.tv_cart_tensach);
+            textViewGiaTien = itemView.findViewById(R.id.tv_cart_giatien);
+            imageView = itemView.findViewById(R.id.img_cart_book);
+            delete = itemView.findViewById(R.id.img_cart_delete);
 //            masach = itemView.findViewById(R.id.tv_itemdetail_masach);
 //            tacgia = itemView.findViewById(R.id.tv_itemdetail_tacgia);
 //            theloai = itemView.findViewById(R.id.tv_itemdetail_theloai);
