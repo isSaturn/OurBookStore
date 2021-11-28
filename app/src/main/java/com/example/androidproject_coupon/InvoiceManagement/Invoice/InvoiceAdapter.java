@@ -10,22 +10,22 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.androidproject_coupon.BookManagement.Book;
+import com.example.androidproject_coupon.OrderManagement.Oder;
 import com.example.androidproject_coupon.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class InvoiceBookAdapter extends RecyclerView.Adapter<InvoiceBookAdapter.BookViewHolder> {
+public class InvoiceAdapter extends RecyclerView.Adapter<InvoiceAdapter.BookViewHolder> {
 
     private Context mContext;
-    private List<InvoiceBook> mInvoiceBooks;
+    private List<Oder> mInvoiceBooks;
 
-    public InvoiceBookAdapter(Context mContext){
+    public InvoiceAdapter(Context mContext){
         this.mContext = mContext;
     }
 
-    public void setData(List<InvoiceBook> list){
+    public void setData(List<Oder> list){
         this.mInvoiceBooks = list;
         notifyDataSetChanged();
     }
@@ -33,24 +33,13 @@ public class InvoiceBookAdapter extends RecyclerView.Adapter<InvoiceBookAdapter.
     @NonNull
     @Override
     public BookViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_cart,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_oder,parent,false);
         return new BookViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull BookViewHolder holder, int position) {
-        InvoiceBook invoiceBook = mInvoiceBooks.get(position);
-        if(invoiceBook == null){
-            InvoiceBook invoiceBookCurrent = mInvoiceBooks.get(position);
-            holder.tvTensach.setText(invoiceBookCurrent.getTen());
-            holder.tvGiasach.setText("Giá tiền: " + invoiceBookCurrent.getGia() + " Vnđ");
-            Picasso.with(mContext)
-                    .load(invoiceBookCurrent.getAnh())
-                    .fit()
-                    .centerCrop()
-                    .into(holder.imgSach);
-            return;
-        }
+
 
     }
 

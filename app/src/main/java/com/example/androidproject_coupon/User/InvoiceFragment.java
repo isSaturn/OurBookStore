@@ -1,5 +1,6 @@
 package com.example.androidproject_coupon.User;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,12 +13,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.Toast;
+import android.widget.ListView;
 
-import com.example.androidproject_coupon.InvoiceManagement.Invoice.InvoiceBook;
-import com.example.androidproject_coupon.InvoiceManagement.Invoice.InvoiceBookAdapter;
-import com.example.androidproject_coupon.InvoiceManagement.Invoice.InvoiceInformation;
+import com.example.androidproject_coupon.CouponManagement.AddCoupon;
+import com.example.androidproject_coupon.CouponManagement.EditCoupon;
+import com.example.androidproject_coupon.InvoiceManagement.Invoice.ViewInvoice;
 import com.example.androidproject_coupon.OrderManagement.Oder;
 import com.example.androidproject_coupon.OrderManagement.OderAdapter;
 import com.example.androidproject_coupon.R;
@@ -41,9 +43,9 @@ public class InvoiceFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    public static ArrayList<Oder> arrayInvList = new ArrayList<>();
     private List<Oder> invList;
-    public OderAdapter mInvoiceInfo;
+    public static OderAdapter mInvoiceInfo;
     private RecyclerView rcvInvoiceitem;
 
     // TODO: Rename and change types of parameters
@@ -116,7 +118,7 @@ public class InvoiceFragment extends Fragment {
                     String tongtien = dataSnapshot.child("tong_Tien").getValue().toString().trim();
                     invList.add(new Oder(diachi, hoten,  idHinhthucGH,  idKhuyenmai,  idTaiKhoan,  idTrangthaiDH,  maDonhang,  sdt,  time,  tongtien));
                 }
-                mInvoiceInfo = new OderAdapter(getContext(),invList);
+                mInvoiceInfo = new OderAdapter(getContext(), R.layout.item_oder, invList);
                 rcvInvoiceList.setAdapter(mInvoiceInfo);
             }
 
@@ -125,6 +127,5 @@ public class InvoiceFragment extends Fragment {
 
             }
         });
-
     }
 }
