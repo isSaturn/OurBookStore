@@ -18,7 +18,7 @@ public class OderAdapter extends RecyclerView.Adapter<OderAdapter.OderViewHolder
     private Context mContext;
     private List<Oder> mUploads;
 
-    public OderAdapter(Context context, List<Oder> uploads) {
+    public OderAdapter(Context context, int item_oder, List<Oder> uploads) {
         mContext = context;
         mUploads = uploads;
     }

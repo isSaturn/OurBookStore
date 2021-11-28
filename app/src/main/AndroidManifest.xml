@@ -47,7 +47,10 @@
             android:name=".CouponManagement.AddCoupon"
             android:exported="true" />
         <activity
-            android:name=".InvoiceManagement.Invoice.InvoiceInformation"
+            android:name=".InvoiceManagement.Invoice.AddInvoice"
+            android:exported="true" />
+        <activity
+            android:name=".InvoiceManagement.Invoice.ViewInvoice"
             android:exported="true" />
         <activity
             android:name=".MainActivity"

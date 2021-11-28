@@ -116,7 +116,7 @@ public class OrderFragment extends Fragment {
                     String taikhoan = data.child("id_Tai_Khoan").getValue().toString();
                     mUploads.add(new Oder(address,name,hinhthuc,khuyenmai,taikhoan,status,code,phone,time,price));
                 }
-                mAdapter = new OderAdapter(getContext(),mUploads);
+                mAdapter = new OderAdapter(getContext(), R.layout.item_oder, mUploads);
                 mRecyclerView.setAdapter(mAdapter);
             }
 

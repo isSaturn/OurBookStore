@@ -15,20 +15,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.androidproject_coupon.BookManagement.Book;
-import com.example.androidproject_coupon.InvoiceManagement.Invoice.InvoiceInformation;
+import com.example.androidproject_coupon.InvoiceManagement.Invoice.AddInvoice;
 import com.example.androidproject_coupon.R;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -96,7 +87,7 @@ public class CartFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         Button btnInv;
         btnInv = view.findViewById(R.id.btn_cart_dathang);
-        Intent intent = new Intent(getContext(), InvoiceInformation.class);
+        Intent intent = new Intent(getContext(), AddInvoice.class);
         btnInv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

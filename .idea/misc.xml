@@ -41,12 +41,17 @@
         <entry key="..\:/Android course/project/OurBookStore/app/src/main/res/layout/item_row.xml" value="0.3875" />
         <entry key="..\:/Android course/project/OurBookStore/app/src/main/res/layout/list_type_coupon.xml" value="0.21927083333333333" />
         <entry key="..\:/Android course/project/OurBookStore/app/src/main/res/layout/sach.xml" value="0.3875" />
+        <entry key="..\:/Learn/moblie/OurBookStore/app/src/main/res/layout/adapter_view_layout_coupon.xml" value="0.3307291666666667" />
+        <entry key="..\:/Learn/moblie/OurBookStore/app/src/main/res/layout/fragment_coupon.xml" value="0.3307291666666667" />
         <entry key="..\:/Learn/moblie/OurBookStore/app/src/main/res/layout/fragment_invoice.xml" value="0.5541666666666667" />
         <entry key="..\:/Learn/moblie/OurBookStore/app/src/main/res/layout/fragment_order.xml" value="0.5541666666666667" />
         <entry key="..\:/Learn/moblie/OurBookStore/app/src/main/res/layout/inv_infomation.xml" value="0.5" />
         <entry key="..\:/Learn/moblie/OurBookStore/app/src/main/res/layout/inv_information_view.xml" value="0.5135869565217391" />
         <entry key="..\:/Learn/moblie/OurBookStore/app/src/main/res/layout/invoice_recycler_item.xml" value="0.5194746376811594" />
         <entry key="..\:/Learn/moblie/OurBookStore/app/src/main/res/layout/item_cart.xml" value="0.5541666666666667" />
+        <entry key="..\:/Learn/moblie/OurBookStore/app/src/main/res/layout/item_invoice.xml" value="0.5" />
+        <entry key="..\:/Learn/moblie/OurBookStore/app/src/main/res/layout/item_oder.xml" value="0.5541666666666667" />
+        <entry key="..\:/Learn/moblie/OurBookStore/app/src/main/res/layout/list_type_coupon.xml" value="0.3307291666666667" />
         <entry key="..\:/Learn/moblie/OurBookStore/app/src/main/res/layout/ord_information_view.xml" value="0.33" />
         <entry key="..\:/Learn/moblie/OurBookStore/app/src/main/res/layout/sach.xml" value="0.5541666666666667" />
         <entry key="..\:/OurBookStore/app/src/main/res/drawable-anydpi/custom_btn_dathang.xml" value="0.3828125" />
