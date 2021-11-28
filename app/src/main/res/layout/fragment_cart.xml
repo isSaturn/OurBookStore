@@ -52,7 +52,7 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_cart_dathang"
                 android:layout_width="128dp"
-                android:layout_height="43dp"
+                android:layout_height="48dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="12dp"
                 android:background="@drawable/button_addcart"

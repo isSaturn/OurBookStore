@@ -60,7 +60,6 @@ public class AddCoupon extends AppCompatActivity {
         setContentView(R.layout.activity_add_coupon);
         matching();
 
-
         //Loai khuyen mai
         arrayAdapterType = new ArrayAdapter<>(this, R.layout.list_type_coupon,arrayListType);
         DatabaseReference myRef = database.getReference("LoaiKhuyenMai");

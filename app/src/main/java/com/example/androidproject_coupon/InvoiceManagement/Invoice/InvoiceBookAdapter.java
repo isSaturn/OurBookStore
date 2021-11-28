@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.androidproject_coupon.BookManagement.Book;
 import com.example.androidproject_coupon.R;
 import com.squareup.picasso.Picasso;
 
@@ -40,6 +41,14 @@ public class InvoiceBookAdapter extends RecyclerView.Adapter<InvoiceBookAdapter.
     public void onBindViewHolder(@NonNull BookViewHolder holder, int position) {
         InvoiceBook invoiceBook = mInvoiceBooks.get(position);
         if(invoiceBook == null){
+            InvoiceBook invoiceBookCurrent = mInvoiceBooks.get(position);
+            holder.tvTensach.setText(invoiceBookCurrent.getTen());
+            holder.tvGiasach.setText("Giá tiền: " + invoiceBookCurrent.getGia() + " Vnđ");
+            Picasso.with(mContext)
+                    .load(invoiceBookCurrent.getAnh())
+                    .fit()
+                    .centerCrop()
+                    .into(holder.imgSach);
             return;
         }
 
@@ -56,16 +65,17 @@ public class InvoiceBookAdapter extends RecyclerView.Adapter<InvoiceBookAdapter.
 
     public class BookViewHolder extends RecyclerView.ViewHolder{
 
-        private ImageView imgSach;
+        private ImageView imgSach,tvXoa;
         private TextView tvTensach;
         private TextView tvGiasach;
 
         public BookViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            imgSach = itemView.findViewById(R.id.ord_iv_sach);
-            tvTensach = itemView.findViewById(R.id.inv_tv_chitietdonhang_tensach);
-            tvGiasach = itemView.findViewById(R.id.inv_tv_chitietdonhang_gia);
+            imgSach = itemView.findViewById(R.id.img_cart_book);
+            tvTensach = itemView.findViewById(R.id.tv_cart_tensach);
+            tvGiasach = itemView.findViewById(R.id.tv_cart_giatien);
+            tvXoa = itemView.findViewById(R.id.img_cart_delete);
         }
     }
 }

@@ -1,9 +1,12 @@
 package com.example.androidproject_coupon.User;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.androidproject_coupon.BookManagement.Book;
+import com.example.androidproject_coupon.InvoiceManagement.Invoice.InvoiceInformation;
 import com.example.androidproject_coupon.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -49,6 +53,7 @@ public class CartFragment extends Fragment {
     private UserAdapter mAdapter;
 
     private DatabaseReference mDatabaseReference;
+    Button btnInv;
 
     private List<Book> mCart;
 
@@ -94,6 +99,16 @@ public class CartFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        Intent intent = new Intent(getContext(), InvoiceInformation.class);
+        btnInv = view.findViewById(R.id.btn_cart_dathang);
+        btnInv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getContext().startActivity(intent);
+            }
+        });
+
+
         mRecyclerView = view.findViewById(R.id.rcv_cart);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -134,71 +149,4 @@ public class CartFragment extends Fragment {
             }
         });
     }
-
-//    private void initItem() {
-//        productCartAdapter = new CartAdapter();
-//        rlCartEmpty = mView.findViewById(R.id.rl_cart_empty);
-//        rlCart = mView.findViewById(R.id.rl_cart);
-//        recyclerView = mView.findViewById(R.id.rcv_cart);
-//        tvCartTotalPrice = mView.findViewById(R.id.tv_cart_tongtien);
-//    }
-//
-//    private void setVisibilityView() {
-//        if (listCartProduct.size() == 0){
-//
-//            // Hiển thị giỏ hàng rỗng
-//            setVisibilityEmptyCart();
-//        }else {
-//
-//            // Hiển thị giỏ hàng
-//            setVisibilityCart();
-//            setDataProductCartAdapter();
-//        }
-//    }
-//
-//    private void setDataProductCartAdapter() {
-//    }
-//
-//    private void setVisibilityCart() {
-//        rlCartEmpty.setVisibility(View.GONE);
-//        rlCart.setVisibility(View.VISIBLE);
-//        String total = format.format(getTotalPrice());
-//        tvCartTotalPrice.setText( total +" vnđ" );
-//    }
-//
-//    private void setVisibilityEmptyCart() {
-//    }
-//
-//    private int getTotalPrice(){
-//        for (Book product : listCartProduct){
-//            int priceProduct = product.getProductPrice() ;
-//            totalPrice = totalPrice +  priceProduct * product.getNumProduct();
-//        }
-//        return totalPrice;
-//    }
-//
-//    private List<Book> makeDetailOrder( String odrNo){
-//        List<Book> listDetailOrder = new ArrayList<>();
-//        for (Product product : home.getListCartProduct()){
-//            DetailOrder detailOrder = new DetailOrder();
-//            detailOrder.setOrderNo(odrNo);
-//            detailOrder.setProductName(product.getProductName());
-//            detailOrder.setProductPrice(product.getProductPrice());
-//            detailOrder.setUrlImg(product.getUrlImg());
-//            detailOrder.setNumProduct(product.getNumProduct());
-//            detailOrder.setStatus("Đang chờ xác nhận");
-//            listDetailOrder.add(detailOrder);
-//        }
-//        return listDetailOrder;
-//    }
-//
-//    public void setTotalPrice(int mode,int count, int priceProduct ){
-//        if( mode == 0){
-//            totalPrice = totalPrice - priceProduct * count;
-//        }else if (mode == 1){
-//            totalPrice = totalPrice + priceProduct * count;
-//        }
-//
-//        tvCartTotalPrice.setText( format.format(totalPrice) + " VNĐ");
-//    }
 }
