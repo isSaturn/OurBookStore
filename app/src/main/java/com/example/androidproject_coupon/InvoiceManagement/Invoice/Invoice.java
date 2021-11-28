@@ -1,11 +1,10 @@
 package com.example.androidproject_coupon.InvoiceManagement.Invoice;
 
 public class Invoice {
-    public String id,diachi, hoten, idHinhthucGH, idKhuyenmai, idTaiKhoan, idTrangthaiDH, maDonhang, sdt, time, tongtien;
+    public String diachi, hoten, idHinhthucGH, idKhuyenmai, idTaiKhoan, idTrangthaiDH, maDonhang, sdt, time, tongtien;
 
 
-    public Invoice(String id,String diachi, String hoten, String idHinhthucGH, String idKhuyenmai, String idTaiKhoan, String idTrangthaiDH, String maDonhang, String sdt, String time, String tongtien) {
-        this.id = id;
+    public Invoice(String invoiceID, String diachi, String hoten, String idHinhthucGH, String idKhuyenmai, String idTaiKhoan, String idTrangthaiDH, String maDonhang, String sdt, String time, String tongtien) {
         this.diachi = diachi;
         this.hoten = hoten;
         this.idHinhthucGH = idHinhthucGH;
@@ -18,16 +17,6 @@ public class Invoice {
         this.tongtien = tongtien;
     }
 
-    public Invoice(String invoiceID, String diachi, String hoten, String sdt, String maDonHang, String time, String tongtien) {
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getDiachi() {
         return diachi;

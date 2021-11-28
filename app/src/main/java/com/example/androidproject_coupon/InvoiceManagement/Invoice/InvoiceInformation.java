@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,6 +30,7 @@ import com.example.androidproject_coupon.CouponFragment;
 import com.example.androidproject_coupon.CouponManagement.Coupon.Coupon;
 import com.example.androidproject_coupon.CouponManagement.CouponAdapter;
 import com.example.androidproject_coupon.R;
+import com.example.androidproject_coupon.User.CartAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -67,13 +69,6 @@ public class InvoiceInformation extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.inv_infomation);
 
-//        invoiceBookAdapter = new InvoiceBookAdapter(this);
-//        rcvInvoiceitem.setHasFixedSize(true);
-//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,RecyclerView.VERTICAL,false);
-//        rcvInvoiceitem.setLayoutManager(linearLayoutManager);
-//        invoiceBookAdapter.setData(getListBook());
-//        rcvInvoiceitem.setAdapter(invoiceBookAdapter);
-
         matching();
 
         //show list ma giam gia va gan id ma khuyen mai
@@ -108,6 +103,10 @@ public class InvoiceInformation extends AppCompatActivity {
                 String diachi = etDiachi.getText().toString().trim();
                 String hoten = etHoten.getText().toString().trim();
                 String sdt = etSDT.toString().trim();
+                String idHinhthucGH = etSDT.toString().trim();
+                String idKhuyenmai = etSDT.toString().trim();
+                String idTaiKhoan = etSDT.toString().trim();
+                String idTrangthaiDH = etSDT.toString().trim();
                 String tongtien = tvTongcong.getText().toString().trim();
                 String maDonhang = tvTongcong.getText().toString().trim();
                 String time = tvTongcong.getText().toString().trim();
@@ -117,11 +116,11 @@ public class InvoiceInformation extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "All field must be not empty", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
-                    ConfirmOrder(diachi, hoten,sdt ,maDonhang, time, tongtien);//
+                    ConfirmOrder(diachi, hoten, idHinhthucGH, idKhuyenmai, idTaiKhoan, idTrangthaiDH, maDonhang, sdt, time, tongtien);//
                 }
             }
 
-            private void ConfirmOrder(String diachi, String hoten, String sdt, String maDonHang, String time, String tongtien) {
+            private void ConfirmOrder(String diachi, String hoten, String idHinhthucGH, String idKhuyenmai, String idTaiKhoan, String idTrangthaiDH, String maDonhang, String sdt, String time, String tongtien) {
                 DatabaseReference invRef = database.getReference().child("DonHang");
                 //id
                 Bundle extras = getIntent().getExtras();
@@ -129,27 +128,48 @@ public class InvoiceInformation extends AppCompatActivity {
                     size = extras.getInt("size") + 1;
                 }
                 String InvoiceID = String.valueOf(size);
-                Toast.makeText(InvoiceInformation.this, "Thêm sách mới thành công", Toast.LENGTH_LONG).show();
-                Invoice invoice = new Invoice(InvoiceID, diachi, hoten, sdt, maDonHang, time, tongtien);
+                Invoice invoice = new Invoice(InvoiceID, diachi, hoten, idHinhthucGH, idKhuyenmai, idTaiKhoan, idTrangthaiDH, maDonhang, sdt, time, tongtien);
                 invRef.child(InvoiceID).setValue(invoice);
-                String cpnID = slcMagiamgia.trim();
-                invRef.child(InvoiceID).child("ID_Khuyen_Mai").setValue(cpnID);
 
+                Toast.makeText(InvoiceInformation.this, "Thêm sách mới thành công", Toast.LENGTH_LONG).show();
+
+
+//                //sanpham
+//                //ma don hang
+//                final String saveCurrentIDDate;
+//                Calendar calendarIDDate = Calendar.getInstance();
+//                SimpleDateFormat idDate = new SimpleDateFormat("yyMMdd");
+//                saveCurrentIDDate = idDate.format(calendarIDDate.getTime());
+//                String saveIDDate = saveCurrentIDDate.trim();
+//                invRef.child(InvoiceID).child("Ma_Don_Hang").setValue(saveIDDate+"SACH"+InvoiceID);
+//                //id trang thai
+//                invRef.child(InvoiceID).child("ID_Trang_Thai_DH").setValue("1");
+//                //id Hinh thuc giao hang
+//                if (rdBtnNhanh.isChecked()){
+//                    invRef.child(InvoiceID).child("ID_Hinh_Thuc_GH").setValue("0");
+//                }else {
+//                    invRef.child(InvoiceID).child("ID_Hinh_Thuc_GH").setValue("1");
+//                }
+//                //time
+//                final String saveCurrentDate;
+//                Calendar calendar = Calendar.getInstance();
+//                SimpleDateFormat currentDate = new SimpleDateFormat("yyyy/MM/dd");
+//                saveCurrentDate = currentDate.format(calendar.getTime());
+//                String saveDate = saveCurrentDate.trim();
+//                invRef.child(InvoiceID).child("Time").setValue(saveDate);
+//                //makhuyenmai
+//                String cpnID = slcMagiamgia.trim();
+//                invRef.child(InvoiceID).child("ID_Khuyen_Mai").setValue(cpnID);
 
 //                //add hoten,sdt,diachi
-//                String nameTxt = etHoten.getText().toString();
-//                String numphonesTxt = etSDT.getText().toString();
-//                String addressTxt = etDiachi.getText().toString();
-//                invRef.child(String.valueOf(i+1)).child("Ho_Ten").setValue(nameTxt);
-//                invRef.child(String.valueOf(i+1)).child("SDT").setValue(numphonesTxt);
-//                invRef.child(String.valueOf(i+1)).child("Dia_Chi").setValue(addressTxt);
-//                //sanpham
+//                invRef.child(InvoiceID).child("Ho_Ten").setValue(diachi);
+//                invRef.child(InvoiceID).child("SDT").setValue(hoten);
+//                invRef.child(InvoiceID).child("Dia_Chi").setValue(sdt);
 //
 //                //id role
 //                String userTxt = arrRole.toString();
 //                invRef.child(String.valueOf(i+1)).child("ID_Tai_Khoan").setValue(arrRole);
-//                //id trang thai
-//                invRef.child(String.valueOf(i+1)).child("ID_Trang_Thai_DH").setValue("1");
+
 //
 //                //tong tien
 //                String totalMoney = tvTongcong.getText().toString();
@@ -194,34 +214,34 @@ public class InvoiceInformation extends AppCompatActivity {
             }
         });
 
-        DatabaseReference invCartDetailsRef = database.getReference("DonHang");
-        invCartDetailsRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                invoiceBookAdapter.clear();
-                invList.clear();
-                for (DataSnapshot data : snapshot.getChildren()) {
-                    String id = data.child("ID").getValue().toString();
-                    String diachi = data.child("Dia_Chi").getValue().toString();
-                    String hoten = data.child("Ho_Ten").getValue().toString();
-                    String idHinhthucGH = data.child("ID_Hinh_Thuc_GH").getValue().toString();
-                    String idKhuyenmai = data.child("ID_Khuyen_Mai").getValue().toString();
-                    String idTaiKhoan = data.child("ID_Tai_Khoan").getValue().toString();
-                    String idTrangthaiDH = data.child("ID_Trang_Thai_DH").getValue().toString();
-                    String maDonhang = data.child("Ma_Don_Hang").getValue().toString();
-                    String sdt = data.child("SDT").getValue().toString();
-                    String time = data.child("Time").getValue().toString();
-                    String tongtien = data.child("Tong_Tien").getValue().toString();
-                    invList.add(new Invoice(id, diachi, hoten, idHinhthucGH, idKhuyenmai, idTaiKhoan, idTrangthaiDH, maDonhang, sdt, time, tongtien));
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.w(TAG, "Failed to read value.", error.toException());
-            }
-        });
+//        DatabaseReference invCartDetailsRef = database.getReference("DonHang");
+//        invCartDetailsRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+////                invoiceBookAdapter.clear();
+//                invList.clear();
+//                for (DataSnapshot data : snapshot.getChildren()) {
+//                    String diachi = data.child("Dia_Chi").getValue().toString();
+//                    String hoten = data.child("Ho_Ten").getValue().toString();
+//                    String idHinhthucGH = data.child("ID_Hinh_Thuc_GH").getValue().toString();
+//                    String idKhuyenmai = data.child("ID_Khuyen_Mai").getValue().toString();
+//                    String idTaiKhoan = data.child("ID_Tai_Khoan").getValue().toString();
+//                    String idTrangthaiDH = data.child("ID_Trang_Thai_DH").getValue().toString();
+//                    String maDonhang = data.child("Ma_Don_Hang").getValue().toString();
+//                    String sdt = data.child("SDT").getValue().toString();
+//                    String time = data.child("Time").getValue().toString();
+//                    String tongtien = data.child("Tong_Tien").getValue().toString();
+//                    invList.add(new Invoice(diachi, hoten, sdt));
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//                Log.w(TAG, "Failed to read value.", error.toException());
+//            }
+//        });
     }
+
 
 
 //        //auto tích checkbox thanh toán
@@ -242,12 +262,12 @@ public class InvoiceInformation extends AppCompatActivity {
 //    }
 //
 //
-
-    private List<InvoiceBook> getListBook() {
-        List<InvoiceBook> list = new ArrayList<>();
-
-        return list;
-    }
+//
+//    private List<InvoiceBook> getListBook() {
+//        List<InvoiceBook> list = new ArrayList<>();
+//
+//        return list;
+//    }
 
     private void matching() {
         rcvInvoiceitem = (RecyclerView) findViewById(R.id.inv_rv_item);
