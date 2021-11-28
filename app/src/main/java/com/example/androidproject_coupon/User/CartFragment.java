@@ -39,6 +39,8 @@ public class CartFragment extends Fragment {
 
     private DatabaseReference mDatabaseReference;
 
+    public static List<Book> cart = new ArrayList<>();
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -49,7 +51,7 @@ public class CartFragment extends Fragment {
     private String mParam2;
 
     private RecyclerView mRecyclerView;
-    private CartAdapter cartAdapter;
+    public static CartAdapter cartAdapter;
 
     public CartFragment() {
         // Required empty public constructor
@@ -99,23 +101,10 @@ public class CartFragment extends Fragment {
         RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
         mRecyclerView.addItemDecoration(itemDecoration);
 
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference("Sach");
+        cartAdapter = new CartAdapter(getContext(), cart);
 
-        mDatabaseReference.child("1").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                HashMap<String, Object> hashMap = (HashMap<String, Object>) snapshot.getValue();
-                String anh = hashMap.get("anh").toString();
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        cartAdapter = new CartAdapter(getContext(), ItemDetailActivity.cart);
         mRecyclerView.setAdapter(cartAdapter);
+
+
     }
 }

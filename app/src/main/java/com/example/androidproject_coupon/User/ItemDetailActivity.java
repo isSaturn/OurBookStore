@@ -42,7 +42,6 @@ public class ItemDetailActivity extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     StorageReference mStorageRef;
     DatabaseReference mDatabaseRef;
-    public static List<Book> cart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,8 +111,8 @@ public class ItemDetailActivity extends AppCompatActivity {
                 String sanh = Anh.toString().trim();
                 String sid_nhom_sach = ID_Nhom_Sach.toString().trim();
 
-                cart.add(new Book(sid_sach, sma_sach, sten_sach, stac_gia, smo_ta, sgia, sso_luong, sanh, sid_nhom_sach));
-
+                CartFragment.cart.add(new Book(sid_sach, sma_sach, sten_sach, stac_gia, smo_ta, sgia, sso_luong, sanh, sid_nhom_sach));
+                CartFragment.cartAdapter.notifyDataSetChanged();
                 Toast.makeText(ItemDetailActivity.this, "Đã thêm sản phẩm vào giỏ hàng", Toast.LENGTH_SHORT).show();
             }
         });
