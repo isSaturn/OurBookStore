@@ -22,6 +22,8 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.androidproject_coupon.BookManagement.Book;
+import com.example.androidproject_coupon.OrderFragment;
 import com.example.androidproject_coupon.OrderManagement.Oder;
 import com.example.androidproject_coupon.OrderManagement.OderAdapter;
 import com.example.androidproject_coupon.R;
@@ -34,6 +36,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -53,11 +56,12 @@ public class AddInvoice extends AppCompatActivity {
     ArrayAdapter<String> arrayAdapterMagiamgia;
     ArrayList<String> arrayMagiamgia = new ArrayList<>();
     ArrayList<String> idMagiamgia = new ArrayList<>();
+    private List<ProductBought> productBoughtList;
     String slcMagiamgia;
     String TAG="FIREBASE";
 
     FirebaseDatabase database = FirebaseDatabase.getInstance("https://ourbookstore-e8241-default-rtdb.firebaseio.com/");
-    int size;
+    long i = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +78,8 @@ public class AddInvoice extends AppCompatActivity {
         rcvInvoiceitem.setAdapter(CartFragment.cartAdapter);
 
         matching();
+
+        cbShipCOD.setChecked(true);
         //show list ma giam gia va gan id ma khuyen mai
         arrayAdapterMagiamgia = new ArrayAdapter<>(this, R.layout.list_type_coupon,arrayMagiamgia);
         DatabaseReference cpnRef = database.getReference("KhuyenMai");
@@ -99,15 +105,6 @@ public class AddInvoice extends AppCompatActivity {
             }
         });
 
-        autotvMagiamgia.setAdapter(arrayAdapterMagiamgia);
-        autotvMagiamgia.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                slcMagiamgia = idMagiamgia.get(position);
-            }
-        });
-
-        cbShipCOD.setChecked(true);
         btnDathang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -124,42 +121,47 @@ public class AddInvoice extends AppCompatActivity {
 
             private void ConfirmOrder() {
                 DatabaseReference invRef = database.getReference().child("DonHang");
-                DatabaseReference htghRef = database.getReference().child("HinhThucGiaoHang");
-                //id
-//                size = OrderFragment.mAdapter.getItemCount()+1;
-
+                invRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.exists()){
+                            i = snapshot.getChildrenCount();
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Log.w(TAG, "Failed to read value.", error.toException());
+                    }
+                });
                 try {
                     //ma don hang
+                    DecimalFormat df = new DecimalFormat("0000");
+                    String num = df.format(String.valueOf(i+1));
                     final String saveCurrentIDDate;
                     Calendar calendarIDDate = Calendar.getInstance();
                     SimpleDateFormat idDate = new SimpleDateFormat("yyMMdd");
                     saveCurrentIDDate = idDate.format(calendarIDDate.getTime());
                     String saveIDDate = saveCurrentIDDate.trim();
-                    String maDonhang = saveIDDate+"SACH"+size;
-                    invRef.child(maDonhang).setValue(maDonhang);
+                    String maDonhang = saveIDDate+"SACH"+num;
+                    invRef.child(String.valueOf(i+1)).setValue(maDonhang);
 
                     String diachi = etDiachi.getText().toString().trim();
                     String hoten = etHoten.getText().toString().trim();
                     String sdt = etSDT.getText().toString().trim();
 
                     //hinhthucgh chưa fix
-                    if(rdBtnNhanh.isChecked()){
-                        invRef.child(maDonhang).setValue("0");
-                    }else {
-                        invRef.child(maDonhang).setValue("1");
-                    }
                     String idHinhthucGH = rdBtnNhanh.getText().toString().trim();
 
                     //makhuyenmai
                     String idKhuyenmai = slcMagiamgia.trim();
-                    invRef.child(maDonhang).setValue(idKhuyenmai);
+                    invRef.child(String.valueOf(i+1)).setValue(idKhuyenmai);
 
                     //taikhoan chưa fix
                     String idTaiKhoan = etSDT.getText().toString().trim();
 
                     //id trang thai
                     String idTrangthaiDH = "1";
-                    invRef.child(maDonhang).setValue(idTrangthaiDH);
+                    invRef.child(String.valueOf(i+1)).setValue(idTrangthaiDH);
 
                     //time
                     final String saveCurrentDate;
@@ -167,13 +169,25 @@ public class AddInvoice extends AppCompatActivity {
                     SimpleDateFormat currentDate = new SimpleDateFormat("yyyy/MM/dd");
                     saveCurrentDate = currentDate.format(calendar.getTime());
                     String time = saveCurrentDate.trim();
-                    invRef.child(maDonhang).setValue(time);
+                    invRef.child(String.valueOf(i+1)).setValue(time);
 
                     //tong tien chưa fix
+
                     String tongtien = tvTongcong.getText().toString().trim();
 
                     Oder invoice = new Oder(diachi, hoten,  idHinhthucGH,  idKhuyenmai,  idTaiKhoan,  idTrangthaiDH,  maDonhang,  sdt,  time,  tongtien);
-                    invRef.child(maDonhang).setValue(invoice);
+                    invRef.child(String.valueOf(i+1)).setValue(invoice);
+
+
+                    DatabaseReference proRef = database.getReference().child("SanPhamDuocMua");
+
+                    String ID_Sach = tvTongcong.getText().toString().trim();
+
+                    String Ma_Don_Hang = saveIDDate+"SACH"+num;
+                    proRef.child(String.valueOf(i+1)).setValue(maDonhang);
+
+                    ProductBought productBought  = new ProductBought(ID_Sach, Ma_Don_Hang);
+                    proRef.child(String.valueOf(i+1)).setValue(productBought);
                     finish();
                     Toast.makeText(getApplicationContext(),"Thêm đơn hàng thành công", Toast.LENGTH_LONG).show();
                 }
@@ -181,6 +195,24 @@ public class AddInvoice extends AppCompatActivity {
                 {
                     Toast.makeText(getApplicationContext(),"Error:"+ex.toString(),Toast.LENGTH_LONG).show();
                 }
+            }
+        });
+        productBoughtList = new ArrayList<>();
+        DatabaseReference proRef = database.getReference().child("SanPhamDuocMua");
+        proRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    productBoughtList.clear();
+                    String ID_Sach = dataSnapshot.child("id_Sach").getValue().toString().trim();
+                    String Ma_Don_Hang = dataSnapshot.child("ma_Don_Hang").getValue().toString().trim();
+                    productBoughtList.add(new ProductBought(ID_Sach, Ma_Don_Hang));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }
