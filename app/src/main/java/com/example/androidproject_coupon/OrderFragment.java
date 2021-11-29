@@ -34,7 +34,7 @@ public class OrderFragment extends Fragment {
 
 
     private RecyclerView mRecyclerView;
-    private OderAdapter mAdapter;
+    public static OderAdapter mAdapter;
 
     private DatabaseReference mDatabaseReference;
     private List<Oder> mUploads;
@@ -104,19 +104,19 @@ public class OrderFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 mUploads.clear();
                 for (DataSnapshot data : snapshot.getChildren()) {
-                    String time = data.child("Time").getValue().toString();
-                    String code = data.child("Ma_Don_Hang").getValue().toString();
-                    String status = data.child("ID_Trang_Thai_DH").getValue().toString();
-                    String price = data.child("Tong_Tien").getValue().toString();
-                    String address = data.child("Dia_Chi").getValue().toString();
-                    String name = data.child("Ho_Ten").getValue().toString();
-                    String phone = data.child("SDT").getValue().toString();
-                    String hinhthuc = data.child("ID_Hinh_Thuc_GH").getValue().toString();
-                    String khuyenmai = data.child("ID_Khuyen_Mai").getValue().toString();
-                    String taikhoan = data.child("ID_Tai_Khoan").getValue().toString();
+                    String time = data.child("time").getValue().toString();
+                    String code = data.child("ma_Don_Hang").getValue().toString();
+                    String status = data.child("id_Trang_Thai_DH").getValue().toString();
+                    String price = data.child("tong_Tien").getValue().toString();
+                    String address = data.child("dia_Chi").getValue().toString();
+                    String name = data.child("ho_Ten").getValue().toString();
+                    String phone = data.child("sdt").getValue().toString();
+                    String hinhthuc = data.child("id_Hinh_Thuc_GH").getValue().toString();
+                    String khuyenmai = data.child("id_Khuyen_Mai").getValue().toString();
+                    String taikhoan = data.child("id_Tai_Khoan").getValue().toString();
                     mUploads.add(new Oder(address,name,hinhthuc,khuyenmai,taikhoan,status,code,phone,time,price));
                 }
-                mAdapter = new OderAdapter(getContext(),mUploads);
+                mAdapter = new OderAdapter(getContext(), R.layout.item_oder, mUploads);
                 mRecyclerView.setAdapter(mAdapter);
             }
 

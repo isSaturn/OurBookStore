@@ -24,7 +24,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
     private Context mContext;
     private List<Book> mUploads;
-
     public CartAdapter(Context context, List<Book> uploads) {
         mContext = context;
         mUploads = uploads;
@@ -48,12 +47,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 .fit()
                 .centerCrop()
                 .into(holder.imageView);
-        holder.layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onClickDetail(uploadCurrent);
-            }
-        });
+//        holder.layout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                onClickDetail(uploadCurrent);
+//            }
+//        });
     }
 
     private void onClickDetail(Book uploadCurrent) {
@@ -71,7 +70,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
     public class CartViewHolder extends RecyclerView.ViewHolder {
 
-        private Button layout;
+//        private Button layout;
         public TextView textViewTenSach, textViewGiaTien, masach, tacgia, theloai, mota;
         public ImageView imageView, delete;
 
@@ -86,7 +85,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 //            tacgia = itemView.findViewById(R.id.tv_itemdetail_tacgia);
 //            theloai = itemView.findViewById(R.id.tv_itemdetail_theloai);
 //            mota = itemView.findViewById(R.id.tv_itemdetail_mota);
-            layout = itemView.findViewById(R.id.btn_itemdetail_add);
+//            layout = itemView.findViewById(R.id.btn_itemdetail_add);
         }
     }
 }

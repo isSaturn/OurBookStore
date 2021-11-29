@@ -38,11 +38,11 @@ public class ItemDetailActivity extends AppCompatActivity {
     ImageView img;
     TextView name, price, masach, tacgia, theloai, mota;
     Button addtocart;
+    ImageView back;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     StorageReference mStorageRef;
     DatabaseReference mDatabaseRef;
-    public static List<Book> cart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,10 +69,11 @@ public class ItemDetailActivity extends AppCompatActivity {
         ID_Nhom_Sach = upload.getID_Nhom_Sach();
 
         //Hiển thị thông tin sản phẩm lên app
-        masach.setText(Ma_Sach);
+
+        masach.setText("Mã sách: " + upload.getMa_Sach());
         name.setText(Ten_Sach);
-        tacgia.setText(Tac_Gia);
-        mota.setText(Mo_Ta);
+        tacgia.setText("Tác giả: " + upload.getTac_Gia());
+        mota.setText("Mô tả: " + upload.getMo_Ta());
         price.setText("Giá tiền: " + upload.getGia() + " vnđ");
 
         //Lấy Id nhóm sách thành chữ
@@ -112,8 +113,8 @@ public class ItemDetailActivity extends AppCompatActivity {
                 String sanh = Anh.toString().trim();
                 String sid_nhom_sach = ID_Nhom_Sach.toString().trim();
 
-                cart.add(new Book(sid_sach, sma_sach, sten_sach, stac_gia, smo_ta, sgia, sso_luong, sanh, sid_nhom_sach));
-
+                CartFragment.cart.add(new Book(sid_sach, sma_sach, sten_sach, stac_gia, smo_ta, sgia, sso_luong, sanh, sid_nhom_sach));
+                CartFragment.cartAdapter.notifyDataSetChanged();
                 Toast.makeText(ItemDetailActivity.this, "Đã thêm sản phẩm vào giỏ hàng", Toast.LENGTH_SHORT).show();
             }
         });
@@ -128,5 +129,12 @@ public class ItemDetailActivity extends AppCompatActivity {
         theloai = findViewById(R.id.tv_itemdetail_theloai);
         mota = findViewById(R.id.tv_itemdetail_mota);
         addtocart = findViewById(R.id.btn_itemdetail_add);
+        back = findViewById(R.id.itemDetail_btn_back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 }

@@ -1,5 +1,6 @@
 package com.example.androidproject_coupon.User;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,10 +13,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ListView;
 
-import com.example.androidproject_coupon.InvoiceManagement.Invoice.InvoiceBook;
-import com.example.androidproject_coupon.InvoiceManagement.Invoice.InvoiceBookAdapter;
+import com.example.androidproject_coupon.CouponManagement.AddCoupon;
+import com.example.androidproject_coupon.CouponManagement.EditCoupon;
+import com.example.androidproject_coupon.InvoiceManagement.Invoice.ViewInvoice;
+import com.example.androidproject_coupon.OrderManagement.Oder;
+import com.example.androidproject_coupon.OrderManagement.OderAdapter;
 import com.example.androidproject_coupon.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -37,18 +43,13 @@ public class InvoiceFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    private RecyclerView mRecyclerView;
-    private InvoiceBookAdapter mAdapter;
-
-    private DatabaseReference mDatabaseReference;
-    private List<InvoiceBook> mInvoice;
-
+    private List<Oder> invList;
+    public static OderAdapter mInvoiceInfoAdapter;
+    public RecyclerView rcvInvoiceList;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
     public InvoiceFragment() {
         // Required empty public constructor
     }
@@ -89,46 +90,40 @@ public class InvoiceFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        rcvInvoiceList = view.findViewById(R.id.inv_rv_danhsach);
 
-        mRecyclerView = view.findViewById(R.id.inv_rv_item);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        rcvInvoiceList.setHasFixedSize(true);
+        rcvInvoiceList.setLayoutManager(new LinearLayoutManager(getContext()));
         RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
-        mRecyclerView.addItemDecoration(itemDecoration);
+        rcvInvoiceList.addItemDecoration(itemDecoration);
 
-        mInvoice = new ArrayList<>();
-
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference("Sach");
-
-        mDatabaseReference.addValueEventListener(new ValueEventListener() {
+        invList = new ArrayList<>();
+        DatabaseReference invRef = FirebaseDatabase.getInstance().getReference("DonHang");
+        invRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                mInvoice.clear();
-
-                for (DataSnapshot data : dataSnapshot.getChildren()) {
-                    String time = data.child("Time").getValue().toString();
-                    String code = data.child("Ma_Don_Hang").getValue().toString();
-                    String status = data.child("ID_Trang_Thai_DH").getValue().toString();
-                    String price = data.child("Tong_Tien").getValue().toString();
-                    String address = data.child("Dia_Chi").getValue().toString();
-                    String name = data.child("Ho_Ten").getValue().toString();
-                    String phone = data.child("SDT").getValue().toString();
-                    String hinhthuc = data.child("ID_Hinh_Thuc_GH").getValue().toString();
-                    String khuyenmai = data.child("ID_Khuyen_Mai").getValue().toString();
-                    String taikhoan = data.child("ID_Tai_Khoan").getValue().toString();
-                    mInvoice.add(new InvoiceBook(address,name,hinhthuc,khuyenmai,taikhoan,status,code,phone,time,price));
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    invList.clear();
+                    String diachi = dataSnapshot.child("dia_Chi").getValue().toString().trim();
+                    String hoten = dataSnapshot.child("ho_Ten").getValue().toString().trim();
+                    String idHinhthucGH = dataSnapshot.child("id_Hinh_Thuc_GH").getValue().toString().trim();
+                    String idKhuyenmai = dataSnapshot.child("id_Khuyen_Mai").getValue().toString().trim();
+                    String idTaiKhoan = dataSnapshot.child("id_Tai_Khoan").getValue().toString().trim();
+                    String idTrangthaiDH = dataSnapshot.child("id_Trang_Thai_DH").getValue().toString().trim();
+                    String maDonhang = dataSnapshot.child("ma_Don_Hang").getValue().toString().trim();
+                    String sdt = dataSnapshot.child("sdt").getValue().toString().trim();
+                    String time = dataSnapshot.child("time").getValue().toString().trim();
+                    String tongtien = dataSnapshot.child("tong_Tien").getValue().toString().trim();
+                    invList.add(new Oder(diachi, hoten,  idHinhthucGH,  idKhuyenmai,  idTaiKhoan,  idTrangthaiDH,  maDonhang,  sdt,  time,  tongtien));
                 }
-
-//                mAdapter = new InvoiceBookAdapter(getContext(), mInvoice);
-//
-                mRecyclerView.setAdapter(mAdapter);
+                mInvoiceInfoAdapter = new OderAdapter(getContext(), R.layout.item_oder, invList);
+                rcvInvoiceList.setAdapter(mInvoiceInfoAdapter);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+
             }
         });
-
     }
 }

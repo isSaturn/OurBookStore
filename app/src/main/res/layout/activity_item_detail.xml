@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".User.ItemDetailActivity">
 
+    <ImageView
+        android:id="@+id/itemDetail_btn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_weight="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/back_icon" />
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
@@ -13,7 +24,7 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/itemDetail_btn_back">
 
         <ImageView
             android:id="@+id/img_itemdetail_book"
@@ -24,7 +35,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
@@ -107,19 +118,19 @@
 
     <TextView
         android:id="@+id/tv_itemdetail_mota"
-        android:layout_width="match_parent"
+        android:layout_width="306dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="28dp"
         android:layout_marginEnd="10dp"
         android:fontFamily="@font/raleway"
-        android:textSize="15dp"
         android:lineHeight="20dp"
         android:text="Mô tả ..."
         android:textAlignment="viewStart"
         android:textColor="@color/black"
+        android:textSize="15dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.36"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView13" />
 

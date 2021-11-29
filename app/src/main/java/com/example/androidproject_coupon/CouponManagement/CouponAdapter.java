@@ -45,7 +45,6 @@ public class CouponAdapter extends ArrayAdapter<Coupon> {
         else{
             txtValue.setText("Giá trị: "+getItem(position).getValue().toString() + " VNĐ");
         }
-
         return convertView;
     }
 }
