@@ -101,6 +101,7 @@ public class CartFragment extends Fragment {
         mRecyclerView.addItemDecoration(itemDecoration);
 
         cartAdapter = new CartAdapter(getContext(), cart);
+
         mRecyclerView.setAdapter(cartAdapter);
     }
 }

@@ -47,12 +47,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 .fit()
                 .centerCrop()
                 .into(holder.imageView);
-//        holder.layout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                onClickDetail(uploadCurrent);
-//            }
-//        });
+        holder.delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CartFragment.cart.remove(uploadCurrent);
+                CartFragment.cartAdapter.notifyDataSetChanged();
+            }
+        });
     }
 
     private void onClickDetail(Book uploadCurrent) {
