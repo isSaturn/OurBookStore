@@ -43,15 +43,13 @@ public class InvoiceFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    public static ArrayList<Oder> arrayInvList = new ArrayList<>();
     private List<Oder> invList;
-    public static OderAdapter mInvoiceInfo;
-    private RecyclerView rcvInvoiceitem;
+    public static OderAdapter mInvoiceInfoAdapter;
+    public RecyclerView rcvInvoiceList;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    public RecyclerView rcvInvoiceList;
     public InvoiceFragment() {
         // Required empty public constructor
     }
@@ -118,8 +116,8 @@ public class InvoiceFragment extends Fragment {
                     String tongtien = dataSnapshot.child("tong_Tien").getValue().toString().trim();
                     invList.add(new Oder(diachi, hoten,  idHinhthucGH,  idKhuyenmai,  idTaiKhoan,  idTrangthaiDH,  maDonhang,  sdt,  time,  tongtien));
                 }
-                mInvoiceInfo = new OderAdapter(getContext(), R.layout.item_oder, invList);
-                rcvInvoiceList.setAdapter(mInvoiceInfo);
+                mInvoiceInfoAdapter = new OderAdapter(getContext(), R.layout.item_oder, invList);
+                rcvInvoiceList.setAdapter(mInvoiceInfoAdapter);
             }
 
             @Override
