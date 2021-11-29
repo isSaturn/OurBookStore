@@ -14,7 +14,7 @@
         android:layout_marginTop="10dp"
         android:src="@drawable/image_2021_11_25_211222_removebg_preview" />
 
-    <androidx.appcompat.widget.SearchView
+    <SearchView
         android:id="@+id/searchview_user"
         android:layout_width="286dp"
         android:layout_height="wrap_content"
