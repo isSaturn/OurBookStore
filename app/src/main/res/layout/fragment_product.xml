@@ -12,11 +12,12 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/sach_btn_Them"
-            android:layout_width="103dp"
-            android:layout_height="48dp"
+            android:layout_width="94dp"
+            android:layout_height="41dp"
             android:layout_marginStart="5dp"
             android:layout_marginTop="60dp"
             android:background="@drawable/buttonshape_icon"
+            android:padding="10dp"
             android:text="Thêm Sách"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
@@ -24,12 +25,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.884"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/sach_rv_Sach"
             android:layout_width="400dp"
-            android:layout_height="600dp"
+            android:layout_height="500dp"
             android:layout_marginStart="5dp"
             android:layout_marginTop="10dp"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -1,21 +1,25 @@
 package com.example.androidproject_coupon.User;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.example.androidproject_coupon.BookManagement.Book;
+import com.example.androidproject_coupon.InvoiceManagement.Invoice.AddInvoice;
 import com.example.androidproject_coupon.R;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +30,8 @@ import java.util.List;
  */
 public class CartFragment extends Fragment {
 
+    public static List<Book> cart = new ArrayList<>();
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -34,20 +40,9 @@ public class CartFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
-    private int totalPrice;
-    private View mView;
-//    private Home home;
-    private DecimalFormat format;
-
-    private List<Book> listCartProduct;
-    private TextView tvCartTotalPrice;
-    private Button btnCartOrder;
-    private RecyclerView recyclerView;
-
-    private CartAdapter productCartAdapter;
-
-    private RelativeLayout rlCartEmpty,rlCart;
+    private RecyclerView mRecyclerView;
+    private AppCompatButton appCompatButton;
+    public static CartAdapter cartAdapter;
 
     public CartFragment() {
         // Required empty public constructor
@@ -85,76 +80,27 @@ public class CartFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_cart, container, false);
-
-
-//        setVisibilityView();
-//        initItem();
     }
 
-//    private void initItem() {
-//        productCartAdapter = new CartAdapter();
-//        rlCartEmpty = mView.findViewById(R.id.rl_cart_empty);
-//        rlCart = mView.findViewById(R.id.rl_cart);
-//        recyclerView = mView.findViewById(R.id.rcv_cart);
-//        tvCartTotalPrice = mView.findViewById(R.id.tv_cart_tongtien);
-//    }
-//
-//    private void setVisibilityView() {
-//        if (listCartProduct.size() == 0){
-//
-//            // Hiển thị giỏ hàng rỗng
-//            setVisibilityEmptyCart();
-//        }else {
-//
-//            // Hiển thị giỏ hàng
-//            setVisibilityCart();
-//            setDataProductCartAdapter();
-//        }
-//    }
-//
-//    private void setDataProductCartAdapter() {
-//    }
-//
-//    private void setVisibilityCart() {
-//        rlCartEmpty.setVisibility(View.GONE);
-//        rlCart.setVisibility(View.VISIBLE);
-//        String total = format.format(getTotalPrice());
-//        tvCartTotalPrice.setText( total +" vnđ" );
-//    }
-//
-//    private void setVisibilityEmptyCart() {
-//    }
-//
-//    private int getTotalPrice(){
-//        for (Book product : listCartProduct){
-//            int priceProduct = product.getProductPrice() ;
-//            totalPrice = totalPrice +  priceProduct * product.getNumProduct();
-//        }
-//        return totalPrice;
-//    }
-//
-//    private List<Book> makeDetailOrder( String odrNo){
-//        List<Book> listDetailOrder = new ArrayList<>();
-//        for (Product product : home.getListCartProduct()){
-//            DetailOrder detailOrder = new DetailOrder();
-//            detailOrder.setOrderNo(odrNo);
-//            detailOrder.setProductName(product.getProductName());
-//            detailOrder.setProductPrice(product.getProductPrice());
-//            detailOrder.setUrlImg(product.getUrlImg());
-//            detailOrder.setNumProduct(product.getNumProduct());
-//            detailOrder.setStatus("Đang chờ xác nhận");
-//            listDetailOrder.add(detailOrder);
-//        }
-//        return listDetailOrder;
-//    }
-//
-//    public void setTotalPrice(int mode,int count, int priceProduct ){
-//        if( mode == 0){
-//            totalPrice = totalPrice - priceProduct * count;
-//        }else if (mode == 1){
-//            totalPrice = totalPrice + priceProduct * count;
-//        }
-//
-//        tvCartTotalPrice.setText( format.format(totalPrice) + " VNĐ");
-//    }
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Button btnInv;
+        btnInv = view.findViewById(R.id.btn_cart_dathang);
+        Intent intent = new Intent(getContext(), AddInvoice.class);
+        btnInv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getContext().startActivity(intent);
+            }
+        });
+        mRecyclerView = view.findViewById(R.id.rcv_cart);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+        mRecyclerView.addItemDecoration(itemDecoration);
+
+        cartAdapter = new CartAdapter(getContext(), cart);
+        mRecyclerView.setAdapter(cartAdapter);
+    }
 }

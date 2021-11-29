@@ -1,4 +1,4 @@
-package com.example.androidproject_coupon.InvoiceManagement;
+package com.example.androidproject_coupon.InvoiceManagement.Invoice;
 
 import android.os.Bundle;
 
@@ -8,13 +8,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidproject_coupon.R;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class ViewInvoiceInformation extends AppCompatActivity {
+public class ViewInvoice extends AppCompatActivity {
 
     private RecyclerView rcvInvoiceitem;
-    private InvoiceBookAdapter invoiceBookAdapter;
+    private InvoiceAdapter invoiceBookAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,19 +21,10 @@ public class ViewInvoiceInformation extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         rcvInvoiceitem = findViewById(R.id.inv_rv_item);
-        invoiceBookAdapter = new InvoiceBookAdapter(this);
-
+        invoiceBookAdapter = new InvoiceAdapter(this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,RecyclerView.VERTICAL,false);
         rcvInvoiceitem.setLayoutManager(linearLayoutManager);
 
-        invoiceBookAdapter.setData(getListBook());
         rcvInvoiceitem.setAdapter(invoiceBookAdapter);
-    }
-
-    private List<InvoiceBook> getListBook() {
-        List<InvoiceBook> list = new ArrayList<>();
-        list.add(new InvoiceBook(R.drawable.sach,"Book Name"));
-
-        return list;
     }
 }
