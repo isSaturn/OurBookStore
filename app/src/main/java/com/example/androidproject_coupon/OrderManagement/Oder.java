@@ -1,10 +1,12 @@
 package com.example.androidproject_coupon.OrderManagement;
 
-public class Oder {
-    private String Dia_Chi, Ho_Ten,ID_Hinh_Thuc_GH ,ID_Khuyen_Mai,ID_Tai_Khoan,ID_Trang_Thai_DH,Ma_Don_Hang,SDT,Time,Tong_Tien;
+import java.io.Serializable;
+
+public class Oder implements Serializable {
+    private String Dia_Chi, Ho_Ten,ID_Hinh_Thuc_GH ,ID_Khuyen_Mai,ID_Tai_Khoan,ID_Trang_Thai_DH,Ma_Don_Hang,SDT,Time,Tong_Tien, Item;
 
 
-    public Oder(String dia_Chi, String ho_Ten, String ID_Hinh_Thuc_GH, String ID_Khuyen_Mai, String ID_Tai_Khoan, String ID_Trang_Thai_DH, String ma_Don_Hang, String SDT, String time, String tong_Tien) {
+    public Oder(String dia_Chi, String ho_Ten, String ID_Hinh_Thuc_GH, String ID_Khuyen_Mai, String ID_Tai_Khoan, String ID_Trang_Thai_DH, String ma_Don_Hang, String SDT, String time, String tong_Tien, String Item) {
         this.Dia_Chi = dia_Chi;
         this.Ho_Ten = ho_Ten;
         this.ID_Hinh_Thuc_GH = ID_Hinh_Thuc_GH;
@@ -15,6 +17,7 @@ public class Oder {
         this.SDT = SDT;
         this.Time = time;
         this.Tong_Tien = tong_Tien;
+        this.Item = Item;
     }
 
     public String getDia_Chi() {
@@ -95,5 +98,13 @@ public class Oder {
 
     public void setTong_Tien(String tong_Tien) {
         Tong_Tien = tong_Tien;
+    }
+
+    public String getItem() {
+        return Item;
+    }
+
+    public void setItem(String Item) {
+        Item = Item;
     }
 }
