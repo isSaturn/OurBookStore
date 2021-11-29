@@ -120,7 +120,7 @@ public class AddInvoice extends AppCompatActivity {
             }
 
             private void ConfirmOrder() {
-                DatabaseReference invRef = database.getReference().child("DonHang");
+                DatabaseReference invRef = FirebaseDatabase.getInstance().getReference().child("DonHang");
                 invRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -135,14 +135,12 @@ public class AddInvoice extends AppCompatActivity {
                 });
                 try {
                     //ma don hang
-                    DecimalFormat df = new DecimalFormat("0000");
-                    String num = df.format(String.valueOf(i+1));
                     final String saveCurrentIDDate;
                     Calendar calendarIDDate = Calendar.getInstance();
                     SimpleDateFormat idDate = new SimpleDateFormat("yyMMdd");
                     saveCurrentIDDate = idDate.format(calendarIDDate.getTime());
                     String saveIDDate = saveCurrentIDDate.trim();
-                    String maDonhang = saveIDDate+"SACH"+num;
+                    String maDonhang = saveIDDate+"SACH";
                     invRef.child(String.valueOf(i+1)).setValue(maDonhang);
 
                     String diachi = etDiachi.getText().toString().trim();
@@ -183,7 +181,7 @@ public class AddInvoice extends AppCompatActivity {
 
                     String ID_Sach = tvTongcong.getText().toString().trim();
 
-                    String Ma_Don_Hang = saveIDDate+"SACH"+num;
+                    String Ma_Don_Hang = saveIDDate+"SACH";
                     proRef.child(String.valueOf(i+1)).setValue(maDonhang);
 
                     ProductBought productBought  = new ProductBought(ID_Sach, Ma_Don_Hang);

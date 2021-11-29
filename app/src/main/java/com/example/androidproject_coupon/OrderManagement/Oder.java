@@ -5,16 +5,16 @@ public class Oder {
 
 
     public Oder(String dia_Chi, String ho_Ten, String ID_Hinh_Thuc_GH, String ID_Khuyen_Mai, String ID_Tai_Khoan, String ID_Trang_Thai_DH, String ma_Don_Hang, String SDT, String time, String tong_Tien) {
-        Dia_Chi = dia_Chi;
-        Ho_Ten = ho_Ten;
+        this.Dia_Chi = dia_Chi;
+        this.Ho_Ten = ho_Ten;
         this.ID_Hinh_Thuc_GH = ID_Hinh_Thuc_GH;
         this.ID_Khuyen_Mai = ID_Khuyen_Mai;
         this.ID_Tai_Khoan = ID_Tai_Khoan;
         this.ID_Trang_Thai_DH = ID_Trang_Thai_DH;
-        Ma_Don_Hang = ma_Don_Hang;
+        this.Ma_Don_Hang = ma_Don_Hang;
         this.SDT = SDT;
-        Time = time;
-        Tong_Tien = tong_Tien;
+        this.Time = time;
+        this.Tong_Tien = tong_Tien;
     }
 
     public String getDia_Chi() {
