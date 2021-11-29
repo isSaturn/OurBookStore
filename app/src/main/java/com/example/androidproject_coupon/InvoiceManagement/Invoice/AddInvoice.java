@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.androidproject_coupon.AccountManagement.GetIDandRole;
 import com.example.androidproject_coupon.BookManagement.Book;
 import com.example.androidproject_coupon.OrderFragment;
 import com.example.androidproject_coupon.OrderManagement.Oder;
@@ -54,12 +55,15 @@ public class AddInvoice extends AppCompatActivity {
     RecyclerView rvListitem;
     AutoCompleteTextView autotvMagiamgia;
     ArrayAdapter<String> arrayAdapterMagiamgia;
+    ArrayAdapter<String> arrayAdapterTaikhoan;
     ArrayList<String> arrayMagiamgia = new ArrayList<>();
+    ArrayList<String> arrayTaikhoan = new ArrayList<>();
     ArrayList<String> idMagiamgia = new ArrayList<>();
+    ArrayList<String> idTaikhoan = new ArrayList<>();
     private List<ProductBought> productBoughtList;
     String slcMagiamgia;
     String TAG="FIREBASE";
-
+    GetIDandRole getIDandRole = new GetIDandRole();
     FirebaseDatabase database = FirebaseDatabase.getInstance("https://ourbookstore-e8241-default-rtdb.firebaseio.com/");
     long i = 0;
 
@@ -155,7 +159,8 @@ public class AddInvoice extends AppCompatActivity {
                     invRef.child(String.valueOf(i+1)).setValue(idKhuyenmai);
 
                     //taikhoan chưa fix
-                    String idTaiKhoan = etSDT.getText().toString().trim();
+                    String idTaiKhoan = getIDandRole.id;
+                    invRef.child(String.valueOf(i+1)).setValue(idTaiKhoan);
 
                     //id trang thai
                     String idTrangthaiDH = "1";
@@ -170,7 +175,6 @@ public class AddInvoice extends AppCompatActivity {
                     invRef.child(String.valueOf(i+1)).setValue(time);
 
                     //tong tien chưa fix
-
                     String tongtien = tvTongcong.getText().toString().trim();
 
                     Oder invoice = new Oder(diachi, hoten,  idHinhthucGH,  idKhuyenmai,  idTaiKhoan,  idTrangthaiDH,  maDonhang,  sdt,  time,  tongtien);
@@ -178,9 +182,10 @@ public class AddInvoice extends AppCompatActivity {
 
 
                     DatabaseReference proRef = database.getReference().child("SanPhamDuocMua");
-
+                    //id sach
                     String ID_Sach = tvTongcong.getText().toString().trim();
 
+                    //madonhang
                     String Ma_Don_Hang = saveIDDate+"SACH";
                     proRef.child(String.valueOf(i+1)).setValue(maDonhang);
 

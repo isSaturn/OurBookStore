@@ -133,11 +133,13 @@ public class Login extends AppCompatActivity {
 
                         String email = "" + snapshot.child("email").getValue();
                         String userType = ""+snapshot.child("userType").getValue();
+                        String id = ""+snapshot.child("uid").getValue();
                         if (userType.equals("user")){
                             startActivity(new Intent(Login.this,MainActivity_User.class));
                             Log.d("Type", userType);
                             idAndRole.email = email.trim();
                             idAndRole.role = userType.trim();
+                            idAndRole.id = id.trim();
                             finish();
                         }
                         else if (userType.equals("admin")){
@@ -145,6 +147,7 @@ public class Login extends AppCompatActivity {
                             Log.d("Type:", userType);
                             idAndRole.email = email.trim();
                             idAndRole.role = userType.trim();
+                            idAndRole.id = id.trim();
                             finish();
                         }
                     }
