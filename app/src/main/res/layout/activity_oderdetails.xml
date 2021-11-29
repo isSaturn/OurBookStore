@@ -167,13 +167,13 @@
             android:id="@+id/tv_details_tinhtrang"
             android:layout_width="311dp"
             android:layout_height="30dp"
-            android:layout_marginTop="808dp"
+            android:layout_marginTop="1004dp"
             android:text="Tình trạng đơn hàng"
             android:textColor="#004275"
-            android:textStyle="bold"
             android:textSize="18sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.175"
+            app:layout_constraintHorizontal_bias="0.15"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_details_title" />
 
@@ -217,6 +217,45 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_details_madonhang" />
 
         <TextView
+            android:id="@+id/tv_details_iduser"
+            android:layout_width="300dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="72dp"
+            android:text="Tài khoản đặt hàng"
+            android:textSize="16sp"
+            android:textStyle="italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_details_madonhang" />
+
+        <TextView
+            android:id="@+id/tv_details_khuyenmai"
+            android:layout_width="300dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="132dp"
+            android:text="Khuyen Mai"
+            android:textSize="16sp"
+            android:textStyle="italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_details_madonhang" />
+
+        <TextView
+            android:id="@+id/tv_details_tongtien"
+            android:layout_width="300dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="184dp"
+            android:text="Tong Tien:"
+            android:textSize="16sp"
+            android:textStyle="italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_details_madonhang" />
+
+        <TextView
             android:id="@+id/tv_details_choxn"
             android:layout_width="300dp"
             android:layout_height="30dp"
@@ -230,59 +269,6 @@
             app:layout_constraintHorizontal_bias="0.568"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_details_tinhtrang" />
-
-        <ImageView
-            android:id="@+id/im_details_dacnhantam"
-            android:layout_width="80dp"
-            android:layout_height="110dp"
-            android:layout_marginTop="40dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.13"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_details_chitiet"
-            app:srcCompat="@drawable/im_details_sach_dacnhantam" />
-
-        <TextView
-            android:id="@+id/tv_details_dacnhantam"
-            android:layout_width="260dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="40dp"
-            android:text="Sách - Đắc Nhân Tâm"
-            android:textStyle="italic"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/im_details_dacnhantam"
-            app:layout_constraintTop_toBottomOf="@+id/tv_details_chitiet" />
-
-        <TextView
-            android:id="@+id/tv_details_soluong"
-            android:layout_width="260dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="80dp"
-            android:text="Số lượng: x1"
-            android:textStyle="italic"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/im_details_dacnhantam"
-            app:layout_constraintTop_toBottomOf="@+id/tv_details_chitiet" />
-
-        <TextView
-            android:id="@+id/tv_details_giatien"
-            android:layout_width="260dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="120dp"
-            android:text="Giá: 60.000đ"
-            android:textSize="16sp"
-            android:textStyle="italic"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/im_details_dacnhantam"
-            app:layout_constraintTop_toBottomOf="@+id/tv_details_chitiet" />
 
         <ImageView
             android:id="@+id/im_details_thanhtoan"
@@ -338,6 +324,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/im_details_back" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="391dp"
+            android:layout_height="166dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_details_chitiet" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
