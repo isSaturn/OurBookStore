@@ -1,6 +1,7 @@
 package com.example.androidproject_coupon.InvoiceManagement.Invoice;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import android.util.Log;
@@ -11,12 +12,14 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,9 +27,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidproject_coupon.AccountManagement.GetIDandRole;
 import com.example.androidproject_coupon.BookManagement.Book;
-import com.example.androidproject_coupon.OrderFragment;
+import com.example.androidproject_coupon.CouponManagement.Coupon.Coupon;
+import com.example.androidproject_coupon.CouponManagement.EditCoupon;
 import com.example.androidproject_coupon.OrderManagement.Oder;
-import com.example.androidproject_coupon.OrderManagement.OderAdapter;
 import com.example.androidproject_coupon.R;
 import com.example.androidproject_coupon.User.CartAdapter;
 import com.example.androidproject_coupon.User.CartFragment;
@@ -38,6 +41,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -46,31 +50,37 @@ import java.util.List;
 public class AddInvoice extends AppCompatActivity {
 
     private RecyclerView rcvInvoiceitem;
+    private String slcMagiamgia;
+    private String slcHinhthucgiaohang;
+    private Integer mTotal;
+    private List<Book> mBooks;
+    ImageView imgReturn;
     Button btnDathang;
     EditText etHoten, etSDT, etDiachi;
-    TextView tvGiaohangnhanh, tvGiaohangtietkiem, tvTamtinh, tvPhivanchuyen, tvTongcong;
+    TextView tvHinhthucgiaohang, tvTamtinh, tvPhivanchuyen, tvTongcong;
     CheckBox cbShipCOD;
-    RadioGroup rdGHinhthuc;
-    RadioButton rdBtnNhanh, rdBtnTietkiem;
     RecyclerView rvListitem;
     AutoCompleteTextView autotvMagiamgia;
+    Spinner spHinhthucgiaohang;
     ArrayAdapter<String> arrayAdapterMagiamgia;
-    ArrayAdapter<String> arrayAdapterTaikhoan;
+    ArrayAdapter<String> arrayAdapterHinhthucgiaohang;
     ArrayList<String> arrayMagiamgia = new ArrayList<>();
-    ArrayList<String> arrayTaikhoan = new ArrayList<>();
+    ArrayList<String> arrayHinhthucgiaohang = new ArrayList<>();
     ArrayList<String> idMagiamgia = new ArrayList<>();
-    ArrayList<String> idTaikhoan = new ArrayList<>();
-    private List<ProductBought> productBoughtList;
-    String slcMagiamgia;
+    ArrayList<Integer> idHinhthucgiaohang = new ArrayList<>();
+    ArrayList<String> idTrangthaidonhang = new ArrayList<>();
+    ArrayList<Integer> idSach = new ArrayList<>();
+
+
     String TAG="FIREBASE";
     GetIDandRole getIDandRole = new GetIDandRole();
     FirebaseDatabase database = FirebaseDatabase.getInstance("https://ourbookstore-e8241-default-rtdb.firebaseio.com/");
-    long i = 0;
+    long i = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.inv_infomation);
+        setContentView(R.layout.activity_add_invoice);
 
         rcvInvoiceitem = findViewById(R.id.inv_rv_item);
         rcvInvoiceitem.setHasFixedSize(true);
@@ -82,8 +92,14 @@ public class AddInvoice extends AppCompatActivity {
         rcvInvoiceitem.setAdapter(CartFragment.cartAdapter);
 
         matching();
-
+        idTrangthaidonhang.add("1");
         cbShipCOD.setChecked(true);
+        imgReturn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         //show list ma giam gia va gan id ma khuyen mai
         arrayAdapterMagiamgia = new ArrayAdapter<>(this, R.layout.list_type_coupon,arrayMagiamgia);
         DatabaseReference cpnRef = database.getReference("KhuyenMai");
@@ -108,28 +124,98 @@ public class AddInvoice extends AppCompatActivity {
                 slcMagiamgia = idMagiamgia.get(position);
             }
         });
+        arrayAdapterHinhthucgiaohang = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item,arrayHinhthucgiaohang);
+        DatabaseReference htghRef = database.getReference("HinhThucGiaoHang");
+        htghRef.addValueEventListener(new ValueEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot data: snapshot.getChildren()){
+                    idHinhthucgiaohang.add(Integer.parseUnsignedInt(data.getKey()));
+                    arrayHinhthucgiaohang.add(data.child("Hinh_Thuc").getValue(String.class));
+                }
+                arrayAdapterHinhthucgiaohang.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+        spHinhthucgiaohang.setAdapter(arrayAdapterHinhthucgiaohang);
+        spHinhthucgiaohang.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                slcHinhthucgiaohang = idHinhthucgiaohang.get(i).toString();
+                if(idHinhthucgiaohang.get(i) == 1){
+                    tvHinhthucgiaohang.setText("20.000VNĐ");
+                    tvHinhthucgiaohang.setEnabled(false);
+                }else if(idHinhthucgiaohang.get(i) == 0){
+                    tvHinhthucgiaohang.setText("10.000VNĐ");
+                    tvHinhthucgiaohang.setEnabled(false);
+                } else{
+                    tvHinhthucgiaohang.setText("");
+                    tvHinhthucgiaohang.setEnabled(true);
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        DatabaseReference ttdhRef = database.getReference("TrangThaiDonHang");
+        ttdhRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    idTrangthaidonhang.add(dataSnapshot.getKey());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference itemRef = database.getReference("Sach");
+        itemRef.addValueEventListener(new ValueEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot data: snapshot.getChildren()){
+                    idSach.add(Integer.parseUnsignedInt(data.getKey()));
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         btnDathang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 if (etHoten.getText().toString().trim().length() == 0 || etSDT.getText().toString().trim().length() == 0
-                        || etDiachi.getText().toString().length() == 0 || autotvMagiamgia.getText().toString().length() == 0) {
+                        || etDiachi.getText().toString().length() == 0) {
                     Toast.makeText(getApplicationContext(), "All field must be not empty", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
                     ConfirmOrder();
-                    startActivity(new Intent(AddInvoice.this, MainActivity_User.class));
+                    Intent intent = new Intent(AddInvoice.this, MainActivity_User.class);
+                    startActivity(intent);
                 }
             }
 
             private void ConfirmOrder() {
-                DatabaseReference invRef = FirebaseDatabase.getInstance().getReference().child("DonHang");
+                DatabaseReference invRef = FirebaseDatabase.getInstance().getReference("DonHang");
                 invRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if(snapshot.exists()){
                             i = snapshot.getChildrenCount();
+                            return;
                         }
                     }
                     @Override
@@ -137,85 +223,55 @@ public class AddInvoice extends AppCompatActivity {
                         Log.w(TAG, "Failed to read value.", error.toException());
                     }
                 });
-                try {
-                    //ma don hang
-                    final String saveCurrentIDDate;
-                    Calendar calendarIDDate = Calendar.getInstance();
-                    SimpleDateFormat idDate = new SimpleDateFormat("yyMMdd");
-                    saveCurrentIDDate = idDate.format(calendarIDDate.getTime());
-                    String saveIDDate = saveCurrentIDDate.trim();
-                    String maDonhang = saveIDDate+"SACH";
-                    invRef.child(String.valueOf(i+1)).setValue(maDonhang);
+                //ma don hang
+                NumberFormat nf = new DecimalFormat("0000");
+                String num = nf.format(i);
+                final String saveCurrentIDDate;
+                Calendar calendarIDDate = Calendar.getInstance();
+                SimpleDateFormat idDate = new SimpleDateFormat("yyMMdd");
+                saveCurrentIDDate = idDate.format(calendarIDDate.getTime());
+                String saveIDDate = saveCurrentIDDate.trim();
+                String maDonhang = saveIDDate+"SACH"+num;
 
-                    String diachi = etDiachi.getText().toString().trim();
-                    String hoten = etHoten.getText().toString().trim();
-                    String sdt = etSDT.getText().toString().trim();
+                String diachi = etDiachi.getText().toString().trim();
+                String hoten = etHoten.getText().toString().trim();
+                String sdt = etSDT.getText().toString().trim();
 
-                    //hinhthucgh chưa fix
-                    String idHinhthucGH = rdBtnNhanh.getText().toString().trim();
-
-                    //makhuyenmai
-                    String idKhuyenmai = slcMagiamgia.trim();
-                    invRef.child(String.valueOf(i+1)).setValue(idKhuyenmai);
-
-                    //taikhoan chưa fix
-                    String idTaiKhoan = getIDandRole.id;
-                    invRef.child(String.valueOf(i+1)).setValue(idTaiKhoan);
-
-                    //id trang thai
-                    String idTrangthaiDH = "1";
-                    invRef.child(String.valueOf(i+1)).setValue(idTrangthaiDH);
-
-                    //time
-                    final String saveCurrentDate;
-                    Calendar calendar = Calendar.getInstance();
-                    SimpleDateFormat currentDate = new SimpleDateFormat("yyyy/MM/dd");
-                    saveCurrentDate = currentDate.format(calendar.getTime());
-                    String time = saveCurrentDate.trim();
-                    invRef.child(String.valueOf(i+1)).setValue(time);
-
-                    //tong tien chưa fix
-                    String tongtien = tvTongcong.getText().toString().trim();
-
-                    Oder invoice = new Oder(diachi, hoten,  idHinhthucGH,  idKhuyenmai,  idTaiKhoan,  idTrangthaiDH,  maDonhang,  sdt,  time,  tongtien);
-                    invRef.child(String.valueOf(i+1)).setValue(invoice);
+                //hinhthucgh
+                String idHinhthucGH = slcHinhthucgiaohang.trim();
 
 
-                    DatabaseReference proRef = database.getReference().child("SanPhamDuocMua");
-                    //id sach
-                    String ID_Sach = tvTongcong.getText().toString().trim();
+                //makhuyenmai
+                String idKhuyenmai = slcMagiamgia.trim();
 
-                    //madonhang
-                    String Ma_Don_Hang = saveIDDate+"SACH";
-                    proRef.child(String.valueOf(i+1)).setValue(maDonhang);
+                //taikhoan
+                String idTaiKhoan = getIDandRole.id;
 
-                    ProductBought productBought  = new ProductBought(ID_Sach, Ma_Don_Hang);
-                    proRef.child(String.valueOf(i+1)).setValue(productBought);
-                    finish();
-                    Toast.makeText(getApplicationContext(),"Thêm đơn hàng thành công", Toast.LENGTH_LONG).show();
-                }
-                catch (Exception ex)
-                {
-                    Toast.makeText(getApplicationContext(),"Error:"+ex.toString(),Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-        productBoughtList = new ArrayList<>();
-        DatabaseReference proRef = database.getReference().child("SanPhamDuocMua");
-        proRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    productBoughtList.clear();
-                    String ID_Sach = dataSnapshot.child("id_Sach").getValue().toString().trim();
-                    String Ma_Don_Hang = dataSnapshot.child("ma_Don_Hang").getValue().toString().trim();
-                    productBoughtList.add(new ProductBought(ID_Sach, Ma_Don_Hang));
-                }
-            }
+                //id trang thai
+                String idTrangthaiDH = "1";
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                //time
+                final String saveCurrentDate;
+                Calendar calendar = Calendar.getInstance();
+                SimpleDateFormat currentDate = new SimpleDateFormat("yyyy/MM/dd");
+                saveCurrentDate = currentDate.format(calendar.getTime());
+                String time = saveCurrentDate.trim();
 
+                //tong tien chưa fix
+                String tongtien = tvTongcong.getText().toString().trim();
+
+                String item = tvTongcong.getText().toString().trim();
+                invRef.child(String.valueOf(i)).setValue(time);
+                invRef.child(String.valueOf(i)).setValue(idTrangthaiDH);
+                invRef.child(String.valueOf(i)).setValue(idTaiKhoan);
+                invRef.child(String.valueOf(i)).setValue(idKhuyenmai);
+                invRef.child(String.valueOf(i)).setValue(maDonhang);
+                invRef.child(String.valueOf(i)).setValue(idHinhthucGH);
+                invRef.child(String.valueOf(i)).setValue(item);
+                Oder invoice = new Oder(diachi, hoten, idHinhthucGH, idKhuyenmai, idTaiKhoan, idTrangthaiDH, maDonhang, sdt, time, tongtien, item);
+                invRef.child(String.valueOf(i)).setValue(invoice);
+
+                Toast.makeText(getApplicationContext(),"Thêm đơn hàng thành công", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -227,15 +283,13 @@ public class AddInvoice extends AppCompatActivity {
         etHoten = (EditText) findViewById(R.id.inv_et_hoten);
         etSDT = (EditText) findViewById(R.id.inv_et_sdt);
         etDiachi = (EditText) findViewById(R.id.inv_et_diachi);
-        tvGiaohangnhanh = (TextView) findViewById(R.id.inv_tv_giaohangnhanh_gia);
-        tvGiaohangtietkiem = (TextView) findViewById(R.id.inv_tv_giaohangtietkiem_gia);
+        tvHinhthucgiaohang = (TextView) findViewById(R.id.inv_tv_giaohangnhanh_gia);
+        spHinhthucgiaohang = (Spinner) findViewById(R.id.inv_sp_hinhthucgiaohang);
         tvTamtinh = (TextView) findViewById(R.id.inv_tv_tamtinh_gia);
         tvPhivanchuyen = (TextView) findViewById(R.id.inv_tv_phivanchuyen_gia);
         tvTongcong = (TextView) findViewById(R.id.inv_tv_tongcong_gia);
-        rdGHinhthuc = (RadioGroup) findViewById(R.id.inv_rdG_hinhthucgiaohang);
-        rdBtnNhanh = (RadioButton) findViewById(R.id.inv_rdBtn_giaohangnhanh);
-        rdBtnTietkiem = (RadioButton) findViewById(R.id.inv_rdBtn_giaohangtietkiem);
         rvListitem = (RecyclerView) findViewById(R.id.inv_rv_item);
         autotvMagiamgia = (AutoCompleteTextView) findViewById(R.id.inv_tv_magiamgia_list);
+        imgReturn = (ImageView) findViewById(R.id.inv_img_return);
     }
 }

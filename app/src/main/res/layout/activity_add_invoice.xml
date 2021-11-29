@@ -17,22 +17,12 @@
             android:id="@+id/inv_tv_giaohangnhanh_gia"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="104dp"
-            android:layout_marginTop="20dp"
-            android:text="10.000VNĐ"
-            app:layout_constraintStart_toEndOf="@+id/inv_rdG_hinhthucgiaohang"
-            app:layout_constraintTop_toTopOf="@+id/inv_rdG_hinhthucgiaohang" />
-
-        <TextView
-            android:id="@+id/inv_tv_giaohangtietkiem_gia"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
-            android:text="20.000VNĐ"
-            app:layout_constraintEnd_toEndOf="@+id/inv_tv_giaohangnhanh_gia"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/inv_tv_giaohangnhanh_gia"
-            app:layout_constraintTop_toBottomOf="@+id/inv_tv_giaohangnhanh_gia" />
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:text="Textview"
+            android:textColor="#008EFF"
+            app:layout_constraintStart_toStartOf="@+id/inv_sp_hinhthucgiaohang"
+            app:layout_constraintTop_toBottomOf="@+id/inv_sp_hinhthucgiaohang" />
 
         <TextView
             android:id="@+id/inv_tv_tongcong_gia"
@@ -50,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="176dp"
-            android:text="TextView"
+            android:hint="TextView"
             app:layout_constraintBottom_toBottomOf="@+id/inv_tv_tamtinh"
             app:layout_constraintStart_toEndOf="@+id/inv_tv_tamtinh"
             app:layout_constraintTop_toTopOf="@+id/inv_tv_tamtinh"
@@ -67,47 +57,16 @@
             app:layout_constraintTop_toTopOf="@+id/inv_tv_phivanchuyen"
             app:layout_constraintVertical_bias="0.0" />
 
-        <RadioGroup
-            android:id="@+id/inv_rdG_hinhthucgiaohang"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="28dp"
-            android:layout_marginTop="20dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/inv_tv_inf_hinhthucgiaohang">
-
-            <RadioButton
-                android:id="@+id/inv_rdBtn_giaohangnhanh"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:text="Giao hàng nhanh"
-                app:layout_constraintEnd_toEndOf="@+id/inv_rdBtn_giaohangtietkiem"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/inv_rdBtn_giaohangtietkiem"
-                app:layout_constraintTop_toBottomOf="@+id/inv_rdBtn_giaohangtietkiem" />
-
-            <RadioButton
-                android:id="@+id/inv_rdBtn_giaohangtietkiem"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Giao hàng tiết kiệm"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.131"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:layout_editor_absoluteY="416dp" />
-        </RadioGroup>
-
         <TextView
             android:id="@+id/inv_tv_magiamgia"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="16dp"
             android:text="Mã giảm giá"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.047"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/inv_rdG_hinhthucgiaohang" />
+            app:layout_constraintTop_toBottomOf="@+id/inv_tv_giaohangnhanh_gia" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout1"
@@ -149,12 +108,12 @@
             android:id="@+id/inv_tv_thongtinnguoinhan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="12dp"
             android:text="Thông tin người nhận"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.057"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/inv_img_return" />
 
         <EditText
             android:id="@+id/inv_et_hoten"
@@ -199,7 +158,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/inv_rv_item"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -301,6 +260,26 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/inv_tv_tongcong_gia"
             app:layout_constraintVertical_bias="1.0" />
+
+        <Spinner
+            android:id="@+id/inv_sp_hinhthucgiaohang"
+            android:layout_width="315dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintStart_toStartOf="@+id/inv_tv_inf_hinhthucgiaohang"
+            app:layout_constraintTop_toBottomOf="@+id/inv_tv_inf_hinhthucgiaohang"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <ImageView
+            android:id="@+id/inv_img_return"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.041"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/back_icon" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
