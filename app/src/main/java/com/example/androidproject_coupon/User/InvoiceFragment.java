@@ -108,8 +108,8 @@ public class InvoiceFragment extends Fragment {
         invRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                invList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    invList.clear();
                     String diachi = dataSnapshot.child("dia_Chi").getValue().toString().trim();
                     String hoten = dataSnapshot.child("ho_Ten").getValue().toString().trim();
                     String idHinhthucGH = dataSnapshot.child("id_Hinh_Thuc_GH").getValue().toString().trim();
