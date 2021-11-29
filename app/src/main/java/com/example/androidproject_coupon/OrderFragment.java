@@ -1,5 +1,6 @@
 package com.example.androidproject_coupon;
 
+import android.app.appsearch.StorageInfo;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.androidproject_coupon.OrderManagement.Oder;
@@ -22,7 +25,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+
 import java.util.ArrayList;
+
 import java.util.List;
 
 /**
@@ -31,6 +36,10 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class OrderFragment extends Fragment {
+
+
+
+
 
 
     private RecyclerView mRecyclerView;
@@ -77,7 +86,11 @@ public class OrderFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
     }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -99,7 +112,10 @@ public class OrderFragment extends Fragment {
         mUploads = new ArrayList<>();
 
         mDatabaseReference = FirebaseDatabase.getInstance().getReference("DonHang");
+
         mDatabaseReference.addValueEventListener(new ValueEventListener() {
+
+
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 mUploads.clear();
@@ -114,6 +130,7 @@ public class OrderFragment extends Fragment {
                     String hinhthuc = data.child("ID_Hinh_Thuc_GH").getValue().toString();
                     String khuyenmai = data.child("ID_Khuyen_Mai").getValue().toString();
                     String taikhoan = data.child("ID_Tai_Khoan").getValue().toString();
+
                     mUploads.add(new Oder(address,name,hinhthuc,khuyenmai,taikhoan,status,code,phone,time,price));
                 }
                 mAdapter = new OderAdapter(getContext(),mUploads);
@@ -126,6 +143,5 @@ public class OrderFragment extends Fragment {
 
             }
         });
-        //abc
     }
 }
