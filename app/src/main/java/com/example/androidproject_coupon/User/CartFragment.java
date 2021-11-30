@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.androidproject_coupon.BookManagement.Book;
 import com.example.androidproject_coupon.InvoiceManagement.Invoice.AddInvoice;
@@ -29,6 +30,10 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class CartFragment extends Fragment {
+
+    public static Integer tien = 0 ;
+
+    public static TextView tongtien;
 
     public static List<Book> cart = new ArrayList<>();
 
@@ -86,6 +91,10 @@ public class CartFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Button btnInv;
+
+        tongtien = view.findViewById(R.id.tv_cart_tongtien);
+        tongtien.setText(String.valueOf(tien)+ " VNĐ");
+
         btnInv = view.findViewById(R.id.btn_cart_dathang);
         Intent intent = new Intent(getContext(), AddInvoice.class);
         btnInv.setOnClickListener(new View.OnClickListener() {
