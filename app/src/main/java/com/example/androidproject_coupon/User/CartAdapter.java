@@ -2,6 +2,7 @@ package com.example.androidproject_coupon.User;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,6 +26,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
     private Context mContext;
     private List<Book> mUploads;
+    int total = 0;
     public CartAdapter(Context context, List<Book> uploads) {
         mContext = context;
         mUploads = uploads;
@@ -48,12 +51,16 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 .centerCrop()
                 .into(holder.imageView);
         holder.delete.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
+                CartFragment.tien -= Integer.parseUnsignedInt(uploadCurrent.getGia());
+                CartFragment.tongtien.setText(String.valueOf(CartFragment.tien) + " VNĐ");
                 CartFragment.cart.remove(uploadCurrent);
                 CartFragment.cartAdapter.notifyDataSetChanged();
             }
         });
+
     }
 
     private void onClickDetail(Book uploadCurrent) {
@@ -71,8 +78,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
     public class CartViewHolder extends RecyclerView.ViewHolder {
 
-//        private Button layout;
-        public TextView textViewTenSach, textViewGiaTien, masach, tacgia, theloai, mota;
+        public TextView textViewTenSach, textViewGiaTien, tongtien;
         public ImageView imageView, delete;
 
         public CartViewHolder(@NonNull View itemView) {
@@ -82,11 +88,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             textViewGiaTien = itemView.findViewById(R.id.tv_cart_giatien);
             imageView = itemView.findViewById(R.id.img_cart_book);
             delete = itemView.findViewById(R.id.img_cart_delete);
-//            masach = itemView.findViewById(R.id.tv_itemdetail_masach);
-//            tacgia = itemView.findViewById(R.id.tv_itemdetail_tacgia);
-//            theloai = itemView.findViewById(R.id.tv_itemdetail_theloai);
-//            mota = itemView.findViewById(R.id.tv_itemdetail_mota);
-//            layout = itemView.findViewById(R.id.btn_itemdetail_add);
+            tongtien = itemView.findViewById(R.id.tv_cart_tongtien);
         }
     }
 }

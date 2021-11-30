@@ -101,6 +101,7 @@ public class ItemDetailActivity extends AppCompatActivity {
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("Sach");
 
         addtocart.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
                 String sid_sach = ID_Sach.toString().trim();
@@ -114,6 +115,11 @@ public class ItemDetailActivity extends AppCompatActivity {
                 String sid_nhom_sach = ID_Nhom_Sach.toString().trim();
 
                 CartFragment.cart.add(new Book(sid_sach, sma_sach, sten_sach, stac_gia, smo_ta, sgia, sso_luong, sanh, sid_nhom_sach));
+                Integer giasach = Integer.parseUnsignedInt(sgia);
+                CartFragment.tien += giasach;
+                if (CartFragment.tongtien != null) {
+                    CartFragment.tongtien.setText(String.valueOf(CartFragment.tien));
+                }
                 CartFragment.cartAdapter.notifyDataSetChanged();
                 Toast.makeText(ItemDetailActivity.this, "Đã thêm sản phẩm vào giỏ hàng", Toast.LENGTH_SHORT).show();
             }
