@@ -75,7 +75,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     public int getItemCount() {
         return mUploads.size();
     }
-
+//
     public class CartViewHolder extends RecyclerView.ViewHolder {
 
         public TextView textViewTenSach, textViewGiaTien, tongtien;
