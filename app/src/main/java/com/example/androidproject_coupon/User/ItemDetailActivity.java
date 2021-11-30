@@ -118,6 +118,9 @@ public class ItemDetailActivity extends AppCompatActivity {
 
                 Integer giasach = Integer.parseUnsignedInt(sgia);
                 CartFragment.tien += giasach;
+                if (CartFragment.tongtien != null) {
+                    CartFragment.tongtien.setText(String.valueOf(CartFragment.tien));
+                }
 
                 CartFragment.cartAdapter.notifyDataSetChanged();
                 Toast.makeText(ItemDetailActivity.this, "Đã thêm sản phẩm vào giỏ hàng", Toast.LENGTH_SHORT).show();
