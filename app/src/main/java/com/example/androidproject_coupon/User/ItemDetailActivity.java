@@ -119,7 +119,7 @@ public class ItemDetailActivity extends AppCompatActivity {
                 Integer giasach = Integer.parseUnsignedInt(sgia);
                 CartFragment.tien += giasach;
                 if (CartFragment.tongtien != null) {
-                    CartFragment.tongtien.setText(String.valueOf(CartFragment.tien));
+                    CartFragment.tongtien.setText(String.valueOf(CartFragment.tien) + " VNĐ");
                 }
 
                 CartFragment.cartAdapter.notifyDataSetChanged();
