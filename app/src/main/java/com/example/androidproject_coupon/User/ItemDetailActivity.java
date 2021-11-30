@@ -68,7 +68,7 @@ public class ItemDetailActivity extends AppCompatActivity {
         Anh = upload.getAnh();
         ID_Nhom_Sach = upload.getID_Nhom_Sach();
 
-        //Hiển thị thông tin sản phẩm lên app
+        //Hiển thị thông tin sản phẩm lên app.
 
         masach.setText("Mã sách: " + upload.getMa_Sach());
         name.setText(Ten_Sach);
