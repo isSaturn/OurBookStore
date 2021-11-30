@@ -1,5 +1,6 @@
 package com.example.androidproject_coupon.User;
 
+import android.graphics.Canvas;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -100,8 +101,8 @@ public class ShopFragment extends Fragment {
         mRecyclerView = view.findViewById(R.id.rcv_shop_user);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
-        mRecyclerView.addItemDecoration(itemDecoration);
+//        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+//        mRecyclerView.addItemDecoration(itemDecoration);
 
         mBooks = new ArrayList<>();
 
@@ -158,6 +159,8 @@ public class ShopFragment extends Fragment {
             }
         }
         UserAdapter newApter = new UserAdapter(getContext(), mList);
+
+
         mRecyclerView.setAdapter(newApter);
     }
 }
