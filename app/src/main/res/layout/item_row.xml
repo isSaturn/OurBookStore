@@ -1,68 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="3dp"
+    android:layout_width="380dp"
+    android:layout_gravity="center_horizontal"
+    android:layout_height="100dp"
+    android:layout_margin="10dp"
+    android:gravity="center_vertical"
+    android:backgroundTint="@color/white"
+    android:background="@drawable/item_conor"
     android:id="@+id/layout_item_row">
 
     <ImageView
         android:id="@+id/img_shop_addtocart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="35dp"
+        android:layout_marginRight="20dp"
         android:padding="5dp"
         android:src="@drawable/themvaogio"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/linearLayout2"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.508" />
 
+
     <ImageView
         android:id="@+id/img_shop_sach"
-        android:layout_width="70dp"
-        android:layout_height="100dp"
+        android:layout_width="53dp"
+        android:layout_height="72dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/item_conor"
         android:src="@drawable/sach"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.571" />
 
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="265dp"
-        android:layout_height="72dp"
-        android:layout_marginStart="7dp"
-        android:layout_marginTop="5dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/img_shop_sach"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.307">
+    <TextView
+        android:id="@+id/tv_shop_tensach"
+        android:layout_width="227dp"
+        android:layout_height="56dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/img_shop_sach"
+        android:inputType="textMultiLine"
+        android:text="Ten sach"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        tools:ignore="TouchTargetSizeCheck" />
 
-        <TextView
-            android:id="@+id/tv_shop_tensach"
-            android:layout_width="wrap_content"
-            android:layout_height="45dp"
-            android:inputType="textMultiLine"
-            android:text="Ten sach"
-            android:textColor="#000000"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            tools:ignore="TouchTargetSizeCheck" />
+    <TextView
+        android:id="@+id/tv_shop_giasach"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_shop_tensach"
+        android:layout_marginLeft="15dp"
+        android:layout_toRightOf="@id/img_shop_sach"
+        android:text="Giá tiền"
+        android:layout_marginBottom="5dp"
+        android:textColor="@color/textColor"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/tv_shop_giasach"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="Giá tiền"
-            android:textColor="@color/textColor"
-            android:textSize="16sp"
-            android:textStyle="bold" />
 
-    </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
