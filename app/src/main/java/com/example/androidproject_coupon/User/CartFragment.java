@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.androidproject_coupon.BookManagement.Book;
 import com.example.androidproject_coupon.InvoiceManagement.Invoice.AddInvoice;
@@ -48,6 +49,7 @@ public class CartFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private AppCompatButton appCompatButton;
     public static CartAdapter cartAdapter;
+    public static CartAdapter invAdapter;
 
     public CartFragment() {
         // Required empty public constructor
@@ -96,13 +98,7 @@ public class CartFragment extends Fragment {
         tongtien.setText(String.valueOf(tien)+ " VNĐ");
 
         btnInv = view.findViewById(R.id.btn_cart_dathang);
-        Intent intent = new Intent(getContext(), AddInvoice.class);
-        btnInv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getContext().startActivity(intent);
-            }
-        });
+
         mRecyclerView = view.findViewById(R.id.rcv_cart);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -112,5 +108,17 @@ public class CartFragment extends Fragment {
         cartAdapter = new CartAdapter(getContext(), cart);
 
         mRecyclerView.setAdapter(cartAdapter);
+
+        Intent intent = new Intent(getContext(), AddInvoice.class);
+        btnInv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(cart.size() == 0){
+                    Toast.makeText(getContext(), "Giỏ hàng không được trống", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                getContext().startActivity(intent);
+            }
+        });
     }
 }

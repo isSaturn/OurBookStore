@@ -52,8 +52,9 @@ public class AddInvoice extends AppCompatActivity {
     private RecyclerView rcvInvoiceitem;
     private String slcMagiamgia;
     private String slcHinhthucgiaohang;
-    private Integer mTotal;
-    private List<Book> mBooks;
+
+    private CartAdapter invAdapter;
+    private List<Book> mInvoices;
     ImageView imgReturn;
     Button btnDathang;
     EditText etHoten, etSDT, etDiachi;
@@ -88,8 +89,12 @@ public class AddInvoice extends AppCompatActivity {
         RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(AddInvoice.this, DividerItemDecoration.VERTICAL);
         rcvInvoiceitem.addItemDecoration(itemDecoration);
 
-        CartFragment.cartAdapter = new CartAdapter(AddInvoice.this,CartFragment.cart);
-        rcvInvoiceitem.setAdapter(CartFragment.cartAdapter);
+
+        invAdapter = CartFragment.cartAdapter;
+        mInvoices = CartFragment.cart;
+
+        invAdapter = new CartAdapter(AddInvoice.this,mInvoices);
+        rcvInvoiceitem.setAdapter(invAdapter);
 
         matching();
         idTrangthaidonhang.add("1");
@@ -193,6 +198,21 @@ public class AddInvoice extends AppCompatActivity {
             }
         });
 
+        DatabaseReference invRef = FirebaseDatabase.getInstance().getReference("DonHang");
+        invRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    i = snapshot.getChildrenCount();
+                    return;
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+
         btnDathang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -209,20 +229,7 @@ public class AddInvoice extends AppCompatActivity {
             }
 
             private void ConfirmOrder() {
-                DatabaseReference invRef = FirebaseDatabase.getInstance().getReference("DonHang");
-                invRef.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if(snapshot.exists()){
-                            i = snapshot.getChildrenCount();
-                            return;
-                        }
-                    }
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        Log.w(TAG, "Failed to read value.", error.toException());
-                    }
-                });
+
                 //ma don hang
                 NumberFormat nf = new DecimalFormat("0000");
                 String num = nf.format(i);
@@ -261,13 +268,7 @@ public class AddInvoice extends AppCompatActivity {
                 String tongtien = tvTongcong.getText().toString().trim();
 
                 String item = tvTongcong.getText().toString().trim();
-                invRef.child(String.valueOf(i)).setValue(time);
-                invRef.child(String.valueOf(i)).setValue(idTrangthaiDH);
-                invRef.child(String.valueOf(i)).setValue(idTaiKhoan);
-                invRef.child(String.valueOf(i)).setValue(idKhuyenmai);
-                invRef.child(String.valueOf(i)).setValue(maDonhang);
-                invRef.child(String.valueOf(i)).setValue(idHinhthucGH);
-                invRef.child(String.valueOf(i)).setValue(item);
+
                 Oder invoice = new Oder(diachi, hoten, idHinhthucGH, idKhuyenmai, idTaiKhoan, idTrangthaiDH, maDonhang, sdt, time, tongtien, item);
                 invRef.child(String.valueOf(i)).setValue(invoice);
 
