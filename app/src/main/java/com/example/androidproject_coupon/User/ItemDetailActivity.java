@@ -82,7 +82,7 @@ public class ItemDetailActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 HashMap<String, Object> hashMap = (HashMap<String, Object>) snapshot.getValue();
-                theloai.setText(" Thể loại: " + hashMap.get("Loai_Sach").toString());
+                theloai.setText("Thể loại: " + hashMap.get("Loai_Sach").toString());
             }
 
             @Override

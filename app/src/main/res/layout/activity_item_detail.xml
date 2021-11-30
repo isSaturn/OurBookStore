@@ -84,10 +84,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
+        android:layout_marginLeft="25dp"
         android:text="Mã sách: ..."
         android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.064"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
@@ -97,9 +96,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="11dp"
         android:text="Tác giả: ..."
+        android:layout_marginLeft="25dp"
         android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.063"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_itemdetail_masach" />
 
@@ -110,9 +108,8 @@
         android:layout_marginTop="11dp"
         android:text="Thể loại: ..."
         android:textAlignment="center"
+        android:layout_marginLeft="25dp"
         android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.064"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_itemdetail_tacgia" />
 
