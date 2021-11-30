@@ -73,7 +73,7 @@ public class ItemDetailActivity extends AppCompatActivity {
         masach.setText("Mã sách: " + upload.getMa_Sach());
         name.setText(Ten_Sach);
         tacgia.setText("Tác giả: " + upload.getTac_Gia());
-        mota.setText("Mô tả: " + upload.getMo_Ta());
+        mota.setText(Mo_Ta);
         price.setText("Giá tiền: " + upload.getGia() + " vnđ");
 
         //Lấy Id nhóm sách thành chữ
@@ -82,7 +82,7 @@ public class ItemDetailActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 HashMap<String, Object> hashMap = (HashMap<String, Object>) snapshot.getValue();
-                theloai.setText(hashMap.get("Loai_Sach").toString());
+                theloai.setText("Thể loại: "+hashMap.get("Loai_Sach").toString());
             }
 
             @Override
