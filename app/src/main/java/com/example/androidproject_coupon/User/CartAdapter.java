@@ -16,9 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidproject_coupon.BookManagement.Book;
 import com.example.androidproject_coupon.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -50,6 +47,21 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 .fit()
                 .centerCrop()
                 .into(holder.imageView);
+        holder.delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CartFragment.cart.remove(uploadCurrent);
+                CartFragment.cartAdapter.notifyDataSetChanged();
+            }
+        });
+    }
+
+    private void onClickDetail(Book uploadCurrent) {
+        Intent intent = new Intent(mContext, CartFragment.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("detail_sach", uploadCurrent);
+        intent.putExtras(bundle);
+        mContext.startActivity(intent);
     }
 
     @Override
@@ -59,7 +71,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
     public class CartViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView textViewTenSach, textViewGiaTien;
+//        private Button layout;
+        public TextView textViewTenSach, textViewGiaTien, masach, tacgia, theloai, mota;
         public ImageView imageView, delete;
 
         public CartViewHolder(@NonNull View itemView) {
@@ -69,6 +82,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             textViewGiaTien = itemView.findViewById(R.id.tv_cart_giatien);
             imageView = itemView.findViewById(R.id.img_cart_book);
             delete = itemView.findViewById(R.id.img_cart_delete);
+//            masach = itemView.findViewById(R.id.tv_itemdetail_masach);
+//            tacgia = itemView.findViewById(R.id.tv_itemdetail_tacgia);
+//            theloai = itemView.findViewById(R.id.tv_itemdetail_theloai);
+//            mota = itemView.findViewById(R.id.tv_itemdetail_mota);
+//            layout = itemView.findViewById(R.id.btn_itemdetail_add);
         }
     }
 }

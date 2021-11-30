@@ -1,23 +1,29 @@
 package com.example.androidproject_coupon.OrderManagement;
 
-import java.io.Serializable;
+public class Oderdetails {
+    private String Dia_Chi;
+    private String Ho_Ten;
+    private String ID_Hinh_Thuc_GH;
+    private String ID_Khuyen_Mai;
+    private String ID_Sach;
+    private String ID_Tai_Khoan;
+    private String ID_Trang_Thai_DH;
+    private String  Ma_Don_Hang;
+    private String SDT;
+    private String Time;
+    private String Tong_Tien;
+    private String Anh;
 
-public class Oder implements Serializable {
-    private String Dia_Chi, Ho_Ten,ID_Hinh_Thuc_GH ,ID_Khuyen_Mai,ID_Tai_Khoan,ID_Trang_Thai_DH,Ma_Don_Hang,SDT,Time,Tong_Tien, Item;
+    public String getAnh() {
+        return Anh;
+    }
 
+    public void setAnh(String anh) {
+        Anh = anh;
+    }
 
-    public Oder(String dia_Chi, String ho_Ten, String ID_Hinh_Thuc_GH, String ID_Khuyen_Mai, String ID_Tai_Khoan, String ID_Trang_Thai_DH, String ma_Don_Hang, String SDT, String time, String tong_Tien, String Item) {
-        this.Dia_Chi = dia_Chi;
-        this.Ho_Ten = ho_Ten;
-        this.ID_Hinh_Thuc_GH = ID_Hinh_Thuc_GH;
-        this.ID_Khuyen_Mai = ID_Khuyen_Mai;
-        this.ID_Tai_Khoan = ID_Tai_Khoan;
-        this.ID_Trang_Thai_DH = ID_Trang_Thai_DH;
-        this.Ma_Don_Hang = ma_Don_Hang;
-        this.SDT = SDT;
-        this.Time = time;
-        this.Tong_Tien = tong_Tien;
-        this.Item = Item;
+    public Oderdetails(String anh) {
+        Anh = anh;
     }
 
     public String getDia_Chi() {
@@ -50,6 +56,14 @@ public class Oder implements Serializable {
 
     public void setID_Khuyen_Mai(String ID_Khuyen_Mai) {
         this.ID_Khuyen_Mai = ID_Khuyen_Mai;
+    }
+
+    public String getID_Sach() {
+        return ID_Sach;
+    }
+
+    public void setID_Sach(String ID_Sach) {
+        this.ID_Sach = ID_Sach;
     }
 
     public String getID_Tai_Khoan() {
@@ -100,11 +114,20 @@ public class Oder implements Serializable {
         Tong_Tien = tong_Tien;
     }
 
-    public String getItem() {
-        return Item;
+    public Oderdetails(String dia_Chi, String ho_Ten, String ID_Hinh_Thuc_GH, String ID_Khuyen_Mai, String ID_Sach, String ID_Tai_Khoan, String ID_Trang_Thai_DH, String ma_Don_Hang, String SDT, String time, String tong_Tien) {
+        Dia_Chi = dia_Chi;
+        Ho_Ten = ho_Ten;
+        this.ID_Hinh_Thuc_GH = ID_Hinh_Thuc_GH;
+        this.ID_Khuyen_Mai = ID_Khuyen_Mai;
+        this.ID_Sach = ID_Sach;
+        this.ID_Tai_Khoan = ID_Tai_Khoan;
+        this.ID_Trang_Thai_DH = ID_Trang_Thai_DH;
+        Ma_Don_Hang = ma_Don_Hang;
+        this.SDT = SDT;
+        Time = time;
+        Tong_Tien = tong_Tien;
+
+
     }
 
-    public void setItem(String Item) {
-        Item = Item;
-    }
 }

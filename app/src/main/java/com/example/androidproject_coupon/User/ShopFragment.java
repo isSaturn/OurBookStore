@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.example.androidproject_coupon.BookManagement.Book;
@@ -24,6 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,6 +45,7 @@ public class ShopFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
     private UserAdapter mAdapter;
+    private SearchView searchView;
 
     private DatabaseReference mDatabaseReference;
     private List<Book> mBooks;
@@ -90,6 +93,8 @@ public class ShopFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        searchView = view.findViewById(R.id.searchview_user);
+
         CartFragment.cartAdapter = new CartAdapter(getContext(),CartFragment.cart);
 
         mRecyclerView = view.findViewById(R.id.rcv_shop_user);
@@ -131,5 +136,28 @@ public class ShopFragment extends Fragment {
                 Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                search(newText);
+                return true;
+            }
+        });
+    }
+    private void search(String str) {
+        List<Book> mList = new ArrayList<>();
+        for (Book object: mBooks){
+            if (object.getTen_Sach().toLowerCase().contains(str.toLowerCase())){
+                mList.add(object);
+            }
+        }
+        UserAdapter newApter = new UserAdapter(getContext(), mList);
+        mRecyclerView.setAdapter(newApter);
     }
 }
