@@ -13,13 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.androidproject_coupon.CouponManagement.AddCoupon;
-import com.example.androidproject_coupon.CouponManagement.EditCoupon;
 import com.example.androidproject_coupon.InvoiceManagement.Invoice.ViewInvoice;
 import com.example.androidproject_coupon.OrderManagement.Oder;
 import com.example.androidproject_coupon.OrderManagement.OderAdapter;
@@ -46,6 +41,7 @@ public class InvoiceFragment extends Fragment {
 
     private DatabaseReference invRef;
     private List<Oder> invList;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -95,7 +91,6 @@ public class InvoiceFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         rcvInvoiceList = view.findViewById(R.id.inv_rv_danhsach);
         rcvInvoiceList.setHasFixedSize(true);
         rcvInvoiceList.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -120,10 +115,28 @@ public class InvoiceFragment extends Fragment {
                     String sdt = dataSnapshot.child("sdt").getValue().toString().trim();
                     String time = dataSnapshot.child("time").getValue().toString().trim();
                     String tongtien = dataSnapshot.child("tong_Tien").getValue().toString().trim();
-                    invList.add(new Oder(diachi, hoten,  idHinhthucGH,  idKhuyenmai,  idTaiKhoan,  idTrangthaiDH,  maDonhang,  sdt,  time,  tongtien));
+                    String item = dataSnapshot.child("item").getValue().toString().trim();
+                    invList.add(new Oder(diachi, hoten,  idHinhthucGH,  idKhuyenmai,  idTaiKhoan,  idTrangthaiDH,  maDonhang,  sdt,  time,  tongtien, item));
                 }
                 mInvoiceInfoAdapter = new OderAdapter(getContext(), R.layout.item_oder, invList);
                 rcvInvoiceList.setAdapter(mInvoiceInfoAdapter);
+//                rcvInvoiceList.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        Intent intent = new Intent ( getContext(), ViewInvoice.class);
+//                        intent.putExtra( "dia_Chi", invList.get(position).getDia_Chi());
+//                        intent.putExtra( "ho_Ten", invList.get(position).getHo_Ten());
+//                        intent.putExtra( "id_Hinh_Thuc_GH", invList.get(position).getID_Hinh_Thuc_GH());
+//                        intent.putExtra( "id_Khuyen_Mai", invList.get(position).getID_Khuyen_Mai());
+//                        intent.putExtra( "id_Tai_Khoan", invList.get(position).getID_Tai_Khoan());
+//                        intent.putExtra( "id_Trang_Thai_DH", invList.get(position).getID_Trang_Thai_DH());
+//                        intent.putExtra( "ma_Don_Hang", invList.get(position).getMa_Don_Hang());
+//                        intent.putExtra( "sdt", invList.get(position).getSDT());
+//                        intent.putExtra( "time", invList.get(position).getTime());
+//                        intent.putExtra( "tong_Tien", invList.get(position).getTong_Tien());
+//                        intent.putExtra( "item", invList.get(position).getItem());
+//                    }
+//                });
             }
 
             @Override

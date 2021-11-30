@@ -114,7 +114,8 @@ public class OrderFragment extends Fragment {
                     String hinhthuc = data.child("id_Hinh_Thuc_GH").getValue().toString();
                     String khuyenmai = data.child("id_Khuyen_Mai").getValue().toString();
                     String taikhoan = data.child("id_Tai_Khoan").getValue().toString();
-                    mUploads.add(new Oder(address,name,hinhthuc,khuyenmai,taikhoan,status,code,phone,time,price));
+                    String item = data.child("item").getValue().toString();
+                    mUploads.add(new Oder(address,name,hinhthuc,khuyenmai,taikhoan,status,code,phone,time,price,item));
                 }
                 mAdapter = new OderAdapter(getContext(), R.layout.item_oder, mUploads);
                 mRecyclerView.setAdapter(mAdapter);
