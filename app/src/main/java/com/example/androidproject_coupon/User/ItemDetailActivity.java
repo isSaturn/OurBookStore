@@ -68,13 +68,13 @@ public class ItemDetailActivity extends AppCompatActivity {
         Anh = upload.getAnh();
         ID_Nhom_Sach = upload.getID_Nhom_Sach();
 
-        //Hiển thị thông tin sản phẩm lên app
+        //Hiển thị thông tin sản phẩm lên app.
 
         masach.setText("Mã sách: " + upload.getMa_Sach());
         name.setText(Ten_Sach);
         tacgia.setText("Tác giả: " + upload.getTac_Gia());
-        mota.setText(Mo_Ta);
-        price.setText("Giá tiền: " + upload.getGia() + " vnđ");
+        mota.setText(upload.getMo_Ta());
+        price.setText("Giá tiền: " + upload.getGia() + " VNĐ");
 
         //Lấy Id nhóm sách thành chữ
         DatabaseReference nhomSach = database.getReference("NhomSach");
@@ -82,7 +82,7 @@ public class ItemDetailActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 HashMap<String, Object> hashMap = (HashMap<String, Object>) snapshot.getValue();
-                theloai.setText("Thể loại: "+hashMap.get("Loai_Sach").toString());
+                theloai.setText(" Thể loại: " + hashMap.get("Loai_Sach").toString());
             }
 
             @Override
@@ -101,7 +101,6 @@ public class ItemDetailActivity extends AppCompatActivity {
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("Sach");
 
         addtocart.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
                 String sid_sach = ID_Sach.toString().trim();
@@ -115,11 +114,6 @@ public class ItemDetailActivity extends AppCompatActivity {
                 String sid_nhom_sach = ID_Nhom_Sach.toString().trim();
 
                 CartFragment.cart.add(new Book(sid_sach, sma_sach, sten_sach, stac_gia, smo_ta, sgia, sso_luong, sanh, sid_nhom_sach));
-                Integer giasach = Integer.parseUnsignedInt(sgia);
-                CartFragment.tien += giasach;
-                if (CartFragment.tongtien != null) {
-                    CartFragment.tongtien.setText(String.valueOf(CartFragment.tien));
-                }
                 CartFragment.cartAdapter.notifyDataSetChanged();
                 Toast.makeText(ItemDetailActivity.this, "Đã thêm sản phẩm vào giỏ hàng", Toast.LENGTH_SHORT).show();
             }

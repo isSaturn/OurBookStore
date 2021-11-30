@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.androidproject_coupon.InvoiceManagement.Invoice.InvoiceAdapter;
 import com.example.androidproject_coupon.InvoiceManagement.Invoice.ViewInvoice;
 import com.example.androidproject_coupon.OrderManagement.Oder;
 import com.example.androidproject_coupon.OrderManagement.OderAdapter;
@@ -36,7 +37,7 @@ import java.util.List;
 public class InvoiceFragment extends Fragment {
 
 
-    private OderAdapter mInvoiceInfoAdapter;
+    private InvoiceAdapter mInvoiceInfoAdapter;
     private RecyclerView rcvInvoiceList;
 
     private DatabaseReference invRef;
@@ -118,25 +119,8 @@ public class InvoiceFragment extends Fragment {
                     String item = dataSnapshot.child("item").getValue().toString().trim();
                     invList.add(new Oder(diachi, hoten,  idHinhthucGH,  idKhuyenmai,  idTaiKhoan,  idTrangthaiDH,  maDonhang,  sdt,  time,  tongtien, item));
                 }
-                mInvoiceInfoAdapter = new OderAdapter(getContext(), R.layout.item_oder, invList);
+                mInvoiceInfoAdapter = new InvoiceAdapter(getContext(), invList);
                 rcvInvoiceList.setAdapter(mInvoiceInfoAdapter);
-//                rcvInvoiceList.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        Intent intent = new Intent ( getContext(), ViewInvoice.class);
-//                        intent.putExtra( "dia_Chi", invList.get(position).getDia_Chi());
-//                        intent.putExtra( "ho_Ten", invList.get(position).getHo_Ten());
-//                        intent.putExtra( "id_Hinh_Thuc_GH", invList.get(position).getID_Hinh_Thuc_GH());
-//                        intent.putExtra( "id_Khuyen_Mai", invList.get(position).getID_Khuyen_Mai());
-//                        intent.putExtra( "id_Tai_Khoan", invList.get(position).getID_Tai_Khoan());
-//                        intent.putExtra( "id_Trang_Thai_DH", invList.get(position).getID_Trang_Thai_DH());
-//                        intent.putExtra( "ma_Don_Hang", invList.get(position).getMa_Don_Hang());
-//                        intent.putExtra( "sdt", invList.get(position).getSDT());
-//                        intent.putExtra( "time", invList.get(position).getTime());
-//                        intent.putExtra( "tong_Tien", invList.get(position).getTong_Tien());
-//                        intent.putExtra( "item", invList.get(position).getItem());
-//                    }
-//                });
             }
 
             @Override
