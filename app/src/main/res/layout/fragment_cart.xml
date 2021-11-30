@@ -5,19 +5,34 @@
     android:layout_height="match_parent"
     tools:context=".User.CartFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcv_cart"
+    <ScrollView
+        android:id="@+id/scroll"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/textView17"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="5dp" />
+        android:layout_marginTop="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcv_cart"
+                android:layout_width="match_parent"
+                android:layout_height="440dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="5dp">
+
+            </androidx.recyclerview.widget.RecyclerView>
+        </LinearLayout>
+    </ScrollView>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/rcv_cart">
+        android:layout_below="@+id/scroll">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -34,21 +49,22 @@
                     android:id="@+id/tv_11111"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Thành tiền: "
                     android:layout_marginLeft="20dp"
+                    android:text="Thành tiền: "
+                    android:layout_marginTop="10dp"
                     android:textColor="@color/black"
-                    android:textSize="20sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tv_cart_tongtien"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="10dp"
                     android:layout_weight="1"
                     android:text=""
                     android:textColor="@color/black"
-                    android:textSize="20sp"
+                    android:textSize="16sp"
                     android:textStyle="normal" />
             </LinearLayout>
 
@@ -57,7 +73,7 @@
                 android:layout_width="128dp"
                 android:layout_height="48dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="6dp"
                 android:background="@drawable/button_addcart"
                 android:text="Place to order"
                 android:textAllCaps="false"
