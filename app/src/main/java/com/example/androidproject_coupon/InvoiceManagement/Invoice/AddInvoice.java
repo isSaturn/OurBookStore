@@ -34,6 +34,8 @@ import com.example.androidproject_coupon.R;
 import com.example.androidproject_coupon.User.CartAdapter;
 import com.example.androidproject_coupon.User.CartFragment;
 import com.example.androidproject_coupon.User.MainActivity_User;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -45,16 +47,20 @@ import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class AddInvoice extends AppCompatActivity {
 
     private RecyclerView rcvInvoiceitem;
     private String slcMagiamgia;
     private String slcHinhthucgiaohang;
-
     private CartAdapter invAdapter;
     private List<Book> mInvoices;
+//    private ArrayList<Item> itemList;
+    private ArrayList<Book> itemList;
+    private String idItem;
     ImageView imgReturn;
     Button btnDathang;
     EditText etHoten, etSDT, etDiachi;
@@ -70,8 +76,6 @@ public class AddInvoice extends AppCompatActivity {
     ArrayList<String> idMagiamgia = new ArrayList<>();
     ArrayList<Integer> idHinhthucgiaohang = new ArrayList<>();
     ArrayList<String> idTrangthaidonhang = new ArrayList<>();
-    ArrayList<Integer> idSach = new ArrayList<>();
-
 
     String TAG="FIREBASE";
     GetIDandRole getIDandRole = new GetIDandRole();
@@ -95,6 +99,9 @@ public class AddInvoice extends AppCompatActivity {
 
         invAdapter = new CartAdapter(AddInvoice.this,mInvoices);
         rcvInvoiceitem.setAdapter(invAdapter);
+
+        itemList = new ArrayList<>();
+
 
         matching();
         idTrangthaidonhang.add("1");
@@ -153,10 +160,10 @@ public class AddInvoice extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 slcHinhthucgiaohang = idHinhthucgiaohang.get(i).toString();
                 if(idHinhthucgiaohang.get(i) == 1){
-                    tvHinhthucgiaohang.setText("20.000VNĐ");
+                    tvHinhthucgiaohang.setText("25.000VNĐ");
                     tvHinhthucgiaohang.setEnabled(false);
                 }else if(idHinhthucgiaohang.get(i) == 0){
-                    tvHinhthucgiaohang.setText("10.000VNĐ");
+                    tvHinhthucgiaohang.setText("25.000VNĐ");
                     tvHinhthucgiaohang.setEnabled(false);
                 } else{
                     tvHinhthucgiaohang.setText("");
@@ -183,20 +190,20 @@ public class AddInvoice extends AppCompatActivity {
             }
         });
 
-        DatabaseReference itemRef = database.getReference("Sach");
-        itemRef.addValueEventListener(new ValueEventListener() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot data: snapshot.getChildren()){
-                    idSach.add(Integer.parseUnsignedInt(data.getKey()));
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+        //madonhang
+        NumberFormat nf = new DecimalFormat("0000");
+        String num = nf.format(i);
+        final String saveCurrentIDDate;
+        Calendar calendarIDDate = Calendar.getInstance();
+        SimpleDateFormat idDate = new SimpleDateFormat("yyMMdd");
+        saveCurrentIDDate = idDate.format(calendarIDDate.getTime());
+        String saveIDDate = saveCurrentIDDate.trim();
 
-            }
-        });
+        //time
+        final String saveCurrentDate;
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat currentDate = new SimpleDateFormat("yyyy/MM/dd");
+        saveCurrentDate = currentDate.format(calendar.getTime());
 
         DatabaseReference invRef = FirebaseDatabase.getInstance().getReference("DonHang");
         invRef.addValueEventListener(new ValueEventListener() {
@@ -212,6 +219,14 @@ public class AddInvoice extends AppCompatActivity {
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
+
+        tvTamtinh.setText(String.valueOf(CartFragment.tien)+ " VNĐ");
+        tvPhivanchuyen.setText("25000 VNĐ");
+//        tvTongcong
+
+
+
+
 
         btnDathang.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -230,49 +245,27 @@ public class AddInvoice extends AppCompatActivity {
 
             private void ConfirmOrder() {
 
-                //ma don hang
-                NumberFormat nf = new DecimalFormat("0000");
-                String num = nf.format(i);
-                final String saveCurrentIDDate;
-                Calendar calendarIDDate = Calendar.getInstance();
-                SimpleDateFormat idDate = new SimpleDateFormat("yyMMdd");
-                saveCurrentIDDate = idDate.format(calendarIDDate.getTime());
-                String saveIDDate = saveCurrentIDDate.trim();
-                String maDonhang = saveIDDate+"SACH"+num;
 
+                String timestamp = ""+System.currentTimeMillis();
+
+                String maDonhang = saveIDDate+"SACH"+num;
                 String diachi = etDiachi.getText().toString().trim();
                 String hoten = etHoten.getText().toString().trim();
                 String sdt = etSDT.getText().toString().trim();
-
-                //hinhthucgh
                 String idHinhthucGH = slcHinhthucgiaohang.trim();
-
-
-                //makhuyenmai
                 String idKhuyenmai = slcMagiamgia.trim();
-
-                //taikhoan
                 String idTaiKhoan = getIDandRole.id;
-
-                //id trang thai
                 String idTrangthaiDH = "1";
-
-                //time
-                final String saveCurrentDate;
-                Calendar calendar = Calendar.getInstance();
-                SimpleDateFormat currentDate = new SimpleDateFormat("yyyy/MM/dd");
-                saveCurrentDate = currentDate.format(calendar.getTime());
                 String time = saveCurrentDate.trim();
-
                 //tong tien chưa fix
                 String tongtien = tvTongcong.getText().toString().trim();
 
-                String item = tvTongcong.getText().toString().trim();
+                Oder invoice = new Oder(diachi, hoten, idHinhthucGH, idKhuyenmai, idTaiKhoan, idTrangthaiDH, maDonhang, sdt, time, tongtien);
+                invRef.child(String.valueOf(i+1)).setValue(invoice);
 
-                Oder invoice = new Oder(diachi, hoten, idHinhthucGH, idKhuyenmai, idTaiKhoan, idTrangthaiDH, maDonhang, sdt, time, tongtien, item);
-                invRef.child(String.valueOf(i)).setValue(invoice);
+                invRef.child(String.valueOf(i+1)).child("item").setValue(CartFragment.cart);
 
-                Toast.makeText(getApplicationContext(),"Thêm đơn hàng thành công", Toast.LENGTH_LONG).show();
+
             }
         });
     }
