@@ -8,8 +8,8 @@
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager2_user"
-        android:layout_width="410dp"
-        android:layout_height="666dp"
+        android:layout_width="match_parent"
+        android:layout_height="669dp"
         android:textAllCaps="false"
         app:layout_constraintBottom_toTopOf="@+id/tab_layout_user"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,16 +20,16 @@
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout_user"
-        android:layout_width="408dp"
-        android:layout_height="58dp"
-        android:layout_marginBottom="1dp"
-        android:textAllCaps="false"
+        android:layout_width="match_parent"
+        android:layout_height="59dp"
+        android:backgroundTint="#0984e3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:tabIndicatorColor="@color/textColor"
-        app:tabSelectedTextColor="@color/textColor"
+        app:tabBackground="@drawable/tab_color"
         app:tabTextAppearance="@style/tab_text"
+        app:tabTextColor="@color/white"
+        app:tabIconTint="@color/white"
         tools:ignore="SpeakableTextPresentCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
