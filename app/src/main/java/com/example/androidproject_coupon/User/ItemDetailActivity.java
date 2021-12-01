@@ -127,7 +127,7 @@ public class ItemDetailActivity extends AppCompatActivity {
             }
         });
     }
-
+//
     private void matching() {
         img = findViewById(R.id.img_itemdetail_book);
         name = findViewById(R.id.tv_itemdetail_name);
