@@ -64,7 +64,7 @@ public class AddInvoice extends AppCompatActivity {
     ImageView imgReturn;
     Button btnDathang;
     EditText etHoten, etSDT, etDiachi;
-    TextView tvHinhthucgiaohang, tvTamtinh, tvPhivanchuyen, tvTongcong;
+    TextView tvHinhthucgiaohang, tvTamtinh, tvTongcong, tvDieukien;
     CheckBox cbShipCOD;
     RecyclerView rvListitem;
     AutoCompleteTextView autotvMagiamgia;
@@ -74,6 +74,10 @@ public class AddInvoice extends AppCompatActivity {
     ArrayList<String> arrayMagiamgia = new ArrayList<>();
     ArrayList<String> arrayHinhthucgiaohang = new ArrayList<>();
     ArrayList<String> idMagiamgia = new ArrayList<>();
+    ArrayList<String> valueCpn = new ArrayList<>();
+    ArrayList<String> idType = new ArrayList<>();
+
+    ArrayList<String> valueConditionCpn = new ArrayList<>();
     ArrayList<Integer> idHinhthucgiaohang = new ArrayList<>();
     ArrayList<String> idTrangthaidonhang = new ArrayList<>();
 
@@ -122,6 +126,9 @@ public class AddInvoice extends AppCompatActivity {
                     String value = data.child("name").getValue().toString()+ " - " + data.child("code").getValue().toString();
                     arrayMagiamgia.add(value);
                     idMagiamgia.add(data.child("code").getValue().toString());
+                    idType.add(data.child("idType").getValue().toString());
+                    valueCpn.add(data.child("value").getValue().toString());
+                    valueConditionCpn.add(data.child("valueCondition").getValue().toString());
                 }
             }
             @Override
@@ -131,9 +138,26 @@ public class AddInvoice extends AppCompatActivity {
         });
         autotvMagiamgia.setAdapter(arrayAdapterMagiamgia);
         autotvMagiamgia.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 slcMagiamgia = idMagiamgia.get(position);
+                if(idType.get(position).equals("1")){
+                    tvDieukien.setText("Giảm "+valueCpn.get(position)+" VNĐ cho đơn hàng từ "+valueConditionCpn.get(position)+" VNĐ");
+                    tvDieukien.setEnabled(false);
+                    tvSelectCpn(idType.get(position),valueCpn.get(position),valueConditionCpn.get(position));
+
+                }else if(idType.get(position).equals("2")){
+                    tvDieukien.setText("Giảm "+valueCpn.get(position)+" % cho đơn hàng từ "+valueConditionCpn.get(position)+" VNĐ");
+                    tvDieukien.setEnabled(false);
+                    tvSelectCpn(idType.get(position),valueCpn.get(position),valueConditionCpn.get(position));
+
+                }
+                else if(idType.get(position).equals("3")){
+                    tvDieukien.setText("Miễn phí vận chuyển cho đơn hàng từ "+valueConditionCpn.get(position)+" VNĐ");
+                    tvDieukien.setEnabled(false);
+                    tvSelectCpn(idType.get(position),valueCpn.get(position),valueConditionCpn.get(position));
+                }
             }
         });
         arrayAdapterHinhthucgiaohang = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item,arrayHinhthucgiaohang);
@@ -161,10 +185,8 @@ public class AddInvoice extends AppCompatActivity {
                 slcHinhthucgiaohang = idHinhthucgiaohang.get(i).toString();
                 if(idHinhthucgiaohang.get(i) == 1){
                     tvHinhthucgiaohang.setText("25.000VNĐ");
-                    tvHinhthucgiaohang.setEnabled(false);
                 }else if(idHinhthucgiaohang.get(i) == 0){
                     tvHinhthucgiaohang.setText("25.000VNĐ");
-                    tvHinhthucgiaohang.setEnabled(false);
                 } else{
                     tvHinhthucgiaohang.setText("");
                     tvHinhthucgiaohang.setEnabled(true);
@@ -220,12 +242,8 @@ public class AddInvoice extends AppCompatActivity {
             }
         });
 
-        tvTamtinh.setText(String.valueOf(CartFragment.tien)+ " VNĐ");
-        tvPhivanchuyen.setText("25000 VNĐ");
-//        tvTongcong
-
-
-
+        tvTamtinh.setText(String.valueOf(CartFragment.tien));
+//
 
 
         btnDathang.setOnClickListener(new View.OnClickListener() {
@@ -245,9 +263,6 @@ public class AddInvoice extends AppCompatActivity {
 
             private void ConfirmOrder() {
 
-
-                String timestamp = ""+System.currentTimeMillis();
-
                 String maDonhang = saveIDDate+"SACH"+num;
                 String diachi = etDiachi.getText().toString().trim();
                 String hoten = etHoten.getText().toString().trim();
@@ -264,11 +279,36 @@ public class AddInvoice extends AppCompatActivity {
                 invRef.child(String.valueOf(i+1)).setValue(invoice);
 
                 invRef.child(String.valueOf(i+1)).child("item").setValue(CartFragment.cart);
-
-
+                Toast.makeText(AddInvoice.this, "Thêm đơn hàng thành công", Toast.LENGTH_SHORT).show();
             }
         });
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void tvSelectCpn(String idType, String valueCpn, String valueConditionCpn) {
+        Integer valueCondition = Integer.parseInt(valueConditionCpn);
+        Integer value = Integer.parseInt(valueCpn);
+        Integer total = Integer.parseUnsignedInt(tvTamtinh.getText().toString());
+        Integer result = 0;
+        if(idType.equals("1")||idType.equals("3")){
+            if(total<valueCondition){
+                Toast.makeText(AddInvoice.this, "Đơn hàng không đủ điều kiện áp dụng mã khuyến mãi", Toast.LENGTH_SHORT).show();
+                tvTongcong.setText(total.toString());
+                return;
+            }
+            result = total-value;
+            tvTongcong.setText(result.toString());
+        }else{
+            if (total<valueCondition){
+                Toast.makeText(AddInvoice.this, "Đơn hàng không đủ điều kiện áp dụng mã khuyến mãi", Toast.LENGTH_SHORT).show();
+                tvTongcong.setText(total.toString());
+                return;
+            }
+            result = total*(value/100);
+            tvTongcong.setText(result.toString());
+        }
+    }
+
 
     private void matching() {
         rcvInvoiceitem = (RecyclerView) findViewById(R.id.inv_rv_item);
@@ -280,10 +320,10 @@ public class AddInvoice extends AppCompatActivity {
         tvHinhthucgiaohang = (TextView) findViewById(R.id.inv_tv_giaohangnhanh_gia);
         spHinhthucgiaohang = (Spinner) findViewById(R.id.inv_sp_hinhthucgiaohang);
         tvTamtinh = (TextView) findViewById(R.id.inv_tv_tamtinh_gia);
-        tvPhivanchuyen = (TextView) findViewById(R.id.inv_tv_phivanchuyen_gia);
         tvTongcong = (TextView) findViewById(R.id.inv_tv_tongcong_gia);
         rvListitem = (RecyclerView) findViewById(R.id.inv_rv_item);
         autotvMagiamgia = (AutoCompleteTextView) findViewById(R.id.inv_tv_magiamgia_list);
         imgReturn = (ImageView) findViewById(R.id.inv_img_return);
+        tvDieukien = (TextView) findViewById(R.id.inv_tv_dieukiengiamgia);
     }
 }

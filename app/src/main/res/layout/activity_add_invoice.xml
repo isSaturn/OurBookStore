@@ -47,17 +47,6 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
-            android:id="@+id/inv_tv_phivanchuyen_gia"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="136dp"
-            android:text="TextView"
-            app:layout_constraintBottom_toBottomOf="@+id/inv_tv_phivanchuyen"
-            app:layout_constraintStart_toEndOf="@+id/inv_tv_phivanchuyen"
-            app:layout_constraintTop_toTopOf="@+id/inv_tv_phivanchuyen"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <TextView
             android:id="@+id/inv_tv_magiamgia"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -176,7 +165,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.056"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout1" />
+            app:layout_constraintTop_toBottomOf="@+id/inv_tv_dieukiengiamgia" />
 
         <CheckBox
             android:id="@+id/inv_cb_thanhtoantienmat"
@@ -201,17 +190,6 @@
             app:layout_constraintTop_toBottomOf="@+id/inv_cb_thanhtoantienmat" />
 
         <TextView
-            android:id="@+id/inv_tv_phivanchuyen"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="Phí vận chuyển"
-            app:layout_constraintEnd_toEndOf="@+id/inv_tv_tamtinh"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/inv_tv_tamtinh"
-            app:layout_constraintTop_toBottomOf="@+id/inv_tv_tamtinh" />
-
-        <TextView
             android:id="@+id/inv_tv_tamtinh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -225,12 +203,12 @@
             android:id="@+id/inv_tv_tongcong"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="16dp"
             android:text="Tổng cộng"
-            app:layout_constraintEnd_toEndOf="@+id/inv_tv_phivanchuyen"
+            app:layout_constraintEnd_toEndOf="@+id/inv_tv_tamtinh"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/inv_tv_phivanchuyen"
-            app:layout_constraintTop_toBottomOf="@+id/inv_tv_phivanchuyen" />
+            app:layout_constraintStart_toStartOf="@+id/inv_tv_tamtinh"
+            app:layout_constraintTop_toBottomOf="@+id/inv_tv_tamtinh" />
 
         <TextView
             android:id="@+id/inv_tv_inf_hinhthucgiaohang"
@@ -280,6 +258,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/back_icon" />
+
+        <TextView
+            android:id="@+id/inv_tv_dieukiengiamgia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textColor="#FD0000"
+            app:layout_constraintStart_toStartOf="@+id/textInputLayout1"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout1" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
