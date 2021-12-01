@@ -15,5 +15,6 @@
     <color name="green">#26FF00</color>
     <color name="red">#FF0000</color>
     <color name="vang">#FFEB3B</color>
-
+    <color name="selectedColor">#14A9FF</color>
+    <color name="tabColor">#0A94FF</color>
 </resources>
