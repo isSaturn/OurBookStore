@@ -2,14 +2,17 @@ package com.example.androidproject_coupon.User;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -53,6 +56,19 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
                 onClickDetail(uploadCurrent);
             }
         });
+        holder.addtocart.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onClick(View view) {
+                CartFragment.tien += Integer.parseUnsignedInt(uploadCurrent.getGia());
+                if (CartFragment.tongtien != null) {
+                    CartFragment.tongtien.setText(String.valueOf(CartFragment.tien) + " VNĐ");
+                }
+                CartFragment.cart.add(uploadCurrent);
+                CartFragment.cartAdapter.notifyDataSetChanged();
+                Toast.makeText(mContext, "Đã thêm sản phẩm vào giỏ hàng", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void onClickDetail(Book uploadCurrent) {
@@ -72,7 +88,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 
         private ConstraintLayout layout;
         public TextView textViewTenSach, textViewGiaTien;
-        public ImageView imageView;
+        public ImageView imageView, addtocart;
 
         public UserViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -81,6 +97,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             textViewGiaTien = itemView.findViewById(R.id.tv_shop_giasach);
             imageView = itemView.findViewById(R.id.img_shop_sach);
             layout = itemView.findViewById(R.id.layout_item_row);
+            addtocart = itemView.findViewById(R.id.img_shop_addtocart);
         }
     }
 
