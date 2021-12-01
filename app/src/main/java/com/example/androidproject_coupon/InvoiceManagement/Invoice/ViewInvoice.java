@@ -25,6 +25,7 @@ import java.util.HashMap;
 public class ViewInvoice extends AppCompatActivity {
 
     private String Dia_Chi, Ho_Ten,ID_Hinh_Thuc_GH ,ID_Khuyen_Mai,ID_Tai_Khoan,ID_Trang_Thai_DH,Ma_Don_Hang,SDT,Time,Tong_Tien, Item;
+    private String id_Sach, gia_Sach;
 
 
     TextView tvThongtinvanchuyen, tvHoten, tvSDT, tvDiachi, tvMadonhang, tvNgaydathang, tvTongtien;
@@ -54,17 +55,8 @@ public class ViewInvoice extends AppCompatActivity {
         SDT = oder.getSDT();
         Time = oder.getTime();
         Tong_Tien = oder.getTong_Tien();
-        Item = oder.getItem();
         //
 
-        mactching();
-
-        imgReturn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
 
         tvHoten.setText(Ho_Ten);
         tvSDT.setText(SDT);
@@ -85,6 +77,15 @@ public class ViewInvoice extends AppCompatActivity {
         tvMadonhang.setText(Ma_Don_Hang);
         tvNgaydathang.setText(Time);
         tvTongtien.setText("Tổng tiền: "+Tong_Tien+"VNĐ");
+
+        mactching();
+
+        imgReturn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     private void mactching() {
