@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/tab_color"
     tools:context=".User.ItemDetailActivity">
 
     <ImageView
@@ -13,24 +14,142 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:layout_weight="1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/back_icon" />
+        app:srcCompat="@drawable/back_white" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="17dp"
+        android:layout_toRightOf="@id/itemDetail_btn_back"
+        android:text="Thông tin sách"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/linearLayout"
+        android:layout_marginTop="-75dp"
+        android:background="@drawable/custom_box"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout">
+
+        <TextView
+            android:id="@+id/tv_itemdetail_masach"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/intel"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="12dp"
+            android:text="Mã sách: ..."
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_itemdetail_tacgia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_itemdetail_masach"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="11dp"
+            android:text="Tác giả: ..."
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_itemdetail_masach" />
+
+        <TextView
+            android:id="@+id/tv_itemdetail_theloai"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_itemdetail_tacgia"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="11dp"
+            android:text="Thể loại: ..."
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_itemdetail_tacgia" />
+
+
+        <TextView
+            android:id="@+id/intel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="100dp"
+            android:text="@string/title_thongtin"
+            android:textColor="@color/black"
+            android:textSize="17dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/desciption"
+            android:layout_width="44dp"
+            android:layout_height="21dp"
+            android:layout_below="@id/tv_itemdetail_theloai"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:text="@string/title_mota"
+            android:textColor="@color/black"
+            android:textSize="17dp"
+            android:textStyle="bold" />
+
+        <ScrollView
+            android:layout_width="355dp"
+            android:layout_height="314dp"
+            android:layout_below="@id/desciption"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_itemdetail_mota"
+                    android:layout_width="306dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:fontFamily="casual"
+                    android:lineHeight="20dp"
+                    android:text="Mô tả ..."
+                    android:textColor="@color/black"
+                    android:textSize="15dp" />
+            </LinearLayout>
+        </ScrollView>
+
+
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="371dp"
+        android:layout_height="165dp"
+        android:layout_below="@id/itemDetail_btn_back"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/custom_input"
+        android:elevation="25dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
+        android:outlineAmbientShadowColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/itemDetail_btn_back">
 
         <ImageView
             android:id="@+id/img_itemdetail_book"
-            android:layout_width="143dp"
-            android:layout_height="136dp"
-            android:layout_marginTop="52dp"
+            android:layout_width="129dp"
+            android:layout_height="103dp"
             android:src="@drawable/im_details_sach_dacnhantam" />
 
         <LinearLayout
@@ -43,7 +162,6 @@
                 android:layout_width="230dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="52dp"
                 android:text="Tên sách"
                 android:textAlignment="center"
                 android:textColor="#000000"
@@ -79,110 +197,4 @@
         </LinearLayout>
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/tv_itemdetail_masach"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginLeft="25dp"
-        android:text="Mã sách: ..."
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView12" />
-
-    <TextView
-        android:id="@+id/tv_itemdetail_tacgia"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="11dp"
-        android:text="Tác giả: ..."
-        android:layout_marginLeft="25dp"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_itemdetail_masach" />
-
-    <TextView
-        android:id="@+id/tv_itemdetail_theloai"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="11dp"
-        android:text="Thể loại: ..."
-        android:textAlignment="center"
-        android:layout_marginLeft="25dp"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_itemdetail_tacgia" />
-
-    <TextView
-        android:id="@+id/textView12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="@string/title_thongtin"
-        android:textSize="17dp"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
-    <TextView
-        android:id="@+id/textView13"
-        android:layout_width="44dp"
-        android:layout_height="21dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/title_mota"
-        android:textSize="17dp"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_itemdetail_theloai" />
-
-    <ScrollView
-        android:layout_width="325dp"
-        android:layout_height="210dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="1dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.464"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView13">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv_itemdetail_mota"
-                android:layout_width="306dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:fontFamily="@font/raleway"
-                android:lineHeight="20dp"
-                android:text="Mô tả ..."
-                android:textColor="@color/black"
-                android:textSize="15dp" />
-        </LinearLayout>
-    </ScrollView>
-
-    <TextView
-        android:id="@+id/textView15"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="20dp"
-        android:text="Thông tin sách"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/itemDetail_btn_back"
-        app:layout_constraintTop_toTopOf="parent" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
