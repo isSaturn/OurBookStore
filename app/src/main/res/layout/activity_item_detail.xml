@@ -150,6 +150,7 @@
             android:id="@+id/img_itemdetail_book"
             android:layout_width="129dp"
             android:layout_height="103dp"
+            android:layout_marginLeft="10dp"
             android:src="@drawable/im_details_sach_dacnhantam" />
 
         <LinearLayout
@@ -159,7 +160,7 @@
 
             <TextView
                 android:id="@+id/tv_itemdetail_name"
-                android:layout_width="230dp"
+                android:layout_width="182dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="Tên sách"
