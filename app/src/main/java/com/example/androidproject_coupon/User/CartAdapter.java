@@ -58,6 +58,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 CartFragment.tongtien.setText(String.valueOf(CartFragment.tien) + " VNĐ");
                 CartFragment.cart.remove(uploadCurrent);
                 CartFragment.cartAdapter.notifyDataSetChanged();
+                if (CartFragment.cart.size() == 0){
+                    CartFragment.tvEmptyCart.setVisibility(View.VISIBLE);
+                    CartFragment.imgEmptyCart.setVisibility(View.VISIBLE);
+                }
             }
         });
 
@@ -89,6 +93,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             imageView = itemView.findViewById(R.id.img_cart_book);
             delete = itemView.findViewById(R.id.img_cart_delete);
             tongtien = itemView.findViewById(R.id.tv_cart_tongtien);
+
         }
     }
 }

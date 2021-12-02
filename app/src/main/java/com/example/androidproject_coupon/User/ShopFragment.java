@@ -94,7 +94,8 @@ public class ShopFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+//        CartFragment.tvEmptyCart = view.findViewById(R.id.tv_emptyCart);
+//        CartFragment.imgEmptyCart = view.findViewById(R.id.img_emptyCart);
         searchView = view.findViewById(R.id.searchview_user);
 
         CartFragment.cartAdapter = new CartAdapter(getContext(),CartFragment.cart);

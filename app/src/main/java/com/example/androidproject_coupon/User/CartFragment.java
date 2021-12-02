@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,7 +36,8 @@ public class CartFragment extends Fragment {
     public static Integer tien = 0 ;
 
     public static TextView tongtien;
-
+    public static TextView tvEmptyCart;
+    public static ImageView imgEmptyCart;
     public static List<Book> cart = new ArrayList<>();
 
     // TODO: Rename parameter arguments, choose names that match
@@ -108,7 +110,13 @@ public class CartFragment extends Fragment {
         cartAdapter = new CartAdapter(getContext(), cart);
 
         mRecyclerView.setAdapter(cartAdapter);
-
+        cartAdapter.notifyDataSetChanged();
+        tvEmptyCart = view.findViewById(R.id.tv_emptyCart);
+        imgEmptyCart = view.findViewById(R.id.img_emptyCart);
+        if (cart.size() != 0){
+            tvEmptyCart.setVisibility(View.GONE);
+            imgEmptyCart.setVisibility(View.GONE);
+        }
         Intent intent = new Intent(getContext(), AddInvoice.class);
         btnInv.setOnClickListener(new View.OnClickListener() {
             @Override
