@@ -324,6 +324,5 @@ public class AddInvoice extends AppCompatActivity {
         autotvMagiamgia = (AutoCompleteTextView) findViewById(R.id.inv_tv_magiamgia_list);
         imgReturn = (ImageView) findViewById(R.id.inv_img_return);
         tvDieukien = (TextView) findViewById(R.id.inv_tv_dieukiengiamgia);
-        tvMakhuyenmai = findViewById(R.id.inv_tv_makhuyenmai_gia);
     }
 }
