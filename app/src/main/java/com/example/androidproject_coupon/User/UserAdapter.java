@@ -52,12 +52,14 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
                 .fit()
                 .centerCrop()
                 .into(holder.imageView);
+
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onClickDetail(uploadCurrent);
             }
         });
+
         holder.addtocart.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
@@ -68,6 +70,14 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
                 }
                 CartFragment.cart.add(uploadCurrent);
                 CartFragment.cartAdapter.notifyDataSetChanged();
+
+                if (CartFragment.cart.size() != 0){
+                    if (CartFragment.tvEmptyCart != null && CartFragment.imgEmptyCart != null ){
+                        CartFragment.tvEmptyCart.setVisibility(View.GONE);
+                        CartFragment.imgEmptyCart.setVisibility(View.GONE);
+                    }
+                }
+
                 Toast.makeText(mContext, "Đã thêm sản phẩm vào giỏ hàng", Toast.LENGTH_SHORT).show();
             }
         });

@@ -146,8 +146,8 @@
             tools:ignore="TouchTargetSizeCheck" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/inv_rv_item_view"
-            android:layout_width="0dp"
+            android:id="@+id/inv_rv_item"
+            android:layout_width="352dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -203,7 +203,7 @@
             android:id="@+id/inv_tv_tongcong"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="16dp"
             android:text="Tổng cộng"
             app:layout_constraintEnd_toEndOf="@+id/inv_tv_tamtinh"
             app:layout_constraintHorizontal_bias="0.0"
@@ -219,7 +219,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.055"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/inv_rv_item_view" />
+            app:layout_constraintTop_toBottomOf="@+id/inv_rv_item" />
 
 
 
@@ -267,28 +267,6 @@
             android:textColor="#FD0000"
             app:layout_constraintStart_toStartOf="@+id/textInputLayout1"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout1" />
-
-        <TextView
-            android:id="@+id/inv_tv_makhuyenmai"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Giảm giá"
-            app:layout_constraintEnd_toEndOf="@+id/inv_tv_tamtinh"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/inv_tv_tamtinh"
-            app:layout_constraintTop_toBottomOf="@+id/inv_tv_tamtinh" />
-
-        <TextView
-            android:id="@+id/inv_tv_makhuyenmai_gia"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="172dp"
-            android:text="0"
-            app:layout_constraintBottom_toBottomOf="@+id/inv_tv_makhuyenmai"
-            app:layout_constraintStart_toEndOf="@+id/inv_tv_makhuyenmai"
-            app:layout_constraintTop_toTopOf="@+id/inv_tv_makhuyenmai"
-            app:layout_constraintVertical_bias="0.0" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
