@@ -4,15 +4,20 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidproject_coupon.BookManagement.Book;
+import com.example.androidproject_coupon.BookManagement.BookAdapter;
 import com.example.androidproject_coupon.BookManagement.EditAndDeleteBook;
 import com.example.androidproject_coupon.OrderManagement.Oder;
 import com.example.androidproject_coupon.R;
+import com.example.androidproject_coupon.User.CartAdapter;
+import com.example.androidproject_coupon.User.UserAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,16 +25,20 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class ViewInvoice extends AppCompatActivity {
 
     private String Dia_Chi, Ho_Ten,ID_Hinh_Thuc_GH ,ID_Khuyen_Mai,ID_Tai_Khoan,ID_Trang_Thai_DH,Ma_Don_Hang,SDT,Time,Tong_Tien, Item;
     private String id_Sach, gia_Sach;
-
+    private CartAdapter mAdapter;
+    private List<Book> mBooks;
 
     TextView tvThongtinvanchuyen, tvHoten, tvSDT, tvDiachi, tvMadonhang, tvNgaydathang, tvTongtien;
     ImageView imgReturn;
+    RecyclerView recyclerView;
 
 
     @Override
@@ -37,7 +46,7 @@ public class ViewInvoice extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inv_view);
 
-
+        mactching();
 
         Bundle bundle = getIntent().getExtras();
         if (bundle == null){
@@ -76,9 +85,47 @@ public class ViewInvoice extends AppCompatActivity {
         });
         tvMadonhang.setText(Ma_Don_Hang);
         tvNgaydathang.setText(Time);
-        tvTongtien.setText("Tổng tiền: "+Tong_Tien+"VNĐ");
+        tvTongtien.setText("Tổng tiền: "+Tong_Tien+" VNĐ");
 
-        mactching();
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(ViewInvoice.this));
+//        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+//        mRecyclerView.addItemDecoration(itemDecoration);
+
+        mBooks = new ArrayList<>();
+
+        DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference("Sach");
+
+        mDatabaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                mBooks.clear();
+
+                for (DataSnapshot posSnapshot : dataSnapshot.getChildren()) {
+                    String sID = posSnapshot.child("id").getValue().toString().trim();
+                    String sMaSach = posSnapshot.child("ma_Sach").getValue().toString().trim();
+                    String sTenSach = posSnapshot.child("ten_Sach").getValue().toString().trim();
+                    String sTacGia = posSnapshot.child("tac_Gia").getValue().toString().trim();
+                    String sMoTa = posSnapshot.child("mo_Ta").getValue().toString().trim();
+                    String sGia = posSnapshot.child("gia").getValue().toString().trim();
+                    String sSoLuong = posSnapshot.child("so_Luong").getValue().toString().trim();
+                    String anh = posSnapshot.child("anh").getValue().toString();
+                    String id_Nhom_Sach = posSnapshot.child("id_Nhom_Sach").getValue().toString().trim();
+
+                    mBooks.add(new Book(sID, sMaSach, sTenSach, sTacGia, sMoTa, sGia, sSoLuong, anh, id_Nhom_Sach));
+                }
+
+                mAdapter = new CartAdapter(ViewInvoice.this, mBooks);
+
+                recyclerView.setAdapter(mAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(ViewInvoice.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
         imgReturn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,5 +144,6 @@ public class ViewInvoice extends AppCompatActivity {
         tvSDT = findViewById(R.id.inv_tv_sdt);
         tvDiachi = findViewById(R.id.inv_tv_diachi);
         imgReturn = findViewById(R.id.inv_img_back);
+        recyclerView = findViewById(R.id.inv_rv_item_view);
     }
 }

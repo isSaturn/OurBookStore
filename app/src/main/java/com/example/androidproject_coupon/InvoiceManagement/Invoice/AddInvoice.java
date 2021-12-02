@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,15 +26,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidproject_coupon.AccountManagement.GetIDandRole;
 import com.example.androidproject_coupon.BookManagement.Book;
-import com.example.androidproject_coupon.CouponManagement.Coupon.Coupon;
-import com.example.androidproject_coupon.CouponManagement.EditCoupon;
 import com.example.androidproject_coupon.OrderManagement.Oder;
 import com.example.androidproject_coupon.R;
 import com.example.androidproject_coupon.User.CartAdapter;
 import com.example.androidproject_coupon.User.CartFragment;
 import com.example.androidproject_coupon.User.MainActivity_User;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -47,9 +42,7 @@ import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class AddInvoice extends AppCompatActivity {
 
@@ -64,7 +57,7 @@ public class AddInvoice extends AppCompatActivity {
     ImageView imgReturn;
     Button btnDathang;
     EditText etHoten, etSDT, etDiachi;
-    TextView tvHinhthucgiaohang, tvTamtinh, tvTongcong, tvDieukien;
+    TextView tvHinhthucgiaohang, tvTamtinh, tvTongcong, tvDieukien,tvMakhuyenmai;
     CheckBox cbShipCOD;
     RecyclerView rvListitem;
     AutoCompleteTextView autotvMagiamgia;
@@ -91,7 +84,7 @@ public class AddInvoice extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_invoice);
 
-        rcvInvoiceitem = findViewById(R.id.inv_rv_item);
+        rcvInvoiceitem = findViewById(R.id.inv_rv_item_view);
         rcvInvoiceitem.setHasFixedSize(true);
         rcvInvoiceitem.setLayoutManager(new LinearLayoutManager(AddInvoice.this));
         RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(AddInvoice.this, DividerItemDecoration.VERTICAL);
@@ -142,6 +135,7 @@ public class AddInvoice extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 slcMagiamgia = idMagiamgia.get(position);
+                Integer all = Integer.parseUnsignedInt(tvTongcong.getText().toString());
                 if(idType.get(position).equals("1")){
                     tvDieukien.setText("Giảm "+valueCpn.get(position)+" VNĐ cho đơn hàng từ "+valueConditionCpn.get(position)+" VNĐ");
                     tvDieukien.setEnabled(false);
@@ -243,7 +237,7 @@ public class AddInvoice extends AppCompatActivity {
         });
 
         tvTamtinh.setText(String.valueOf(CartFragment.tien));
-//
+        tvTongcong.setText("0");
 
 
         btnDathang.setOnClickListener(new View.OnClickListener() {
@@ -289,6 +283,7 @@ public class AddInvoice extends AppCompatActivity {
         Integer valueCondition = Integer.parseInt(valueConditionCpn);
         Integer value = Integer.parseInt(valueCpn);
         Integer total = Integer.parseUnsignedInt(tvTamtinh.getText().toString());
+        Integer cpn = Integer.parseUnsignedInt(tvMakhuyenmai.getText().toString());
         Integer result = 0;
         if(idType.equals("1")||idType.equals("3")){
             if(total<valueCondition){
@@ -297,21 +292,25 @@ public class AddInvoice extends AppCompatActivity {
                 return;
             }
             result = total-value;
+            cpn = valueCondition;
             tvTongcong.setText(result.toString());
+            tvMakhuyenmai.setText(cpn.toString());
         }else{
             if (total<valueCondition){
                 Toast.makeText(AddInvoice.this, "Đơn hàng không đủ điều kiện áp dụng mã khuyến mãi", Toast.LENGTH_SHORT).show();
                 tvTongcong.setText(total.toString());
                 return;
-            }
-            result = total*(value/100);
-            tvTongcong.setText(result.toString());
+        }
+        result = total*(value/100);
+            cpn = result-valueCondition;
+        tvTongcong.setText(result.toString());
+        tvMakhuyenmai.setText(cpn.toString());
         }
     }
 
 
     private void matching() {
-        rcvInvoiceitem = (RecyclerView) findViewById(R.id.inv_rv_item);
+        rcvInvoiceitem = (RecyclerView) findViewById(R.id.inv_rv_item_view);
         btnDathang = (Button)findViewById(R.id.inv_btn_dathang);
         cbShipCOD = (CheckBox) findViewById(R.id.inv_cb_thanhtoantienmat);
         etHoten = (EditText) findViewById(R.id.inv_et_hoten);
@@ -321,9 +320,10 @@ public class AddInvoice extends AppCompatActivity {
         spHinhthucgiaohang = (Spinner) findViewById(R.id.inv_sp_hinhthucgiaohang);
         tvTamtinh = (TextView) findViewById(R.id.inv_tv_tamtinh_gia);
         tvTongcong = (TextView) findViewById(R.id.inv_tv_tongcong_gia);
-        rvListitem = (RecyclerView) findViewById(R.id.inv_rv_item);
+        rvListitem = (RecyclerView) findViewById(R.id.inv_rv_item_view);
         autotvMagiamgia = (AutoCompleteTextView) findViewById(R.id.inv_tv_magiamgia_list);
         imgReturn = (ImageView) findViewById(R.id.inv_img_return);
         tvDieukien = (TextView) findViewById(R.id.inv_tv_dieukiengiamgia);
+        tvMakhuyenmai = findViewById(R.id.inv_tv_makhuyenmai_gia);
     }
 }
