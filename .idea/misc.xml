@@ -33,6 +33,7 @@
         <entry key="..\:/Android course/project/OurBookStore/app/src/main/res/drawable/gradient_color.xml" value="0.29583333333333334" />
         <entry key="..\:/Android course/project/OurBookStore/app/src/main/res/drawable/item_conor.xml" value="0.29583333333333334" />
         <entry key="..\:/Android course/project/OurBookStore/app/src/main/res/drawable/listview_color.xml" value="0.23177083333333334" />
+        <entry key="..\:/Android course/project/OurBookStore/app/src/main/res/drawable/my_drop_shadow.xml" value="0.4036458333333333" />
         <entry key="..\:/Android course/project/OurBookStore/app/src/main/res/drawable/tab_color.xml" value="0.2359375" />
         <entry key="..\:/Android course/project/OurBookStore/app/src/main/res/drawable/tab_icon_color.xml" value="0.2984375" />
         <entry key="..\:/Android course/project/OurBookStore/app/src/main/res/layout/activity_add_book.xml" value="0.3875" />
@@ -46,6 +47,7 @@
         <entry key="..\:/Android course/project/OurBookStore/app/src/main/res/layout/fragment_coupon.xml" value="0.21927083333333333" />
         <entry key="..\:/Android course/project/OurBookStore/app/src/main/res/layout/fragment_order.xml" value="0.3875" />
         <entry key="..\:/Android course/project/OurBookStore/app/src/main/res/layout/fragment_shop.xml" value="0.3875" />
+        <entry key="..\:/Android course/project/OurBookStore/app/src/main/res/layout/item_cart.xml" value="0.3875" />
         <entry key="..\:/Android course/project/OurBookStore/app/src/main/res/layout/item_row.xml" value="0.3875" />
         <entry key="..\:/Android course/project/OurBookStore/app/src/main/res/layout/list_type_coupon.xml" value="0.21927083333333333" />
         <entry key="..\:/Android course/project/OurBookStore/app/src/main/res/layout/sach.xml" value="0.3875" />
