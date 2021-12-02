@@ -147,7 +147,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/inv_rv_item"
-            android:layout_width="0dp"
+            android:layout_width="352dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"

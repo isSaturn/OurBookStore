@@ -5,16 +5,15 @@
     android:id="@+id/layout_item_row"
     android:layout_width="match_parent"
     android:layout_height="130dp"
-    android:layout_margin="5dp"
     android:background="@drawable/item_conor"
     android:gravity="center_horizontal">
 
     <RelativeLayout
-        android:layout_width="350dp"
+        android:layout_width="340dp"
         android:layout_height="120dp"
         android:background="@drawable/shadow"
         android:backgroundTint="@color/white"
-        android:elevation="15dp"
+        android:elevation="8dp"
         android:gravity="center_vertical">
 
         <androidx.appcompat.widget.AppCompatButton
@@ -23,7 +22,7 @@
             android:layout_height="40dp"
             android:layout_alignParentRight="true"
             android:layout_marginTop="28dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="15dp"
             android:background="@drawable/button_addcart"
             android:drawableLeft="@drawable/themvaogio"
             android:paddingLeft="15dp"
@@ -48,8 +47,8 @@
 
         <TextView
             android:id="@+id/tv_shop_tensach"
-            android:layout_width="204dp"
-            android:layout_height="52dp"
+            android:layout_width="179dp"
+            android:layout_height="51dp"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="10dp"
             android:layout_toRightOf="@id/img_shop_sach"
