@@ -68,6 +68,14 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
                 }
                 CartFragment.cart.add(uploadCurrent);
                 CartFragment.cartAdapter.notifyDataSetChanged();
+
+                if (CartFragment.cart.size() != 0){
+                    if (CartFragment.tvEmptyCart != null && CartFragment.imgEmptyCart != null ){
+                        CartFragment.tvEmptyCart.setVisibility(View.GONE);
+                        CartFragment.imgEmptyCart.setVisibility(View.GONE);
+                    }
+                }
+
                 Toast.makeText(mContext, "Đã thêm sản phẩm vào giỏ hàng", Toast.LENGTH_SHORT).show();
             }
         });
