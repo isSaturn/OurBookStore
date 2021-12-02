@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -89,7 +90,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 
         private RelativeLayout layout;
         public TextView textViewTenSach, textViewGiaTien;
-        public ImageView imageView, addtocart;
+        public ImageView imageView;
+        public Button addtocart;
 
         public UserViewHolder(@NonNull View itemView) {
             super(itemView);
