@@ -119,7 +119,7 @@ public class ItemDetailActivity extends AppCompatActivity {
                 Integer giasach = Integer.parseUnsignedInt(sgia);
                 CartFragment.tien += giasach;
                 if (CartFragment.tongtien != null) {
-                    CartFragment.tongtien.setText(String.valueOf(CartFragment.tien));
+                    CartFragment.tongtien.setText(String.valueOf(CartFragment.tien) + " VNĐ");
                 }
 
                 CartFragment.cartAdapter.notifyDataSetChanged();
@@ -127,7 +127,7 @@ public class ItemDetailActivity extends AppCompatActivity {
             }
         });
     }
-
+//
     private void matching() {
         img = findViewById(R.id.img_itemdetail_book);
         name = findViewById(R.id.tv_itemdetail_name);

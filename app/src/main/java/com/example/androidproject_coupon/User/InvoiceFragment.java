@@ -116,8 +116,7 @@ public class InvoiceFragment extends Fragment {
                     String sdt = dataSnapshot.child("sdt").getValue().toString().trim();
                     String time = dataSnapshot.child("time").getValue().toString().trim();
                     String tongtien = dataSnapshot.child("tong_Tien").getValue().toString().trim();
-                    String item = dataSnapshot.child("item").getValue().toString().trim();
-                    invList.add(new Oder(diachi, hoten,  idHinhthucGH,  idKhuyenmai,  idTaiKhoan,  idTrangthaiDH,  maDonhang,  sdt,  time,  tongtien, item));
+                    invList.add(new Oder(diachi, hoten,  idHinhthucGH,  idKhuyenmai,  idTaiKhoan,  idTrangthaiDH,  maDonhang,  sdt,  time,  tongtien));
                 }
                 mInvoiceInfoAdapter = new InvoiceAdapter(getContext(), invList);
                 rcvInvoiceList.setAdapter(mInvoiceInfoAdapter);
