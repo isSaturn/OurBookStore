@@ -35,14 +35,14 @@
     </RelativeLayout>
 
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcv_shop_user"
-        android:layout_width="match_parent"
-        android:layout_height="510dp"
+        android:layout_width="386dp"
+        android:layout_height="515dp"
         android:layout_below="@id/box_head"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:foregroundGravity="center_horizontal"
+        android:background="@drawable/custom_listview"
         android:paddingTop="40dp" />
 
     <SearchView
