@@ -29,6 +29,7 @@
         app:tabBackground="@drawable/tab_color"
         app:tabTextAppearance="@style/tab_text"
         app:tabTextColor="@color/white"
+        app:tabIndicatorColor="@color/selectedColor"
         app:tabIconTint="@color/white"
         tools:ignore="SpeakableTextPresentCheck" />
 
