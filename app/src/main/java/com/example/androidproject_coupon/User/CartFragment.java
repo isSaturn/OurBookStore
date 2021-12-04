@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.androidproject_coupon.AccountManagement.GetIDandRole;
 import com.example.androidproject_coupon.BookManagement.Book;
 import com.example.androidproject_coupon.InvoiceManagement.Invoice.AddInvoice;
 import com.example.androidproject_coupon.R;
@@ -39,7 +40,7 @@ public class CartFragment extends Fragment {
     public static TextView tvEmptyCart;
     public static ImageView imgEmptyCart;
     public static List<Book> cart = new ArrayList<>();
-
+    GetIDandRole getIDandRole = new GetIDandRole();
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -123,6 +124,9 @@ public class CartFragment extends Fragment {
             public void onClick(View view) {
                 if(cart.size() == 0){
                     Toast.makeText(getContext(), "Giỏ hàng không được trống", Toast.LENGTH_SHORT).show();
+                    return;
+                }else if (getIDandRole.email.equals("")){
+                    Toast.makeText(getContext(), "Vui lòng đăng nhập để đặt hàng", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 getContext().startActivity(intent);

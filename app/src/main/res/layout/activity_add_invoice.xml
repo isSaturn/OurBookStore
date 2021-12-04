@@ -28,7 +28,7 @@
             android:id="@+id/inv_tv_tongcong_gia"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="165dp"
+            android:layout_marginStart="168dp"
             android:text="TextView"
             app:layout_constraintBottom_toBottomOf="@+id/inv_tv_tongcong"
             app:layout_constraintStart_toEndOf="@+id/inv_tv_tongcong"
@@ -40,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="176dp"
-            android:hint="TextView"
+            android:text="TextView"
             app:layout_constraintBottom_toBottomOf="@+id/inv_tv_tamtinh"
             app:layout_constraintStart_toEndOf="@+id/inv_tv_tamtinh"
             app:layout_constraintTop_toTopOf="@+id/inv_tv_tamtinh"
@@ -203,12 +203,12 @@
             android:id="@+id/inv_tv_tongcong"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="24dp"
             android:text="Tổng cộng"
-            app:layout_constraintEnd_toEndOf="@+id/inv_tv_tamtinh"
+            app:layout_constraintEnd_toEndOf="@+id/textView12"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/inv_tv_tamtinh"
-            app:layout_constraintTop_toBottomOf="@+id/inv_tv_tamtinh" />
+            app:layout_constraintStart_toStartOf="@+id/textView12"
+            app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
         <TextView
             android:id="@+id/inv_tv_inf_hinhthucgiaohang"
@@ -267,6 +267,28 @@
             android:textColor="#FD0000"
             app:layout_constraintStart_toStartOf="@+id/textInputLayout1"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout1" />
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Giảm giá"
+            app:layout_constraintEnd_toEndOf="@+id/inv_tv_tamtinh"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/inv_tv_tamtinh"
+            app:layout_constraintTop_toBottomOf="@+id/inv_tv_tamtinh" />
+
+        <TextView
+            android:id="@+id/inv_tv_magiamgia_gia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="176dp"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="@+id/textView12"
+            app:layout_constraintStart_toEndOf="@+id/textView12"
+            app:layout_constraintTop_toTopOf="@+id/textView12"
+            app:layout_constraintVertical_bias="0.0" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
