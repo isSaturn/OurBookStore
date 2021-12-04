@@ -4,14 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Application;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.androidproject_coupon.OrderManagement.Oderdetails;
+import com.example.androidproject_coupon.OrderManagement.Oder;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -58,27 +56,25 @@ public class activity_oderdetails extends AppCompatActivity {
         if (bundle == null) {
             return;
         }
-        Oderdetails upload = (Oderdetails) bundle.get("activity_oderdetails");
+        Oder upload = (Oder) bundle.get("object_oder");
 
         Dia_Chi = upload.getDia_Chi();
         Ho_Ten = upload.getHo_Ten();
         ID_Hinh_Thuc_GH = upload.getID_Hinh_Thuc_GH();
-        ID_Khuyen_Mai =  upload.getID_Khuyen_Mai();
-        ID_Sach = upload.getID_Sach();
         ID_Tai_Khoan = upload.getID_Tai_Khoan();
         ID_Trang_Thai_DH = upload.getID_Trang_Thai_DH();
         Ma_Don_Hang = upload.getMa_Don_Hang();
         SDT = upload.getMa_Don_Hang();
         Time = upload.getTime();
         Tong_Tien = upload.getTong_Tien();
-        Anh = upload.getAnh();
+        ID_Khuyen_Mai = upload.getID_Khuyen_Mai();
 
         address.setText(Dia_Chi);
         name.setText(Ho_Ten);
         code.setText(Ma_Don_Hang);
         phone.setText(SDT);
         time.setText(Time);
-        tongtien.setText(Tong_Tien);
+        tongtien.setText("Tong Tien:"+Tong_Tien+"VND");
 
         DatabaseReference hinhThucGiaoHang = database.getReference("HinhThucGiaoHang");
         hinhThucGiaoHang.child(ID_Hinh_Thuc_GH).addListenerForSingleValueEvent(new ValueEventListener() {
