@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -33,8 +34,8 @@ public class ViewInvoice extends AppCompatActivity {
 
     private String Dia_Chi, Ho_Ten,ID_Hinh_Thuc_GH ,ID_Khuyen_Mai,ID_Tai_Khoan,ID_Trang_Thai_DH,Ma_Don_Hang,SDT,Time,Tong_Tien, Item;
     private String id_Sach, gia_Sach;
-    private CartAdapter mAdapter;
-    private List<Book> mBooks;
+    private BookAdapter mAdapter;
+    private List<Book> mItem;
 
     TextView tvThongtinvanchuyen, tvHoten, tvSDT, tvDiachi, tvMadonhang, tvNgaydathang, tvTongtien;
     ImageView imgReturn;
@@ -53,7 +54,7 @@ public class ViewInvoice extends AppCompatActivity {
             return;
         }
         Oder oder = (Oder) bundle.get("object_invoice");
-
+        //lay du lieu
         Dia_Chi = oder.getDia_Chi();
         Ho_Ten = oder.getHo_Ten();
         ID_Hinh_Thuc_GH = oder.getID_Hinh_Thuc_GH();
@@ -64,8 +65,6 @@ public class ViewInvoice extends AppCompatActivity {
         SDT = oder.getSDT();
         Time = oder.getTime();
         Tong_Tien = oder.getTong_Tien();
-        //
-
 
         tvHoten.setText(Ho_Ten);
         tvSDT.setText(SDT);
@@ -89,17 +88,17 @@ public class ViewInvoice extends AppCompatActivity {
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(ViewInvoice.this));
-//        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
-//        mRecyclerView.addItemDecoration(itemDecoration);
+        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(ViewInvoice.this, DividerItemDecoration.VERTICAL);
+        recyclerView.addItemDecoration(itemDecoration);
 
-        mBooks = new ArrayList<>();
+        mItem = new ArrayList<>();
 
-        DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference("Sach");
+        DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference("DonHang").child("item");
 
         mDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                mBooks.clear();
+                mItem.clear();
 
                 for (DataSnapshot posSnapshot : dataSnapshot.getChildren()) {
                     String sID = posSnapshot.child("id").getValue().toString().trim();
@@ -112,12 +111,12 @@ public class ViewInvoice extends AppCompatActivity {
                     String anh = posSnapshot.child("anh").getValue().toString();
                     String id_Nhom_Sach = posSnapshot.child("id_Nhom_Sach").getValue().toString().trim();
 
-                    mBooks.add(new Book(sID, sMaSach, sTenSach, sTacGia, sMoTa, sGia, sSoLuong, anh, id_Nhom_Sach));
+                    mItem.add(new Book(sID, sMaSach, sTenSach, sTacGia, sMoTa, sGia, sSoLuong, anh, id_Nhom_Sach));
                 }
 
-                mAdapter = new CartAdapter(ViewInvoice.this, mBooks);
-
+                mAdapter = new BookAdapter(ViewInvoice.this, mItem);
                 recyclerView.setAdapter(mAdapter);
+                mAdapter.notifyDataSetChanged();
             }
 
             @Override

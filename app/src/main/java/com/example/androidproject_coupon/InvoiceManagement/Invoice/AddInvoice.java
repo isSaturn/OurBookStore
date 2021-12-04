@@ -77,19 +77,20 @@ public class AddInvoice extends AppCompatActivity {
     String TAG="FIREBASE";
     GetIDandRole getIDandRole = new GetIDandRole();
     FirebaseDatabase database = FirebaseDatabase.getInstance("https://ourbookstore-e8241-default-rtdb.firebaseio.com/");
-    long i = 1;
+    long i = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_invoice);
 
-        rcvInvoiceitem = findViewById(R.id.inv_rv_item_view);
+        matching();
+
+        rcvInvoiceitem = findViewById(R.id.inv_rv_item);
         rcvInvoiceitem.setHasFixedSize(true);
         rcvInvoiceitem.setLayoutManager(new LinearLayoutManager(AddInvoice.this));
         RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(AddInvoice.this, DividerItemDecoration.VERTICAL);
         rcvInvoiceitem.addItemDecoration(itemDecoration);
-
 
         invAdapter = CartFragment.cartAdapter;
         mInvoices = CartFragment.cart;
@@ -100,7 +101,6 @@ public class AddInvoice extends AppCompatActivity {
         itemList = new ArrayList<>();
 
 
-        matching();
         idTrangthaidonhang.add("1");
         cbShipCOD.setChecked(true);
         imgReturn.setOnClickListener(new View.OnClickListener() {
@@ -135,7 +135,6 @@ public class AddInvoice extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 slcMagiamgia = idMagiamgia.get(position);
-                Integer all = Integer.parseUnsignedInt(tvTongcong.getText().toString());
                 if(idType.get(position).equals("1")){
                     tvDieukien.setText("Giảm "+valueCpn.get(position)+" VNĐ cho đơn hàng từ "+valueConditionCpn.get(position)+" VNĐ");
                     tvDieukien.setEnabled(false);
@@ -237,6 +236,7 @@ public class AddInvoice extends AppCompatActivity {
         });
 
         tvTamtinh.setText(String.valueOf(CartFragment.tien));
+        tvMakhuyenmai.setText("0");
         tvTongcong.setText("0");
 
 
@@ -280,29 +280,32 @@ public class AddInvoice extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void tvSelectCpn(String idType, String valueCpn, String valueConditionCpn) {
-        Integer valueCondition = Integer.parseInt(valueConditionCpn);
-        Integer value = Integer.parseInt(valueCpn);
+        Integer valueCondition = Integer.parseUnsignedInt(valueConditionCpn);
+        Integer value = Integer.parseUnsignedInt(valueCpn);
         Integer total = Integer.parseUnsignedInt(tvTamtinh.getText().toString());
-        Integer cpn = Integer.parseUnsignedInt(tvMakhuyenmai.getText().toString());
         Integer result = 0;
+        Integer cpn = 0;
         if(idType.equals("1")||idType.equals("3")){
             if(total<valueCondition){
                 Toast.makeText(AddInvoice.this, "Đơn hàng không đủ điều kiện áp dụng mã khuyến mãi", Toast.LENGTH_SHORT).show();
-                tvTongcong.setText(total.toString());
+                result = total;
+                tvMakhuyenmai.setText("0");
+                tvTongcong.setText(result.toString());
                 return;
             }
             result = total-value;
-            cpn = valueCondition;
             tvTongcong.setText(result.toString());
-            tvMakhuyenmai.setText(cpn.toString());
+            tvMakhuyenmai.setText(value.toString());
         }else{
             if (total<valueCondition){
                 Toast.makeText(AddInvoice.this, "Đơn hàng không đủ điều kiện áp dụng mã khuyến mãi", Toast.LENGTH_SHORT).show();
-                tvTongcong.setText(total.toString());
+                result = total;
+                tvMakhuyenmai.setText("0");
+                tvTongcong.setText(result.toString());
                 return;
         }
         result = total*(value/100);
-            cpn = result-valueCondition;
+        cpn = total - total*(value/100);
         tvTongcong.setText(result.toString());
         tvMakhuyenmai.setText(cpn.toString());
         }
@@ -324,5 +327,6 @@ public class AddInvoice extends AppCompatActivity {
         autotvMagiamgia = (AutoCompleteTextView) findViewById(R.id.inv_tv_magiamgia_list);
         imgReturn = (ImageView) findViewById(R.id.inv_img_return);
         tvDieukien = (TextView) findViewById(R.id.inv_tv_dieukiengiamgia);
+        tvMakhuyenmai = findViewById(R.id.inv_tv_magiamgia_gia);
     }
 }
