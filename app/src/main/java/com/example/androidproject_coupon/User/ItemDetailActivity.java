@@ -123,11 +123,17 @@ public class ItemDetailActivity extends AppCompatActivity {
                 }
 
                 CartFragment.cartAdapter.notifyDataSetChanged();
+                if (CartFragment.cart.size() != 0){
+                    if (CartFragment.tvEmptyCart != null && CartFragment.imgEmptyCart != null ){
+                        CartFragment.tvEmptyCart.setVisibility(View.GONE);
+                        CartFragment.imgEmptyCart.setVisibility(View.GONE);
+                    }
+                }
                 Toast.makeText(ItemDetailActivity.this, "Đã thêm sản phẩm vào giỏ hàng", Toast.LENGTH_SHORT).show();
             }
         });
     }
-
+//
     private void matching() {
         img = findViewById(R.id.img_itemdetail_book);
         name = findViewById(R.id.tv_itemdetail_name);

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -93,7 +94,8 @@ public class ShopFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+//        CartFragment.tvEmptyCart = view.findViewById(R.id.tv_emptyCart);
+//        CartFragment.imgEmptyCart = view.findViewById(R.id.img_emptyCart);
         searchView = view.findViewById(R.id.searchview_user);
 
         CartFragment.cartAdapter = new CartAdapter(getContext(),CartFragment.cart);

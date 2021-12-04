@@ -4,30 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_item_row"
     android:layout_width="match_parent"
-    android:layout_height="115dp"
-    android:layout_margin="10dp"
+    android:layout_height="130dp"
+    android:background="@drawable/item_conor"
     android:gravity="center_horizontal">
 
     <RelativeLayout
-        android:layout_width="350dp"
-        android:layout_height="match_parent"
-        android:background="@drawable/item_conor"
+        android:layout_width="340dp"
+        android:layout_height="120dp"
+        android:background="@drawable/shadow"
         android:backgroundTint="@color/white"
-        android:elevation="30dp"
+        android:elevation="8dp"
         android:gravity="center_vertical">
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/img_shop_addtocart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="40dp"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="35dp"
-            android:layout_marginRight="20dp"
-            android:padding="5dp"
-            android:src="@drawable/themvaogio"
+            android:layout_marginTop="28dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/button_addcart"
+            android:drawableLeft="@drawable/themvaogio"
+            android:paddingLeft="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.508" />
+            app:layout_constraintVertical_bias="0.508"
+            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
 
         <ImageView
@@ -45,8 +47,8 @@
 
         <TextView
             android:id="@+id/tv_shop_tensach"
-            android:layout_width="204dp"
-            android:layout_height="52dp"
+            android:layout_width="179dp"
+            android:layout_height="51dp"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="10dp"
             android:layout_toRightOf="@id/img_shop_sach"
