@@ -56,7 +56,7 @@ public class activity_oderdetails extends AppCompatActivity {
         if (bundle == null) {
             return;
         }
-        Oder upload = (Oder) bundle.get("activity_oderdetails");
+        Oder upload = (Oder) bundle.get("object_oder");
 
         Dia_Chi = upload.getDia_Chi();
         Ho_Ten = upload.getHo_Ten();
@@ -74,7 +74,7 @@ public class activity_oderdetails extends AppCompatActivity {
         code.setText(Ma_Don_Hang);
         phone.setText(SDT);
         time.setText(Time);
-        tongtien.setText(Tong_Tien);
+        tongtien.setText("Tong Tien:"+Tong_Tien+"VND");
 
         DatabaseReference hinhThucGiaoHang = database.getReference("HinhThucGiaoHang");
         hinhThucGiaoHang.child(ID_Hinh_Thuc_GH).addListenerForSingleValueEvent(new ValueEventListener() {

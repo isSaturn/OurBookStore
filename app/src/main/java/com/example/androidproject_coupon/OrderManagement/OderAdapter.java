@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidproject_coupon.InvoiceManagement.Invoice.ViewInvoice;
 import com.example.androidproject_coupon.R;
+import com.example.androidproject_coupon.activity_oderdetails;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -79,7 +80,7 @@ public class OderAdapter extends RecyclerView.Adapter<OderAdapter.OderViewHolder
     }
 
     private void onClickGoToEdit(Oder oder) {
-        Intent intent = new Intent(mContext, ViewInvoice.class);
+        Intent intent = new Intent(mContext, activity_oderdetails.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("object_oder", oder);
         intent.putExtras(bundle);
@@ -98,6 +99,7 @@ public class OderAdapter extends RecyclerView.Adapter<OderAdapter.OderViewHolder
 
         public OderViewHolder (@NonNull View itemView) {
             super(itemView);
+            layoutOder = itemView.findViewById(R.id.rl_oder);
             time = itemView.findViewById(R.id.tv_oder_time);
             code = itemView.findViewById(R.id.tv_oder_code);
             status = itemView.findViewById(R.id.tv_oder_status);
