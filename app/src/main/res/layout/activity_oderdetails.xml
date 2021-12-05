@@ -16,43 +16,30 @@
         android:layout_height="match_parent"
         tools:context=".activity_oderdetails">
 
-        <TextView
-            android:id="@+id/tv_details_phone"
-            android:layout_width="300dp"
-            android:layout_height="30dp"
+        <ImageView
+            android:id="@+id/im_details_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="16dp"
-            android:text="0919457209"
-            android:textSize="16sp"
-            android:textStyle="italic"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.522"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_details_address" />
-
-        <TextView
-            android:id="@+id/tv_details_address"
-            android:layout_width="300dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="20dp"
-            android:text="69/68 Đặng Thuỳ Trâm"
-            android:textSize="16sp"
-            android:textStyle="italic"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.522"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_details_name" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/back_icon" />
 
         <TextView
             android:id="@+id/tv_details_title"
             android:layout_width="334dp"
             android:layout_height="40dp"
-            android:layout_marginStart="22dp"
+            android:layout_marginStart="30dp"
             android:layout_marginTop="16dp"
             android:text="Thông Tin Đơn Hàng"
             android:textColor="#000000"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/im_details_back"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -60,10 +47,11 @@
             android:id="@+id/im_details_ptvc"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginStart="10dp"
 
+            android:layout_marginTop="40dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.04"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_details_title"
             app:srcCompat="@drawable/im_details_delivery" />
@@ -72,41 +60,29 @@
             android:id="@+id/tv_details_phuongthuc"
             android:layout_width="311dp"
             android:layout_height="30dp"
+            android:layout_marginStart="30dp"
             android:layout_marginTop="40dp"
             android:text="Phương thức vận chuyển"
             android:textColor="#004275"
-            android:textStyle="bold"
             android:textSize="18sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.326"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/im_details_ptvc"
-            app:layout_constraintTop_toBottomOf="@+id/tv_details_title" />
-
-        <TextView
-            android:id="@+id/tv_details_thanhtoan"
-            android:layout_width="311dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="580dp"
-            android:text="Phương thức thanh toán"
-            android:textColor="#004275"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.282"
-            app:layout_constraintStart_toEndOf="@+id/im_details_thanhtoan"
             app:layout_constraintTop_toBottomOf="@+id/tv_details_title" />
 
         <TextView
             android:id="@+id/tv_details_giaohang"
             android:layout_width="300dp"
             android:layout_height="30dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="70dp"
 
+            android:layout_marginTop="16dp"
             android:text="Giao tiết kiệm: 25.000đ"
             android:textSize="16sp"
             android:textStyle="italic"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.519"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_details_phuongthuc" />
 
@@ -114,161 +90,227 @@
             android:id="@+id/im_details_diachi"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginTop="144dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.04"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_details_title"
+            app:layout_constraintTop_toBottomOf="@+id/tv_details_giaohang"
             app:srcCompat="@drawable/im_details_location" />
 
         <TextView
             android:id="@+id/tv_details_diachi"
             android:layout_width="311dp"
             android:layout_height="30dp"
-            android:layout_marginTop="144dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="20dp"
             android:text="Địa chỉ nhận hàng"
             android:textColor="#004275"
-            android:textStyle="bold"
             android:textSize="18sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.282"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/im_details_diachi"
-            app:layout_constraintTop_toBottomOf="@+id/tv_details_title" />
-
-        <TextView
-            android:id="@+id/tv_details_chitiet"
-            android:layout_width="311dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="344dp"
-            android:text="Chi tiết đơn hàng"
-            android:textColor="#004275"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.18"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_details_title" />
-
-        <TextView
-            android:id="@+id/tv_details_madonhang"
-            android:layout_width="311dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="696dp"
-            android:text="Mã đơn hàng: 211110SACH0001"
-            android:textColor="#004275"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.164"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_details_title" />
-
-        <TextView
-            android:id="@+id/tv_details_tinhtrang"
-            android:layout_width="311dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="1004dp"
-            android:text="Tình trạng đơn hàng"
-            android:textColor="#004275"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.15"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_details_title" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_details_giaohang" />
 
         <TextView
             android:id="@+id/tv_details_name"
             android:layout_width="300dp"
             android:layout_height="30dp"
+            android:layout_marginStart="70dp"
             android:layout_marginTop="20dp"
             android:text="Phan Thị Huyền Diệu"
-            android:textStyle="italic"
             android:textSize="16sp"
+            android:textStyle="italic"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.519"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_details_diachi" />
 
         <TextView
-            android:id="@+id/tv_details_shipcod"
+            android:id="@+id/tv_details_address"
             android:layout_width="300dp"
             android:layout_height="30dp"
-            android:layout_marginTop="24dp"
-            android:text="Thanh toán khi nhận hàng"
-            android:textStyle="italic"
+            android:layout_marginStart="70dp"
+            android:layout_marginTop="20dp"
+            android:text="69/68 Đặng Thuỳ Trâm"
             android:textSize="16sp"
+            android:textStyle="italic"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.519"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_details_thanhtoan" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_details_name" />
 
         <TextView
-            android:id="@+id/tv_details_timeorder"
+            android:id="@+id/tv_details_phone"
             android:layout_width="300dp"
             android:layout_height="30dp"
-            android:layout_marginTop="24dp"
-            android:text="Thời gian đặt hàng: 09:29 04/11/2021"
+            android:layout_marginStart="70dp"
+            android:layout_marginTop="16dp"
+            android:text="0919457209"
             android:textSize="16sp"
             android:textStyle="italic"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.519"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_details_madonhang" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_details_address" />
 
         <TextView
-            android:id="@+id/tv_details_iduser"
-            android:layout_width="300dp"
+            android:id="@+id/tv_details_chitiet"
+            android:layout_width="311dp"
             android:layout_height="30dp"
-            android:layout_marginTop="72dp"
-            android:text="Tài khoản đặt hàng"
-            android:textSize="16sp"
-            android:textStyle="italic"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:text="Chi tiết đơn hàng"
+            android:textColor="#004275"
+            android:textSize="18sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_details_madonhang" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_details_phone" />
 
-        <TextView
-            android:id="@+id/tv_details_khuyenmai"
-            android:layout_width="300dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="132dp"
-            android:text="Khuyen Mai"
-            android:textSize="16sp"
-            android:textStyle="italic"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/oderdetail_rv_listBook"
+            android:layout_width="391dp"
+            android:layout_height="250dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_details_madonhang" />
-
-        <TextView
-            android:id="@+id/tv_details_tongtien"
-            android:layout_width="300dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="184dp"
-            android:text="Tong Tien:"
-            android:textSize="16sp"
-            android:textStyle="italic"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.495"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_details_madonhang" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_details_chitiet" />
 
         <ImageView
             android:id="@+id/im_details_thanhtoan"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginTop="580dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.04"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_details_title"
+            app:layout_constraintTop_toBottomOf="@+id/oderdetail_rv_listBook"
             app:srcCompat="@drawable/im_details_thanhtoan" />
+
+        <TextView
+            android:id="@+id/tv_details_thanhtoan"
+            android:layout_width="311dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="20dp"
+            android:text="Phương thức thanh toán"
+            android:textColor="#004275"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/im_details_thanhtoan"
+            app:layout_constraintTop_toBottomOf="@+id/oderdetail_rv_listBook" />
+
+        <TextView
+            android:id="@+id/tv_details_shipcod"
+            android:layout_width="300dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="70dp"
+            android:layout_marginTop="20dp"
+            android:text="Thanh toán khi nhận hàng"
+            android:textSize="16sp"
+            android:textStyle="italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_details_thanhtoan" />
+
+        <TextView
+            android:id="@+id/tv_details_madonhang"
+            android:layout_width="311dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:text="Mã đơn hàng: 211110SACH0001"
+            android:textColor="#004275"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_details_shipcod" />
+
+        <TextView
+            android:id="@+id/tv_details_iduser"
+            android:layout_width="300dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="70dp"
+            android:layout_marginTop="20dp"
+            android:text="Tài khoản đặt hàng"
+            android:textSize="16sp"
+            android:textStyle="italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_details_madonhang" />
+
+        <TextView
+            android:id="@+id/tv_details_timeorder"
+            android:layout_width="300dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="70dp"
+            android:layout_marginTop="10dp"
+            android:text="Thời gian đặt hàng: 09:29 04/11/2021"
+            android:textSize="16sp"
+            android:textStyle="italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_details_iduser" />
+
+        <TextView
+            android:id="@+id/tv_details_khuyenmai"
+            android:layout_width="300dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="70dp"
+            android:layout_marginTop="10dp"
+            android:text="Khuyen Mai"
+            android:textSize="16sp"
+            android:textStyle="italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_details_timeorder" />
+
+        <TextView
+            android:id="@+id/tv_details_tongtien"
+            android:layout_width="300dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="70dp"
+            android:layout_marginTop="10dp"
+            android:text="Tong Tien:"
+            android:textSize="16sp"
+            android:textStyle="italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_details_khuyenmai" />
+
+        <TextView
+            android:id="@+id/tv_details_tinhtrang"
+            android:layout_width="311dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:text="Tình trạng đơn hàng"
+            android:textColor="#004275"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_details_tongtien" />
 
         <androidx.appcompat.widget.AppCompatButton
 
-            android:id="@+id/angry_btnn"
+            android:id="@+id/oderdetail_btn_confirm"
 
             android:layout_width="wrap_content"
             android:layout_height="50dp"
@@ -284,33 +326,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/sp_details_status" />
 
-        <ImageView
-            android:id="@+id/im_details_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.061"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/back_icon" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="391dp"
-            android:layout_height="166dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_details_chitiet" />
-
         <Spinner
             android:id="@+id/sp_details_status"
-            android:layout_width="328dp"
+            android:layout_width="300dp"
             android:layout_height="53dp"
-            android:layout_marginTop="33dp"
+            android:layout_marginStart="70dp"
+            android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_details_tinhtrang" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_details_tinhtrang"
+            tools:ignore="SpeakableTextPresentCheck" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
