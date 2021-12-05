@@ -70,7 +70,6 @@
         <entry key="..\:/Learn/moblie/OurBookStore/app/src/main/res/layout/activity_add_invoice.xml" value="0.3903985507246377" />
         <entry key="..\:/Learn/moblie/OurBookStore/app/src/main/res/layout/activity_edit_coupon.xml" value="0.5541666666666667" />
         <entry key="..\:/Learn/moblie/OurBookStore/app/src/main/res/layout/activity_inv_view.xml" value="0.3307291666666667" />
-        <entry key="..\:/Learn/moblie/OurBookStore/app/src/main/res/layout/activity_oderdetails.xml" value="0.3307291666666667" />
         <entry key="..\:/Learn/moblie/OurBookStore/app/src/main/res/layout/fragment_coupon.xml" value="0.20425724637681159" />
         <entry key="..\:/Learn/moblie/OurBookStore/app/src/main/res/layout/fragment_invoice.xml" value="0.30286343612334804" />
         <entry key="..\:/Learn/moblie/OurBookStore/app/src/main/res/layout/fragment_product.xml" value="0.3307291666666667" />
@@ -123,6 +122,7 @@
         <entry key="..\:/Phu/Android/OurBookStore/app/src/main/res/layout/activity_edit_and_delete_book.xml" value="0.18" />
         <entry key="..\:/Phu/Android/OurBookStore/app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="..\:/Phu/Android/OurBookStore/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Phu/Android/OurBookStore/app/src/main/res/layout/activity_oderdetails.xml" value="0.22" />
         <entry key="..\:/Phu/Android/OurBookStore/app/src/main/res/layout/activity_register_account.xml" value="0.20416666666666666" />
         <entry key="..\:/Phu/Android/OurBookStore/app/src/main/res/layout/activity_them_sach.xml" value="0.1" />
         <entry key="..\:/Phu/Android/OurBookStore/app/src/main/res/layout/adapter_view_layout_coupon.xml" value="0.18" />
@@ -132,6 +132,7 @@
         <entry key="..\:/Phu/Android/OurBookStore/app/src/main/res/layout/fragment_coupon.xml" value="0.20416666666666666" />
         <entry key="..\:/Phu/Android/OurBookStore/app/src/main/res/layout/fragment_product.xml" value="0.292259083728278" />
         <entry key="..\:/Phu/Android/OurBookStore/app/src/main/res/layout/fragment_shop.xml" value="0.25" />
+        <entry key="..\:/Phu/Android/OurBookStore/app/src/main/res/layout/item_oder.xml" value="0.18888888888888888" />
         <entry key="..\:/Phu/Android/OurBookStore/app/src/main/res/layout/ord_infomation.xml" value="0.1" />
         <entry key="..\:/Phu/Android/OurBookStore/app/src/main/res/layout/sach.xml" value="0.25" />
         <entry key="..\:/Phu/Android/OurBookStore/app/src/main/res/menu/main_menu.xml" value="0.20416666666666666" />
@@ -141,9 +142,7 @@
         <entry key="..\:/Phu/Android/OurBookStore/app/src/main/res/menu/menu_logout_admin_inadmin.xml" value="0.25" />
         <entry key="..\:/Phu/Android/OurBookStore/app/src/main/res/menu/menu_logout_admin_inuser.xml" value="0.1" />
         <entry key="..\:/Phu/Android/OurBookStore/app/src/main/res/menu/menu_logout_user.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_add_book.xml" value="0.14447463768115942" />
         <entry key="app/src/main/res/layout/activity_add_invoice.xml" value="0.15070921985815602" />
-        <entry key="app/src/main/res/layout/activity_oderdetails.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_invoice.xml" value="0.15070921985815602" />
       </map>
     </option>
