@@ -141,6 +141,8 @@
         <entry key="..\:/Phu/Android/OurBookStore/app/src/main/res/menu/menu_logout_admin_inadmin.xml" value="0.25" />
         <entry key="..\:/Phu/Android/OurBookStore/app/src/main/res/menu/menu_logout_admin_inuser.xml" value="0.1" />
         <entry key="..\:/Phu/Android/OurBookStore/app/src/main/res/menu/menu_logout_user.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_add_invoice.xml" value="0.15070921985815602" />
+        <entry key="app/src/main/res/layout/fragment_invoice.xml" value="0.15070921985815602" />
       </map>
     </option>
   </component>
