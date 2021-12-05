@@ -17,6 +17,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidproject_coupon.BookManagement.Book;
+import com.example.androidproject_coupon.InvoiceManagement.Invoice.AddInvoice;
 import com.example.androidproject_coupon.R;
 import com.squareup.picasso.Picasso;
 
@@ -58,6 +59,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 CartFragment.tongtien.setText(String.valueOf(CartFragment.tien) + " VNĐ");
                 CartFragment.cart.remove(uploadCurrent);
                 CartFragment.cartAdapter.notifyDataSetChanged();
+                AddInvoice.invAdapter.notifyDataSetChanged();
                 if (CartFragment.cart.size() == 0){
                     CartFragment.tvEmptyCart.setVisibility(View.VISIBLE);
                     CartFragment.imgEmptyCart.setVisibility(View.VISIBLE);
