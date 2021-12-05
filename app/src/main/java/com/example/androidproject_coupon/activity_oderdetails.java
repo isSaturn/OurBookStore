@@ -4,8 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Application;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -24,21 +22,20 @@ import java.util.HashMap;
 
 public class activity_oderdetails extends AppCompatActivity {
 
-    private String Dia_Chi;
-    private String Ho_Ten;
-    private String ID_Hinh_Thuc_GH;
-    private String ID_Khuyen_Mai;
-    private String ID_Sach;
-    private String ID_Tai_Khoan;
-    private String ID_Trang_Thai_DH;
-    private String Ma_Don_Hang;
-    private String SDT;
-    private String Time;
-    private String Tong_Tien;
-    private String Anh;
+    private String dia_Chi;
+    private String ho_Ten;
+    private String id_Hinh_Thuc_GH;
+    private String id_Khuyen_Mai;
+    private String id_Tai_Khoan;
+    private String id_Trang_Thai_DH;
+    private String ma_Don_Hang;
+    private String sdt;
+    private String time;
+    private String tong_Tien;
 
-    TextView giaohang, name, address, phone, tensach, giasach, code, time, status, iduser, tongtien, khuyenmai;
-    ImageView anhsach;
+
+    TextView giaohang, name, address, phone, code, timeorder, status, iduser, tongtien, khuyenmai;
+    ImageView imgback;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     StorageReference mStorageRef;
@@ -58,29 +55,29 @@ public class activity_oderdetails extends AppCompatActivity {
         if (bundle == null) {
             return;
         }
-        Oder upload = (Oder) bundle.get("object_order");
+        Oder upload = (Oder) bundle.get("object_oder");
 
-        Dia_Chi = upload.getDia_Chi();
-        Ho_Ten = upload.getHo_Ten();
-        ID_Hinh_Thuc_GH = upload.getID_Hinh_Thuc_GH();
-        ID_Khuyen_Mai =  upload.getID_Khuyen_Mai();
-        ID_Tai_Khoan = upload.getID_Tai_Khoan();
-        ID_Trang_Thai_DH = upload.getID_Trang_Thai_DH();
-        Ma_Don_Hang = upload.getMa_Don_Hang();
-        SDT = upload.getMa_Don_Hang();
-        Time = upload.getTime();
-        Tong_Tien = upload.getTong_Tien();
+        dia_Chi = upload.getDia_Chi();
+        ho_Ten = upload.getHo_Ten();
+        id_Hinh_Thuc_GH = upload.getID_Hinh_Thuc_GH();
+        id_Tai_Khoan = upload.getID_Tai_Khoan();
+        id_Trang_Thai_DH = upload.getID_Trang_Thai_DH();
+        ma_Don_Hang = upload.getMa_Don_Hang();
+        sdt = upload.getMa_Don_Hang();
+        time = upload.getTime();
+        tong_Tien = upload.getTong_Tien();
+        id_Khuyen_Mai = upload.getID_Khuyen_Mai();
 
-        address.setText(Dia_Chi);
-        name.setText(Ho_Ten);
-        code.setText(Ma_Don_Hang);
-        phone.setText(SDT);
-        time.setText(Time);
-        tongtien.setText(Tong_Tien);
-
+        address.setText(dia_Chi);
+        name.setText(ho_Ten);
+        code.setText(ma_Don_Hang);
+        phone.setText(sdt);
+        timeorder.setText(time);
+        tongtien.setText("Tong Tien:"+tong_Tien+"VND");
+        iduser.setText(id_Tai_Khoan);
 
         DatabaseReference hinhThucGiaoHang = database.getReference("HinhThucGiaoHang");
-        hinhThucGiaoHang.child(ID_Hinh_Thuc_GH).addListenerForSingleValueEvent(new ValueEventListener() {
+        hinhThucGiaoHang.child(id_Hinh_Thuc_GH).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 HashMap<String, Object> hashMap = (HashMap<String, Object>) snapshot.getValue();
@@ -94,7 +91,7 @@ public class activity_oderdetails extends AppCompatActivity {
         });
 
         DatabaseReference khuyenMai = database.getReference("KhuyenMai");
-        khuyenMai.child(ID_Khuyen_Mai).addListenerForSingleValueEvent(new ValueEventListener() {
+        khuyenMai.child(id_Khuyen_Mai).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 HashMap<String, Object> hashMap = (HashMap<String, Object>) snapshot.getValue();
@@ -107,41 +104,11 @@ public class activity_oderdetails extends AppCompatActivity {
             }
         });
 
-//        DatabaseReference sach = database.getReference("Sach");
-//        sach.child(ID_Sach).addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                HashMap<String, Object> hashMap = (HashMap<String, Object>) snapshot.getValue();
-//                tensach.setText(hashMap.get("ten_Sach").toString());
-//                giasach.setText(hashMap.get("gia").toString());
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-
-
-
-        DatabaseReference user = database.getReference("Users");
-        user.child(ID_Tai_Khoan).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                HashMap<String, Object> hashMap = (HashMap<String, Object>) snapshot.getValue();
-                iduser.setText(hashMap.get("uid").toString());
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
 
 
 
         DatabaseReference trangThaiDonHang = database.getReference("TrangThaiDonHang");
-        trangThaiDonHang.child(ID_Trang_Thai_DH).addListenerForSingleValueEvent(new ValueEventListener() {
+        trangThaiDonHang.child(id_Trang_Thai_DH).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 HashMap<String, Object> hashMap = (HashMap<String, Object>) snapshot.getValue();
@@ -164,15 +131,13 @@ public class activity_oderdetails extends AppCompatActivity {
         address = findViewById(R.id.tv_details_address);
         phone = findViewById(R.id.tv_details_phone);
         code = findViewById(R.id.tv_details_madonhang);
-        time = findViewById(R.id.tv_details_timeorder);
+        timeorder = findViewById(R.id.tv_details_timeorder);
         status = findViewById(R.id.tv_details_choxn);
         iduser = findViewById(R.id.tv_details_iduser);
-//        tensach = findViewById(R.id.tv_details_dacnhantam);
-//        giasach = findViewById(R.id.tv_details_giatien);
         tongtien = findViewById(R.id.tv_details_tongtien);
         khuyenmai = findViewById(R.id.tv_details_khuyenmai);
-//        anhsach = findViewById(R.id.im_details_dacnhantam);
+        imgback = findViewById(R.id.im_details_back);
     }
 
-
+//abc
     }
