@@ -83,6 +83,7 @@ public class AddInvoice extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance("https://ourbookstore-e8241-default-rtdb.firebaseio.com/");
     long i = 0;
     int giaohang;
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,7 +98,6 @@ public class AddInvoice extends AppCompatActivity {
         rcvInvoiceitem.addItemDecoration(itemDecoration);
 
         //invAdapter = CartFragment.cartAdapter;
-        CartFragment.cartAdapter.notifyDataSetChanged();
         mInvoices = CartFragment.cart;
 
         invAdapter = new CartAdapter(AddInvoice.this,mInvoices);
@@ -135,15 +135,15 @@ public class AddInvoice extends AppCompatActivity {
                     String dateStart = data.child("eStart").getValue().toString();
 
                     // Xet ngày hiển thị mã khuyến mãi nếu trong tg KM
-                    long compare1 = compareDate(dateStart, saveCurrentDate);
-                    long compare2 = compareDate(saveCurrentDate, dateEnd);
-                    if(compare1 >=0 && compare2 >= 0){
+//                    long compare1 = compareDate(dateStart, saveCurrentDate);
+//                    long compare2 = compareDate(saveCurrentDate, dateEnd);
+//                    if(compare1 >=0 && compare2 >= 0){
                         arrayMagiamgia.add(value);
                         idMagiamgia.add(data.child("code").getValue().toString());
                         idType.add(data.child("idType").getValue().toString());
                         valueCpn.add(data.child("value").getValue().toString());
                         valueConditionCpn.add(data.child("valueCondition").getValue().toString());
-                    }
+//                    }
                 }
             }
             @Override
@@ -229,6 +229,20 @@ public class AddInvoice extends AppCompatActivity {
         });
 
         //madonhang
+        DatabaseReference invRef = FirebaseDatabase.getInstance().getReference("DonHang");
+        invRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    i = (snapshot.getChildrenCount());
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+
         NumberFormat nf = new DecimalFormat("0000");
         String num = nf.format(i);
         final String saveCurrentIDDate;
@@ -237,23 +251,7 @@ public class AddInvoice extends AppCompatActivity {
         saveCurrentIDDate = idDate.format(calendarIDDate.getTime());
         String saveIDDate = saveCurrentIDDate.trim();
 
-
-        DatabaseReference invRef = FirebaseDatabase.getInstance().getReference("DonHang");
-        invRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
-                    i = snapshot.getChildrenCount();
-                    return;
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.w(TAG, "Failed to read value.", error.toException());
-            }
-        });
         tvTamtinh.setText(String.valueOf(CartFragment.tien+25000));
-//        tvMakhuyenmai.setText("0");
         tvTongcong.setText(tvTamtinh.getText());
         tvMakhuyenmai.setText("0");
 
@@ -273,7 +271,7 @@ public class AddInvoice extends AppCompatActivity {
             }
 
             private void ConfirmOrder() {
-                String maDonhang = saveIDDate+"SACH"+num;
+                String maDonhang = saveIDDate+"SACH"+String.valueOf(i+1);
                 String diachi = etDiachi.getText().toString().trim();
                 String hoten = etHoten.getText().toString().trim();
                 String sdt = etSDT.getText().toString().trim();
@@ -288,7 +286,7 @@ public class AddInvoice extends AppCompatActivity {
                 Oder invoice = new Oder(diachi, hoten, idHinhthucGH, idKhuyenmai, idTaiKhoan, idTrangthaiDH, maDonhang, sdt, time, tongtien);
                 invRef.child(maDonhang).setValue(invoice);
 
-                invRef.child(String.valueOf(i+1)).child("item").setValue(CartFragment.cart);
+                invRef.child(maDonhang).child("item").setValue(CartFragment.cart);
                 Toast.makeText(AddInvoice.this, "Thêm đơn hàng thành công", Toast.LENGTH_SHORT).show();
             }
         });
@@ -332,27 +330,27 @@ public class AddInvoice extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private long compareDate(String dateStart, String dateEnd){
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
-        Date dStart = null;
-        Date dEnd = null;
-        try {
-            dStart = formatter.parse(dateStart);
-            dEnd = formatter.parse(dateEnd);
-            formatter.applyPattern("yyyy-MM-dd");
-            dateStart = formatter.format(dStart);
-            dateEnd = formatter.format(dEnd);
-            LocalDate d1 = LocalDate.parse(dateStart, DateTimeFormatter.ISO_LOCAL_DATE);
-            LocalDate d2 = LocalDate.parse(dateEnd, DateTimeFormatter.ISO_LOCAL_DATE);
-            Duration diff = Duration.between(d1.atStartOfDay(), d2.atStartOfDay());
-            long diffDays = diff.toDays();
-            return diffDays;
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return 0;
-    }
+//    private long compareDate(String dateStart, String dateEnd){
+//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+//        Date dStart = null;
+//        Date dEnd = null;
+//        try {
+//            dStart = formatter.parse(dateStart);
+//            dEnd = formatter.parse(dateEnd);
+//            formatter.applyPattern("yyyy-MM-dd");
+//            dateStart = formatter.format(dStart);
+//            dateEnd = formatter.format(dEnd);
+//            LocalDate d1 = LocalDate.parse(dateStart, DateTimeFormatter.ISO_LOCAL_DATE);
+//            LocalDate d2 = LocalDate.parse(dateEnd, DateTimeFormatter.ISO_LOCAL_DATE);
+//            Duration diff = Duration.between(d1.atStartOfDay(), d2.atStartOfDay());
+//            long diffDays = diff.toDays();
+//            return diffDays;
+//
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//        return 0;
+//    }
     private void matching() {
         rcvInvoiceitem = (RecyclerView) findViewById(R.id.inv_rv_item_view);
         btnDathang = (Button)findViewById(R.id.inv_btn_dathang);
