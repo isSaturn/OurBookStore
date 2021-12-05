@@ -15,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.androidproject_coupon.AccountManagement.GetIDandRole;
+import com.example.androidproject_coupon.BookManagement.Book;
 import com.example.androidproject_coupon.InvoiceManagement.Invoice.InvoiceAdapter;
 import com.example.androidproject_coupon.InvoiceManagement.Invoice.ViewInvoice;
 import com.example.androidproject_coupon.OrderManagement.Oder;
@@ -39,6 +41,7 @@ public class InvoiceFragment extends Fragment {
 
     private InvoiceAdapter mInvoiceInfoAdapter;
     private RecyclerView rcvInvoiceList;
+    private GetIDandRole getIDandRole  = new GetIDandRole();
 
     private DatabaseReference invRef;
     private List<Oder> invList;
@@ -118,8 +121,17 @@ public class InvoiceFragment extends Fragment {
                     String tongtien = dataSnapshot.child("tong_Tien").getValue().toString().trim();
                     invList.add(new Oder(diachi, hoten,  idHinhthucGH,  idKhuyenmai,  idTaiKhoan,  idTrangthaiDH,  maDonhang,  sdt,  time,  tongtien));
                 }
-                mInvoiceInfoAdapter = new InvoiceAdapter(getContext(), invList);
-                rcvInvoiceList.setAdapter(mInvoiceInfoAdapter);
+                String s = getIDandRole.id;
+                if (!s.equals("")){
+                    List<Oder> mOder = new ArrayList<>();
+                    for(Oder object: invList){
+                        if (object.getID_Tai_Khoan().toLowerCase().contains(s.toLowerCase())){
+                            mOder.add(object);
+                        }
+                    }
+                    mInvoiceInfoAdapter = new InvoiceAdapter(getContext(), mOder);
+                    rcvInvoiceList.setAdapter(mInvoiceInfoAdapter);
+                }
             }
 
             @Override
@@ -127,5 +139,6 @@ public class InvoiceFragment extends Fragment {
                 Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 }

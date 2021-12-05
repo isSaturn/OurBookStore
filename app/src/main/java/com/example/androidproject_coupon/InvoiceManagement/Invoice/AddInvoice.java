@@ -47,7 +47,7 @@ import java.util.List;
 public class AddInvoice extends AppCompatActivity {
 
     private RecyclerView rcvInvoiceitem;
-    private String slcMagiamgia;
+    private String slcMagiamgia = "";
     private String slcHinhthucgiaohang;
     private CartAdapter invAdapter;
     private List<Book> mInvoices;
@@ -93,10 +93,12 @@ public class AddInvoice extends AppCompatActivity {
         rcvInvoiceitem.addItemDecoration(itemDecoration);
 
         invAdapter = CartFragment.cartAdapter;
+        CartFragment.cartAdapter.notifyDataSetChanged();
         mInvoices = CartFragment.cart;
 
         invAdapter = new CartAdapter(AddInvoice.this,mInvoices);
         rcvInvoiceitem.setAdapter(invAdapter);
+        invAdapter.notifyDataSetChanged();
 
         itemList = new ArrayList<>();
 

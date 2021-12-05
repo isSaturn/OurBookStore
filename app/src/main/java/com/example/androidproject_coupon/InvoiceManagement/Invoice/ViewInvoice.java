@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.androidproject_coupon.AccountManagement.GetIDandRole;
 import com.example.androidproject_coupon.BookManagement.Book;
 import com.example.androidproject_coupon.BookManagement.BookAdapter;
 import com.example.androidproject_coupon.BookManagement.EditAndDeleteBook;
@@ -93,9 +94,8 @@ public class ViewInvoice extends AppCompatActivity {
 
         mItem = new ArrayList<>();
 
-        DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference("DonHang").child("item");
-
-        mDatabaseReference.addValueEventListener(new ValueEventListener() {
+        DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference("DonHang");
+        mDatabaseReference.child(Ma_Don_Hang).child("item").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mItem.clear();
