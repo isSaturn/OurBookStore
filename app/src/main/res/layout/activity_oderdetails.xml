@@ -50,7 +50,7 @@
             android:layout_marginTop="16dp"
             android:text="Thông Tin Đơn Hàng"
             android:textColor="#000000"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/im_details_back"
@@ -267,48 +267,33 @@
             app:srcCompat="@drawable/im_details_thanhtoan" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/angry_btn"
-
-            android:layout_width="270dp"
-            android:layout_height="60dp"
-
-            android:layout_marginTop="136dp"
-            android:background="@drawable/buttonshape_oderdetails"
-            android:text="Liên hệ khách hàng"
-            android:textColor="#B80000"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_details_tinhtrang" />
-
-        <androidx.appcompat.widget.AppCompatButton
 
             android:id="@+id/angry_btnn"
 
-            android:layout_width="270dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="8dp"
-
-            android:background="@drawable/buttonshape_oderdetails"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:paddingHorizontal="20dp"
+            android:background="@drawable/buttonshape_icon"
             android:text="Xác nhận đơn hàng"
-            android:textColor="#1200B8"
-            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textAllCaps="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.492"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/angry_btn" />
+            app:layout_constraintTop_toBottomOf="@+id/sp_details_status" />
 
         <ImageView
             android:id="@+id/im_details_back"
-            android:layout_width="32dp"
-            android:layout_height="38dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.061"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/im_details_back" />
+            app:srcCompat="@drawable/back_icon" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="391dp"
