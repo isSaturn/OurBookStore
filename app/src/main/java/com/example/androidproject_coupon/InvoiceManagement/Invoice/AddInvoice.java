@@ -49,7 +49,7 @@ public class AddInvoice extends AppCompatActivity {
     private RecyclerView rcvInvoiceitem;
     private String slcMagiamgia = "";
     private String slcHinhthucgiaohang;
-    private CartAdapter invAdapter;
+    public static CartAdapter invAdapter;
     private List<Book> mInvoices;
 //    private ArrayList<Item> itemList;
     private ArrayList<Book> itemList;
@@ -78,7 +78,7 @@ public class AddInvoice extends AppCompatActivity {
     GetIDandRole getIDandRole = new GetIDandRole();
     FirebaseDatabase database = FirebaseDatabase.getInstance("https://ourbookstore-e8241-default-rtdb.firebaseio.com/");
     long i = 0;
-
+    int giaohang;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,7 +92,7 @@ public class AddInvoice extends AppCompatActivity {
         RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(AddInvoice.this, DividerItemDecoration.VERTICAL);
         rcvInvoiceitem.addItemDecoration(itemDecoration);
 
-        invAdapter = CartFragment.cartAdapter;
+        //invAdapter = CartFragment.cartAdapter;
         CartFragment.cartAdapter.notifyDataSetChanged();
         mInvoices = CartFragment.cart;
 
@@ -119,6 +119,8 @@ public class AddInvoice extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot data: snapshot.getChildren()){
                     String value = data.child("name").getValue().toString()+ " - " + data.child("code").getValue().toString();
+                    String dateEnd = data.child("eEnd").getValue().toString();
+                    String dateStart = data.child("eStart").getValue().toString();
                     arrayMagiamgia.add(value);
                     idMagiamgia.add(data.child("code").getValue().toString());
                     idType.add(data.child("idType").getValue().toString());
@@ -236,10 +238,9 @@ public class AddInvoice extends AppCompatActivity {
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
-
-        tvTamtinh.setText(String.valueOf(CartFragment.tien));
+        tvTamtinh.setText(String.valueOf(CartFragment.tien+25000));
         tvMakhuyenmai.setText("0");
-        tvTongcong.setText("0");
+        tvTongcong.setText(tvTamtinh.getText());
 
 
         btnDathang.setOnClickListener(new View.OnClickListener() {
@@ -272,7 +273,7 @@ public class AddInvoice extends AppCompatActivity {
                 String tongtien = tvTongcong.getText().toString().trim();
 
                 Oder invoice = new Oder(diachi, hoten, idHinhthucGH, idKhuyenmai, idTaiKhoan, idTrangthaiDH, maDonhang, sdt, time, tongtien);
-                invRef.child(String.valueOf(i+1)).setValue(invoice);
+                invRef.child(maDonhang).setValue(invoice);
 
                 invRef.child(String.valueOf(i+1)).child("item").setValue(CartFragment.cart);
                 Toast.makeText(AddInvoice.this, "Thêm đơn hàng thành công", Toast.LENGTH_SHORT).show();
@@ -298,7 +299,9 @@ public class AddInvoice extends AppCompatActivity {
             result = total-value;
             tvTongcong.setText(result.toString());
             tvMakhuyenmai.setText(value.toString());
-        }else{
+
+        }
+        else{
             if (total<valueCondition){
                 Toast.makeText(AddInvoice.this, "Đơn hàng không đủ điều kiện áp dụng mã khuyến mãi", Toast.LENGTH_SHORT).show();
                 result = total;
@@ -306,10 +309,12 @@ public class AddInvoice extends AppCompatActivity {
                 tvTongcong.setText(result.toString());
                 return;
         }
-        result = total*(value/100);
-        cpn = total - total*(value/100);
-        tvTongcong.setText(result.toString());
-        tvMakhuyenmai.setText(cpn.toString());
+            else{
+                cpn = (total*value)/100;
+                result = total - cpn;
+                tvTongcong.setText(result.toString());
+                tvMakhuyenmai.setText(cpn.toString());
+            }
         }
     }
 
