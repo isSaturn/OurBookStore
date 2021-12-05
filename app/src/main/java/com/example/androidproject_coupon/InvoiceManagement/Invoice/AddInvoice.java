@@ -39,9 +39,14 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class AddInvoice extends AppCompatActivity {
@@ -69,7 +74,6 @@ public class AddInvoice extends AppCompatActivity {
     ArrayList<String> idMagiamgia = new ArrayList<>();
     ArrayList<String> valueCpn = new ArrayList<>();
     ArrayList<String> idType = new ArrayList<>();
-
     ArrayList<String> valueConditionCpn = new ArrayList<>();
     ArrayList<Integer> idHinhthucgiaohang = new ArrayList<>();
     ArrayList<String> idTrangthaidonhang = new ArrayList<>();
@@ -111,21 +115,35 @@ public class AddInvoice extends AppCompatActivity {
                 finish();
             }
         });
+
+        //time
+        final String saveCurrentDate;
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat currentDate = new SimpleDateFormat("yyyy/MM/dd");
+        saveCurrentDate = currentDate.format(calendar.getTime());
+
         //show list ma giam gia va gan id ma khuyen mai
-        arrayAdapterMagiamgia = new ArrayAdapter<>(this, R.layout.list_type_coupon,arrayMagiamgia);
         DatabaseReference cpnRef = database.getReference("KhuyenMai");
+//        String currentDate = String.valueOf(android.text.format.DateFormat.format("yyyy/MM/dd", new java.util.Date()));
         cpnRef.addValueEventListener(new ValueEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot data: snapshot.getChildren()){
                     String value = data.child("name").getValue().toString()+ " - " + data.child("code").getValue().toString();
                     String dateEnd = data.child("eEnd").getValue().toString();
                     String dateStart = data.child("eStart").getValue().toString();
-                    arrayMagiamgia.add(value);
-                    idMagiamgia.add(data.child("code").getValue().toString());
-                    idType.add(data.child("idType").getValue().toString());
-                    valueCpn.add(data.child("value").getValue().toString());
-                    valueConditionCpn.add(data.child("valueCondition").getValue().toString());
+
+                    // Xet ngày hiển thị mã khuyến mãi nếu trong tg KM
+                    long compare1 = compareDate(dateStart, saveCurrentDate);
+                    long compare2 = compareDate(saveCurrentDate, dateEnd);
+                    if(compare1 >=0 && compare2 >= 0){
+                        arrayMagiamgia.add(value);
+                        idMagiamgia.add(data.child("code").getValue().toString());
+                        idType.add(data.child("idType").getValue().toString());
+                        valueCpn.add(data.child("value").getValue().toString());
+                        valueConditionCpn.add(data.child("valueCondition").getValue().toString());
+                    }
                 }
             }
             @Override
@@ -133,6 +151,7 @@ public class AddInvoice extends AppCompatActivity {
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
+        arrayAdapterMagiamgia = new ArrayAdapter<>(this, R.layout.list_type_coupon,arrayMagiamgia);
         autotvMagiamgia.setAdapter(arrayAdapterMagiamgia);
         autotvMagiamgia.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -218,11 +237,6 @@ public class AddInvoice extends AppCompatActivity {
         saveCurrentIDDate = idDate.format(calendarIDDate.getTime());
         String saveIDDate = saveCurrentIDDate.trim();
 
-        //time
-        final String saveCurrentDate;
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat currentDate = new SimpleDateFormat("yyyy/MM/dd");
-        saveCurrentDate = currentDate.format(calendar.getTime());
 
         DatabaseReference invRef = FirebaseDatabase.getInstance().getReference("DonHang");
         invRef.addValueEventListener(new ValueEventListener() {
@@ -239,9 +253,9 @@ public class AddInvoice extends AppCompatActivity {
             }
         });
         tvTamtinh.setText(String.valueOf(CartFragment.tien+25000));
-        tvMakhuyenmai.setText("0");
+//        tvMakhuyenmai.setText("0");
         tvTongcong.setText(tvTamtinh.getText());
-
+        tvMakhuyenmai.setText("0");
 
         btnDathang.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -259,7 +273,6 @@ public class AddInvoice extends AppCompatActivity {
             }
 
             private void ConfirmOrder() {
-
                 String maDonhang = saveIDDate+"SACH"+num;
                 String diachi = etDiachi.getText().toString().trim();
                 String hoten = etHoten.getText().toString().trim();
@@ -318,7 +331,28 @@ public class AddInvoice extends AppCompatActivity {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private long compareDate(String dateStart, String dateEnd){
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+        Date dStart = null;
+        Date dEnd = null;
+        try {
+            dStart = formatter.parse(dateStart);
+            dEnd = formatter.parse(dateEnd);
+            formatter.applyPattern("yyyy-MM-dd");
+            dateStart = formatter.format(dStart);
+            dateEnd = formatter.format(dEnd);
+            LocalDate d1 = LocalDate.parse(dateStart, DateTimeFormatter.ISO_LOCAL_DATE);
+            LocalDate d2 = LocalDate.parse(dateEnd, DateTimeFormatter.ISO_LOCAL_DATE);
+            Duration diff = Duration.between(d1.atStartOfDay(), d2.atStartOfDay());
+            long diffDays = diff.toDays();
+            return diffDays;
 
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
     private void matching() {
         rcvInvoiceitem = (RecyclerView) findViewById(R.id.inv_rv_item_view);
         btnDathang = (Button)findViewById(R.id.inv_btn_dathang);
