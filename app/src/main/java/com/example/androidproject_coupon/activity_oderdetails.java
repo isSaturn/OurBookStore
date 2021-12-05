@@ -6,7 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.androidproject_coupon.OrderManagement.Oder;
@@ -18,6 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class activity_oderdetails extends AppCompatActivity {
@@ -36,6 +40,8 @@ public class activity_oderdetails extends AppCompatActivity {
 
     TextView giaohang, name, address, phone, code, timeorder, status, iduser, tongtien, khuyenmai;
     ImageView imgback;
+    Spinner sptrangthai;
+
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     StorageReference mStorageRef;
@@ -50,6 +56,27 @@ public class activity_oderdetails extends AppCompatActivity {
         setContentView(R.layout.activity_oderdetails);
 
         matching();
+
+        ArrayList<Integer> ID = new ArrayList<Integer>();
+        ArrayList<String> arrayList = new ArrayList<String>();
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, arrayList);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        DatabaseReference trangThaiDonHang = database.getReference("TrangThaiDonHang");
+        trangThaiDonHang.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot chilSnapshot:dataSnapshot.getChildren()){
+                    ID.add(Integer.parseUnsignedInt(chilSnapshot.getKey()));
+                    arrayList.add(chilSnapshot.child("Trang_Thai").getValue(String.class));
+                }
+                arrayAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         Bundle bundle = getIntent().getExtras();
         if (bundle == null) {
@@ -106,24 +133,33 @@ public class activity_oderdetails extends AppCompatActivity {
 
 
 
-
-        DatabaseReference trangThaiDonHang = database.getReference("TrangThaiDonHang");
-        trangThaiDonHang.child(id_Trang_Thai_DH).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                HashMap<String, Object> hashMap = (HashMap<String, Object>) snapshot.getValue();
-                status.setText(hashMap.get("Trang_Thai").toString());
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+//
+//        DatabaseReference trangThaiDonHang = database.getReference("TrangThaiDonHang");
+//        trangThaiDonHang.child(id_Trang_Thai_DH).addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                HashMap<String, Object> hashMap = (HashMap<String, Object>) snapshot.getValue();
+//                status.setText(hashMap.get("Trang_Thai").toString());
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
 
         mStorageRef = FirebaseStorage.getInstance().getReference("DonHang");
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("DonHang");
+
+        imgback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
+
+
 
     private void matching() {
         giaohang = findViewById(R.id.tv_details_giaohang);
@@ -132,11 +168,11 @@ public class activity_oderdetails extends AppCompatActivity {
         phone = findViewById(R.id.tv_details_phone);
         code = findViewById(R.id.tv_details_madonhang);
         timeorder = findViewById(R.id.tv_details_timeorder);
-        status = findViewById(R.id.tv_details_choxn);
         iduser = findViewById(R.id.tv_details_iduser);
         tongtien = findViewById(R.id.tv_details_tongtien);
         khuyenmai = findViewById(R.id.tv_details_khuyenmai);
         imgback = findViewById(R.id.im_details_back);
+        sptrangthai = findViewById(R.id.sp_details_status);
     }
 
 //abc
