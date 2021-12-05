@@ -69,7 +69,8 @@ public class AddInvoice extends AppCompatActivity {
     ArrayList<String> idMagiamgia = new ArrayList<>();
     ArrayList<String> valueCpn = new ArrayList<>();
     ArrayList<String> idType = new ArrayList<>();
-
+    Integer a = 0;
+    Integer b;
     ArrayList<String> valueConditionCpn = new ArrayList<>();
     ArrayList<Integer> idHinhthucgiaohang = new ArrayList<>();
     ArrayList<String> idTrangthaidonhang = new ArrayList<>();
@@ -114,6 +115,7 @@ public class AddInvoice extends AppCompatActivity {
         //show list ma giam gia va gan id ma khuyen mai
         arrayAdapterMagiamgia = new ArrayAdapter<>(this, R.layout.list_type_coupon,arrayMagiamgia);
         DatabaseReference cpnRef = database.getReference("KhuyenMai");
+
         cpnRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -121,6 +123,7 @@ public class AddInvoice extends AppCompatActivity {
                     String value = data.child("name").getValue().toString()+ " - " + data.child("code").getValue().toString();
                     String dateEnd = data.child("eEnd").getValue().toString();
                     String dateStart = data.child("eStart").getValue().toString();
+                    a++;
                     arrayMagiamgia.add(value);
                     idMagiamgia.add(data.child("code").getValue().toString());
                     idType.add(data.child("idType").getValue().toString());
@@ -133,6 +136,7 @@ public class AddInvoice extends AppCompatActivity {
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
+        tvMakhuyenmai.setText(a.toString());
         autotvMagiamgia.setAdapter(arrayAdapterMagiamgia);
         autotvMagiamgia.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
