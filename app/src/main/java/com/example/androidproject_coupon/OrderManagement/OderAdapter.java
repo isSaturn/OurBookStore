@@ -1,15 +1,20 @@
 package com.example.androidproject_coupon.OrderManagement;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.androidproject_coupon.InvoiceManagement.Invoice.ViewInvoice;
 import com.example.androidproject_coupon.R;
+import com.example.androidproject_coupon.activity_oderdetails;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -42,6 +47,13 @@ public class OderAdapter extends RecyclerView.Adapter<OderAdapter.OderViewHolder
     @Override
     public void onBindViewHolder(@NonNull OderViewHolder holder, int position) {
         Oder oder = mUploads.get(position);
+        holder.layoutInvoice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickGoToEdit(oder);
+
+            }
+        });
         holder.time.setText(oder.getTime());
         holder.code.setText(oder.getMa_Don_Hang());
         DatabaseReference trangThaiDonHang = database.getReference("TrangThaiDonHang");
@@ -62,6 +74,14 @@ public class OderAdapter extends RecyclerView.Adapter<OderAdapter.OderViewHolder
         holder.address.setText(oder.getDia_Chi());
     }
 
+    private void onClickGoToEdit(Oder oder) {
+        Intent intent = new Intent(mContext, activity_oderdetails.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("object_order", oder);
+        intent.putExtras(bundle);
+        mContext.startActivity(intent);
+    }
+
     @Override
     public int getItemCount() {
 
@@ -70,6 +90,7 @@ public class OderAdapter extends RecyclerView.Adapter<OderAdapter.OderViewHolder
 
     public class OderViewHolder extends RecyclerView.ViewHolder {
         public TextView time, code, status, price, address;
+        public RelativeLayout layoutInvoice;
         public OderViewHolder (@NonNull View itemView) {
             super(itemView);
             time = itemView.findViewById(R.id.tv_oder_time);
@@ -77,6 +98,7 @@ public class OderAdapter extends RecyclerView.Adapter<OderAdapter.OderViewHolder
             status = itemView.findViewById(R.id.tv_oder_status);
             price = itemView.findViewById(R.id.tv_oder_price);
             address = itemView.findViewById(R.id.tv_oder_address);
+            layoutInvoice = itemView.findViewById(R.id.rl_oder);
         }
     }
 }

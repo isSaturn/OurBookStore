@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.androidproject_coupon.OrderManagement.Oder;
 import com.example.androidproject_coupon.OrderManagement.Oderdetails;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -58,20 +59,18 @@ public class activity_oderdetails extends AppCompatActivity {
         if (bundle == null) {
             return;
         }
-        Oderdetails upload = (Oderdetails) bundle.get("activity_oderdetails");
+        Oder upload = (Oder) bundle.get("object_order");
 
         Dia_Chi = upload.getDia_Chi();
         Ho_Ten = upload.getHo_Ten();
         ID_Hinh_Thuc_GH = upload.getID_Hinh_Thuc_GH();
         ID_Khuyen_Mai =  upload.getID_Khuyen_Mai();
-        ID_Sach = upload.getID_Sach();
         ID_Tai_Khoan = upload.getID_Tai_Khoan();
         ID_Trang_Thai_DH = upload.getID_Trang_Thai_DH();
         Ma_Don_Hang = upload.getMa_Don_Hang();
         SDT = upload.getMa_Don_Hang();
         Time = upload.getTime();
         Tong_Tien = upload.getTong_Tien();
-        Anh = upload.getAnh();
 
         address.setText(Dia_Chi);
         name.setText(Ho_Ten);
@@ -79,6 +78,7 @@ public class activity_oderdetails extends AppCompatActivity {
         phone.setText(SDT);
         time.setText(Time);
         tongtien.setText(Tong_Tien);
+
 
         DatabaseReference hinhThucGiaoHang = database.getReference("HinhThucGiaoHang");
         hinhThucGiaoHang.child(ID_Hinh_Thuc_GH).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -125,7 +125,7 @@ public class activity_oderdetails extends AppCompatActivity {
 
 
 
-        DatabaseReference user = database.getReference("User");
+        DatabaseReference user = database.getReference("Users");
         user.child(ID_Tai_Khoan).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
