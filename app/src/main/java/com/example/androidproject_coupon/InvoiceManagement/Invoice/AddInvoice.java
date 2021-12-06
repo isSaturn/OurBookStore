@@ -160,22 +160,21 @@ public class AddInvoice extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                slcMagiamgia = idMagiamgia.get(position);
+                //slcMagiamgia = idMagiamgia.get(position);
                 if(idType.get(position).equals("1")){
                     tvDieukien.setText("Giảm "+valueCpn.get(position)+" VNĐ cho đơn hàng từ "+valueConditionCpn.get(position)+" VNĐ");
                     tvDieukien.setEnabled(false);
-                    tvSelectCpn(idType.get(position),valueCpn.get(position),valueConditionCpn.get(position));
+                    tvSelectCpn(idType.get(position),valueCpn.get(position),valueConditionCpn.get(position),idMagiamgia.get(position));
 
                 }else if(idType.get(position).equals("2")){
                     tvDieukien.setText("Giảm "+valueCpn.get(position)+" % cho đơn hàng từ "+valueConditionCpn.get(position)+" VNĐ");
                     tvDieukien.setEnabled(false);
-                    tvSelectCpn(idType.get(position),valueCpn.get(position),valueConditionCpn.get(position));
-
+                    tvSelectCpn(idType.get(position),valueCpn.get(position),valueConditionCpn.get(position),idMagiamgia.get(position));
                 }
                 else if(idType.get(position).equals("3")){
                     tvDieukien.setText("Miễn phí vận chuyển cho đơn hàng từ "+valueConditionCpn.get(position)+" VNĐ");
                     tvDieukien.setEnabled(false);
-                    tvSelectCpn(idType.get(position),valueCpn.get(position),valueConditionCpn.get(position));
+                    tvSelectCpn(idType.get(position),valueCpn.get(position),valueConditionCpn.get(position),idMagiamgia.get(position));
                 }
             }
         });
@@ -298,7 +297,7 @@ public class AddInvoice extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private void tvSelectCpn(String idType, String valueCpn, String valueConditionCpn) {
+    private void tvSelectCpn(String idType, String valueCpn, String valueConditionCpn, String idItem) {
         Integer valueCondition = Integer.parseUnsignedInt(valueConditionCpn);
         Integer value = Integer.parseUnsignedInt(valueCpn);
         Integer total = Integer.parseUnsignedInt(tvTamtinh.getText().toString());
@@ -330,6 +329,7 @@ public class AddInvoice extends AppCompatActivity {
                 result = total - cpn;
                 tvTongcong.setText(result.toString());
                 tvMakhuyenmai.setText(cpn.toString());
+                slcMagiamgia = idItem;
             }
         }
     }
