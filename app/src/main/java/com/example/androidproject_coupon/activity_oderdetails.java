@@ -122,7 +122,7 @@ public class activity_oderdetails extends AppCompatActivity {
                     if (id_TrangThaiMoi > id_TrangThaiCu)
                         id_Trang_Thai_DH = ID.get(position).toString();
                     else
-                        Toast.makeText(activity_oderdetails.this, "Không thể cập nhật lại trạng thái đơn hàng này"
+                        Toast.makeText(activity_oderdetails.this, "Chọn lại tình trạng đơn hàng"
                                 , Toast.LENGTH_LONG).show();
                 }
 
