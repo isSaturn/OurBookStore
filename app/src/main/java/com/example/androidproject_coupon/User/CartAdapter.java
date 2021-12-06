@@ -57,6 +57,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             public void onClick(View v) {
                 CartFragment.tien -= Integer.parseUnsignedInt(uploadCurrent.getGia());
                 CartFragment.tongtien.setText(String.valueOf(CartFragment.tien) + " VNĐ");
+                AddInvoice.tvTamtinh.setText(String.valueOf(CartFragment.tien+25000));
+                AddInvoice.tvTongcong.setText(AddInvoice.tvTamtinh.getText());
                 CartFragment.cart.remove(uploadCurrent);
                 CartFragment.cartAdapter.notifyDataSetChanged();
                 AddInvoice.invAdapter.notifyDataSetChanged();

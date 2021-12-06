@@ -62,7 +62,8 @@ public class AddInvoice extends AppCompatActivity {
     ImageView imgReturn;
     Button btnDathang;
     EditText etHoten, etSDT, etDiachi;
-    TextView tvHinhthucgiaohang, tvTamtinh, tvTongcong, tvDieukien,tvMakhuyenmai;
+    public static TextView tvTamtinh, tvTongcong;
+    TextView tvHinhthucgiaohang, tvDieukien,tvMakhuyenmai;
     CheckBox cbShipCOD;
     RecyclerView rvListitem;
     AutoCompleteTextView autotvMagiamgia;
@@ -289,6 +290,7 @@ public class AddInvoice extends AppCompatActivity {
                 invRef.child(maDonhang).setValue(invoice);
 
                 invRef.child(maDonhang).child("item").setValue(CartFragment.cart);
+                CartFragment.cart.clear();
                 Toast.makeText(AddInvoice.this, "Thêm đơn hàng thành công", Toast.LENGTH_SHORT).show();
             }
         });

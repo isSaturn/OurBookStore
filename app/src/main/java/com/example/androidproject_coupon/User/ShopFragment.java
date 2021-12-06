@@ -18,6 +18,7 @@ import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.example.androidproject_coupon.BookManagement.Book;
+import com.example.androidproject_coupon.InvoiceManagement.Invoice.AddInvoice;
 import com.example.androidproject_coupon.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -98,6 +99,7 @@ public class ShopFragment extends Fragment {
 //        CartFragment.imgEmptyCart = view.findViewById(R.id.img_emptyCart);
         searchView = view.findViewById(R.id.searchview_user);
 
+        AddInvoice.invAdapter = new CartAdapter(getContext(),CartFragment.cart);
         CartFragment.cartAdapter = new CartAdapter(getContext(),CartFragment.cart);
 
         mRecyclerView = view.findViewById(R.id.rcv_shop_user);
