@@ -291,6 +291,7 @@ public class AddInvoice extends AppCompatActivity {
 
                 invRef.child(maDonhang).child("item").setValue(CartFragment.cart);
                 CartFragment.cart.clear();
+                CartFragment.tien = 0;
                 Toast.makeText(AddInvoice.this, "Thêm đơn hàng thành công", Toast.LENGTH_SHORT).show();
             }
         });
