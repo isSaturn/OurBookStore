@@ -22,7 +22,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/oder_rv_danhsach"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="528dp"
         android:layout_below="@id/textView10"
         android:layout_marginTop="10dp"
         android:layout_weight="200"
