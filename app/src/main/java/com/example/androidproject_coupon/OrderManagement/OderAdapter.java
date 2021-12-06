@@ -54,8 +54,8 @@ public class OderAdapter extends RecyclerView.Adapter<OderAdapter.OderViewHolder
 
             }
         });
-        holder.time.setText(oder.getTime());
-        holder.code.setText(oder.getMa_Don_Hang());
+        holder.time.setText("Thời gian đặt hàng: "+oder.getTime());
+        holder.code.setText("Mã đơn hàng: "+ oder.getMa_Don_Hang());
         DatabaseReference trangThaiDonHang = database.getReference("TrangThaiDonHang");
         trangThaiDonHang.child(oder.getID_Trang_Thai_DH()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -70,8 +70,8 @@ public class OderAdapter extends RecyclerView.Adapter<OderAdapter.OderViewHolder
             }
         });
 
-        holder.price.setText(oder.getTong_Tien());
-        holder.address.setText(oder.getDia_Chi());
+        holder.price.setText("Tổng tiền: "+oder.getTong_Tien());
+        holder.address.setText("Địa chỉ: "+oder.getDia_Chi());
     }
 
     private void onClickGoToEdit(Oder oder) {
