@@ -135,15 +135,15 @@ public class AddInvoice extends AppCompatActivity {
                     String dateStart = data.child("eStart").getValue().toString();
 
                     // Xet ngày hiển thị mã khuyến mãi nếu trong tg KM
-//                    long compare1 = compareDate(dateStart, saveCurrentDate);
-//                    long compare2 = compareDate(saveCurrentDate, dateEnd);
-//                    if(compare1 >=0 && compare2 >= 0){
+                    long compare1 = compareDate(dateStart, saveCurrentDate);
+                    long compare2 = compareDate(saveCurrentDate, dateEnd);
+                    if(compare1 >=0 && compare2 >= 0){
                         arrayMagiamgia.add(value);
                         idMagiamgia.add(data.child("code").getValue().toString());
                         idType.add(data.child("idType").getValue().toString());
                         valueCpn.add(data.child("value").getValue().toString());
                         valueConditionCpn.add(data.child("valueCondition").getValue().toString());
-//                    }
+                    }
                 }
             }
             @Override
@@ -332,27 +332,27 @@ public class AddInvoice extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-//    private long compareDate(String dateStart, String dateEnd){
-//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
-//        Date dStart = null;
-//        Date dEnd = null;
-//        try {
-//            dStart = formatter.parse(dateStart);
-//            dEnd = formatter.parse(dateEnd);
-//            formatter.applyPattern("yyyy-MM-dd");
-//            dateStart = formatter.format(dStart);
-//            dateEnd = formatter.format(dEnd);
-//            LocalDate d1 = LocalDate.parse(dateStart, DateTimeFormatter.ISO_LOCAL_DATE);
-//            LocalDate d2 = LocalDate.parse(dateEnd, DateTimeFormatter.ISO_LOCAL_DATE);
-//            Duration diff = Duration.between(d1.atStartOfDay(), d2.atStartOfDay());
-//            long diffDays = diff.toDays();
-//            return diffDays;
-//
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-//        return 0;
-//    }
+    private long compareDate(String dateStart, String dateEnd){
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+        Date dStart = null;
+        Date dEnd = null;
+        try {
+            dStart = formatter.parse(dateStart);
+            dEnd = formatter.parse(dateEnd);
+            formatter.applyPattern("yyyy-MM-dd");
+            dateStart = formatter.format(dStart);
+            dateEnd = formatter.format(dEnd);
+            LocalDate d1 = LocalDate.parse(dateStart, DateTimeFormatter.ISO_LOCAL_DATE);
+            LocalDate d2 = LocalDate.parse(dateEnd, DateTimeFormatter.ISO_LOCAL_DATE);
+            Duration diff = Duration.between(d1.atStartOfDay(), d2.atStartOfDay());
+            long diffDays = diff.toDays();
+            return diffDays;
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
     private void matching() {
         rcvInvoiceitem = (RecyclerView) findViewById(R.id.inv_rv_item_view);
         btnDathang = (Button)findViewById(R.id.inv_btn_dathang);
