@@ -153,7 +153,6 @@ public class AddInvoice extends AppCompatActivity {
             }
         });
 
-        //
         arrayAdapterMagiamgia = new ArrayAdapter<>(this, R.layout.list_type_coupon,arrayMagiamgia);
         autotvMagiamgia.setAdapter(arrayAdapterMagiamgia);
         autotvMagiamgia.setOnItemClickListener(new AdapterView.OnItemClickListener() {
