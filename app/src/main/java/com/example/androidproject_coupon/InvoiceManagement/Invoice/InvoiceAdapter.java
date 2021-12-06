@@ -50,8 +50,8 @@ public class InvoiceAdapter extends RecyclerView.Adapter<InvoiceAdapter.InvoiceV
 
             }
         });
-        holder.time.setText(uploadCurrent.getTime());
-        holder.code.setText(uploadCurrent.getMa_Don_Hang());
+        holder.time.setText("Thời gian đặt hàng: "+uploadCurrent.getTime());
+        holder.code.setText("Mã đơn hàng: "+uploadCurrent.getMa_Don_Hang());
         DatabaseReference trangThaiDonHang = FirebaseDatabase.getInstance().getReference("TrangThaiDonHang");
         trangThaiDonHang.child(uploadCurrent.getID_Trang_Thai_DH()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -66,8 +66,8 @@ public class InvoiceAdapter extends RecyclerView.Adapter<InvoiceAdapter.InvoiceV
             }
         });
 
-        holder.price.setText(uploadCurrent.getTong_Tien());
-        holder.address.setText(uploadCurrent.getDia_Chi());
+        holder.price.setText("Tổng tiền: "+uploadCurrent.getTong_Tien());
+        holder.address.setText("Địa chỉ: "+uploadCurrent.getDia_Chi());
     }
 
     private void onClickGoToEdit(Oder uploadCurrent) {
