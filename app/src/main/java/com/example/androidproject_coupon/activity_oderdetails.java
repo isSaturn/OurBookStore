@@ -90,8 +90,6 @@ public class activity_oderdetails extends AppCompatActivity {
 
             }
         });
-        sptrangthai.setAdapter(arrayAdapter);
-
 
         Bundle bundle = getIntent().getExtras();
         if (bundle == null) {
@@ -111,22 +109,30 @@ public class activity_oderdetails extends AppCompatActivity {
         tong_Tien = upload.getTong_Tien();
         id_Khuyen_Mai = upload.getID_Khuyen_Mai();
 
-        sptrangthai.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                id_TrangThaiMoi = ID.get(position);
-                if (id_TrangThaiMoi > id_TrangThaiCu)
-                    id_Trang_Thai_DH = ID.get(position).toString();
-                else
-                    Toast.makeText(activity_oderdetails.this, "Không thể cập nhật lại trạng thái đơn hàng này"
-                            , Toast.LENGTH_LONG).show();
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+        if (id_TrangThaiCu == 3){
+            sptrangthai.setEnabled(false);
+            confirm.setText("Quay trở về");
+        }else {
+            sptrangthai.setAdapter(arrayAdapter);
+            sptrangthai.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    id_TrangThaiMoi = ID.get(position);
+                    if (id_TrangThaiMoi > id_TrangThaiCu)
+                        id_Trang_Thai_DH = ID.get(position).toString();
+                    else
+                        Toast.makeText(activity_oderdetails.this, "Không thể cập nhật lại trạng thái đơn hàng này"
+                                , Toast.LENGTH_LONG).show();
+                }
 
-            }
-        });
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+            confirm.setText("Cập nhật đơn hàng");
+        }
 
         address.setText("Địa chỉ: " + dia_Chi);
         name.setText("Họ và tên: " + ho_Ten);
@@ -187,7 +193,7 @@ public class activity_oderdetails extends AppCompatActivity {
 
         List<Book> list = new ArrayList<>();
         DatabaseReference listdonhang = database.getReference("DonHang");
-        listdonhang.child("4").child("item").addValueEventListener(new ValueEventListener() {
+        listdonhang.child(ma_Don_Hang).child("item").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 list.clear();
@@ -218,7 +224,7 @@ public class activity_oderdetails extends AppCompatActivity {
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateStatus("4");
+                updateStatus(ma_Don_Hang);
                 finish();
             }
         });
@@ -227,6 +233,7 @@ public class activity_oderdetails extends AppCompatActivity {
     private void updateStatus(String key) {
         DatabaseReference donHang = database.getReference("DonHang");
         donHang.child(key).child("id_Trang_Thai_DH").setValue(id_Trang_Thai_DH);
+        if (id_TrangThaiCu != 3)
         Toast.makeText(activity_oderdetails.this, "Đã cập nhật trạng thái đơn hàng"
                 , Toast.LENGTH_SHORT).show();
     }
