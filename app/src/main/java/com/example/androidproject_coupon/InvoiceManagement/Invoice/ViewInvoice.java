@@ -75,7 +75,7 @@ public class ViewInvoice extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 HashMap<String, Object> hashMap = (HashMap<String, Object>) snapshot.getValue();
-                tvThongtinvanchuyen.setText(hashMap.get("Trang_Thai").toString());
+                tvThongtinvanchuyen.setText("Tình trạng: "+hashMap.get("Trang_Thai").toString());
             }
 
             @Override
