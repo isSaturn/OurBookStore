@@ -100,6 +100,7 @@ public class MainActivity_User extends AppCompatActivity {
             firebaseAuth.signOut();
             Toast.makeText(getApplicationContext(), "Bạn đã đăng xuất", Toast.LENGTH_LONG).show();
             idAndRole.email = "";
+            idAndRole.id = "";
             startActivity(new Intent(MainActivity_User.this,MainActivity_User.class));
             finish();
         }

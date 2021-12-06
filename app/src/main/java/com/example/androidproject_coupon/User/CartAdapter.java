@@ -58,11 +58,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 CartFragment.tien -= Integer.parseUnsignedInt(uploadCurrent.getGia());
                 CartFragment.tongtien.setText(String.valueOf(CartFragment.tien) + " VNĐ");
                 CartFragment.cart.remove(uploadCurrent);
+                if (AddInvoice.tvTamtinh != null && AddInvoice.tvTongcong != null){
+                    AddInvoice.tvTamtinh.setText(String.valueOf(CartFragment.tien+25000));
+                    AddInvoice.tvTongcong.setText(AddInvoice.tvTamtinh.getText());
+                }
                 CartFragment.cartAdapter.notifyDataSetChanged();
                 AddInvoice.invAdapter.notifyDataSetChanged();
                 if (CartFragment.cart.size() == 0){
-                    AddInvoice.tvTamtinh.setText(String.valueOf(CartFragment.tien+25000));
-                    AddInvoice.tvTongcong.setText(AddInvoice.tvTamtinh.getText());
                     CartFragment.tvEmptyCart.setVisibility(View.VISIBLE);
                     CartFragment.imgEmptyCart.setVisibility(View.VISIBLE);
                 }
