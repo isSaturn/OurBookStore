@@ -151,6 +151,8 @@ public class AddInvoice extends AppCompatActivity {
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
+
+        //
         arrayAdapterMagiamgia = new ArrayAdapter<>(this, R.layout.list_type_coupon,arrayMagiamgia);
         autotvMagiamgia.setAdapter(arrayAdapterMagiamgia);
         autotvMagiamgia.setOnItemClickListener(new AdapterView.OnItemClickListener() {
