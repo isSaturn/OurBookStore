@@ -67,9 +67,9 @@ public class ViewInvoice extends AppCompatActivity {
         Time = oder.getTime();
         Tong_Tien = oder.getTong_Tien();
 
-        tvHoten.setText(Ho_Ten);
-        tvSDT.setText(SDT);
-        tvDiachi.setText(Dia_Chi);
+        tvHoten.setText("Họ tên: "+Ho_Ten);
+        tvSDT.setText("SDT: "+SDT);
+        tvDiachi.setText("Địa chỉ: "+Dia_Chi);
         DatabaseReference trangThaiDonHang = FirebaseDatabase.getInstance().getReference("TrangThaiDonHang");
         trangThaiDonHang.child(oder.getID_Trang_Thai_DH()).addValueEventListener(new ValueEventListener() {
             @Override
