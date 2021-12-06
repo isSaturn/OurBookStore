@@ -313,7 +313,7 @@ public class AddInvoice extends AppCompatActivity {
             result = total-value;
             tvTongcong.setText(result.toString());
             tvMakhuyenmai.setText(value.toString());
-
+            slcMagiamgia = idItem;
         }
         else{
             if (total<valueCondition){
